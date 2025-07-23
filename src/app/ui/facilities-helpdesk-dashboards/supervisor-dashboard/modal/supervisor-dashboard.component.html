@@ -1,0 +1,51 @@
+
+    <table width="100%" style="height: 92vh;">
+    <tr>
+        <td width="40%" height="40%">
+            <p-card [header]="'SLA Compliance'" id="SLACompliance">
+                <app-escalation-alerts-grid [allEscalatedData]="allEscalatedData"
+                    [noEsctdData]="noEsctdData"
+                    [escalatedData]="escalatedData"></app-escalation-alerts-grid>
+            </p-card>
+        </td>
+        <td width="60%" height="40%">
+            <p-card [header]="'Requests By Status'">
+                <app-dashboard-status-pie-chart [statusChartData]="statusChartData"></app-dashboard-status-pie-chart>
+            </p-card>
+        </td>
+    </tr>
+    <tr>
+        <td width="40%" height="60%">
+            <table width="100%" height="100%">
+                <tr>
+                    <td width="50%" height="50%">
+                        <p-card [header]="'Alerts'">
+                            <app-complete-by-alert></app-complete-by-alert>
+                        </p-card>
+                    </td>
+                    <td width="50%" height="50%">
+                        <p-card [header]="'Escalations'">
+                            <p-chart type="bar" height="200" width="240" [data]="basicData"
+                                [options]="hrOptions" (onDataSelect)="onClickBarChart($event)"></p-chart>
+                        </p-card>
+                    </td>
+                </tr>
+            </table>
+        </td>
+        <td width="60%" height="60%">
+            <p-card [header]="'My Requests'">
+                <app-dashboard-my-requests-grid [myRequestsData]="myRequestsData"></app-dashboard-my-requests-grid>
+            </p-card>
+        </td>
+        
+    </tr>
+</table>
+<p-dialog [(visible)]="showPopupFlag" [modal]="true" [style]="{width: '66vw'}" [maximizable]="true" [draggable]="false"
+    [resizable]="false" styleClass="dark-panel">
+    <ng-template pTemplate="header">
+        <h2 style="margin: 0px;">Request List</h2>
+    </ng-template>
+    <ng-template pTemplate="body">
+        <app-add-table [data]="detailsPopUpData" [isEscalatedData]="viewForEscalation"></app-add-table>
+    </ng-template>
+</p-dialog>

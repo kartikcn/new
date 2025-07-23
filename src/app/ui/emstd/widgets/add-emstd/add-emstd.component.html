@@ -1,0 +1,53 @@
+<form [formGroup]="emstdFormPanel">
+    <p-panel header="{{role_title}}">
+            <ng-template pTemplate="icons">
+                    <button pButton (click)="onSaveRecord()" label="Save" [disabled]="!emstdFormPanel.valid"></button>
+                    <button pButton class="ml10" label="Cancel" (click)="onCancel()" ></button>
+            </ng-template>
+            <table width="100%">
+                    <tr>
+                            <td style="width: 50%">
+                                    <div class="input-label-custom ">
+                                            <label class='form-field-lable control-label'>Employee Standard</label>
+                                        <input type="text" class="form-control" name="emStd" formControlName="emStd" maxlength="255" (blur)="isNew"
+                                                appTrimInput>
+                                    </div>
+                            </td>
+                            <td style="width: 50%">
+                            </td>
+                    </tr>
+                    <!-- <tr
+                            *ngIf="(emstdFormPanel.controls['emStd']?.errors && (emstdFormPanel.controls['emStd']?.dirty || emstdFormPanel.controls['emStd']?.touched))">
+                            <td style="width: 50%">
+                                    <label *ngIf="emstdFormPanel.controls['emStd']?.errors && !emstdFormPanel.controls['emStd']?.errors.required"
+                                            class='form-field-lable' style="color:red;">Employee Standard 
+                                            already exists</label>
+                            </td>
+                    
+                            <td style="width:calc(100% / 2)">
+                            </td>
+                    </tr> -->
+                    <tr>
+                            <td style="width: 50%" colspan="2">
+                                    <div class="input-label-custom ">
+                                            <label class='form-field-lable'>Description</label>
+                                            <textarea class="form-control" rows="2" cols="2" name="emStdDesc"
+                                                    formControlName="emStdDesc" maxlength="255" appTrimInput></textarea>
+                                    </div>
+                            </td>
+                            <td style="width: 50%">
+                            </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 50%">
+                                <div class="input-label-custom">
+                                        <label class='form-field-lable control-label'>Highlight Color </label>
+                                        <input type="color" class="form-control" name="highlightColor" style="width: 100px;padding: 0.375rem;"
+                                                formControlName="highlightColor" maxlength="32">
+                                </div>
+                        </td>
+                      </tr>
+            </table>
+    </p-panel>
+</form>
+<p-toast></p-toast>

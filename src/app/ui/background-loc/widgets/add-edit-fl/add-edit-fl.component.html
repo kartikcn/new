@@ -1,0 +1,21 @@
+<h2 mat-dialog-title class="mat-dialog-title-ext">{{title}} Floor Details</h2>
+<mat-dialog-content class="mat-typography mat-dialog-content-ext">
+  <form [formGroup]="frmFlDetail">
+    <mat-card>
+      <mat-card-content id="flFrm">
+        <app-add-fl-form formControlName="flFormPanel" [isView]="isView" [isNew]="isNew"></app-add-fl-form>
+      </mat-card-content>
+    </mat-card>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end" class="mat-dialog-actions-ext">
+  <p-button label="Clear" (click)="clearForm()" [hidden]="!this.isNew" icon="pi pi-times"></p-button>
+  <p-button label="Delete" (click)="deleteRecord()" [hidden]="this.isNew || isView" [disabled]="!frmFlDetail.valid" icon="pi pi-trash" class="mr5"></p-button>
+  <p-button label="Save" (click)="saveRecords()" [hidden]="isView" [disabled]="!frmFlDetail.valid" icon="pi pi-check" [style]="{'margin-left': '.5em'}" [hidden]="isView"></p-button>
+  <p-button label="Cancel" icon="pi pi-times" (click)="confirmDialog()" styleClass="p-button-secondary"
+            [style]="{'margin-left': '.5em'}"></p-button>
+</mat-dialog-actions>
+<p-toast key="flSuccessMessage" position="top-right"></p-toast>
+<p-toast key="flFailureMessage" position="top-center"></p-toast>
+<p-toast key="error" position="top-right"></p-toast>
+<p-confirmDialog key="flDetails" header="Confirmation"   icon="pi pi-exclamation-triangle"></p-confirmDialog>

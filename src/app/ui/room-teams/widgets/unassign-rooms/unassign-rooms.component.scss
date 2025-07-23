@@ -1,0 +1,21 @@
+@import '/src/scss/variables';
+
+:host ::ng-deep .p-dialog .p-dialog-header {
+    background-color: $toolbar;
+    color: black;
+    padding-left: 10px;
+    font-weight: normal;
+    margin-bottom: 0px;
+    height: 10px !important;
+}
+:host ::ng-deep .p-confirm-dialog .p-dialog-header .p-dialog-content {
+    align-items: center;
+    background-color: #f9fcfc;
+    display: flex;
+    padding: 10px;
+}
+:host ::ng-deep .p-confirm-dialog .p-dialog-header  {
+    align-items: center;
+    background-color: #f9fcfc;
+    
+}

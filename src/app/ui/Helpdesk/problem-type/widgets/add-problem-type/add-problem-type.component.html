@@ -1,0 +1,51 @@
+<p-panel header="{{title}} Problem Type">
+    <ng-template pTemplate="icons">
+        <button pButton (click)="saveRecords()" label="Save" [disabled]="!probTypeFormPanel.valid"></button>
+        <button pButton class="ml10" label="Cancel" (click)="cancel()"></button>
+    </ng-template>
+
+    <form [formGroup]="probTypeFormPanel">
+        <table width="100%">
+            <tr *ngIf="parentProbType.length > 0">
+                <td>
+                    <div class="input-label-custom">
+                        <label class='form-field-lable' style="font-weight: bold ! important; font-size: 12px !important;">Parent Problem Type : </label>
+                        <label class='form-field-lable' style="margin-left: 5px; font-weight: bold ! important;">{{ parentProbType}}</label>
+                    </div>
+
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 100%">
+                    <div class="input-label-custom">
+                        <label class='form-field-lable control-label'>Problem Type</label>
+                        <input type="text" class="form-control" name="probType" formControlName="probType" [readonly]="!isNew" maxlength="256"
+                            appTrimInput>
+                    </div>
+                </td>
+            </tr>
+            <tr
+                *ngIf="(probTypeFormPanel.controls['probType']?.errors && (probTypeFormPanel.controls['probType']?.dirty || probTypeFormPanel.controls['probType']?.touched))">
+                <td style="width: 50%">
+                    <label
+                        *ngIf="probTypeFormPanel.controls['probType']?.errors && !probTypeFormPanel.controls['probType']?.errors.required"
+                        class='form-field-lable' style="color:red;">
+                        Problem Type is already exists
+                    </label>
+                </td>
+                <td style="width:50%">
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 100%">
+                    <div class="input-label-custom ">
+                        <label class='form-field-lable'>Description</label>
+                        <textarea class="form-control note-border" name="description" formControlName="description" rows="2" nz-input
+                        maxlength="512" appTrimInput></textarea>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </form>
+</p-panel>
+<p-toast key="error" position="top-right"></p-toast>

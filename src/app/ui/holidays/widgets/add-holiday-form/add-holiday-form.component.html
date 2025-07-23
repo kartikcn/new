@@ -1,0 +1,25 @@
+<form [formGroup]="holidayFormPanel">
+  <table width="100%">
+    <tr>
+      <td>
+        <div class="input-label-custom">
+          <div class="p-fluid">
+            <div class="p-field">
+              <label class='form-field-lable control-label'>Holiday Date</label>
+              <input type="text" *ngIf="!isNew" class="form-control" name="holidayDate" formControlName="holidayDate">
+              <p-calendar appendTo="body" *ngIf="isNew" dateFormat="dd M yy" disabled="!isNew" name="holidayDate" formControlName="holidayDate"  [showIcon]="false" inputId="icon"></p-calendar>
+            </div>
+            </div>
+          </div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div class="input-label-custom ">
+          <label class='form-field-lable  control-label'>Holiday Description</label>
+          <textarea class="form-control note-border" name="holidayDesc" formControlName="holidayDesc" rows="2" nz-input maxlength="128" appTrimInput></textarea>
+        </div>
+      </td>
+    </tr>
+  </table>
+</form>

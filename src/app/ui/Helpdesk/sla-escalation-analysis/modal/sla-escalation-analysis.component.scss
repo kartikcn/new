@@ -1,0 +1,27 @@
+@import '/src/scss/variables';
+.escalation-type-title {
+    font-size: 11px;
+    margin-bottom: 0px;
+    font-weight: 500;
+    margin: 10px 10px 0px 5px
+}
+.filter-button{
+    width: 60px; 
+    margin-left: 5px;
+    margin-top:12.2px;
+}
+.checkbox-grid{
+    max-height: 60px;
+}
+.checkbox-table{
+    width:60%;
+}
+@media screen and (min-width: $tabletPotraitMinWidth) and (max-width:$tabletPotraitMaxWidth ){
+    .checkbox-grid{
+        max-height: 80px;
+    }
+    .checkbox-table{
+        width:90%;
+    }
+
+}

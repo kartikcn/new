@@ -1,0 +1,55 @@
+<p-dialog [(visible)]="display" header="Select Profile Photo" [breakpoints]="{'960px': '75vw', '640px': '100vw'}"
+        [style]="{width: '50vw'}" [closable]="false" [modal]="true" [closeOnEscape]="false">
+        <div class="container">
+                <div class="row">
+                        <div class="col-sm-12 col-md-12">
+                                <div style="display: flex;">
+                                <button pButton label="Select File " class="p-button " style="margin-right: 5px;" type="button" icon="pi pi-image"
+                                        iconPos="left" (click)="_fileInput.click()"></button>
+                                        <p class="filename">{{fileName}}</p>
+                                </div>        
+                                        <input #_fileInput type="file" hidden accept="image/png, image/jpg, image/jpeg" style="margin-bottom: 3px;" (change)="fileChangeEvent($event)"
+                                         />
+                                         <p *ngIf="NotImage" class='form-field-lable' style="color: red;">{{errorMsg}}</p>
+                        </div>
+                </div>
+                <div class="row" *ngIf="showCropper">
+                        <div class="col-sm-6 col-md-6 col-xm-6">
+                                <button pButton pRipple type="button" (click)="zoomOut()" icon=""
+                                        iconPos="left" icon="pi pi-search-minus" style="font-size: 1.5rem"  class="p-button-rounded p-button-text">
+                                </button>
+                                <button pButton pRipple type="button" (click)="zoomIn()"
+                                         class="p-button-rounded p-button-text ml10" icon="pi pi-search-plus">
+                                        
+                                </button>
+                        </div>
+                        <div class="col-sm-6 col-md-6 col-xm-6">
+                        </div>
+                </div>
+                <div class="container">
+                        <div class="row">
+                                <div class="col-sm-12">
+                                        <image-cropper [imageChangedEvent]="imageChangedEvent"
+                                                [maintainAspectRatio]="true"
+                                                [containWithinAspectRatio]="containWithinAspectRatio"
+                                                [aspectRatio]="4 / 3" [cropperStaticHeight]="100"
+                                                [cropperStaticWidth]="100" [hideResizeSquares]="true"
+                                                [resizeToWidth]="256" [cropperMinWidth]="128" [onlyScaleDown]="true"
+                                                [roundCropper]="true" [canvasRotation]="canvasRotation"
+                                                [transform]="transform" [alignImage]="'center'"
+                                                [style.display]="showCropper ? null : 'none'" format="png"
+                                                (imageCropped)="imageCropped($event)" (imageLoaded)="imageLoaded()"
+                                                (cropperReady)="cropperReady($event)"
+                                                (loadImageFailed)="loadImageFailed()"></image-cropper>
+                                </div>
+                        </div>
+                </div>
+        </div>
+        <!-- <img [src]="croppedImage" /> -->
+        <ng-template pTemplate="footer">
+                <p-button label="Upload" icon="pi pi-upload" class="mr5" [disabled]="NotImage" (click)="uploadImage()"
+                        styleClass="p-button-primary"></p-button>
+                <p-button label="Cancel" icon="pi pi-times" (click)="confirmDialog()" styleClass="p-button-secondary"
+                        [style]="{'margin-left': '.5em'}"></p-button>
+        </ng-template>
+</p-dialog>

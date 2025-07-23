@@ -1,0 +1,12 @@
+@import '/src/scss/variables';
+
+
+@media screen and (min-width: $tabletPotraitMinWidth) and (max-width:$tabletPotraitMaxWidth ){
+    ::ng-deep .p-panel .p-panel-icons-end{
+        width:110px;
+    }
+    ::ng-deep .p-button{
+        padding:0.3rem 0.7rem;
+        font-size:10px;
+    }
+}

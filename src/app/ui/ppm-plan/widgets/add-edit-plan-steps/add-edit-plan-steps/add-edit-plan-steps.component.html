@@ -1,0 +1,14 @@
+<div class="card">
+  <form [formGroup]="formPPmDetail">
+    <mat-card>
+      <mat-card-content id="Frm">
+        <app-add-plan-steps-form formControlName="planStepFormPanel" [isNew]="isNew"></app-add-plan-steps-form>
+      </mat-card-content>
+    </mat-card>
+  </form>
+</div>
+<div style="display: flex; justify-content: end; margin-top: 5px;">
+  <p-button label="Save" (click)="saveRecords()" [disabled]="!formPPmDetail.valid" icon="pi pi-check"></p-button>
+</div>
+<p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>
+<p-toast key="error" position="top-right"></p-toast>

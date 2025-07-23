@@ -1,0 +1,1 @@
+{"ast":null,"code":"export class SiteFilterInputDTO {\n  constructor(siteId, siteName) {\n    this.siteId = null;\n    this.siteName = \"\";\n    this.siteId = siteId;\n    this.siteName = siteName;\n  }\n}","map":null,"metadata":{},"sourceType":"module","externalDependencies":[]}

@@ -1,0 +1,77 @@
+<p-panel [header]="title">
+    <ng-template pTemplate="icons">
+        <p-button *ngIf="viewDetails && !isNavigationFromReport" label="Back" icon="pi pi-arrow-circle-left" class=" pull-right"
+            (click)="clickBack()" styleClass="p-button-secondary"></p-button>
+        <div *ngIf="!viewDetails && !isNavigationFromReport" class="p-grid p-nogutter p-align-end p-justify-end" style="margin-left:auto">
+            <button pButton pRipple label="Log Request" icon="pi pi-plus" (click)="logRequest()"
+                class="p-button-primary p-button-sm pull-right"></button>
+        </div>
+    </ng-template>
+    <div class="col">
+        <div class="card col-sm-12 col-md-12 col-xm-12 col-lg-12" style="padding: 5px;">
+            <p-timeline [value]="timeLineEvent" layout="horizontal" align="top" >
+                <ng-template pTemplate="marker" let-event>
+                    <span class="custom-marker p-shadow-2" [style.color]="event.color">
+                        <i [ngClass]="event.icon" [matTooltip]="event.text"></i>
+                    </span>
+                </ng-template>
+                <ng-template pTemplate="opposite" let-event>
+                    <b>{{event.status}}</b>
+                </ng-template>
+                <ng-template pTemplate="content" let-event>
+                    {{event.date}}
+                </ng-template>
+            </p-timeline>
+        </div>
+        <div class="card col-sm-12 col-md-12 col-xm-12 col-lg-12">
+            <p-tabView [(activeIndex)]="index" (onChange)="handleChange($event)">
+                <p-tabPanel header="Details" *ngIf="isRequestor || isApprover || isTechnician || isSupervisor" #details>
+                    <form [formGroup]="frmRequestDetail" id="content" #content>
+                        <app-add-work-request formControlName="addWrFormPanel" [isDetails]="true" [isView]="isView"
+                            [isReadOnly]="isReadOnly || makeDetailsReadOnly"
+                            [afterSavedForm]="afterSavedForm" (parentFun)="reloadDetails($event)"></app-add-work-request>
+                    </form>
+                </p-tabPanel>
+                <p-tabPanel header="Documents" *ngIf="isRequestor || isSupervisor || isTechnician" #document>
+                    <app-documents-list (parentFun)="setDocBucketId($event)" [docBucketId]="docBucketId"></app-documents-list>
+                </p-tabPanel>
+                <p-tabPanel header="Technician" *ngIf="(isTechnician || isSupervisor) && !showRequiredTabs" #technician>
+                    <app-request-technician [isReadOnly]="isReadOnly"></app-request-technician>
+                </p-tabPanel>
+                <p-tabPanel header="Work Log" *ngIf="(isTechnician || isSupervisor) && !showRequiredTabs" #work>
+                        <app-request-technician-log [isReadOnly]="isReadOnly"></app-request-technician-log>
+                </p-tabPanel>
+                <p-tabPanel header="Tools" *ngIf="(isTechnician || isSupervisor) && !showRequiredTabs" #tools>
+                        <app-request-tools [isReadOnly]="isReadOnly"></app-request-tools>
+                </p-tabPanel>
+                <p-tabPanel header="Trades" *ngIf="( isSupervisor) && !showRequiredTabs" #trades>
+                  <app-request-trades  [isReadOnly]="isReadOnly"></app-request-trades>
+                </p-tabPanel>
+                <p-tabPanel header="Parts" *ngIf="(isTechnician || isSupervisor) && !showRequiredTabs" #parts>
+                        <app-request-parts [isReadOnly]="isReadOnly"></app-request-parts>
+                </p-tabPanel>
+                <p-tabPanel header="Comments" *ngIf="isRequestor || isApprover || isTechnician || isSupervisor"
+                    #comments>
+                        <app-wr-comments [isReadOnly]="isReadOnly" [isDetails]="isDetails"></app-wr-comments>
+                </p-tabPanel>
+                <p-tabPanel header="Other Cost" *ngIf="(isSupervisor || isTechnician) && !showRequiredTabs" #othercost>
+                        <app-request-other-cost [isReadOnly]="isReadOnly"></app-request-other-cost>
+                </p-tabPanel>
+                <p-tabPanel header="Budget Summary" *ngIf="isSupervisor" #budgetsummary>
+                    <app-budget-analysis [hideFilterPanel]="hideFilterPanel"></app-budget-analysis>
+                 </p-tabPanel>
+                <p-tabPanel header="Request Log" *ngIf="isRequestor || isApprover || isTechnician || isSupervisor"
+                    #requestlog>
+                    <app-request-log></app-request-log>
+                </p-tabPanel>
+            </p-tabView>
+        </div>
+    </div>
+</p-panel>
+
+<p-confirmDialog key="requestDetailsMessage" header="Confirmation" 
+    icon="pi pi-exclamation-triangle"></p-confirmDialog>
+<p-toast key="requestMessage"></p-toast>
+<ngx-spinner bdColor="rgba(51,51,51,0.4)" size="default" color="#7f1933" type="ball-clip-rotate" [fullScreen]="true">
+    <p style="font-size: 16px; color: white">Loading...</p>
+</ngx-spinner>

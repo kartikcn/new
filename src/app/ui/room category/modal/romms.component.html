@@ -1,0 +1,17 @@
+<div style="padding-left: 0px;">
+  <div class="tabs-rounded" style="background-color: white;">
+    <ul class="nav nav-tabs" id="asset_tabs" style="font-size:12px;border-bottom:0">
+      <li class="loc-li" [ngClass]="{  'active': tab_name_clicked === 'Cat' }"><a href="/" (click)="openClickTab($event,'Cat')" prevent-default data-toggle="tab">Room Category</a></li>
+      <li class="loc-li" [ngClass]="{  'active': tab_name_clicked === 'Type' }"><a href="/" (click)="openClickTab($event,'Type')" data-toggle="tab">Room Type</a></li>
+    </ul>
+    <div id="rmtabContent" class="tab-content">
+      <div class="tab-pane " id="Cat">
+        <app-rmcat (parentFun)="loadRmType($event)"></app-rmcat>
+      </div>
+      <div class="tab-pane" id="Type">
+        <app-rm-type-list (parentFun)="onClear($event)"></app-rm-type-list>
+      </div>
+    </div>
+  </div>
+</div>
+

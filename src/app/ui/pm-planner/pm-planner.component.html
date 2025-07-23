@@ -1,0 +1,156 @@
+<div class="card filter-container" >
+  <form [formGroup]="filterPanel">
+    <table width="100%">
+      <tr>
+        <td style="width:20%">
+          <div class="input-label-custom ">
+            <label class='form-field-lable '>Building </label>
+            <ng-select appendTo="body" [clearable]="false" [items]="enumBL" formControlName="blId" [searchable]="true"
+              bindLabel="blNameString" bindValue="blId" (change)="onSelectBlCode($event)" placeholder="Make a selection"
+              class="ng-select-dropdown"  (scrollToEnd)="scrollToEndBl()" (search)="searchBl($event)"(open)="onOpenBl()">
+            </ng-select>
+          </div>
+        </td>
+        <td style="width:20%">
+          <div class="input-label-custom ">
+            <label class='form-field-lable '>Floor</label>
+            <ng-select appendTo="body" [clearable]="false" [items]="enumFL" formControlName="flId" [searchable]="true"
+              bindLabel="flNameString" bindValue="flId" placeholder="Make a selection" class="ng-select-dropdown"
+              (change)="onSelectFlCode($event)" (scrollToEnd)="scrollToEndFl()" (search)="searchFl($event)"(open)="onOpenFl()">
+            </ng-select>
+          </div>
+        </td>
+        <td style="width:40%"></td>
+        <td style="width: 20%">
+          <div style="margin-top:16px;margin-right:10px;display: flex;justify-content: flex-end;">
+            <button (click)="onSearch()" pButton pRipple label="Search" style="width: 60px;  margin-left: 5px;"
+              class="p-button-primary p-button-sm pull right" [disabled]="!filterPanel.valid"></button>
+            <button (click)="onClear()" pButton pRipple label="Clear" style="width: 60px;  margin-left: 5px;"
+              class="p-button-primary p-button-sm pull right"></button>
+          </div>
+        </td>
+      </tr>
+    </table>
+  </form>
+</div>
+<div class="card pmplanner-container" *ngIf="showCardGrid" >
+  <div style="margin:0px 5px 0px 5px;">
+    <div style="height:50px;display: flex;align-items: center;justify-content: space-between;">
+      <div style="margin-left:5px;">
+        <p-selectButton [options]="viewByData" [(ngModel)]="viewByValue" [multiple]="false" optionLabel="label"
+          optionValue="value" (onChange)="onViewByChange($event)"></p-selectButton>
+      </div>
+      <div style="margin-right:5px;">
+        <div style="display: flex;">
+          <div style="margin-right:10px;">
+            <p-checkbox name="group1" value="trade" [(ngModel)]="selectedDisplayParameters" inputId="trade"
+              class="select-box" (onChange)="checkboxSelected($event)"></p-checkbox>
+            <label class="select-label" for="trade">Trade</label>
+          </div>
+          <div style="margin-right:10px;">
+            <p-checkbox name="group1" value="tool" [(ngModel)]="selectedDisplayParameters" inputId="tool"
+              class="select-box" (onChange)="checkboxSelected($event)"></p-checkbox>
+            <label class="select-label" for="tool">Tool</label>
+          </div>
+          <div style="margin-right:10px;">
+            <p-checkbox name="group1" value="part" [(ngModel)]="selectedDisplayParameters" inputId="part"
+              class="select-box" (onChange)="checkboxSelected($event)"></p-checkbox>
+            <label class="select-label" for="part">Part</label>
+          </div>
+          <div>
+            <p-checkbox name="group1" value="technician" [(ngModel)]="selectedDisplayParameters" inputId="technician"
+              class="select-box" (onChange)="checkboxSelected($event)"></p-checkbox>
+            <label class="select-label" for="technician">Technician</label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="display: flex;flex-direction: row; justify-content:space-between;width:100%;height:74vh;" >
+      <div>
+        <button (click)="onPrevious()" pButton pRipple icon="pi pi-chevron-left" style="width: 30px;"
+          class="p-button-primary p-button-sm "></button>
+      </div>
+      <!-- <div class="plan-collection-container" *ngFor="let plan of pmplannerData; let i=index ;">
+        <div class="pmplanner-date-header-container">
+          <p class="card-text">{{titleStringList[i]}}</p>
+        </div>
+        <div class="card example-container">
+          <div *ngFor="let key of keyPmPlannerList">
+            <div *ngIf="key == 'request'; else otherItems">
+              <div class="card hover-pointer zoom-on-hover request-card" >
+                    <span class="request-content-title" (click)="onClickRowCard(key,null,titleStringList[i])"> Total
+                      Requests: {{ getProperty(key,plan).count }}</span>
+              </div>
+            </div>
+            <ng-template #otherItems>
+              <div *ngIf="getProperty(key,plan).length>0">
+                <p-panel [header]="getDisplayKey(key)" [toggleable]="true">
+                  <div *ngFor="let subItem of getProperty(key,plan)" class="card hover-pointer zoom-on-hover internal-card"
+                  (click)="onClickRowCard(key,subItem,titleStringList[i])" [ngStyle]="{
+                    'background-color': subItem.availableCount > subItem.count ? '#99ff99' : subItem.count > subItem.availableCount ? '#ff9999' : ''
+                  }">
+                    <span class="card-content-title"> {{subItem.name}}</span>
+                    <span class="card-content-title"> {{ subItem.count }}
+                      {{ key === 'part' ? subItem.units : 'hours' }}</span>
+                  </div>
+                </p-panel>
+              </div>
+            </ng-template>
+          </div>
+        </div>
+      </div> -->
+      <div class="pm-planner-details-conatiner">
+        <div class="plan-collection-container" *ngFor="let plan of pmplannerData; let i=index ;">
+          <div class="pmplanner-date-header-container">
+            <p class="card-text">{{titleStringList[i]}}</p>
+          </div>
+          <div class="card example-container">
+            <div *ngFor="let key of keyPmPlannerList">
+              <div *ngIf="key == 'request'; else otherItems">
+                <div class="card hover-pointer zoom-on-hover request-card" >
+                      <span class="request-content-title" (click)="onClickRowCard(key,null,titleStringList[i])"> Total
+                        Requests: {{ getProperty(key,plan).count }}</span>
+                </div>
+              </div>
+              <ng-template #otherItems>
+                <div *ngIf="getProperty(key,plan).length>0">
+                  <p-panel [header]="getDisplayKey(key)" [toggleable]="true">
+                    <div *ngFor="let subItem of getProperty(key,plan)" class="card hover-pointer zoom-on-hover internal-card"
+                    (click)="onClickRowCard(key,subItem,titleStringList[i])" [ngStyle]="{
+                      'background-color': subItem.availableCount > subItem.count ? '#99ff99' : subItem.count > subItem.availableCount ? '#ff9999' : ''
+                    }">
+                      <span class="card-content-title"> {{subItem.name}}</span>
+                      <span class="card-content-title"> {{ subItem.count }}
+                        {{ key === 'part' ? subItem.units : 'hours' }}</span>
+                    </div>
+                  </p-panel>
+                </div>
+              </ng-template>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <button (click)="onNext()" pButton pRipple icon="pi pi-chevron-right" style="width: 30px;"
+          class="p-button-primary p-button-sm "></button>
+      </div>
+    </div>
+  </div>
+</div>
+<p-dialog [(visible)]="showOtherPopUpGrid" [modal]="true" [style]="{width: '66vw'}" [maximizable]="true"
+  [draggable]="false" [resizable]="false" styleClass="dark-panel" [header]="selectedRowCardTableName">
+  <ng-template pTemplate="body">
+    <app-pm-planner-req-details-table [data]="popUpTableData" [rowCardDetails]="selectedRowCard" (reloadPmPlanner)="reloadComponent($event)"
+    ></app-pm-planner-req-details-table>
+  </ng-template>
+</p-dialog>
+<p-dialog [(visible)]="showRequestPopUpGrid" [modal]="true" [style]="{width: '66vw'}" [maximizable]="true"
+  [draggable]="false" [resizable]="false" styleClass="dark-panel" [header]="selectedRowCardTableName">
+  <ng-template pTemplate="body">
+    <app-add-table [data]="myRequestsData" isEscalatedData=false></app-add-table>
+  </ng-template>
+</p-dialog>
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#879cc9" class="spinner-color" type="ball-spin-clockwise"
+  *ngIf="showSpinner" [fullScreen]="true">
+  <p style="color: white"> Loading... </p>
+</ngx-spinner>

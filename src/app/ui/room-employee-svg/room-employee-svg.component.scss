@@ -1,0 +1,17 @@
+@import '/src/scss/variables';
+
+:host ::ng-deep .p-dialog .p-dialog-header {
+    background-color: $toolbar;
+    color: black;
+    padding-left: 10px;
+    font-weight: normal;
+    margin-bottom: 0px;
+    height: 10px !important;
+}
+
+.no-file-found{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 500px;
+}

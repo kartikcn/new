@@ -1,0 +1,25 @@
+@import '/src/scss/variables';
+:host ::ng-deep .p-dialog .p-dialog-header {
+    padding-left: 1rem !important;
+    padding: 0rem;
+    border-radius: 0rem !important; 
+  }
+
+::ng-deep .ng-select.ng-select-single .ng-select-container .ng-value-container .ng-value {
+	overflow: hidden !important;
+	text-overflow: ellipsis !important;
+	white-space: nowrap !important;
+	max-width: 180px !important;
+	}
+
+
+@media screen and (min-width: $tabletPotraitMinWidth) and (max-width:$tabletPotraitMaxWidth ){
+	::ng-deep .p-button.p-button-sm{
+		font-size: 0.7rem;
+    	padding: 0.25rem 0.5rem;
+	}
+
+	::ng-deep .p-button.p-button-icon-only{
+		width:2rem;
+	}
+}

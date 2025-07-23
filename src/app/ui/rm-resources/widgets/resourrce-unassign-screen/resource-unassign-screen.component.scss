@@ -1,0 +1,7 @@
+@import '/src/scss/variables';
+
+@media screen and (min-width: $tabletPotraitMinWidth) and (max-width:$tabletPotraitMaxWidth ) {
+    ::ng-deep .p-button {
+        height:40px !important;
+    }
+  }

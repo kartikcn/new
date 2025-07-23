@@ -1,0 +1,337 @@
+<div class="card" style="height: 90vh;">
+    <p-panel header="SLA Summary" [toggleable]="true">
+        <form [formGroup]="filterPanel">
+            <table width="100%" *ngIf="!useTabletProtrait && !useTabletLandscape">
+                <tr>
+                    <td style="width:10%;">
+                        <div class="input-label-custom">
+                            <div class="p-fluid">
+                                <div class="p-field">
+                                    <label class='form-field-lable'>Requested From</label>
+                                    <p-calendar appendTo="body" dateFormat="dd M yy" name="dateRequestedFrom"
+                                        formControlName="dateRequestedFrom" [showIcon]="false"
+                                        inputId="icon"></p-calendar>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                    <td style="width:10%;">
+                        <div class="input-label-custom">
+                            <div class="p-fluid">
+                                <div class="p-field">
+                                    <label class='form-field-lable'>Requested To</label>
+                                    <p-calendar appendTo="body" dateFormat="dd M yy" name="dateRequestedTo"
+                                        formControlName="dateRequestedTo" [showIcon]="false"
+                                        inputId="icon"></p-calendar>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                    <td style="width:15%;">
+                        <div class="input-label-custom ">
+                            <label class='form-field-lable '>Building </label>
+                            <ng-select appendTo="body" [clearable]="false" [items]="enumBL" formControlName="blId" [searchable]="true"
+                                bindLabel="blNameString" bindValue="blId" (change)="onSelectBlCode($event)" placeholder="Make a selection"
+                                class="ng-select-dropdown" (scrollToEnd)="scrollToEndBl()" (search)="searchBl($event)"(open)="onOpenBl()">
+                            </ng-select>
+                        </div>
+
+                    </td>
+                    <td style="width:20%;">
+                        <div class="input-label-custom ">
+                            <label class='form-field-lable '>Floor</label>
+                            <ng-select appendTo="body" [clearable]="false" [items]="enumFL" formControlName="flId" [searchable]="true"
+                                bindLabel="flNameString" bindValue="flId" placeholder="Make a selection" class="ng-select-dropdown"
+                                (change)="onSelectFlCode($event)" (scrollToEnd)="scrollToEndFl()" (search)="searchFl($event)"
+                                (open)="onOpenFl()">
+                            </ng-select>
+                        </div>
+                    </td>
+                    <td style="width:20%;">
+                        <div class="input-label-custom ">
+                            <label class='form-field-lable'>Requests Type </label>
+                            <ng-select appendTo="body" [clearable]="false" [searchable]="true"
+                                placeholder="Make a selection" class="ng-select-dropdown" [items]="showRequestsTypeList"
+                                formControlName="showType"  [searchable]="true"
+                                bindLabel="label" bindValue="value">
+                            </ng-select>
+                        </div>
+                    </td>
+                    <td style="width:10%;">
+                        <div class="input-label-custom ">
+                            <label class='form-field-lable'>Display Type</label>
+                            <ng-select appendTo="body" [clearable]="false" [searchable]="false"
+                                placeholder="Make a selection" class="ng-select-dropdown" [items]="displayTypeData"
+                                formControlName="chartType" bindLabel="lable" bindValue="value"
+                                (change)="onSelectDisplayType($event)">
+                            </ng-select>
+                        </div>
+                    </td>
+                    <td style="width:15%; padding-top:10px;">
+                        <button (click)="onSearch()" pButton pRipple label="Search" [disabled]="!filterPanel.valid"
+                            style="width: 60px;  margin-left: 5px;"
+                            class="p-button-primary p-button-sm pull right"></button>
+                        <button (click)="onClear()" pButton pRipple label="Clear"
+                            style="width: 60px;  margin-left: 5px; margin-right: 5px;"
+                            class="p-button-primary p-button-sm pull right"></button>
+                        <p-button icon="pi pi-file-pdf" (click)="exportChartToPDF()" [disabled]="isShowGrid" matTooltip="Generate PDF"
+                            matTooltipPosition="below" styleClass="p-button-raised p-button-danger">
+                        </p-button>
+                    </td>
+                </tr>
+            </table>
+            <table width="100%" *ngIf="useTabletProtrait">
+                <tr>
+                    <td style="width:30%;">
+                        <div class="input-label-custom">
+                            <div class="p-fluid">
+                                <div class="p-field">
+                                    <label class='form-field-lable'>Requested From</label>
+                                    <p-calendar appendTo="body" dateFormat="dd M yy" name="dateRequestedFrom"
+                                        formControlName="dateRequestedFrom" [showIcon]="false"
+                                        inputId="icon"></p-calendar>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                    <td style="width:30%;">
+                        <div class="input-label-custom">
+                            <div class="p-fluid">
+                                <div class="p-field">
+                                    <label class='form-field-lable'>Requested To</label>
+                                    <p-calendar appendTo="body" dateFormat="dd M yy" name="dateRequestedTo"
+                                        formControlName="dateRequestedTo" [showIcon]="false"
+                                        inputId="icon"></p-calendar>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                    <td style="width:30%;">
+                        <div class="input-label-custom ">
+                            <label class='form-field-lable '>Building </label>
+                            <ng-select appendTo="body" [clearable]="false" [items]="enumBL" formControlName="blId" [searchable]="true"
+                                bindLabel="blNameString" bindValue="blId" (change)="onSelectBlCode($event)" placeholder="Make a selection"
+                                class="ng-select-dropdown" (scrollToEnd)="scrollToEndBl()" (search)="searchBl($event)"(open)="onOpenBl()">
+                            </ng-select>
+                        </div>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width:30%;">
+                        <div class="input-label-custom ">
+                            <label class='form-field-lable '>Floor</label>
+                            <ng-select appendTo="body" [clearable]="false" [items]="enumFL" formControlName="flId" [searchable]="true"
+                                bindLabel="flNameString" bindValue="flId" placeholder="Make a selection" class="ng-select-dropdown"
+                                (change)="onSelectFlCode($event)" (scrollToEnd)="scrollToEndFl()" (search)="searchFl($event)"
+                                (open)="onOpenFl()">
+                            </ng-select>
+                        </div>
+                    </td>
+                    <td style="width:30%;">
+                        <div class="input-label-custom ">
+                            <label class='form-field-lable'>Requests Type </label>
+                            <ng-select appendTo="body" [clearable]="false" [searchable]="true"
+                                placeholder="Make a selection" class="ng-select-dropdown" [items]="showRequestsTypeList"
+                                formControlName="showType"  [searchable]="true"
+                                bindLabel="label" bindValue="value">
+                            </ng-select>
+                        </div>
+                    </td>
+                    <td style="width:30%;">
+                        <div class="input-label-custom ">
+                            <label class='form-field-lable'>Display Type</label>
+                            <ng-select appendTo="body" [clearable]="false" [searchable]="false"
+                                placeholder="Make a selection" class="ng-select-dropdown" [items]="displayTypeData"
+                                formControlName="chartType" bindLabel="lable" bindValue="value"
+                                (change)="onSelectDisplayType($event)">
+                            </ng-select>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width:30%; padding-top:10px;">
+                        <button (click)="onSearch()" pButton pRipple label="Search" [disabled]="!filterPanel.valid"
+                            style="margin-left:2px;"
+                            class="p-button-primary p-button-sm pull right filter-panel-button"></button>
+                        <button (click)="onClear()" pButton pRipple label="Clear"
+                            style="margin-left: 2px; margin-right: 2px;"
+                            class="p-button-primary p-button-sm pull right filter-panel-button"></button>
+                        <p-button icon="pi pi-file-pdf" (click)="exportChartToPDF()" [disabled]="isShowGrid" matTooltip="Generate PDF"
+                            matTooltipPosition="below" styleClass="p-button-raised p-button-danger">
+                        </p-button>
+                    </td>
+                </tr>
+            </table>
+            <table width="100%" *ngIf="useTabletLandscape">
+                <tr>
+                    <td style="width:13%;">
+                        <div class="input-label-custom">
+                            <div class="p-fluid">
+                                <div class="p-field">
+                                    <label class='form-field-lable'>Requested From</label>
+                                    <p-calendar appendTo="body" dateFormat="dd M yy" name="dateRequestedFrom"
+                                        formControlName="dateRequestedFrom" [showIcon]="false"
+                                        inputId="icon"></p-calendar>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                    <td style="width:13%;">
+                        <div class="input-label-custom">
+                            <div class="p-fluid">
+                                <div class="p-field">
+                                    <label class='form-field-lable'>Requested To</label>
+                                    <p-calendar appendTo="body" dateFormat="dd M yy" name="dateRequestedTo"
+                                        formControlName="dateRequestedTo" [showIcon]="false"
+                                        inputId="icon"></p-calendar>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                    <td style="width:13%;">
+                        <div class="input-label-custom ">
+                            <label class='form-field-lable '>Building </label>
+                            <ng-select appendTo="body" [clearable]="false" [items]="enumBL" formControlName="blId" [searchable]="true"
+                                bindLabel="blNameString" bindValue="blId" (change)="onSelectBlCode($event)" placeholder="Make a selection"
+                                class="ng-select-dropdown" (scrollToEnd)="scrollToEndBl()" (search)="searchBl($event)"(open)="onOpenBl()">
+                            </ng-select>
+                        </div>
+
+                    </td>
+                    <td style="width:13%;">
+                        <div class="input-label-custom ">
+                            <label class='form-field-lable '>Floor</label>
+                            <ng-select appendTo="body" [clearable]="false" [items]="enumFL" formControlName="flId" [searchable]="true"
+                                bindLabel="flNameString" bindValue="flId" placeholder="Make a selection" class="ng-select-dropdown"
+                                (change)="onSelectFlCode($event)" (scrollToEnd)="scrollToEndFl()" (search)="searchFl($event)"
+                                (open)="onOpenFl()">
+                            </ng-select>
+                        </div>
+                    </td>
+                    <td style="width:13%;">
+                        <div class="input-label-custom ">
+                            <label class='form-field-lable'>Requests Type </label>
+                            <ng-select appendTo="body" [clearable]="false" [searchable]="true"
+                                placeholder="Make a selection" class="ng-select-dropdown" [items]="showRequestsTypeList"
+                                formControlName="showType"  [searchable]="true"
+                                bindLabel="label" bindValue="value">
+                            </ng-select>
+                        </div>
+                    </td>
+                    <td style="width:13%;">
+                        <div class="input-label-custom ">
+                            <label class='form-field-lable'>Display Type</label>
+                            <ng-select appendTo="body" [clearable]="false" [searchable]="false"
+                                placeholder="Make a selection" class="ng-select-dropdown" [items]="displayTypeData"
+                                formControlName="chartType" bindLabel="lable" bindValue="value"
+                                (change)="onSelectDisplayType($event)">
+                            </ng-select>
+                        </div>
+                    </td>
+                    <td style="width:22%; padding-top:10px;">
+                        <button (click)="onSearch()" pButton pRipple label="Search" [disabled]="!filterPanel.valid"
+                            style="width: 60px;  margin-left: 5px;"
+                            class="p-button-primary p-button-sm pull right"></button>
+                        <button (click)="onClear()" pButton pRipple label="Clear"
+                            style="width: 60px;  margin-left: 5px; margin-right: 5px;"
+                            class="p-button-primary p-button-sm pull right"></button>
+                        <p-button icon="pi pi-file-pdf" (click)="exportChartToPDF()" [disabled]="isShowGrid" matTooltip="Generate PDF"
+                            matTooltipPosition="below" styleClass="p-button-raised p-button-danger">
+                        </p-button>
+                    </td>
+                </tr>
+            </table>
+        </form>
+
+    </p-panel>
+    <div class="p-d-flex" >
+        <div class="card" style="margin-top:3px" *ngIf="chartType == 'bar'" #chartContainer>
+            <p-chart #barChart [type]="chartType" [height]="540" [data]="data" [options]="options"
+                (onDataSelect)="onClick($event)">
+                <ng-template let-dataItem pTemplate="dataLabel">
+                    {{ dataItem.label }} ({{ dataItem.value }})
+                </ng-template></p-chart>
+        </div>
+        <div class="card" style="margin-top:3px" *ngIf="chartType == 'pie' || chartType == 'doughnut'" #chartContainer>
+            <div>
+                <ngx-charts-pie-chart
+                 [results]="pieChartData" 
+                 [view]="pieChartView" 
+                 [legend]="true" 
+                 [labels]="false"
+                 [doughnut]="chartType == 'doughnut'" 
+                 [scheme]="customScheme"
+                 [legendTitle]="''"
+                 [tooltipDisabled]="false"
+                 (select)="selectChartData($event)"
+                 >
+                </ngx-charts-pie-chart>
+            </div>
+
+        </div>
+        <!-- <div class="card" style="margin-top:3px" *ngIf="chartType == 'doughnut'" #chartContainer>
+            <p-chart #doughnutChart [type]="chartType" [height]="540" [data]="data" [options]="options"
+                (onDataSelect)="onClick($event)">
+                <ng-template let-dataItem pTemplate="dataLabel">
+                    {{ dataItem.label }} ({{ dataItem.value }})
+                </ng-template></p-chart>
+        </div> -->
+    </div>
+
+    <!-- show grid -->
+    <div class="card" *ngIf="isShowGrid">
+        <p-table [value]="esctdGridData" styleClass="p-datatable-customers p-datatable-gridlines" [paginator]="false"
+            selectionMode="single">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th pSortableColumn="label">
+                        <div class="grid-header-column">
+                            <div class="grid-header-label">
+                                <p class="grid-label-paragraph">Escalated For</p>
+                            </div>
+                            <div class="grid-sort-icon">
+                                <p-sortIcon field="label"></p-sortIcon>
+                                <p-columnFilter type="text" field="label" display="menu"></p-columnFilter>
+                            </div>
+                        </div>
+                    </th>
+                    <th pSortableColumn="reqCount">
+                        <div class="grid-header-column">
+                            <div class="grid-header-label">
+                                <p class="grid-label-paragraph"> Request Count</p>
+                            </div>
+                            <div class="grid-sort-icon">
+                                <p-sortIcon field="reqCount"></p-sortIcon>
+                                <p-columnFilter type="text" field="reqCount" display="menu"></p-columnFilter>
+                            </div>
+                        </div>
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-record>
+                <tr [pSelectableRow]="record" (click)="onRowSelect(record.label)">
+                    <td>{{record.label}}</td>
+                    <td>{{record.reqCount}}</td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage" let-columns>
+                <tr>
+                    <td [attr.colspan]="esctdGridData.length">
+                        No records found.
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+</div>
+<!-- requests details -->
+<p-dialog [(visible)]="isShowDialog" [modal]="true" [style]="{ 'max-width': '70vw' }" [maximizable]="true"
+    [draggable]="false" [resizable]="false" styleClass="dark-panel">
+    <ng-template pTemplate="header">
+        <h2> Requests List</h2>
+    </ng-template>
+    <ng-template pTemplate="body">
+        <app-add-table [data]="displayData" [isEscalatedData]="viewForEscalation"></app-add-table>
+    </ng-template>
+</p-dialog>

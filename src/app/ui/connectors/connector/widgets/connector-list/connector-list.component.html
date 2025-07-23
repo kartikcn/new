@@ -1,0 +1,100 @@
+<div class="card" style="height:82vh;">
+  <p-panel header="Connectors">
+    <ng-template pTemplate="icons">
+      <button pButton label="Add" (click)="onAdd()" icon="pi pi-plus">
+      </button>
+    </ng-template>
+    <div class="card">
+      <p-table [value]="connectorData" [paginator]="true" [rows]="rowCount" [showCurrentPageReport]="true"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [scrollable]="true"
+        scrollDirection="both" scrollHeight="550px" [rowsPerPageOptions]="[5,10,25]" selectionMode="single"
+        styleClass="p-datatable-responsive-demo p-datatable-gridlines" [rowHover]="true"
+        (onRowSelect)="onRowSelect($event)">
+        <ng-template pTemplate="header">
+          <tr>
+            <th style="width:10rem"> </th>
+            <th pSortableColumn="connectorName">
+              <div class="grid-header-column">
+                <div class="grid-header-label">
+                  <p class="grid-label-paragraph">Connector Name</p>
+                </div>
+                <div class="grid-sort-icon">
+                  <p-sortIcon field="connectorName"></p-sortIcon>
+                  <p-columnFilter type="text" field="connectorName" display="menu"></p-columnFilter>
+                </div>
+              </div>
+            </th>
+            <th pSortableColumn="tableName">
+              <div class="grid-header-column">
+                <div class="grid-header-label">
+                  <p class="grid-label-paragraph">Table Name</p>
+                </div>
+                <div class="grid-sort-icon">
+                  <p-sortIcon field="tableName"></p-sortIcon>
+                  <p-columnFilter type="text" field="tableName" display="menu"></p-columnFilter>
+                </div>
+              </div>
+            </th>
+            <th pSortableColumn="connectorType">
+              <div class="grid-header-column">
+                <div class="grid-header-label">
+                  <p class="grid-label-paragraph">Type</p>
+                </div>
+                <div class="grid-sort-icon">
+                  <p-sortIcon field="connectorType"></p-sortIcon>
+                  <p-columnFilter field="connectorType" matchMode="equals" display="menu">
+                    <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                      <p-dropdown [ngModel]="value" [options]="enumType" optionLabel="enumValue" optionValue="enumKey"
+                        (onChange)="filter($event.value)" placeholder="Select a Type" [showClear]="true"></p-dropdown>
+                    </ng-template>
+                  </p-columnFilter>
+                </div>
+              </div>
+            </th>
+            <th pSortableColumn="fileFormat">
+              <div class="grid-header-column">
+                <div class="grid-header-label">
+                  <p class="grid-label-paragraph">File Format</p>
+                </div>
+                <div class="grid-sort-icon">
+                  <p-sortIcon field="fileFormat"></p-sortIcon>
+                  <p-columnFilter field="fileFormat" matchMode="equals" display="menu">
+                    <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                      <p-dropdown [ngModel]="value" [options]="enumFormat" optionLabel="enumValue" optionValue="enumKey"
+                        (onChange)="filter($event.value)" placeholder="Select a Type" [showClear]="true"></p-dropdown>
+                    </ng-template>
+                  </p-columnFilter>
+                </div>
+              </div>
+            </th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-connector>
+          <tr [pSelectableRow]="connector">
+            <td style="width:3rem">
+              <button pButton pRipple icon="pi pi-pencil" (click)="onEdit(connector.connectorId)" type="button"
+                class="p-button-text">
+              </button>
+              <button pButton label="Execute" (click)="onExecute(connector)" class="pull-right"></button>
+            </td>
+            <td matTooltip="{{connector.connectorName}}" matTooltipPosition="below" class="ellipsis">
+              {{connector.connectorName}}</td>
+            <td>{{connector.tableName}}</td>
+            <td>{{getEnumByKey(connector.connectorType)}}</td>
+            <td>{{getEnumByKey(connector.fileFormat)}}</td>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage" let-columns>
+          <tr>
+            <td [attr.colspan]="10">
+              No records found
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+  </p-panel>
+</div>
+<p-toast key="save" position="top-right"></p-toast>
+<p-toast key="eqDelete" position="top-center"></p-toast>
+<p-confirmDialog key="mygrid" header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>

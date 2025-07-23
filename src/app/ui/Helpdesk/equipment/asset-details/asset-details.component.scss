@@ -1,0 +1,62 @@
+@import '/src/scss/variables';
+
+.container {
+  background-color: #fff;
+  padding: 5px;
+  border-radius: 3px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  // text-align: center;
+  transition: transform 0.3s ease-in-out;
+}
+
+.container:hover {
+  transform: scale(1);
+}
+
+//   :host ::ng-deep .p-panel .p-panel-header .p-panel-title {
+//     font-weight: bold;
+// }
+.section-title {
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #ccc;
+  /* Optional: Add a border below each title */
+  //padding-bottom: 5px; /* Optional: Adjust spacing between title and content */
+}
+
+:host ::ng-deep .p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
+  background: $tabActiveBgColor;
+  border-color: $tabBgColor;
+  color: $ActiveTabFontColor;
+  margin-right: 2px;
+  line-height: $tabHeight;
+  min-width: $tabWidth;
+  border-radius: $tabBorderRadius;
+  border-bottom: $tabBorderBottom;
+  box-shadow: none !important;
+}
+
+:host ::ng-deep .p-tabview .p-tabview-nav li .p-tabview-nav-link {
+  border-color: $tabBgColor;
+  background: $tabBgColor;
+  color: $tabFontColor;
+  margin-right: 2px;
+  line-height: $tabHeight;
+  min-width: $tabWidth;
+  border-radius: $tabBorderRadius;
+  border-radius: $tabBorderRadius;
+  border-bottom: $tabBorderBottom;
+  box-shadow: none !important;
+}
+
+h3 {
+  margin-bottom: 0px;
+ // background-color: #879cc9;
+  padding-left: 3px;
+}
+
+.section {
+  margin: 5px;
+  //border: 1px solid #879cc9;
+}

@@ -1,0 +1,85 @@
+<form [formGroup]="connectorFormPanel">
+  <table width="100%">
+    <tr>
+      <td style="width: 25%">
+        <div class="input-label-custom ">
+          <label class='form-field-lable control-label'>Connector Name</label>
+          <input type="text" class="form-control" name="connectorName" formControlName="connectorName" maxlength="128">
+        </div>
+      </td>
+      <td style="width: 50%">
+        <div class="input-label-custom ">
+          <label class='form-field-lable control-label'>Table Name</label>
+          <ng-select appendTo="body" [clearable]="false" [items]="tablesList" formControlName="tableName"
+            [searchable]="true" bindLabel="tableName" bindValue="tableName" placeholder="Make a selection"
+            class="ng-select-dropdown">
+          </ng-select>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td style="width: 50%">
+        <div class="input-label-custom ">
+          <label class='form-field-lable control-label'>Connector Type</label>
+          <ng-select appendTo="body" [clearable]="false" [items]="enumType" formControlName="connectorType"
+            [searchable]="true" bindLabel="enumValue" bindValue="enumKey" placeholder="Make a selection"
+            class="ng-select-dropdown">
+          </ng-select>
+        </div>
+      </td>
+
+      <td style="width: 50%">
+        <div class="input-label-custom ">
+          <label class='form-field-lable control-label'>File Format</label>
+          <ng-select appendTo="body" [clearable]="false" [items]="enumFormat" formControlName="fileFormat"
+            [searchable]="true" bindLabel="enumValue" bindValue="enumKey" placeholder="Make a selection"
+            class="ng-select-dropdown" (change)="onChangeFormat($event.enumValue)">
+          </ng-select>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td style="width: 50%">
+        <div class="input-label-custom ">
+          <label class='form-field-lable control-label'>Seperator</label>
+          <ng-select appendTo="body" [clearable]="false" [items]="enumSeperator" formControlName="seperator"
+            [searchable]="true" bindLabel="enumValue" bindValue="enumKey" placeholder="Make a selection"
+            class="ng-select-dropdown">
+          </ng-select>
+        </div>
+      </td>
+      <td style="width: 25%">
+        <div class="input-label-custom ">
+          <label class='form-field-lable control-label'>Rows to Skip</label>
+          <input type="text" class="form-control" NumbersOnly name="rowsToSkip" formControlName="rowsToSkip"
+            maxlength="64">
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2">
+        <div class="input-label-custom ">
+          <label class='form-field-lable control-label'>Connection Path</label>
+          <input type="text" class="form-control" name="connectionPath" formControlName="connectionPath"
+            maxlength="1024">
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2">
+        <div class="input-label-custom ">
+          <label class='form-field-lable'>Pre process</label>
+          <input type="text" class="form-control" name="preProcess" formControlName="preProcess" maxlength="512">
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2">
+        <div class="input-label-custom ">
+          <label class='form-field-lable'>Post process</label>
+          <input type="text" class="form-control" name="postProcess" formControlName="postProcess" maxlength="512">
+        </div>
+      </td>
+    </tr>
+  </table>
+</form>

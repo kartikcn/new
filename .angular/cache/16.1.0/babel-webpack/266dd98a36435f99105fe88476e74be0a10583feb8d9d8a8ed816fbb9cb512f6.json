@@ -1,0 +1,1 @@
+{"ast":null,"code":"export class EnumList {\n  constructor(enumListId, tableName, fieldName, enumValue, enumKey) {\n    this.enumListId = enumListId;\n    this.tableName = tableName;\n    this.fieldName = fieldName;\n    this.enumValue = enumValue;\n    this.enumKey = enumKey;\n  }\n}","map":null,"metadata":{},"sourceType":"module","externalDependencies":[]}

@@ -1,0 +1,32 @@
+<form [formGroup]="planFormPanel">
+    <table width="100%">
+        <tr>
+            <td>
+                <div class="input-label-custom ">
+                    <label class='form-field-lable control-label'>Plan Name</label>
+                    <input type="text" class="form-control" name="planName" formControlName="planName" maxlength="64" appTrimInput>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="input-label-custom ">
+                    <label class='form-field-lable control-label'>Plan Type</label>
+                    <ng-select appendTo="body" [clearable]="false" [items]="EnumPlanData" formControlName="planType"
+                        [searchable]="true" bindLabel="enumValue" bindValue="enumKey" placeholder="Make a selection"
+                        class="ng-select-dropdown">
+                    </ng-select>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="input-label-custom ">
+                    <label class='form-field-lable'>Description</label>
+                    <textarea class="form-control note-border" name="description" rows="6" nz-input maxlength="4000"
+                            formControlName="description" appTrimInput></textarea>
+                </div>
+            </td>
+        </tr>
+    </table>
+</form>

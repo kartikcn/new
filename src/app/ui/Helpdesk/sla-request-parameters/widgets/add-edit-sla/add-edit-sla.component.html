@@ -1,0 +1,194 @@
+<div class="card" style="height: 92vh !important;" *ngIf="!useTabletProtrait">
+    <div class="row">
+        <div [ngClass]="{ 'readonly-panel': isDefaultSla }" class="col-sm-3 col-md-3 col-xm-3 col-lg-3"
+            style="padding-right: 0px;">
+            <p-panel header="SLA Request" id="header">
+                <ng-template pTemplate="body">
+                    <form [formGroup]="frmSLATab">
+                        <app-add-sla-request formControlName="slaRequestPanel" [isNew]="isNew"></app-add-sla-request>
+                    </form>
+                </ng-template>
+            </p-panel>
+        </div>
+        <div class="col-sm-9 col-md-9 col-xm-9 col-lg-9" style="padding-left: 0px;">
+            <p-panel header="SLA Response">
+                <ng-template pTemplate="icons">
+                    <p-button label="Back" icon="pi pi-arrow-circle-left" class="mr10" (click)="clickBack()"
+                        styleClass="p-button-secondary" [style]="{'margin-left': '.5em'}"></p-button>
+                    <button pButton (click)="saveAllSlaData()" label="Save" class="pull-right"
+                        [disabled]="!frmSLATab.controls.slaRequestPanel.valid || !frmSLATab.controls.slaResponsePanel.valid"></button>
+                </ng-template>
+                <button pButton (click)="addPriority()" class="pull-right"
+                    [disabled]="isDefaultSla || !(slaRequestParametersId > 0)"
+                    style="margin-left: 10px;  z-index: 999;">Add
+                    Priority</button>
+                <p-tabView #tabview (onChange)="onTabChange($event)" [(activeIndex)]="activeTabIndex"
+                    class="tab-container"
+                    (dblclick)="(slaRequestParametersId > 0 && frmSLATab.controls.slaRequestPanel.valid && !isDefaultSla) && onEditPriorityName($event)">
+                    <p-tabPanel #data [header]="item.priority" class="tab-item"
+                        *ngFor="let item of slaResponseParameters; let i = index" [selected]="i === activeTabIndex">
+
+                    </p-tabPanel>
+                </p-tabView>
+                <div class="row" [ngClass]="{ 'readonly-panel': slaRequestParametersId > 0 ? false : true }">
+                    <div class="col-sm-6 col-md-6 col-xm-6 col-lg-6">
+                        <mat-dialog-content class="mat-typography mat-dialog-content-ext">
+                            <form [formGroup]="frmSLATab">
+                                <app-add-sla-response formControlName="slaResponsePanel" [isNew]="isNew"
+                                    [enableAutoApprove]='enableAutoApprove'
+                                    (notifyAutoApprove)="onChangeAutoApprove($event)"
+                                    (notifyAutoIssue)="onChangeAutoIssue($event)"></app-add-sla-response>
+                            </form>
+                        </mat-dialog-content>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-xm-6 col-lg-6"
+                        [ngClass]="{ 'readonly-panel': slaResponseParametersId > 0 ? false : true }">
+                        <p-panel header="SLA Steps">
+                            <div style="height: 450px; overflow: auto;" id="wrStatusCard">
+                                <app-wr-status-cards></app-wr-status-cards>
+                            </div>
+                        </p-panel>
+                    </div>
+                </div>
+            </p-panel>
+        </div>
+    </div>
+</div>
+
+<div class="card" style="height: 92vh !important;" *ngIf="useTabletProtrait">
+    <div class="row">
+        <div [ngClass]="{ 'readonly-panel': isDefaultSla }" >
+            <p-panel header="SLA Request" id="header">
+                <ng-template pTemplate="icons">
+                    <p-button label="Back" icon="pi pi-arrow-circle-left" class="mr10" (click)="clickBack()"
+                        styleClass="p-button-secondary" [style]="{'margin-left': '.5em'}"></p-button>
+                    <button pButton (click)="saveAllSlaData()" label="Save" class="pull-right"
+                        [disabled]="!frmSLATab.controls.slaRequestPanel.valid || !frmSLATab.controls.slaResponsePanel.valid"></button>
+                </ng-template>
+                <ng-template pTemplate="body">
+                    <form [formGroup]="frmSLATab">
+                        <app-add-sla-request formControlName="slaRequestPanel" [isNew]="isNew"></app-add-sla-request>
+                    </form>
+                </ng-template>
+            </p-panel>
+        </div>
+    </div>
+    <div class="row">
+        <div >
+            <p-panel header="SLA Response">
+                <button pButton (click)="addPriority()" class="pull-right"
+                    [disabled]="isDefaultSla || !(slaRequestParametersId > 0)"
+                    style="margin-left: 10px;  z-index: 999;">Add
+                    Priority</button>
+                <p-tabView #tabview (onChange)="onTabChange($event)" [(activeIndex)]="activeTabIndex"
+                    class="tab-container"
+                    (dblclick)="(slaRequestParametersId > 0 && frmSLATab.controls.slaRequestPanel.valid && !isDefaultSla) && onEditPriorityName($event)">
+                    <p-tabPanel #data [header]="item.priority" class="tab-item"
+                        *ngFor="let item of slaResponseParameters; let i = index" [selected]="i === activeTabIndex">
+                    </p-tabPanel>
+                </p-tabView>
+                <div class="row" [ngClass]="{ 'readonly-panel': slaRequestParametersId > 0 ? false : true }">
+                    <div>
+                        <mat-dialog-content class="mat-typography mat-dialog-content-ext">
+                            <form [formGroup]="frmSLATab">
+                                <app-add-sla-response formControlName="slaResponsePanel" [isNew]="isNew"
+                                    [enableAutoApprove]='enableAutoApprove'
+                                    (notifyAutoApprove)="onChangeAutoApprove($event)"
+                                    (notifyAutoIssue)="onChangeAutoIssue($event)"></app-add-sla-response>
+                            </form>
+                        </mat-dialog-content>
+                    </div>
+                </div>
+            </p-panel>
+        </div>
+    </div>
+    <div class="row">
+        <div [ngClass]="{ 'readonly-panel': slaResponseParametersId > 0 ? false : true }">
+            <p-panel header="SLA Steps">
+                <div style="height: 300px; overflow: auto;" id="wrStatusCard">
+                    <app-wr-status-cards></app-wr-status-cards>
+                </div>
+            </p-panel>
+        </div>
+    </div>
+</div>
+
+<!-- Add Priority form -->
+<p-dialog [header]='priorityHeading' [(visible)]="displayCancelScreen" [modal]="true" [style]="{width: '25vw'}"
+    [maximizable]="false" [draggable]="false" [resizable]="false">
+    <form [formGroup]="priorityForm">
+        <table width="100%">
+            <tr>
+                <td style="width: 50%">
+                    <div class="input-label-custom">
+                        <label class='form-field-lable control-label'>Priority</label>
+                        <span class="p-fluid">
+                            <p-autoComplete appendTo="body" [(ngModel)]="selectedPriority"
+                                emptyMessage="Add new Category" placeholder="Type to Search" formControlName="priority"
+                                [forceSelection]="false" [suggestions]="filteredPriorities"
+                                (completeMethod)="onChangePriority($event)" [minLength]="1" [maxlength]="16"
+                                (onBlur)="checkPriorityExists($event)"></p-autoComplete>
+                        </span>
+                    </div>
+                </td>
+            </tr>
+            <tr *ngIf="priorityExistErrror.length > 0">
+                <td>
+                    <label class='form-field-lable' style="color:red;">
+                        {{priorityExistErrror}}
+                    </label>
+                </td>
+            </tr>
+        </table>
+    </form>
+    <ng-template pTemplate="caption">
+        <div class="d-flex flex-row">
+            <div style="display: flex; padding-left: 6px;">
+                <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-primary p-button-sm"
+                    [disabled]="!priorityForm.valid || priorityExistErrror.length> 0 "
+                    (click)="savePriority()"></button>
+                <button pButton pRipple label="Cancel" class="p-button-primary p-button-sm" style="margin-left:8px"
+                    (click)="cancelPriority()"></button>
+            </div>
+        </div>
+    </ng-template>
+</p-dialog>
+
+<!-- display warning for technicain or team -->
+<p-dialog header="Warning" [(visible)]="technicianTeamWarning" [modal]="true" [style]="{width: '20vw'}"
+    [maximizable]="false" [draggable]="false" [resizable]="false" [closable]="false" id="custom-content">
+    <div style="display: flex; justify-content: center; align-items: center; padding: 10px">
+        <p style="font-size: 14px; font-weight: 400; padding-top: 12px">
+            Please select Team or Technician
+        </p>
+    </div>
+
+    <ng-template pTemplate="footer" style="padding-bottom: 10px; padding-right: 10px;">
+        <div style="display: flex; justify-content: center; align-items: center;">
+            <button pButton pRipple label="Ok" class="pull-right p-button-primary p-button-sm custom-btn"
+                (click)="onClickWarningTeamOrTechnician()" style="width:34%"></button>
+        </div>
+    </ng-template>
+</p-dialog>
+
+<!-- display warning for Approval Step -->
+<p-dialog header="Warning" [(visible)]="approvalStepWarning" [modal]="true" [style]="{width: '20vw'}"
+    [maximizable]="false" [draggable]="false" [resizable]="false" [closable]="false" id="custom-content">
+    <div style="display: flex; justify-content: center; align-items: center; padding: 10px">
+        <p style="font-size: 14px; font-weight: 400; padding : 0px">
+            Please add an approval step to continue
+        </p>
+    </div>
+
+    <ng-template pTemplate="footer" style="padding-bottom: 10px; padding-right: 10px;">
+        <div style="display: flex; justify-content: center; align-items: center;">
+            <button pButton pRipple label="Ok" class="pull-right p-button-primary p-button-sm" style="width:34%"
+                (click)="onClickApprovalWaring()"></button>
+        </div>
+    </ng-template>
+</p-dialog>
+
+<p-confirmDialog key="autoIssueApproveWarining" header="Confirmation"
+    icon="pi pi-exclamation-triangle"></p-confirmDialog>
+<p-toast key="SLArequest" position="top-right"></p-toast>
+<p-toast key="SLAresponse" position="top-right"></p-toast>

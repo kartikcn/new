@@ -1,0 +1,20 @@
+<h2 mat-dialog-title class="mat-dialog-title-ext">{{title}} Visitors Details</h2>
+<mat-dialog-content class="mat-typography mat-dialog-content-ext">
+  <form [formGroup]="frmVisitorsDetail">
+    <mat-card>
+      <mat-card-content id="visitors">
+        <app-add-visitors-fom formControlName="visitorsFormPanel" [isView]="isView" [isNew]="isNew">
+        </app-add-visitors-fom>
+      </mat-card-content>
+    </mat-card>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end" class="mat-dialog-actions-ext">
+  <p-button label="Save" (click)="saveRecords()" [disabled]="!frmVisitorsDetail.valid" icon="pi pi-check"></p-button>
+  <p-button label="Cancel" icon="pi pi-times" (click)="confirmDialog()" styleClass="p-button-secondary"
+    [style]="{'margin-left': '.5em'}"></p-button>
+</mat-dialog-actions>
+<p-toast key="visitor" position="top-right"></p-toast>
+<p-toast key="error" position="top-right"></p-toast>
+<p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>

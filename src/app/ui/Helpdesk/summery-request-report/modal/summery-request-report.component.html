@@ -1,0 +1,159 @@
+<div class="card" style="height: 95vh;">
+    <p-panel header="Request Summary" [toggleable]="true">
+        <form [formGroup]="filterPanel">
+            <table width="100%" >
+                <tr>
+                    <td style="width:25%;">
+                        <div class="input-label-custom">
+                            <div class="p-fluid">
+                                <div class="p-field">
+                                    <label class='form-field-lable'>Requested From</label>
+                                    <p-calendar appendTo="body" dateFormat="dd M yy" name="dateRequestedFrom"
+                                        formControlName="dateRequestedFrom" [showIcon]="false"
+                                        inputId="icon"></p-calendar>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                    <td style="width:25%;">
+                        <div class="input-label-custom">
+                            <div class="p-fluid">
+                                <div class="p-field">
+                                    <label class='form-field-lable'>Requested To</label>
+                                    <p-calendar appendTo="body" dateFormat="dd M yy" name="dateRequestedTo"
+                                        formControlName="dateRequestedTo" [showIcon]="false"
+                                        inputId="icon"></p-calendar>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                    <td style="width:25%;">
+                        <div class="input-label-custom ">
+                            <label class='form-field-lable'>Site</label>
+                            <ng-select appendTo="body" [clearable]="false" [searchable]="true"
+                                placeholder="Make a selection" class="ng-select-dropdown" [items]="enumAllSites"
+                                formControlName="siteId" (change)="onSelectSite($event)" bindLabel="siteName"(open)="onOpenSite()"
+                                bindValue="siteId"  (scrollToEnd)="scrollToEndSite()" (search)="searchSite($event)">
+                            </ng-select>
+                        </div>
+                    </td>
+                    <td style="width:25%;">
+                        <div class="input-label-custom ">
+                            <label class='form-field-lable'>Requests Type </label>
+                            <ng-select appendTo="body" [clearable]="false" [searchable]="true"
+                                placeholder="Make a selection" class="ng-select-dropdown" [items]="showRequestsTypeList"
+                                formControlName="showType"  [searchable]="true"
+                                bindLabel="label" bindValue="value">
+                            </ng-select>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width:25%;">
+                        <div class="input-label-custom ">
+                            <label class='form-field-lable'>Building</label>
+                            <ng-select appendTo="body" [clearable]="false" [searchable]="true"
+                                placeholder="Make a selection" class="ng-select-dropdown" [items]="enumBL"
+                                formControlName="blId" bindLabel="blNameString" bindValue="blId"(open)="onOpenBl()"
+                                (change)="onSelectBuilding($event)" (scrollToEnd)="scrollToEndBl()" (search)="searchBl($event)">
+                            </ng-select>
+                        </div>
+                    </td>
+                    <td style="width:25%;">
+                        <div class="input-label-custom ">
+                            <label class='form-field-lable control-label'>Group By</label>
+                            <ng-select appendTo="body" [clearable]="false" [searchable]="true"
+                                placeholder="Make a selection" class="ng-select-dropdown" [items]="groupByData"
+                                formControlName="groupBy" bindLabel="lable" bindValue="value"
+                                (change)="changeGroupBy($event)">
+                            </ng-select>
+                        </div>
+                    </td>
+                    <td style="width:25%;">
+                        <div class="input-label-custom ">
+                            <label class='form-field-lable control-label'>Display Type</label>
+                            <ng-select appendTo="body" [clearable]="false" [searchable]="false"
+                                placeholder="Make a selection" class="ng-select-dropdown" [items]="displayTypeData"
+                                formControlName="displayType" bindLabel="lable" bindValue="value"
+                                (change)="onSelectDisplayType($event)">
+                            </ng-select>
+                        </div>
+                    </td>
+                    <td style="width:25%;">
+                        <button (click)="onClickFilter()" pButton pRipple label="Search" [disabled]="!filterPanel.valid"
+                            style="margin-left: 5px;"
+                            class="p-button-primary p-button-sm pull right filter-button"></button>
+                        <button (click)="onClear()" pButton pRipple label="Clear"
+                            style="margin-left: 5px; margin-right: 5px;"
+                            class="p-button-primary p-button-sm pull right filter-button"></button>
+                        <p-button icon="pi pi-file-pdf" (click)="exportChartToPDF()" [disabled]="isGridType" matTooltip="Generate PDF"
+                            matTooltipPosition="below" styleClass="p-button-raised p-button-danger">
+                        </p-button>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </p-panel>
+
+    <div class="card" *ngIf="isGridType">
+        <p-table [value]="reportData" [paginator]="true" [rows]="rowCount" [showCurrentPageReport]="true"
+            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+            [rowsPerPageOptions]="[5,10,25]" styleClass="p-datatable-responsive-demo p-datatable-gridlines"
+            [rowHover]="false">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th pSortableColumn="value">
+                        <div class="grid-header-column">
+                            <div class="grid-header-label">
+                                <p class="grid-label-paragraph"> {{displayGridLabel}}</p>
+                            </div>
+                            <div class="grid-sort-icon">
+                                <p-sortIcon field="value"></p-sortIcon>
+                                <p-columnFilter type="text" field="value" display="menu"></p-columnFilter>
+                            </div>
+                        </div>
+                    </th>
+                    <th pSortableColumn="count">
+                        <div class="grid-header-column">
+                            <div class="grid-header-label">
+                                <p class="grid-label-paragraph">Request Count</p>
+                            </div>
+                            <div class="grid-sort-icon">
+                                <p-sortIcon field="count"></p-sortIcon>
+                                <p-columnFilter type="text" field="count" display="menu"></p-columnFilter>
+                            </div>
+                        </div>
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-report>
+                <tr (click)="onClickCount(report)" style="cursor: pointer;">
+                    <td>{{report.value}}</td>
+                    <td>{{report.count}}</td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage" let-columns>
+                <tr>
+                    <td [attr.colspan]="3">
+                        No records found
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+
+    <div *ngIf="!isGridType" #chartContainer>
+        <p-chart type="bar" [height]="510" [data]="chartData" [options]="basicOptions"
+            (onDataSelect)="onClickBarChart($event)"></p-chart>
+    </div>
+
+    <p-dialog [(visible)]="showPopUpGrid" [modal]="true" [style]="{width: '66vw'}" [maximizable]="true"
+        [draggable]="false" [resizable]="false" styleClass="dark-panel">
+        <ng-template pTemplate="header">
+            <h2 style="margin: 0px;">Request List</h2>
+        </ng-template>
+        <ng-template pTemplate="body">
+            <app-add-table [data]="requestData"></app-add-table>
+        </ng-template>
+    </p-dialog>
+</div>

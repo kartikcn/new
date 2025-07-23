@@ -1,0 +1,108 @@
+<p-panel header="Parts Details">
+    <ng-template pTemplate="icons">
+        <button pButton (click)="onAdd()" label="Add" [disabled]="isReadOnly" icon="pi pi-plus"></button>
+    </ng-template>
+    <div class="card">
+        <p-table [value]="requestPartsData" [paginator]="true" [rows]="rowCount" [showCurrentPageReport]="true"
+            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+            [rowsPerPageOptions]="[5,10,20]" styleClass="p-datatable-customers p-datatable-gridlines"
+            [scrollable]="true" scrollDirection="both" scrollHeight="130px">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th style="width:8rem"></th>
+                    <th pSortableColumn="partPartCode">
+                        <div class="grid-header-column">
+                            <div class="grid-header-label">
+                                <p class="grid-label-paragraph">Part</p>
+                            </div>
+                            <div class="grid-sort-icon">
+                                <p-sortIcon field="partPartCode"></p-sortIcon>
+                                <p-columnFilter type="text" field="partPartCode"
+                                    display="menu"></p-columnFilter>
+                            </div>
+                        </div>
+                    </th>
+                    <th pSortableColumn="reqQuantity">
+                        <div class="grid-header-column">
+                            <div class="grid-header-label">
+                                <p class="grid-label-paragraph">Required Quantity</p>
+                            </div>
+                            <div class="grid-sort-icon">
+                                <p-sortIcon field="reqQuantity"></p-sortIcon>
+                                <p-columnFilter type="text" field="reqQuantity"
+                                    display="menu"></p-columnFilter>
+                            </div>
+                        </div>
+                    </th>
+                   <th pSortableColumn="actualQuantityUsed">
+                        <div class="grid-header-column">
+                            <div class="grid-header-label">
+                                <p class="grid-label-paragraph">Actual Quantity Used</p>
+                            </div>
+                            <div class="grid-sort-icon">
+                                <p-sortIcon field="actualQuantityUsed"></p-sortIcon>
+                                <p-columnFilter type="text" field="actualQuantityUsed"
+                                    display="menu"></p-columnFilter>
+                            </div>
+                        </div>
+                    </th>
+                    <th pSortableColumn="formateDateAssigned">
+                        <div class="grid-header-column">
+                            <div class="grid-header-label">
+                                <p class="grid-label-paragraph">Date Assigned</p>
+                            </div>
+                            <div class="grid-sort-icon">
+                                <p-sortIcon field="formateDateAssigned"></p-sortIcon>
+                                <p-columnFilter type="text" field="formateDateAssigned"
+                                    display="menu"></p-columnFilter>
+                            </div>
+                        </div>
+                    </th>
+                    <th pSortableColumn="timeAssigned">
+                        <div class="grid-header-column">
+                            <div class="grid-header-label">
+                                <p class="grid-label-paragraph">Time Assigned</p>
+                            </div>
+                            <div class="grid-sort-icon">
+                                <p-sortIcon field="timeAssigned"></p-sortIcon>
+                                <p-columnFilter type="text" field="timeAssigned"
+                                    display="menu"></p-columnFilter>
+                            </div>
+                        </div>
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-reqPart>
+                <tr [pSelectableRow]="reqPart">
+                    <td style="width:8rem">
+                        <button icon="pi pi-pencil" pButton pRipple type="button" *ngIf="!isReadOnly"
+                            (click)="onEdit(reqPart.requestPartId)" class="p-button-text p-button-rounded"
+                            [disabled]="!isSupervisor && reqPart.addedBy != loggedIdUserName"></button>
+                        <button icon="pi pi-eye" pButton pRipple type="button" *ngIf="isReadOnly"
+                            (click)="onView(reqPart.requestPartId)" class="p-button-text p-button-rounded"
+                           ></button>
+                        <button icon="pi pi-times" pButton pRipple type="button"
+                            (click)="onDelete(reqPart.requestPartId)" class="p-button-text p-button-rounded pull-right"
+                            style="font-size: 5rem; color: red;"
+                            [disabled]="(!isSupervisor && reqPart.addedBy != loggedIdUserName) || isReadOnly"></button>
+                    </td>
+                    <td>{{reqPart.partPartCode}}</td>
+                    <td>{{reqPart.reqQuantity}}</td>
+                    <td>{{reqPart.actualQuantityUsed}}</td>
+                    <td>{{reqPart.dateAssigned | date :"dd MMM yyyy"}}</td>
+                    <td>{{convertToDisplayTime(reqPart.timeAssigned)}}</td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage" let-columns>
+                <tr>
+                    <td colspan="6" style="text-align: center;">
+                        No Records Found
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+</p-panel>
+<p-confirmDialog key="requestPartGrid" header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>
+<p-toast key="requestPart" position="top-right"></p-toast>
+<p-toast key="requestPartwarning" position="top-center"></p-toast>

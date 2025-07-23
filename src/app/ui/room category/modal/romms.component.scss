@@ -1,0 +1,213 @@
+@import '/src/scss/variables';
+
+span {
+  height: 24px !important;
+  font-size: 10px !important;
+}
+
+.trFont {
+  font-size: 11px !important;
+}
+
+.panel-group-custom {
+  margin: -12px !important;
+}
+
+label {
+  font-size: 10px;
+  padding: 0;
+  font-weight: 500;
+  padding-left: 3px;
+  margin-bottom: -10px !important;
+}
+
+.td-calc-2 {
+  width: calc(100% / 2);
+}
+
+.panel-body-custom {
+  padding: 0;
+}
+
+.btn-ggb-default-custom {
+  margin: 16px !important
+}
+
+.btn-ggb-orange {
+  width: 90px !important;
+}
+
+.btn-filter {
+  margin-left: 4px;
+  margin-right: 5px;
+  width: 50px;
+}
+
+select, input[type=text], input[type=number], textarea {
+  border: thin double rgb(181, 155, 90) !important;
+  padding-left: 5px;
+  background: #fff;
+}
+
+.input-group .input-group-addon {
+  height: 24px;
+}
+
+.tabs-rounded > ul > li > a {
+  border-top-left-radius: 7px;
+  border-top-right-radius: 7px;
+  outline: none;
+  border-bottom: $tabBorderBottom;
+ 
+}
+
+/*.tab-pane {
+  margin-top: 20px;
+}*/
+
+.nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {
+  border: none;
+  background: lightblue;
+}
+
+.nav {
+  padding-left: 0;
+  margin-bottom: 0;
+  list-style: none;
+  background-color: $tabPaneBackgroundColor;
+}
+
+.nav > li {
+  position: relative;
+  display: block;
+}
+
+.nav > li > a {
+  position: relative;
+  display: block;
+  background-color: $tabBgColor;
+  color: $tabFontColor ;
+  padding: 5px 10px;
+}
+
+.nav > li > a:hover,
+.nav > li > a:focus {
+  text-decoration: none;
+  color: $ActiveTabFontColor;
+  background-color: $tabActiveBgColor;
+}
+
+.nav > li.disabled > a {
+  color: #777;
+}
+
+.nav > li.disabled > a:hover,
+.nav > li.disabled > a:focus {
+  color: #777;
+  text-decoration: none;
+  cursor: not-allowed;
+  background-color: transparent;
+}
+
+.nav .open > a,
+.nav .open > a:hover,
+.nav .open > a:focus {
+  background-color: #eee;
+  border-color: #337ab7;
+}
+
+.nav .nav-divider {
+  height: 1px;
+  margin: 9px 0;
+  overflow: hidden;
+  background-color: #e5e5e5;
+}
+
+.nav > li > a > img {
+  max-width: none;
+}
+
+.nav-tabs {
+  border-bottom: 1px solid #ddd;
+}
+
+.nav-tabs > li {
+  float: left;
+  margin-bottom: -1px;
+}
+
+.nav-tabs > li > a {
+  margin-right: 2px;
+  line-height: $tabHeight;
+  min-width: $tabWidth; 
+  border: 1px solid transparent;
+  border-radius: $tabBorderRadius;
+}
+
+.nav-tabs > li > a:hover {
+  border-color: #eee #eee #ddd;
+}
+
+.nav-tabs > li.active > a,
+.nav-tabs > li.active > a:hover,
+.nav-tabs > li.active > a:focus {
+  color: $ActiveTabFontColor;
+  cursor: default;
+  background-color:$tabActiveBgColor;
+  border: 1px solid #ddd;
+  border-bottom-color: transparent;
+}
+
+.nav-tabs.nav-justified {
+  width: 100%;
+  border-bottom: 0;
+}
+
+.nav-tabs.nav-justified > li {
+  float: none;
+}
+
+.nav-tabs.nav-justified > li > a {
+  margin-bottom: 5px;
+  text-align: center;
+}
+
+.nav-tabs.nav-justified > .dropdown .dropdown-menu {
+  top: auto;
+  left: auto;
+}
+
+@media (min-width: 768px) {
+  .nav-tabs.nav-justified > li {
+    display: table-cell;
+    width: 1%;
+  }
+
+  .nav-tabs.nav-justified > li > a {
+    margin-bottom: 0;
+  }
+}
+
+.nav-tabs.nav-justified > li > a {
+  margin-right: 0;
+  border-radius: 4px;
+}
+
+.nav-tabs.nav-justified > .active > a,
+.nav-tabs.nav-justified > .active > a:hover,
+.nav-tabs.nav-justified > .active > a:focus {
+  border: 1px solid #ddd;
+}
+
+@media (min-width: 768px) {
+  .nav-tabs.nav-justified > li > a {
+    border-bottom: 1px solid #ddd;
+    border-radius: 4px 4px 0 0;
+  }
+
+  .nav-tabs.nav-justified > .active > a,
+  .nav-tabs.nav-justified > .active > a:hover,
+  .nav-tabs.nav-justified > .active > a:focus {
+    border-bottom-color: #fff;
+  }
+}

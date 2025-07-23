@@ -1,0 +1,259 @@
+<div class="card" style="height:92vh;">
+    <p-panel header="Manage Bookings Approval">
+        <div class="card">
+            <p-table #dt1 [value]="reqReservationData" [paginator]="false" [(selection)]="selectedScreens"
+                (onFilter)="onInnerFilter($event)" styleClass="p-datatable-customers p-datatable-gridlines"
+                [tableStyle]="{'width': '1800px'}" [scrollable]="true" scrollHeight="450px">
+                <ng-template pTemplate="caption">
+                    <div class="d-flex flex-row justify-content-between">
+                        <h4 style="font-size: 13px">Select a Reservation</h4>
+                        <div>
+                            <button pButton pRipple label="Approve" class="p-button-primary p-button"
+                                style="margin-right: 1rem" [hidden]="!(selectedScreens.length >0)"
+                                (click)="ApproveReservation()"></button>
+                            <button pButton pRipple label="Reject" class="p-button-primary p-button"
+                                style="margin-right: 1rem" [hidden]="!(selectedScreens.length >0)"
+                                (click)="RejectReservation()"></button>
+                        </div>
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="header">
+                    <tr>
+                        <!-- <th style="width:4rem">
+                            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                        </th> -->
+                        <th style="width:8rem">Approve</th>
+                        <th style="width:8rem">Reject</th>
+                        <th pSortableColumn="bookingType">
+                            <div class="grid-header-column">
+                                <div class="grid-header-label">
+                                    <p class="grid-label-paragraph">Booking Type</p>
+                                </div>
+                                <div class="grid-sort-icon">
+                                    <p-sortIcon field="bookingType"></p-sortIcon>
+                                    <p-columnFilter type="text" field="bookingType" display="menu"></p-columnFilter>
+                                </div>
+                            </div>
+                        </th>
+                        <th pSortableColumn="reserveId">
+                            <div class="grid-header-column">
+                                <div class="grid-header-label">
+                                    <p class="grid-label-paragraph">Meeting Id </p>
+                                </div>
+                                <div class="grid-sort-icon">
+                                    <p-sortIcon field="reserveId"></p-sortIcon>
+                                    <p-columnFilter type="numeric" field="reserveId" display="menu"></p-columnFilter>
+                                </div>
+                            </div>
+                        </th>
+                        <th pSortableColumn="blDataBlCode">
+                            <div class="grid-header-column">
+                                <div class="grid-header-label">
+                                    <p class="grid-label-paragraph">Building</p>
+                                </div>
+                                <div class="grid-sort-icon">
+                                    <p-sortIcon field="blDataBlCode"></p-sortIcon>
+                                    <p-columnFilter type="text" field="blDataBlCode" display="menu"></p-columnFilter>
+                                </div>
+                            </div>
+                        </th>
+                        <th pSortableColumn="flDataFlCode">
+                            <div class="grid-header-column">
+                                <div class="grid-header-label">
+                                    <p class="grid-label-paragraph">Floor</p>
+                                </div>
+                                <div class="grid-sort-icon">
+                                    <p-sortIcon field="flDataFlCode"></p-sortIcon>
+                                    <p-columnFilter type="text" field="flDataFlCode" display="menu"></p-columnFilter>
+                                </div>
+                            </div>
+                        </th>
+                        <th pSortableColumn="rmDataRmCode">
+                            <div class="grid-header-column">
+                                <div class="grid-header-label">
+                                    <p class="grid-label-paragraph">Room</p>
+                                </div>
+                                <div class="grid-sort-icon">
+                                    <p-sortIcon field="rmDataRmCode"></p-sortIcon>
+                                    <p-columnFilter type="text" field="rmDataRmCode" display="menu"></p-columnFilter>
+                                </div>
+                            </div>
+                        </th>
+                        <th pSortableColumn="dateStart">
+                            <div class="grid-header-column">
+                                <div class="grid-header-label">
+                                    <p class="grid-label-paragraph">Date</p>
+                                </div>
+                                <div class="grid-sort-icon">
+                                    <p-sortIcon field="dateStart"></p-sortIcon>
+                                    
+                                </div>
+                            </div>
+                        </th>
+                        <th pSortableColumn="timeStart">
+                            <div class="grid-header-column">
+                                <div class="grid-header-label">
+                                    <p class="grid-label-paragraph">From Time</p>
+                                </div>
+                                <div class="grid-sort-icon">
+                                    <p-sortIcon field="timeStart"></p-sortIcon>
+                                    
+                                </div>
+                            </div>
+                        </th>
+                        <th pSortableColumn="timeEnd">
+                            <div class="grid-header-column">
+                                <div class="grid-header-label">
+                                    <p class="grid-label-paragraph">To Time</p>
+                                </div>
+                                <div class="grid-sort-icon">
+                                    <p-sortIcon field="timeEnd"></p-sortIcon>
+                                   
+                                </div>
+                            </div>
+                        </th>
+                        <th pSortableColumn="status">
+                            <div class="grid-header-column">
+                                <div class="grid-header-label">
+                                    <p class="grid-label-paragraph">Status</p>
+                                </div>
+                                <div class="grid-sort-icon">
+                                    <p-sortIcon field="status"></p-sortIcon>
+                                    <p-columnFilter field="status" matchMode="equals" display="menu">
+                                        <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                                            <p-dropdown [ngModel]="value" [options]="enumStatusData" optionLabel="enumValue"
+                                                optionValue="enumKey" (onChange)="filter($event.value)"
+                                                placeholder="Select a Type" [showClear]="true"></p-dropdown>
+                                        </ng-template>
+                                    </p-columnFilter>
+                                </div>
+                            </div>
+                        </th>
+                        <th pSortableColumn="meetingName">
+                            <div class="grid-header-column">
+                                <div class="grid-header-label">
+                                    <p class="grid-label-paragraph"> Meeting Name</p>
+                                </div>
+                                <div class="grid-sort-icon">
+                                    <p-sortIcon field="meetingName"></p-sortIcon>
+                                    <p-columnFilter type="text" field="meetingName" display="menu"></p-columnFilter>
+                                </div>
+                            </div>
+                        </th>
+                        <th pSortableColumn="requestedByUserUserName">
+                            <div class="grid-header-column">
+                                <div class="grid-header-label">
+                                    <p class="grid-label-paragraph">Requested By</p>
+                                </div>
+                                <div class="grid-sort-icon">
+                                    <p-sortIcon field="requestedByUserUserName"></p-sortIcon>
+                                    <p-columnFilter type="text" field="requestedByUserUserName" display="menu"></p-columnFilter>
+                                </div>
+                            </div>
+                        </th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-book>
+                    <tr [pSelectableRow]="book">
+                        <!-- <td style="width:4rem">
+                            <p-tableCheckbox [value]="book"></p-tableCheckbox>
+                        </td> -->
+                        <td style="width:8rem">
+                            <button type="button" pButton class="p-button-primary" (click)="appReserv(book)">
+                                Approve</button>
+                        </td>
+                        <td style="width:8rem">
+                            <button type="button" pButton class="p-button-primary" (click)="rejReserv(book)">
+                                Reject</button>
+                        </td>
+                        <td>{{book.bookingType}}</td>
+                        <td>{{book.reserveId}}</td>
+                        <td>{{book.blDataBlCode}}</td>
+                        <td>{{book.flDataFlCode}}</td>
+                        <td>{{book.rmDataRmCode}}</td>
+                        <td>{{book.dateStart | date :"dd MMM yyyy"}}</td>
+                        <td>{{convertToDisplayTime(book.timeStart) }}</td>
+                        <td>{{convertToDisplayTime(book.timeEnd) }}</td>
+                        <td>{{book.status }}</td>
+                        <td matTooltip="{{book.meetingName}}" matTooltipPosition="below" class="ellipsis">{{book.meetingName}}</td>
+                        <td>{{book.requestedByUserUserName}}</td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="emptymessage" let-columns>
+                    <tr>
+                        <td [attr.colspan]="9">
+                            No records found
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+            <div class="paginator">
+                <p-paginator  [rows]="rowCount" [totalRecords]="totalElements" (onPageChange)="onPageChange($event)" [first]="paginationObj.pageNo * paginationObj.pageSize"
+                  currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true"
+                  [rowsPerPageOptions]="[25,50,100]"></p-paginator>
+            </div>
+        </div>
+    </p-panel>
+</div>
+<p-toast key="approveBookingMsg" position="top-right"></p-toast>
+<p-confirmDialog header="Confirmation" key="approveBookingGrid" icon="pi pi-exclamation-triangle"></p-confirmDialog>
+<p-dialog header="Rejection" [(visible)]="displayRejectScreen" [modal]="true" [style]="{width: '35vw'}"
+    [maximizable]="true" [draggable]="false" [resizable]="false">
+    <form [formGroup]="rejectBook">
+        <table style="margin-top: 10px; width: 80%;">
+            <tr>
+                <td>
+                    <div class="input-label-custom ">
+                        <label class='form-field-lable control-label'>Rejection Reason</label>
+                        <input type="text" class="form-control" name="rejectionReason" formControlName="rejectionReason"
+                            colspa maxlength="256" appTrimInput>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </form>
+    <ng-template pTemplate="caption">
+        <div class="d-flex flex-row">
+            <div style="display: flex; padding-left: 6px;">
+                <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-primary p-button-sm"
+                    [disabled]="!rejectBook.valid" (click)="saveRejectionReason()"></button>
+                <button pButton pRipple label="Cancel" class="p-button-primary p-button-sm" style="margin-left:8px"
+                    (click)="cancelRejectionReason()"></button>
+            </div>
+        </div>
+    </ng-template>
+</p-dialog>
+
+<!-- Update recurring reservation -->
+<p-dialog [(visible)]="displayUpdateScreen" [style]="{width: '30vw'}" [closable]="false" [draggable]="false"
+    [resizable]="false" [modal]="true">
+    <ng-template pTemplate="header">
+        <h3 style="margin-top: 20px !important;">Confirmation</h3>
+    </ng-template>
+    <ng-template pTemplate="body">
+        <form [formGroup]="editDialog">
+            <div style="display: flex; flex-direction:column;">
+                <div class="input-label-custom " style="margin-top: 10px;">
+                    <label class='form-field-lable' style="margin-left: 5px;">Do you want {{action}} all occurrences of
+                        the recurring reservation or just this one ?</label>
+                </div>
+                <div class="input-label-custom " style="margin-top: 10px;">
+                    <p-radioButton name="edit" value="updateOne" formControlName="edit">
+                    </p-radioButton>
+                    <label class='form-field-lable' style="margin-left: 5px;">{{action}} this occurence only.</label>
+                </div>
+                <div class="input-label-custom " style="margin-top: 10px;">
+                    <p-radioButton name="edit" value="updateAll" formControlName="edit">
+                    </p-radioButton>
+                    <label class='form-field-lable' style="margin-left: 5px;">{{action}} this reservation and all future
+                        occurrences.</label>
+                </div>
+            </div>
+        </form>
+    </ng-template>
+    <ng-template pTemplate="footer">
+        <button icon="pi pi-times" pButton (click)="closeUpdateRecurrence()" label="Close"
+            styleClass="p-button-text"></button>
+        <button type="button" pButton icon="pi pi-check" label="Ok" (click)="confirmUpdateResevation()"></button>
+    </ng-template>
+</p-dialog>

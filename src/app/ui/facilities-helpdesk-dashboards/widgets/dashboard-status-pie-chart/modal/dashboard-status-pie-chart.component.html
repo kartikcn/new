@@ -1,0 +1,14 @@
+<!-- <p-chart type="bar" [data]="chartData" [options]="basicOptions"
+    (onDataSelect)="onClickBarChart($event)"></p-chart> -->
+
+<ngx-charts-advanced-pie-chart [results]="pieContent"  [scheme]="customColor"  [view]="view"  (select)="onClickBarChart($event)"></ngx-charts-advanced-pie-chart>
+
+<p-dialog [(visible)]="showDetailsPopUp" [modal]="true" [style]="{width: '66vw','overflow-x':'scroll'}" [maximizable]="true" [draggable]="false"
+    [resizable]="false" styleClass="dark-panel">
+    <ng-template pTemplate="header">
+        <h2 style="margin: 0px;">Request List</h2>
+    </ng-template>
+    <ng-template pTemplate="body">
+        <app-add-table [data]="detailsPopUpData" [isEscalatedData]="viewForEscalation"></app-add-table>
+    </ng-template>
+</p-dialog>

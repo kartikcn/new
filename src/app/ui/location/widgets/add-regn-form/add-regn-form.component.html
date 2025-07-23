@@ -1,0 +1,27 @@
+<form [formGroup]="regnFormPanel">
+  <table width="100%">
+    <tr>
+      <td style="width: 33%">
+        <div class="input-label-custom ">
+          <label class='form-field-lable control-label'>Region Code</label>
+          <input type="text" class="form-control" name="regnCode" formControlName="regnCode" maxlength="32" appTrimInput>
+        </div>
+      </td>
+      <td style="width: 33%">
+        <div class="input-label-custom ">
+          <label class='form-field-lable'>Region Name</label>
+          <input type="text" class="form-control" name="regnName" formControlName="regnName" maxlength="64" appTrimInput>
+        </div>
+      </td>
+      <td style="width: 33%">
+        <div class="input-label-custom">
+          <label class='form-field-lable control-label'>Country Name</label>
+          <ng-select appendTo="body"  [clearable]="false" [items]="enumCntry" formControlName="ctryId"
+                     [searchable]="true" bindLabel="name" bindValue="id" placeholder="Make a selection"
+                     class="ng-select-dropdown" >
+          </ng-select>
+        </div>
+      </td>
+    </tr>
+  </table>
+</form>

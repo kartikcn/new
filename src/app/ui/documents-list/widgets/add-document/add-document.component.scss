@@ -1,0 +1,159 @@
+@import '/src/scss/variables';
+
+.mat-dialog-title-ext {
+  background-color: #879cc9;
+  padding-left: 10px;
+  font-weight: normal;
+  margin-bottom: 0px;
+}
+
+.mat-dialog-content-ext {
+  /*border: thin double #879cc9;*/
+  margin: 0;
+  padding: 10px;
+  background-color: white !important;
+}
+
+.mat-dialog-actions-ext {
+  border-top: none;
+  padding: 3px;
+  min-height: 36px !important;
+  margin-bottom: 5px;
+  /* margin-right: 15px; */
+  background-color: white !important;
+}
+
+.action-buttons {
+  height: 30px;
+  width: 70px;
+}
+
+.margin-left-20 {
+  margin-left: 20px;
+}
+
+.margin-5 {
+  margin: 5px !important;
+}
+
+.mat-card {
+  border-radius: 0px;
+}
+
+.mat-expansion-panel {
+  background-color: $toolbar;
+}
+
+.mat-expansion-panel-header-title {
+  color: white;
+  letter-spacing: 1px;
+}
+
+/* .mat-card {
+    padding: 0px;
+    border: thin double rgb(181, 155, 90);
+  } */
+
+.mat-card-title {
+  color: white;
+  letter-spacing: 1px;
+  font-size: 13px;
+  margin: 0px !important;
+}
+
+.mat-card-header-text {
+  margin: 0px !important;
+}
+
+.mat-card-header {
+  padding: 5px !important;
+  margin-left: -15px;
+}
+
+.mat-card-content {
+  background-color: white !important;
+  /* padding: 5px; */
+}
+
+.mat-expansion-panel-content {
+  background-color: white !important;
+}
+
+.mat-button,
+.mat-flat-button,
+.mat-icon-button,
+.mat-stroked-button {
+  line-height: inherit !important;
+}
+
+.btn-filter {
+  margin-left: 4px;
+  margin-right: 5px;
+  width: 50px;
+  margin-top: 17px;
+}
+
+.btn-ggb-orange {
+  width: 90px !important;
+}
+
+
+.btn-ggb-default-custom {
+  margin: 16px !important
+}
+
+.file-name {
+    font-size: 11px;
+    margin-bottom: 0px;
+    border: 1px solid #c4c2c2;
+    width: max-content;
+    padding: 0px 5px;
+}
+
+.file-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 2.2;
+    border: 0.5px solid #879cc9;
+    border-radius: 5px;
+}
+
+::ng-deep .p-button.p-button-icon-only {
+    width: 2rem;
+    height: 2rem !important;
+    padding: 0.5rem 0;
+    background: transparent !important;
+    border: 0;
+}
+
+.icon-container {
+    width: 10%;
+    border-left: 0.5px solid #879cc9;
+    display: flex;
+    justify-content: center;
+}
+
+.label-container {
+    width: 80%;
+    margin-left: 5px;
+}
+
+::ng-deep .custom-button .pi {
+    font-size: 1.5rem; /* Adjust the font size as per your requirement */
+    color: #2e2d2d;
+  }
+
+::ng-deep .pi:hover {
+    color: #2196F3;
+}
+
+::ng-deep .p-button.p-button-icon-only:hover {
+    color: #2196F3;
+}
+
+::ng-deep .ng-select .ng-arrow-wrapper {
+  margin-left: auto;
+}

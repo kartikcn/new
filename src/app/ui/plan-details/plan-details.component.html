@@ -1,0 +1,78 @@
+<div  style="height: 90vh;">
+    <div style="display: flex;" *ngIf="!useTabletProtrait">
+        <div class="col col-sm-6 col-md-6 col-lg-6">
+            <p-panel header="Plan Details" id="panelDetail">
+                <p-tabView (onChange)="handleChange($event)">
+                    <p-tabPanel header="Plan">
+                        <app-add-edit-plan (parentFun)="setPlanId($event)" [data]="planData"></app-add-edit-plan>
+                    </p-tabPanel>
+                    <p-tabPanel header="Step" [disabled]="!planData.planId">
+                        <app-add-edit-plan-steps (parentFun)="setPlanStepId($event)"></app-add-edit-plan-steps>
+                    </p-tabPanel>
+                    <p-tabPanel header="Documents" [disabled]="planStepId == 0">
+                        <app-documents-list (parentFun)="setDocBucketId($event)"></app-documents-list>
+                    </p-tabPanel>
+                </p-tabView>
+            </p-panel>
+        </div>
+        <div class="col col-sm-6 col-md-6 col-lg-6">
+            <p-panel id="back">
+                <ng-template pTemplate="icons">
+                    <p-button label="Back" icon="pi pi-arrow-circle-left" (click)="clickBack()"
+                        styleClass="p-button-secondary" [style]="{'margin-left': '.5em'}" [hidden]="hideBackButton"></p-button>
+                </ng-template>
+                <p-tabView (onChange)="handleChange($event)" [ngClass]="{ 'readonly-panel': planStepId > 0 ? false : true }">
+                    <p-tabPanel [disabled]="planStepId == 0" header="Trades" #trades>
+                        <app-plan-trade></app-plan-trade>
+                    </p-tabPanel>
+                    <p-tabPanel [disabled]="planStepId == 0" header="Tools" #tools>
+                        <app-plan-tool></app-plan-tool>
+                    </p-tabPanel>
+                    <p-tabPanel [disabled]="planStepId == 0" header="Parts" #parts>
+                        <app-plan-part></app-plan-part>
+                    </p-tabPanel>
+                </p-tabView>
+            </p-panel>
+        </div>
+
+    </div>
+    <div style="display: flex; flex-direction: column;" *ngIf="useTabletProtrait">
+        <div>
+            <p-panel header="Plan Details" id="panelDetail">
+                <ng-template pTemplate="icons">
+                    <p-button label="Back" icon="pi pi-arrow-circle-left" (click)="clickBack()"
+                        styleClass="p-button-secondary" [style]="{'margin-left': '.5em'}" [hidden]="hideBackButton"></p-button>
+                </ng-template>
+                <p-tabView (onChange)="handleChange($event)">
+                    <p-tabPanel header="Plan">
+                        <app-add-edit-plan (parentFun)="setPlanId($event)" [data]="planData"></app-add-edit-plan>
+                    </p-tabPanel>
+                    <p-tabPanel header="Step" [disabled]="!planData.planId">
+                        <app-add-edit-plan-steps (parentFun)="setPlanStepId($event)"></app-add-edit-plan-steps>
+                    </p-tabPanel>
+                    <p-tabPanel header="Documents" [disabled]="planStepId == 0">
+                        <app-documents-list (parentFun)="setDocBucketId($event)"></app-documents-list>
+                    </p-tabPanel>
+                </p-tabView>
+            </p-panel>
+        </div>
+        <div >
+            <p-panel id="back">
+                <p-tabView (onChange)="handleChange($event)" [ngClass]="{ 'readonly-panel': planStepId > 0 ? false : true }">
+                    <p-tabPanel [disabled]="planStepId == 0" header="Trades" #trades>
+                        <app-plan-trade></app-plan-trade>
+                    </p-tabPanel>
+                    <p-tabPanel [disabled]="planStepId == 0" header="Tools" #tools>
+                        <app-plan-tool></app-plan-tool>
+                    </p-tabPanel>
+                    <p-tabPanel [disabled]="planStepId == 0" header="Parts" #parts>
+                        <app-plan-part></app-plan-part>
+                    </p-tabPanel>
+                </p-tabView>
+            </p-panel>
+        </div>
+
+    </div>
+</div>
+
+<p-toast key="planDetails" position="top-right"></p-toast>

@@ -1,0 +1,69 @@
+<h2 mat-dialog-title class="mat-dialog-title-ext">{{title}} Asset</h2>
+<p-tabView [(activeIndex)]="index" (onChange)="handleChange($event)">
+  <p-tabPanel header="Details" #details>
+    <mat-dialog-content class="mat-typography mat-dialog-content-ext">
+      <form [formGroup]="frmEqDetail">
+        <mat-card-content id="equipment">
+          <app-add-eq-form formControlName="eqFormPanel" [isNew]="isNew">
+          </app-add-eq-form>
+        </mat-card-content>
+      </form>
+    </mat-dialog-content>
+  </p-tabPanel>
+  <p-tabPanel header="Location" #location>
+    <mat-dialog-content class="mat-typography mat-dialog-content-ext">
+      <form [formGroup]="frmEqDetail">
+        <mat-card-content id="eqLocationPanel">
+          <app-asset-location formControlName="eqLocationPanel" [isNew]="isNew"></app-asset-location>
+        </mat-card-content>
+      </form>
+    </mat-dialog-content>
+  </p-tabPanel>
+  <p-tabPanel header="Insurance"  #insurance>
+    <mat-dialog-content class="mat-typography mat-dialog-content-ext">
+      <form [formGroup]="frmEqDetail">
+        <mat-card-content id="eqInsurance">
+          <app-asset-insurance formControlName="eqInsurance" [isNew]="isNew"></app-asset-insurance>
+        </mat-card-content>
+      </form>
+    </mat-dialog-content>
+  </p-tabPanel>
+  <p-tabPanel header="Lease"  #lease>
+    <mat-dialog-content class="mat-typography mat-dialog-content-ext">
+      <form [formGroup]="frmEqDetail">
+        <mat-card-content id="eqLease">
+          <app-asset-lease formControlName="eqLease" [isNew]="isNew"></app-asset-lease>
+        </mat-card-content>
+      </form>
+    </mat-dialog-content>
+  </p-tabPanel>
+  <p-tabPanel header="Warranty" #warranty>
+    <mat-dialog-content class="mat-typography mat-dialog-content-ext">
+      <form [formGroup]="frmEqDetail">
+        <mat-card-content id="eqWarranty">
+          <app-asset-warranty formControlName="eqWarranty" [isNew]="isNew"></app-asset-warranty>
+        </mat-card-content>
+      </form>
+    </mat-dialog-content>
+  </p-tabPanel>
+  <p-tabPanel header="Documents" [disabled]="(eqId == 0)" #document>
+    <app-documents-list [docBucketId]="docBucketId"></app-documents-list>
+  </p-tabPanel>
+</p-tabView>
+<mat-dialog-actions align="end" class="mat-dialog-actions-ext">
+  <p-button label="Save" [hidden]="selectedTab == 'Documents'" (click)="saveRecords()" [disabled]="!frmEqDetail.valid"
+    icon="pi pi-check"></p-button>
+  <p-button label="Cancel" icon="pi pi-times" (click)="confirmDialog()" styleClass="p-button-secondary"
+    [style]="{'margin-left': '.5em'}"></p-button>
+</mat-dialog-actions>
+<p-toast key="eqSave" position="top-right"></p-toast>
+<p-toast key="error" position="top-right"></p-toast>
+<p-confirmDialog key="positionDialog" header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>
+
+<p-confirmDialog key="confirmDialog" header="Confirmation" icon="pi pi-exclamation-triangle" #cd
+  [style]="{ width: '25vw' }">
+  <ng-template pTemplate="footer">
+    <button type="button" pButton icon="pi pi-times" label="No" (click)="cd.reject()"></button>
+    <button type="button" pButton icon="pi pi-check" label="Yes" (click)="cd.accept()"></button>
+  </ng-template>
+</p-confirmDialog>

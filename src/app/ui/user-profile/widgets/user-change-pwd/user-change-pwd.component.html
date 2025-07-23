@@ -1,0 +1,70 @@
+<h2 mat-dialog-title class="mat-dialog-title-ext">Change Password</h2>
+<mat-dialog-content class="mat-typography mat-dialog-content-ext">
+        <form [formGroup]="userPasswordPanel">
+                <mat-card>
+                        <mat-card-content id="userPasswordPanel">
+                                <!-- user profile content-->
+                                <table width="100%">
+                                        <!-- <tr>
+                                                <td style="width: 90%">
+                                                        <div class="p-fluid">
+                                                                <div class=" p-field">
+                                                                <label class='form-field-lable'>Enter old password</label>
+                                                                        <p-password formControlName="userPwd" [feedback]="false" [toggleMask]="true"></p-password>
+                                                                </div>
+                                                        </div>
+                                                </td>
+                                                </tr> -->
+                                                <tr>
+                                                <td style="width: 90%">
+                                                        <div class="p-fluid">
+                                                        <div class=" p-field">
+                                                                <label class='form-field-lable'>Enter new password</label>
+                                                                <!-- <input type="text" class="form-control" name="userNewPwd"
+                                                                        formControlName="userNewPwd" > -->
+                                                                <p-password formControlName="userNewPwd" [toggleMask]="true"></p-password>
+
+                                                                </div>
+                                                        </div>
+                                                </td>
+                                        </tr>
+                                        <tr>
+                                                <td style="width: 90%">
+                                                        <div class="p-fluid">
+                                                                <div class=" p-field">
+                                                                <label class='form-field-lable'>Re-enter new password</label>
+                                                                <p-password formControlName="newPasswordConfirm" [feedback]="false" [toggleMask]="true"></p-password>
+
+                                                        </div>
+                                                        </div>
+                                                </td>
+
+                                        </tr>
+                                        <tr *ngIf="(userPasswordPanel.controls['newPasswordConfirm']?.errors && (userPasswordPanel.controls['newPasswordConfirm']?.dirty || userPasswordPanel.controls['newPasswordConfirm']?.touched))">
+                                                <td style="width: 50%">
+                                                        <label *ngIf="userPasswordPanel.controls['newPasswordConfirm']?.errors && !userPasswordPanel.controls['newPasswordConfirm']?.errors.required"
+                                                                class='form-field-lable' style="color:red;">
+                                                        passwords that you enter is inconsistent!
+                                                        </label>
+                                                </td>
+                                        
+                                                <td style="width:calc(100% / 2)">
+                                                </td>
+                                        </tr>
+                                </table>
+
+                        </mat-card-content>
+                </mat-card>
+
+
+
+        </form>
+
+</mat-dialog-content>
+<mat-dialog-actions align="end" class="mat-dialog-actions-ext">
+        <p-button label="Save" icon="pi pi-check" class="mr5" (click)="onSave()" [disabled]="!userPasswordPanel.valid" styleClass="p-button-primary"></p-button>
+        <p-button label="Cancel" icon="pi pi-times" (click)="confirmDialog()" styleClass="p-button-secondary"
+                [style]="{'margin-left': '.5em'}"></p-button>
+</mat-dialog-actions>
+
+<p-toast key="message"></p-toast>

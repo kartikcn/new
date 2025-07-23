@@ -1,0 +1,76 @@
+@import '/src/scss/variables';
+:host ::ng-deep.ngx-charts-outer{
+    -webkit-animation:chartFadeIn linear 0 !important;
+    animation:chartFadeIn linear 0 !important;
+}
+
+:host ::ng-deep #preview .p-dialog .p-dialog-header {
+    padding: 0.7rem !important;
+}
+    
+:host ::ng-deep #preview .p-dialog .p-dialog-content {
+   padding:0.25rem !important;
+}
+
+:host ::ng-deep .dark-panel.p-dialog .p-dialog-header{
+    border :5px !important;
+}
+
+:host ::ng-deep .p-dialog-mask{
+    z-index:1000 !important;
+}
+
+:host ::ng-deep .pi-chevron-down:before {
+    content: "\2212" !important;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #0d89ec;
+  }
+  
+  :host ::ng-deep .pi-chevron-right:before {
+    content: "\002B" !important;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #0d89ec;
+  }
+
+  :host ::ng-deep .p-datatable .p-datatable-tbody > tr{
+    background: none !important;
+  }
+
+  :host ::ng-deep .p-datatable .p-datatable-tbody > tr.p-highlight{
+    background: none !important;
+  }
+
+  .selectionmessagetext{
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    font-size: 1.3rem;
+    font-weight: normal;
+  }
+
+  .division-select-container{
+    width:28%;
+    height:100%;
+  }
+
+  .pie-chart-container{
+    width:70%;
+    height:100%;
+  }
+
+  @media screen and (min-width: $tabletPotraitMinWidth) and (max-width:$tabletPotraitMaxWidth ) {
+    .division-select-container{
+      width:35%;
+    }
+    .pie-chart-container{
+      width:64%;
+    }
+    .selectionmessagetext{
+      font-size: 1.1rem;
+    }
+  }
+  .accordion{
+    height:550px;
+    display: block; 
+    overflow-y:scroll;
+  }

@@ -1,0 +1,64 @@
+.card{
+    overflow: auto;
+    height:600px;
+    min-height: 400px;
+    padding:10px;
+}
+.upload-box{
+    display: flex;
+}
+
+.upload-btn{
+    margin-left: 10px;
+}
+.upload-input{
+    width:77vw;
+}
+
+#svg-container{
+    border: 2px solid #879cc9;
+    margin-top:5px;
+    width: 100%;
+    height:100%;
+    overflow: hidden;
+}
+
+.svg-content {
+    display: inline-block;
+    position: absolute; 
+}
+
+.form-field-lable {
+    font-size: 11px;
+    margin-bottom: 0px;
+    font-weight: 500;
+  }
+
+:host ::ng-deep .p-dialog-header {
+    background-color: #879cc9;
+    color: black;
+    padding-left: 10px;
+    font-weight: normal;
+    margin-bottom: 0px;
+    height: 10px !important;
+}
+
+.input-container{
+    display: flex;
+   
+    align-items: center;
+}
+
+.ng-select-dropdown{
+    width:60%;
+    margin-left:10px;
+}
+.svg-details-text{
+    margin:5px 0 5px 20px;
+    font-size: 13px;
+}
+
+.svg-element-text{
+    font-size: 13px;
+    font-weight: 450;
+}

@@ -1,0 +1,87 @@
+<h2 mat-dialog-title class="mat-dialog-title-ext">Add Step</h2>
+<mat-dialog-content class="mat-typography mat-dialog-content-ext">
+    <mat-card>
+        <mat-card-content id="addSlaSteps">
+            <form [formGroup]="slaStepsForm">
+                <div class="row">
+                    <div class="col-5" style="border: 1px solid #cccdef">
+                        <table  width="100%;" style="margin-top: 8px;">
+                            <tr>
+                                <td width="50%">
+                                    <div class="input-label-custom ">
+                                        <label class='form-field-lable control-label'>Step Type</label>
+                                        <ng-select appendTo="body" [clearable]="false" [items]="stepTypeData"
+                                            formControlName="stepType" [searchable]="true" bindLabel="enumValue"
+                                            bindValue="enumKey" placeholder="Make a selection" class="ng-select-dropdown"
+                                            (change)="selectStepType($event)">
+                                        </ng-select>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="50%" style="display: flex; align-items: center;">
+                                    <div class="input-label-custom">
+                                        <label class='form-field-lable'>Notify Responsable</label>
+                                        <p-selectButton [options]="enumNotifyResponsable"
+                                            formControlName="notifyResponsable" optionLabel="enumValue" optionValue="enumKey"
+                                            (onChange)="changeNotifyResponsible($event)" [disabled]="makeReadOnly"></p-selectButton>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="col-7" style="border: 1px solid #cccdef; position: relative;">
+                        <span class="border-text">Responsible</span>
+                        <table width="100%" style="margin-top: 8px;">
+                            <tr>
+                                <td width="50%">
+                                    <div class="input-label-custom ">
+                                        <label class='form-field-lable'>Team</label>
+                                        <ng-select appendTo="body" [clearable]="false" [items]="teamsData"
+                                            formControlName="teamId" [searchable]="true" bindLabel="teamCode"
+                                            bindValue="teamId" placeholder="Make a selection" class="ng-select-dropdown"
+                                            (change)="changeTeam($event)">
+                                        </ng-select>
+                                    </div>
+                                </td>
+                                <td width="50%">
+                                    <div class="input-label-custom ">
+                                        <label class='form-field-lable'>Employee</label>
+                                        <ng-select appendTo="body" [clearable]="false" [items]="emData"
+                                            formControlName="emId" [searchable]="true" bindLabel="firstName"
+                                            bindValue="emId" placeholder="Make a selection" class="ng-select-dropdown"
+                                            (change)="changeEmployee($event)" (scrollToEnd)="scrollToEndEm()" (search)="searchEm($event)">
+                                        </ng-select>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>    
+                                <td width="50%">
+                                    <div class="input-label-custom ">
+                                        <label class='form-field-lable'>Technician</label>
+                                        <ng-select appendTo="body" [clearable]="false" [items]="techniciansData"
+                                            formControlName="cfId" [searchable]="true" bindLabel="name" bindValue="cfId"
+                                            placeholder="Make a selection" class="ng-select-dropdown"
+                                            (change)="changeTechnician($event)" [readonly]="hideTechnician">
+                                        </ng-select>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+
+                    </div>
+                </div>
+
+            </form>
+        </mat-card-content>
+
+    </mat-card>
+
+</mat-dialog-content>
+<mat-dialog-actions align="end" class="mat-dialog-actions-ext">
+    <p-button label="Save" [disabled]='!slaStepsForm.valid' (click)="save()" class="pull-right"></p-button>
+    <button pButton pRipple label="Cancel" class="button-primary button-sm" style="margin-left:8px"
+        (click)="cancel()"></button>
+</mat-dialog-actions>
+<p-confirmDialog key="positionDialog" header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>
+<p-toast key="SLASteps" position="top-right"></p-toast>

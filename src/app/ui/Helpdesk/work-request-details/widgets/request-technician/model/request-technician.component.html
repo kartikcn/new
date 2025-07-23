@@ -1,0 +1,113 @@
+<p-panel header="Technician Details">
+    <ng-template pTemplate="icons">
+        <button pButton label="Add" (click)="onAdd()" icon="pi pi-plus" [disabled]="!isSupervisor || isReadOnly"></button>
+    </ng-template>
+    <div class="card">
+        <p-table [paginator]="true" [value]="reqtechniData" [rows]="rowCount" [showCurrentPageReport]="true"
+            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [scrollable]="true"
+            scrollDirection="both" scrollHeight="500px" [rowsPerPageOptions]="[5,10,25]"
+            [globalFilterFields]="['','partCode','description']"
+            styleClass="p-datatable-responsive-demo p-datatable-gridlines" [rowHover]="false">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th style="width:8rem"> </th>
+                    <th pSortableColumn="technicianName">
+                        <div class="grid-header-column">
+                            <div class="grid-header-label">
+                                <p class="grid-label-paragraph">Technician Name</p>
+                            </div>
+                            <div class="grid-sort-icon">
+                                <p-sortIcon field="technicianName"></p-sortIcon>
+                                <p-columnFilter matchMode="contains" type="text" field="technicianName"
+                                    display="menu"></p-columnFilter>
+                            </div>
+                        </div>
+                    </th>
+                    <!-- <th pSortableColumn="actualHoursStd">
+                        Actual Standard Hours<p-sortIcon field="actualHoursStd"></p-sortIcon>
+                        <p-columnFilter type="text" field="actualHoursStd" display="menu"></p-columnFilter>
+                    </th>
+                    <th pSortableColumn="actualHoursDouble">
+                        Actual Double time Hours<p-sortIcon field="actualHoursDouble"></p-sortIcon>
+                        <p-columnFilter type="text" field="actualHoursDouble" display="menu"></p-columnFilter>
+                    </th>
+                    <th pSortableColumn="actualHoursOvertime">
+                        Actual Overtime Hours<p-sortIcon field="actualHoursOvertime"></p-sortIcon>
+                        <p-columnFilter type="text" field="actualHoursOvertime" display="menu"></p-columnFilter>
+                    </th> -->
+                    <th pSortableColumn="hoursRequired">
+                        <div class="grid-header-column">
+                            <div class="grid-header-label">
+                                <p class="grid-label-paragraph">Required Hours</p>
+                            </div>
+                            <div class="grid-sort-icon">
+                                <p-sortIcon field="hoursRequired"></p-sortIcon>
+                                <p-columnFilter matchMode="contains" type="text" field="hoursRequired"
+                                    display="menu"></p-columnFilter>
+                            </div>
+                        </div>
+                    </th>
+                    <th pSortableColumn="formatedDateAssign">
+                        <div class="grid-header-column">
+                            <div class="grid-header-label">
+                                <p class="grid-label-paragraph">Scheduled Date</p>
+                            </div>
+                            <div class="grid-sort-icon">
+                                <p-sortIcon field="formatedDateAssign"></p-sortIcon>
+                                <p-columnFilter matchMode="contains" type="text" field="formatedDateAssign"
+                                    display="menu"></p-columnFilter>
+                            </div>
+                        </div>
+                    </th>
+                    <th pSortableColumn="timeAssign">
+                        <div class="grid-header-column">
+                            <div class="grid-header-label">
+                                <p class="grid-label-paragraph">Scheduled Time</p>
+                            </div>
+                            <div class="grid-sort-icon">
+                                <p-sortIcon field="timeAssign"></p-sortIcon>
+                                <p-columnFilter matchMode="contains" type="text" field="timeAssign"
+                                    display="menu"></p-columnFilter>
+                            </div>
+                        </div>
+                    </th>
+                   </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-requestTechnician>
+                <tr [pSelectableRow]="requestTechnician">
+                    <td style="width:8rem">
+                        <button *ngIf="!isReadOnly" pButton pRipple icon="pi pi-pencil"
+                            (click)="onEdit(requestTechnician.requestTechnicianId)" type="button" class="p-button-text"
+                            [disabled]="!isSupervisor">
+                        </button>
+                        <button *ngIf="isReadOnly" pButton pRipple icon="pi pi-eye"
+                        (click)="onView(requestTechnician.requestTechnicianId)" type="button" class="p-button-text"
+                        >
+                    </button>
+                        <button pButton pRipple icon="pi pi-times" type="button"
+                            (click)="onDelete(requestTechnician.requestTechnicianId)" class="p-button-text pull-right"
+                            style="font-size: 5rem; color: red;" [disabled]="!isSupervisor  || isReadOnly">
+                        </button>
+                    </td>
+                    <td>{{requestTechnician.technicianName}}</td>
+                    <!-- <td>{{requestTechnician.actualHoursStd}}</td>
+                    <td>{{requestTechnician.actualHoursDouble}}</td>
+                    <td>{{requestTechnician.actualHoursOvertime}}</td> -->
+                    <td>{{requestTechnician.hoursRequired}}</td>
+                    <td>{{requestTechnician.dateAssign | date :"dd MMM yyyy"}}</td> 
+                    <td>{{convertToDisplayTime(requestTechnician.timeAssign)}}</td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage" let-columns>
+                <tr>
+                    <td [attr.colspan]="5" style="text-align: center;">
+                        No records found
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+</p-panel>
+<p-toast key="requestTechnicianSave" position="top-right"></p-toast>
+<p-toast key="requestTechnicianwarning" position="top-center"></p-toast>
+<p-confirmDialog key="requestTechniciangrid" header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>

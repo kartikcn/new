@@ -1,0 +1,68 @@
+<p-panel>
+    <ng-template pTemplate="header">
+        <label class='form-field-lable'>Plan Tool Details</label>
+    </ng-template>
+    <ng-template pTemplate="icons">
+        <button pButton (click)="onAdd()" label="Add" icon="pi pi-plus">
+        </button>
+    </ng-template>
+    <p-table #dt1 [value]=" planToolsData" [paginator]="true" [rows]="rowCount" [showCurrentPageReport]="true"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+        [rowsPerPageOptions]="[5,10,25]" styleClass="p-datatable-responsive-demo p-datatable-gridlines"
+        [rowHover]="false" [scrollable]="true" scrollDirection="both" scrollHeight="350px"
+        selectionMode="single" >
+        <ng-template pTemplate="header">
+            <tr>
+                <th style="width:8rem"> </th>
+                <th pSortableColumn="tool.tool">
+                    <div class="grid-header-column">
+                        <div class="grid-header-label">
+                            <p class="grid-label-paragraph">Tool Code</p>
+                        </div>
+                        <div class="grid-sort-icon">
+                            <p-sortIcon field="tool.tool"></p-sortIcon>
+                            <p-columnFilter type="text" field="tool.tool" display="menu"></p-columnFilter>
+                        </div>
+                    </div>
+                </th>
+                <th pSortableColumn="hoursRequired">
+                    <div class="grid-header-column">
+                        <div class="grid-header-label">
+                            <p class="grid-label-paragraph">Hours Required</p>
+                        </div>
+                        <div class="grid-sort-icon">
+                            <p-sortIcon field="hoursRequired"></p-sortIcon>
+                            <p-columnFilter type="text" field="hoursRequired"
+                                display="menu"></p-columnFilter>
+                        </div>
+                    </div>
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-planTool>
+            <tr [pSelectableRow]="planTool">
+                <td style="width:8rem">
+                    <button pButton pRipple icon="pi pi-pencil" type="button"
+                        (click)="openEditItem( planTool.planToolId)" class="p-button-text">
+                    </button>
+                    <button pButton pRipple icon="pi pi-times" type="button"
+                        (click)="onDelete( planTool.planToolId)" class="p-button-text pull-right"
+                        style="font-size: 5rem; color: red;">
+                    </button>
+                </td>
+                <td>{{planTool.tool.tool}}</td>
+                <td>{{planTool.hoursRequired}}</td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage" let-columns>
+            <tr>
+                <td [attr.colspan]="5">
+                    No records found
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</p-panel>
+<p-toast key="planToolSave" position="top-right"></p-toast>
+<p-toast key="planToolDelete" position="top-center"></p-toast>
+<p-confirmDialog key="planToolGrid" header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>

@@ -1,0 +1,28 @@
+<form [formGroup]="sgFormPanel">
+    <table width="100%">
+        <tr>
+            <td style="width: 25%">
+                <div class="input-label-custom ">
+                    <label class='form-field-lable control-label'>Group Name</label>
+                    <input type="text" [readonly]="!isNew" class="form-control" name="groupName" formControlName="groupName" maxlength="32"
+                        appTrimInput>
+                </div>
+            </td>
+        </tr>
+        <tr *ngIf="(sgFormPanel.controls['groupName']?.errors && (sgFormPanel.controls['groupName']?.dirty || sgFormPanel.controls['groupName']?.touched))">
+            <td style="width:25%">
+                <label *ngIf="sgFormPanel.controls['groupName']?.errors.required" class='form-field-lable'
+                    style="color:red;">Group name required</label>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 25%">
+                <div class="input-label-custom ">
+                    <label class='form-field-lable'>Description</label>
+                    <textarea class="form-control note-border" name="description" formControlName="description" rows="3" maxlength="128"
+                        appTrimInput></textarea>
+                </div>
+            </td>
+        </tr>
+    </table>
+</form>

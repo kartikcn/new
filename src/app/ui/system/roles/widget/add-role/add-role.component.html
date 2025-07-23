@@ -1,0 +1,45 @@
+<form [formGroup]="roleFormPanel">
+        <p-panel header="{{role_title}}">
+                <ng-template pTemplate="icons">
+                        <button pButton (click)="onSaveRecord()"  label="Save" [disabled]="!roleFormPanel.valid"></button>
+                        <button pButton class="ml10" label="Cancel" (click)="onCancel()"></button>
+                </ng-template>
+                <table width="100%">
+                        <tr>
+                                <td style="width: 50%">
+                                        <div class="input-label-custom ">
+                                                <label class='form-field-lable control-label'>Role Name</label>
+                                                <input type="text" class="form-control" uppercase name="roleName"
+                                                        formControlName="roleName" maxlength="64" [readonly]="isNew == false ? true : null" appTrimInput>
+                                        </div>
+                                </td>
+                                <td style="width: 50%">
+                                </td>
+                        </tr>
+                        <tr
+                                *ngIf="(roleFormPanel.controls['roleName']?.errors && (roleFormPanel.controls['roleName']?.dirty || roleFormPanel.controls['roleName']?.touched))">
+                                <td style="width: 50%">
+                                        <label *ngIf="roleFormPanel.controls['roleName']?.errors.required"
+                                                class='form-field-lable' style="color:red;">Role name required</label>
+                                </td>
+                        
+                                <td style="width:calc(100% / 2)">
+                                </td>
+                        </tr>
+                        <tr>
+                                <td style="width: 50%" colspan="2">
+                                        <div class="input-label-custom ">
+                                                <label class='form-field-lable'>Role Title</label>
+                                                <textarea class="form-control" rows="2" cols="2" name="roleTitle"
+                                                        formControlName="roleTitle" nz-input maxlength="128" appTrimInput></textarea>
+                                        </div>
+                                        <!-- <span>{{128 - roleFormPanel.controls['roleTitle'].value.length}} left</span> -->
+
+                                </td>
+                                <td style="width: 50%">
+                                </td>
+                        </tr>
+                </table>
+        </p-panel>
+</form>
+<p-toast></p-toast>

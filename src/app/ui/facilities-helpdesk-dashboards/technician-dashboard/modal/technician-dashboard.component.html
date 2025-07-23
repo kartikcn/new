@@ -1,0 +1,30 @@
+<div class="card">
+    <div class="row">
+        <div class="col-md-6 col-lg-6">
+            <!-- Content for the first quarter -->
+            <p-card [header]="'Requests By Status'">
+                <app-dashboard-status-pie-chart></app-dashboard-status-pie-chart>
+            </p-card>
+        </div>
+        <div class="col-md-6 col-lg-6">
+            <!-- Content for the second quarter -->
+            <p-card [header]="'My Requests'">
+                <app-dashboard-my-requests-grid></app-dashboard-my-requests-grid>
+            </p-card>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 col-lg-6">
+            <!-- Content for the third quarter -->
+            <p-card [header]="'Complete By'">
+                <app-complete-by-alert></app-complete-by-alert>
+            </p-card>
+        </div>
+        <div class="col-md-6 col-lg-6">
+            <!-- Content for the fourth quarter -->
+            <p-card [header]="'Escalation Alert'">
+                <app-escalation-alerts-grid></app-escalation-alerts-grid>
+            </p-card>
+        </div>
+    </div>
+</div>

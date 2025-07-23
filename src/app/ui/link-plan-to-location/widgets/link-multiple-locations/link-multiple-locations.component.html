@@ -1,0 +1,142 @@
+<p-panel header="Search Location(s)">
+    <div class="card">
+        <form [formGroup]="filterPanel">
+            <table width="100%">
+                <tr>
+                    <td style="width: 25%">
+                        <div class="input-label-custom ">
+                            <label class='form-field-lable'>Building</label>
+                            <ng-select appendTo="body" [clearable]="false" [items]="enumBL" formControlName="blId" [searchable]="true"
+                                bindLabel="blNameString" bindValue="blId" (change)="onSelectBlCode($event)" placeholder="Make a selection"
+                                class="ng-select-dropdown" (scrollToEnd)="scrollToEndBl()" (search)="searchBl($event)" (open)="onOpenBl()">
+                            </ng-select>
+                        </div>
+                    </td>
+                    <td style="width: 25%">
+                        <div class="input-label-custom ">
+                            <label class='form-field-lable'>Floor</label>
+                            <ng-select appendTo="body" [clearable]="false" [items]="enumFL" formControlName="flId" [searchable]="true"
+                                bindLabel="flNameString" bindValue="flId" placeholder="Make a selection" class="ng-select-dropdown"
+                                (change)="onSelectFlCode($event)" (scrollToEnd)="scrollToEndFl()" (search)="searchFl($event)"
+                                (open)="onOpenFl()">
+                            </ng-select>
+                        </div>
+                    </td>
+                    <td style="width: 25%">
+                        <div class="input-label-custom ">
+                            <label class='form-field-lable'>Room</label>
+                            <ng-select appendTo="body" [clearable]="false" [items]="enumRm" formControlName="rmId" [searchable]="true"
+                                bindLabel="rmNameString" bindValue="rmId" (change)="onSelectRmCode($event)" placeholder="Make a selection"
+                                class="ng-select-dropdown" (scrollToEnd)="scrollToEndRm()" (search)="searchRm($event)" (open)="onOpenRm()">
+                            </ng-select>
+                        </div>
+                    </td>
+                    <td style="width: 25%">
+                        <div style="display: flex; justify-content: end; margin-top: 15px;">
+                            <p-button (click)="onSearch()" label="Search" [disabled]="!filterPanel.valid"
+                                class="p-button-primary p-button-sm pull right"
+                                styleClass="p-button-primary"></p-button>
+                            <p-button (click)="onClear()" label="Clear"
+                                [style]="{'margin-left': '.5em','margin-right' : '1em'}"
+                                class="p-button-primary p-button-sm " styleClass="p-button-primary"></p-button>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </form>
+        <div class="check-boxes-container">
+            <div class="check-box-container">
+                <div class="type-title">
+                    <p>Building</p>
+                </div>
+                <p-checkbox name="blCheckBox" [(ngModel)]="blCheckBox" id="blCheckBox" binary="true"
+                    class="p-checkbox-disabled"></p-checkbox>
+            </div>
+            <div class="check-box-container" style="margin-left: 15px;">
+                <div class="type-title">
+                    <p>Floor</p>
+                </div>
+                <p-checkbox name="floorCheckBox" [(ngModel)]="floorCheckBox" binary="true" id="floorCheckBox"
+                    (onChange)="updateSelecteType('fl')"></p-checkbox>
+            </div>
+            <div class="check-box-container" style="margin-left: 15px;">
+                <div class="type-title">
+                    <p>Room</p>
+                </div>
+                <p-checkbox name="roomCheckBox" [(ngModel)]="roomCheckBox" binary="true" id="roomCheckBox"
+                    (onChange)="updateSelecteType('rm')"></p-checkbox>
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <p-table #dt1 [value]="selectedData" [paginator]="true" [rows]="rowCount" [showCurrentPageReport]="true"
+            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+            [rowsPerPageOptions]="[5,10,25]" styleClass="p-datatable-responsive-demo p-datatable-gridlines"
+            [rowHover]="false" [scrollable]="true" scrollDirection="both" scrollHeight="380px"
+            [(selection)]="selectedScreens">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th style="width: 4rem">
+                        <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                    </th>
+                    <th pSortableColumn="blId" *ngIf="blCheckBox">
+                        <div class="grid-header-column">
+                            <div class="grid-header-label">
+                                <p class="grid-label-paragraph">Building</p>
+                            </div>
+                            <div class="grid-sort-icon">
+                                <p-sortIcon field="blId"></p-sortIcon>
+                                <p-columnFilter type="text" field="blId" display="menu"></p-columnFilter>
+                            </div>
+                        </div>
+                    </th>
+                    <th pSortableColumn="flId" *ngIf="floorCheckBox">
+                        <div class="grid-header-column">
+                            <div class="grid-header-label">
+                                <p class="grid-label-paragraph">Floor</p>
+                            </div>
+                            <div class="grid-sort-icon">
+                                <p-sortIcon field="flId"></p-sortIcon>
+                                <p-columnFilter type="text" field="flId" display="menu"></p-columnFilter>
+                            </div>
+                        </div>
+                    </th>
+                    <th pSortableColumn="rmId" *ngIf="roomCheckBox">
+                        <div class="grid-header-column">
+                            <div class="grid-header-label">
+                                <p class="grid-label-paragraph">Room </p>
+                            </div>
+                            <div class="grid-sort-icon">
+                                <p-sortIcon field="rmId"></p-sortIcon>
+                                <p-columnFilter type="text" field="rmId" display="menu"></p-columnFilter>
+                            </div>
+                        </div>
+                    </th>
+            </ng-template>
+            <ng-template pTemplate="body" let-rm>
+                <tr [pSelectableRow]="rm">
+                    <td style="width: 4rem">
+                        <p-tableCheckbox [value]="rm"></p-tableCheckbox>
+                    </td>
+                    <td *ngIf="blCheckBox">{{rm.blNameString}}</td>
+                    <td *ngIf="floorCheckBox">{{rm.flNameString}}</td>
+                    <td *ngIf="roomCheckBox">{{rm.rmNameString}}</td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage" let-columns>
+                <tr>
+                    <td [attr.colspan]="4">
+                        No records found
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+    <div style="display: flex; justify-content: end; margin-top: 10px;">
+        <p-button label="Link" (click)="Link()" styleClass="p-button-primary" class="pull-right"
+            [disabled]="selectedScreens.length == 0"></p-button>
+        <p-button label="Cancel" (click)="confirmDialog()" styleClass="p-button-secondary"
+            [style]="{'margin-left': '.5em'}" class="pull-right"></p-button>
+    </div>
+</p-panel>
+<p-confirmDialog key="multipleLocation" header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>

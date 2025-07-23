@@ -1,0 +1,28 @@
+<form [formGroup]="eqWarranty">
+    <table width="50%">
+        <tr>
+            <td style="width: 50%">
+                <div class="input-label-custom" style="width: 90%;">
+                    <div class="p-fluid">
+                        <div class="p-field">
+                            <label class='form-field-lable'>Warranty From Date</label>
+                            <p-calendar appendTo="body" dateFormat="dd M yy" name="warrantyFromDate"
+                                formControlName="warrantyFromDate" [showIcon]="false" inputId="icon"></p-calendar>
+                        </div>
+                    </div>
+                </div>
+            </td>
+            <td style="width: 50%">
+                <div class="input-label-custom" style="width: 90%;">
+                    <div class="p-fluid">
+                        <div class="p-field">
+                            <label class='form-field-lable'>Warranty To Date</label>
+                            <p-calendar appendTo="body" dateFormat="dd M yy" name="warrantyToDate"
+                                formControlName="warrantyToDate" [showIcon]="false" inputId="icon"></p-calendar>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </table>
+</form>

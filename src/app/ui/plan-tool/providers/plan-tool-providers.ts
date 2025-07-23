@@ -1,0 +1,31 @@
+import { Injectable } from '@angular/core';
+import { Subject } from 'rxjs';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { AddEditPlanToolComponent } from '../widgets/add-edit-plan-tool/add-edit-plan-tool.component';
+
+@Injectable({
+        providedIn: 'root' // just before your class
+})
+export class PlanToolModalDialogueProvider {
+        public isDialogOpen: Boolean = false;
+
+        onDialogueClosed: Subject<any> = new Subject<any>();
+
+        constructor(public dialog: MatDialog) { }
+
+        openDialog(matDialogConfig: MatDialogConfig): any {
+                if (this.isDialogOpen) {
+                        return false;
+                }
+                this.isDialogOpen = true;
+
+                const dialogRef = this.dialog.open(AddEditPlanToolComponent, matDialogConfig);
+
+                dialogRef.afterClosed().subscribe(result => {
+                        this.onDialogueClosed.next(result);
+
+                        this.isDialogOpen = false;
+                });
+        }
+
+}

@@ -1,0 +1,37 @@
+<form [formGroup]="planStepFormPanel">
+    <table width="100%">
+        <tr>
+            <td>
+                <div class="input-label-custom ">
+                    <label class='form-field-lable control-label'>Plan Name</label>
+                    <ng-select appendTo="body" [clearable]="false" [items]="planList" formControlName="planId"
+                        [searchable]="true" bindLabel="planName" bindValue="planId" placeholder="Make a selection"
+                        class="ng-select-dropdown"  readonly="true">
+                    </ng-select>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="input-label-custom ">
+                    <label class='form-field-lable control-label'>Step Code</label>
+                    <input type="text" class="form-control" name="stepCode" formControlName="stepCode" maxlength="16" appTrimInput>
+                </div>
+            </td>
+        </tr>
+        <tr *ngIf="errorMsg.length > 0">
+            <td>
+                <label class='form-field-lable' style="color: red;">{{errorMsg}}</label>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="input-label-custom ">
+                    <label class='form-field-lable'>Instructions</label>
+                    <textarea class="form-control note-border" name="instructions" rows="6" nz-input maxlength="4000"
+                            formControlName="instructions" appTrimInput></textarea>
+                </div>
+            </td>
+        </tr>
+    </table>
+</form>

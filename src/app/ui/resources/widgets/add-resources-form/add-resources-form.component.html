@@ -1,0 +1,74 @@
+<form [formGroup]="resourcesFormPanel">
+  <table width="100%">
+    <tr>
+      <td style="width: 25%">
+        <div class="input-label-custom ">
+          <label class='form-field-lable control-label'>Resource Title</label>
+          <input type="text" class="form-control" name="title" formControlName="title" maxlength="64" appTrimInput>
+        </div>
+      </td>
+      <td style="width: 25%">
+        <div class="input-label-custom ">
+          <label class='form-field-lable'>Description</label>
+          <input type="text" class="form-control" name="description" formControlName="description" maxlength="256" appTrimInput>
+        </div>
+      </td>
+      <td style="width: 25%">
+        <div class="input-label-custom">
+          <div class="p-fluid">
+            <div class="p-field">
+              <label class='form-field-lable control-label'>Type</label>
+              <ng-select appendTo="body" [clearable]="false" [items]="enummTypeData" formControlName="type"
+                [searchable]="true" bindLabel="enumValue" bindValue="enumKey" class="ng-select-dropdown">
+              </ng-select>
+            </div>
+          </div>
+        </div>
+      </td>
+    </tr>
+    <tr *ngIf="(resourcesFormPanel.controls['title']?.errors && resourcesFormPanel.controls['title'].dirty)">
+
+      <td style="width:25%">
+        <label *ngIf="!resourcesFormPanel.controls['title']?.errors.required" class='form-field-lable'
+          style="color:red;">Resource already exists </label>
+
+      </td>
+    <tr>
+    <tr>
+      <td style="width: 25%">
+        <div class="input-label-custom ">
+          <label class='form-field-lable control-label'> Quantity</label>
+          <input type="text" NumbersOnly class="form-control" name="quanity" formControlName="quanity" maxlength="9" appTrimInput>
+        </div>
+      </td>
+      <td style="width: 25%">
+        <div class="input-label-custom ">
+          <label class='form-field-lable control-label'> Cost Per unit</label>
+          <input type="text" NumbersOnly class="form-control" name="costPerUnit" (change)="setCostPerUnitCurrenyFormat()"
+            formControlName="costPerUnit" appTrimInput>
+        </div>
+      </td>
+      <td style="width: 25%">
+        <div class="input-label-custom">
+          <div class="p-fluid">
+            <div class="p-field">
+              <label class='form-field-lable control-label'>Is Reusable</label>
+              <ng-select appendTo="body" [clearable]="false" [items]="enumIsReusable" formControlName="isReusable"
+                [searchable]="true" bindLabel="enumValue" bindValue="enumKey" class="ng-select-dropdown">
+              </ng-select>
+            </div>
+          </div>
+        </div>
+      </td>
+    </tr>
+    <tr *ngIf="(resourcesFormPanel.controls['quanity']?.errors && resourcesFormPanel.controls['quanity'].dirty)">
+
+      <td style="width:25%">
+        <label *ngIf="!resourcesFormPanel.controls['quanity']?.errors.required" class='form-field-lable'
+          style="color:red;">Quantity can not be less than one</label>
+
+      </td>
+    <tr>
+    
+  </table>
+</form>

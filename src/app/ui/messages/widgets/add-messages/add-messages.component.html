@@ -1,0 +1,42 @@
+<form [formGroup]="messagesFormPanel">
+        <table width="100%">
+                <tr>
+                        <td style="width: 100%">
+                                <div class="input-label-custom ">
+                                        <label class='form-field-lable control-label'>Process Code</label>
+                                        <ng-select appendTo="body" [clearable]="false" formControlName="processId"
+                                                [items]="processList" [searchable]="true" bindLabel="processCode"
+                                                bindValue="processId" placeholder="Make a selection"
+                                                class="ng-select-dropdown">
+                                        </ng-select>
+                                </div>
+                        </td>
+                </tr>
+                <tr>
+                        <td style="width: 100%">
+                                <div class="input-label-custom">
+                                        <label class='form-field-lable control-label'>Message Code</label>
+                                        <input type="text" class="form-control" [readonly]="!isNew" name="msgCode" formControlName="msgCode"
+                                                maxlength="128" appTrimInput>
+                                </div>
+                        </td>
+                </tr>
+                <!-- <tr
+            *ngIf="(messagesFormPanel.controls['msgId']?.errors && (messagesFormPanel.controls['msgId']?.dirty || messagesFormPanel.controls['msgId']?.touched))">
+            <td style="width: 100%">
+                    <label *ngIf="messagesFormPanel.controls['msgId']?.errors && !messagesFormPanel.controls['msgId']?.errors.required"
+                            class='form-field-lable' style="color:red;">Message Id  already
+                            exists.</label>
+            </td>
+            </tr> -->
+                <tr>
+                        <td style="width: 100%" colspan="2">
+                                <div class="input-label-custom ">
+                                        <label class='form-field-lable control-label'>Message Text</label>
+                                        <textarea class="form-control note-border" name="msgText"
+                                                formControlName="msgText" rows="2" nz-input maxlength="4000" appTrimInput></textarea>
+                                </div>
+                        </td>
+                </tr>
+        </table>
+</form>

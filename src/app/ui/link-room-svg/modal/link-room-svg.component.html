@@ -1,0 +1,101 @@
+<p-panel header="Link Room with SVG">
+    <div class="card">
+        <div class="upload-box">
+            <div class="input-group">
+                <label class="input-group-btn" style="margin-right:10px;">
+                    <span class="btn btn-primary">
+                        Select file <input type="file" style="display: none;" multiple class="upload-input"
+                            (change)="onChange($event)" accept=".svg" id="svgUpload">
+                    </span>
+                </label>
+                <input type="text" class="form-control" readonly [value]="fileName">
+            </div>
+            <button class="btn btn-primary" (click)="onClearSvg()" style="margin-left:10px;">Clear</button>
+        </div>
+        <div *ngIf="svgFlList.length > 0">
+            <p class="svg-details-text"> Building: {{svgFlList[0].blId}} | Floor: {{svgFlList[0].flId}}</p>
+        </div>
+        <div *ngIf="viewSvg" style="height: 520px;">
+            <!-- <app-svg-view [isLinkRoomSvg]="isLinkRoomSvg" [fileString]="fileString"
+                (onRoomClick)="addRoomOnClickListener($event)" [defaultLoadColor]="defaultLoadColor"
+                [assignedColor]="assignedColor" [allSVGElementsData]="allSVGElementsData"></app-svg-view> -->
+        </div>
+    </div>
+    <p-dialog header="Select Building and Floor" [(visible)]="displayBlFlUpdate" [modal]="true"
+        [style]="{width: '33vw',height:'fit-content'}" [maximizable]="true" [draggable]="false" [resizable]="true"
+        (click)="getval($event)">
+        <form [formGroup]="blAndFlForm">
+            <div>
+                <div class="input-label-custom input-container">
+                    <label class='form-field-lable '>Building </label>
+                    <ng-select [clearable]="false" [items]="enumBL" formControlName="blId" [searchable]="true"
+                        bindLabel="name" bindValue="id" placeholder="Select Building" class="ng-select-dropdown"
+                        (change)="onSelectBlCode($event)">
+                    </ng-select>
+                    <button class="btn btn-success" [hidden]="isBuildingSelected" style="margin-left:10px"
+                        (click)="onAddNewBuilding()">Add new building</button>
+                </div>
+                <div class="input-label-custom input-container">
+                    <label class='form-field-lable '>Floor</label>
+                    <ng-select [clearable]="false" [items]="enumFL" formControlName="flId" [searchable]="true"
+                        bindLabel="name" bindValue="id" placeholder="Select Floor" class="ng-select-dropdown"
+                        style="margin-left:26px" (change)="onSelectFlCode($event)">
+                    </ng-select>
+                    <button class="btn btn-success" [hidden]="!isBuildingSelected || isFloorSelected"
+                        style="margin-left:10px" (click)="onAddNewFloor()">Add new Floor</button>
+                </div>
+            </div>
+
+            <div style="display:flex; justify-content:center;">
+                <div style="display: flex;  margin-top: 10px; margin-right:10px">
+                    <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-primary p-button-sm"
+                        [disabled]="!blAndFlForm.valid" (click)="saveBlAndFl()"></button>
+                    <button pButton pRipple label="Cancel" class="p-button-primary p-button-sm" style="margin-left:10px"
+                        (click)="cancelBlAndFl()"></button>
+                </div>
+            </div>
+        </form>
+    </p-dialog>
+    <ng-container *ngIf="displayRmUpdate">
+        <p-dialog [(visible)]="displayRmUpdate" [modal]="true" [style]="{width: '29vw',height:'fit-content'}"
+            [maximizable]="true" [draggable]="false" [resizable]="true">
+            <p-header *ngIf="roomAlreadyAssignedElement">Room Details</p-header>
+            <p-header *ngIf="!roomAlreadyAssignedElement">Select Room</p-header>
+            <form [formGroup]="rmForm">
+                <div>
+                    <div style="margin-top:10px;">
+                        <p class="svg-element-text"> Building Id : {{svgFlList[0].blId}} </p>
+                        <p class="svg-element-text"> Floor Id : {{svgFlList[0].flId}} </p>
+                        <!-- <p *ngIf="roomAlreadyAssignedElement" class="svg-element-text"> Room Id : {{this.roomWithElementId[0].rmId}} </p> -->
+                    </div>
+                    <div class="input-label-custom input-container">
+                        <label class='form-field-lable '>Room</label>
+                        <ng-select [clearable]="false" [items]="rmData" formControlName="rmId" [searchable]="true"
+                            bindLabel="name" bindValue="id" placeholder="Select Room" class="ng-select-dropdown"
+                            style="margin-left:10px" (change)="onSelectRoom($event)">
+                        </ng-select>
+                        <button class="btn btn-success" [hidden]="isRoomSelected" style="margin-left:10px"
+                            (click)="onAddNewRoom()">Add new Room</button>
+                    </div>
+                </div>
+                <div style="display:flex; justify-content:center;">
+                    <div style="display: flex;  margin-top: 10px; margin-right:10px">
+                        <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-primary p-button-sm"
+                            [disabled]="!rmForm.valid || !isRoomIdChanged" (click)="saveDialog()"></button>
+                        <button pButton pRipple label="Cancel" class="p-button-primary p-button-sm"
+                            style="margin-left:10px" (click)="cancelRoom()"></button>
+                        <button pButton pRipple label="Unassign Room" class="p-button-primary p-button-sm"
+                            style="margin-left:10px" (click)="unassignDialog()"
+                            [disabled]="!roomAlreadyAssignedElement"></button>
+                    </div>
+                </div>
+            </form>
+        </p-dialog>
+    </ng-container>
+</p-panel>
+<p-toast key="svgMessage" position="top-right"></p-toast>
+<p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle" key="svgConfirm"></p-confirmDialog>
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#879cc9" class="spinner-color" type="ball-fussion"
+    *ngIf="showSpinner" [fullScreen]="true">
+    <p style="color: white"> Loading... </p>
+</ngx-spinner>

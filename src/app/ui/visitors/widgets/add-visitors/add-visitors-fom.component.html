@@ -1,0 +1,147 @@
+<form [formGroup]="visitorsFormPanel">
+    <table width="100%">
+        <tr>
+            <td style="width:33.33%">
+                <div class="input-label-custom ">
+                    <label class='form-field-lable control-label'>First Name</label>
+                    <input type="text" class="form-control" name="firstName" formControlName="firstName" maxlength="64" appTrimInput>
+                </div>
+            </td>
+            <td style="width: 33.33%">
+                <div class="input-label-custom ">
+                    <label class='form-field-lable control-label'>Last Name</label>
+                    <input type="text" class="form-control" name="lastName" formControlName="lastName" maxlength="64" appTrimInput>
+                </div>
+            </td>
+            <td style="width: 33.33%">
+                <div class="input-label-custom ">
+                    <label class='form-field-lable control-label'>Email</label>
+                    <input type="text" class="form-control" name="email" formControlName="email" maxlength="128" appTrimInput>
+                </div>
+            </td>
+            <!-- <td style="width: 25%"></td> -->
+        </tr>
+
+        <tr *ngIf="(visitorsFormPanel.controls['email']?.errors && visitorsFormPanel.controls['email'].dirty)">
+            <td style="width: 33.33%"></td>
+            <td style="width: 33.33%"></td>
+            <td style="width: 33.33%">
+                <!-- <label
+                    *ngIf="!visitorsFormPanel.controls['email']?.errors.required && !visitorsFormPanel.controls['email']?.errors.email"
+                    class='form-field-lable' style="color:red;">Visitor for this email is already exists </label> -->
+                <label *ngIf="visitorsFormPanel.controls['email']?.errors.email" class='form-field-lable'
+                    style="color:red;">Please enter valid Email</label>
+            </td>
+            <!-- <td style="width: 25%"></td> -->
+        <tr>
+            <td style="width: 33.33%">
+                <div class="input-label-custom">
+                    <label class='form-field-lable control-label'>Autorized By</label>
+                    <ng-select appendTo="body" [clearable]="false" [items]="enumUsers" formControlName="createdBy"
+                        [searchable]="true" bindLabel="name" bindValue="id" placeholder="Make a selection"
+                        class="ng-select-dropdown">
+                    </ng-select>
+                </div>
+            </td>
+            <td style="width: 33.33%">
+                <div class="input-label-custom ">
+                    <label class='form-field-lable'> Phone Number</label>
+                    <input type="text" NumbersOnly class="form-control" name="phoneNum" formControlName="phoneNum"
+                        maxlength="16" appTrimInput>
+                </div>
+            </td>
+            <td style="width: 33.33%">
+                <div class="input-label-custom ">
+                    <label class='form-field-lable control-label'>Building Code</label>
+                    <ng-select appendTo="body" [clearable]="false" [items]="enumBL" formControlName="blId"
+                        [readonly]="isView" [searchable]="true" bindLabel="blNameString" bindValue="blId"
+                        (change)="onSelectBlCode($event)" placeholder="Make a selection" class="ng-select-dropdown"
+                        (scrollToEnd)="scrollToEndBl()" (search)="searchBl($event)" (open)="onOpenBl()">
+                    </ng-select>
+                </div>
+            </td>
+            <!-- <td style="width: 25%"></td> -->
+        </tr>
+        <tr>
+            <td style="width: 33.33%">
+                <div class="input-label-custom ">
+                    <label class='form-field-lable control-label'>Floor Code</label>
+                    <ng-select appendTo="body" [clearable]="false" [items]="enumFL" formControlName="flId"
+                        [readonly]="isView" [searchable]="true" bindLabel="flNameString" bindValue="flId"
+                        placeholder="Make a selection" class="ng-select-dropdown" (change)="onSelectFlCode($event)"
+                        (scrollToEnd)="scrollToEndFl()" (search)="searchFl($event)" (open)="onOpenFl()">
+                    </ng-select>
+                </div>
+            </td>
+            <td style="width: 33.33%">
+                <div class="input-label-custom ">
+                    <label class='form-field-lable '> Comments</label>
+                    <input type="text" class="form-control" name="comments" formControlName="comments" maxlength="512" appTrimInput>
+                </div>
+            </td>
+            <td style="width: 33.33%"></td>
+            <!-- <td style="width: 25%"></td> -->
+        </tr>
+        <!-- <tr>
+            <td style="width: 50%" rowspan="2" [hidden]="isNew">
+                <table style="width: 100%">
+                    <tr>
+                        <td style="align-content:flex-start">
+                            <div class="container">
+                                <img [src]="visitor_img" alt="" class="image" style="width: 100px; height: 100px;">
+                                <div class="middle">
+                                    <div class="text">
+                                        <button icon="pi pi-eye" pButton pRipple type="button" (click)="preview()"
+                                            class="p-button-text">
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                        <td style="width: 50%">
+                            <div class="input-label-custom ">
+                                <button pButton label="Select Photo" style="margin-left:4px" class="p-button"
+                                    [disabled]="isView" type="button" icon="pi pi-image" iconPos="left"
+                                    (click)="_fileInput.click()"></button>
+                                    <div>
+                                        <input #_fileInput type="file" accept="image/*" (change)="fileChangeEvent($event)"
+                                    hidden />
+                                    <p *ngIf="NotImage" class='form-field-lable' style="color: red;font-size: 10px;">{{imageerrorMsg}}</p>
+                                    </div>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr> -->
+        <tr [hidden]="isNew">
+            <td style="width: 33.33%;align-content:flex-start" rowspan="2">
+                <div class="container">
+                    <img [src]="visitor_img" alt="" class="image" style="width: 100px; height: 100px;">
+                    <div class="middle">
+                        <div class="text">
+                            <button icon="pi pi-eye" pButton pRipple type="button" (click)="preview()"
+                                class="p-button-text">
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </td>
+            <td style="width:33.33%">
+                <div class="input-label-custom ">
+                    <button pButton label="Select Photo" style="margin-left:4px" class="p-button" [disabled]="isView"
+                        type="button" icon="pi pi-image" iconPos="left" (click)="_fileInput.click()"></button>
+                    <div>
+                        <input #_fileInput type="file" accept="image/*" (change)="fileChangeEvent($event)" hidden />
+                        <p *ngIf="NotImage" class='form-field-lable' style="color: red;font-size: 10px;">
+                            {{imageerrorMsg}}</p>
+                    </div>
+                </div>
+            </td>
+            <td style="width:33.33%"></td>
+        </tr>
+    </table>
+    <p-dialog [(visible)]="displayImage" [style]="{width: '30vw'}">
+        <img [src]="visitor_img" [alt]="" width="90%" height="90%" />
+    </p-dialog>
+</form>

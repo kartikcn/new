@@ -1,0 +1,1 @@
+{"ast":null,"code":"export class BuildingFilterInputDTO {\n  constructor(blId, blNameString, siteId) {\n    this.blId = 0;\n    this.blNameString = \"\";\n    this.siteId = 0;\n    this.blId = blId;\n    this.blNameString = blNameString;\n    this.siteId = siteId;\n  }\n}","map":null,"metadata":{},"sourceType":"module","externalDependencies":[]}

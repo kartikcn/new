@@ -1,0 +1,18 @@
+<h2 mat-dialog-title class="mat-dialog-title-ext">{{title}} City Details</h2>
+<mat-dialog-content class="mat-typography mat-dialog-content-ext">
+  <form [formGroup]="frmCityDetail">
+    <mat-card>
+      <mat-card-content id="cityFrm">
+        <app-add-city-form formControlName="cityFormPanel" [isNew]="isNew"></app-add-city-form>
+      </mat-card-content>
+    </mat-card>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end" class="mat-dialog-actions-ext">
+  <p-button label="Save" (click)="saveRecords()" [disabled]="!frmCityDetail.valid" icon="pi pi-check"></p-button>
+  <p-button label="Cancel" icon="pi pi-times" (click)="confirmDialog()" styleClass="p-button-secondary"
+            [style]="{'margin-left': '.5em'}"></p-button>
+</mat-dialog-actions>
+<p-confirmDialog header="Confirmation"  icon="pi pi-exclamation-triangle"></p-confirmDialog>
+<p-toast key="save" position="top-right"> </p-toast>
+

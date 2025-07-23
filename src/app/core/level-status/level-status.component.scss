@@ -1,0 +1,25 @@
+ :host>.status-block {
+  display: inline-block;
+  width: 0.5em;
+  height: 0.5em;
+  margin-right: 0.5em;
+  background-color: black;
+  border-radius: 50% ;
+  /* default color */
+}
+
+/* status block colors */
+.green {
+  background-color: green !important;
+}
+
+.orange{
+  background-color: orange !important;
+}
+
+.red {
+  background-color: red !important;
+}
+.white{
+        display: none !important;
+}

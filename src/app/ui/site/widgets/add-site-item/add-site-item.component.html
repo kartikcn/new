@@ -1,0 +1,136 @@
+<form [formGroup]="siteFormPanel">
+  <table width="100%">
+    <tr>
+      <td style="width: 50%">
+        <div class="input-label-custom">
+          <label class='form-field-lable control-label'>Site Code</label>
+          <input type="text" class="form-control" name="siteCode" maxlength="32" formControlName="siteCode" [readonly]="isView"
+           maxlength="32" appTrimInput>
+        </div>
+      </td>
+      <td style="width: 50%">
+        <div class="input-label-custom ">
+          <label class='form-field-lable'>Site Name</label>
+          <input type="text" class="form-control" name="siteName" [readonly]="isView" formControlName="siteName" maxlength="64" appTrimInput>
+        </div>
+      </td>
+    </tr>
+    <tr
+      *ngIf="(siteFormPanel.controls['siteId']?.errors && (siteFormPanel.controls['siteId']?.dirty || siteFormPanel.controls['siteId']?.touched))">
+      <td style="width: 50%">
+        <label *ngIf="siteFormPanel.controls['siteId']?.errors && !siteFormPanel.controls['siteId']?.errors.required"
+          class='form-field-lable' style="color:red;">Site Id already exists.</label>
+      </td>
+      <td></td>
+    </tr>
+    <tr>
+      <td style="width: 50%;">
+        <div class="input-label-custom">
+          <label class='form-field-lable control-label'>Country Name</label>
+          <ng-select appendTo="body" [clearable]="false" [items]="enumCntry" (change)="onSelectCountry($event)" formControlName="ctryId"
+          [readonly]="isView" [searchable]="true" bindLabel="name" bindValue="id" placeholder="Make a selection"
+                     class="ng-select-dropdown">
+          </ng-select>
+        </div>
+      </td>
+      <td style="width: 50%;">
+        <div class="input-label-custom">
+          <label class='form-field-lable control-label'>Region Name</label>
+          <ng-select appendTo="body" [clearable]="false" [items]="enumRegn" (change)="onSelectRegion($event)" formControlName="regnId"
+          [readonly]="isView" [searchable]="true" bindLabel="name" bindValue="id" placeholder="Make a selection"
+                     class="ng-select-dropdown">
+          </ng-select>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td style="width: 50%;">
+        <div class="input-label-custom">
+          <label class='form-field-lable control-label'>State Name</label>
+          <ng-select appendTo="body" [clearable]="false" [items]="enumState" (change)="onSelectState($event)" formControlName="stateId"
+          [readonly]="isView"   [searchable]="true" bindLabel="name" bindValue="stateId" placeholder="Make a selection"
+                     class="ng-select-dropdown">
+          </ng-select>
+        </div>
+      </td>
+      <td style="width: 50%;">
+        <div class="input-label-custom">
+          <label class='form-field-lable control-label'>City Name</label>
+          <ng-select appendTo="body" [clearable]="false" [items]="enumCity" (change)="onSelectCity($event)" formControlName="cityId"
+          [readonly]="isView"   [searchable]="true" bindLabel="name" bindValue="cityId" placeholder="Make a selection"
+                     class="ng-select-dropdown">
+          </ng-select>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td style="width: 50%">
+        <div class="input-label-custom ">
+          <label class='form-field-lable'>Longitude</label>
+          <input type="number" class="form-control blue-border" [readonly]="isView" name="longitude" formControlName="longitude" onKeyPress="if(this.value.length==8) return false;" appTrimInput>
+        </div>
+      </td>
+      <td style="width: 50%" rowspan="2" *ngIf="!isNew; else elseTemplate">
+        <table style="width: 100%">
+          <tr>
+            <td style="align-content:flex-start">
+              <div class="container">
+                <img [src]="site_img" alt="" class="image" style="width: 100px; height: 100px;">
+                <div class="middle">
+                  <div class="text">
+                    <button icon="pi pi-eye" pButton pRipple type="button"  (click)="preview()" class="p-button-text">
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </td>
+            <td style="width: 50%">
+              <div class="input-label-custom ">
+                <button pButton label="Select Photo" [disabled]="isView" style="margin-left:4px" class="p-button" type="button" icon="pi pi-image"
+                        iconPos="left" (click)="_fileInput.click()"></button>
+                <div>
+                  <input #_fileInput type="file" accept="image/*" (change)="fileChangeEvent($event)"
+                       hidden />
+                  <p *ngIf="NotImage" class='form-field-lable' style="color: red;font-size: 10px;">{{imageerrorMsg}}</p>
+                </div>
+                
+              </div>
+            </td>
+          </tr>
+        </table>
+      </td>
+      <ng-template #elseTemplate>
+        <td style="width: 50%">
+          <div class="input-label-custom">
+            <div class="input-label-custom ">
+              <label class='form-field-lable'>Latitude</label>
+              <input type="number" class="form-control blue-border" [readonly]="isView" name="latitude" formControlName="latitude" onKeyPress="if(this.value.length==8) return false;" appTrimInput>
+            </div>
+          </div>
+        </td>
+      </ng-template>
+    </tr>
+    <tr [hidden]="isNew">
+      <td style="width: 50%">
+        <div class="input-label-custom ">
+          <label class='form-field-lable'>Latitude</label>
+          <input type="number" class="form-control blue-border" [readonly]="isView" name="latitude" formControlName="latitude" onKeyPress="if(this.value.length==8) return false;" appTrimInput>
+        </div>
+      </td>
+      <td style="width: 50%">
+      </td>
+    </tr>
+    <tr>
+      <td style="width: 100%" colspan="2">
+        <div class="input-label-custom ">
+          <label class='form-field-lable'>Site Info</label>
+          <textarea class="form-control note-border" [readonly]="isView" name="siteInfo" formControlName="siteInfo" rows="2" nz-input maxlength="128" appTrimInput></textarea>
+        </div>
+      </td>
+    </tr>
+  </table>
+  <p-dialog [(visible)]="displayImage" [style]="{width: '30vw'}">
+    <img [src]="site_img" [alt]="" width="90%" height="90%" />
+  </p-dialog>
+</form>
+  

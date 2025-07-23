@@ -1,0 +1,40 @@
+<form [formGroup]="connectorFormPanel">
+    <table width="100%">
+        <tr>
+            <td style="width: 50%">
+                <div class="input-label-custom ">
+                    <label class='form-field-lable control-label'>Fiield Name</label>
+                    <ng-select appendTo="body" [clearable]="false" [items]="columnsList" formControlName="fieldName"
+                        [searchable]="true" bindLabel="columnName" bindValue="columnName" placeholder="Make a selection"
+                        class="ng-select-dropdown">
+                    </ng-select>
+                </div>
+            </td>
+            <td style="width: 25%">
+                <div class="input-label-custom ">
+                    <label class='form-field-lable control-label'> Title</label>
+                    <input type="text" class="form-control" name="fieldTitle" formControlName="fieldTitle"
+                        maxlength="128">
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 25%">
+                <div class="input-label-custom ">
+                    <label class='form-field-lable'>Default Value</label>
+                    <input type="text" class="form-control" name="defaultValue" formControlName="defaultValue"
+                        maxlength="128">
+                </div>
+            </td>
+            <td style="width: 50%">
+                <div class="input-label-custom ">
+                    <label class='form-field-lable'>Reference Table Name</label>
+                    <ng-select appendTo="body" [clearable]="false" [items]="tablesList" formControlName="refTable"
+                        [searchable]="true" bindLabel="tableName" bindValue="tableName" placeholder="Make a selection"
+                        class="ng-select-dropdown">
+                    </ng-select>
+                </div>
+            </td>
+        </tr>
+    </table>
+</form>

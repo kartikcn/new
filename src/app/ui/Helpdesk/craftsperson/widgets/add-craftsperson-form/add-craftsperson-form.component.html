@@ -1,0 +1,124 @@
+<form [formGroup]="cfFormPanel">
+  <table width="100%">
+    <tr>
+      <td width="50%">
+        <div class="input-label-custom">
+          <label class='form-field-lable  control-label'>Name</label>
+          <input type="text" class="form-control" name="name" formControlName="name" maxlength="128" appTrimInput>
+        </div>
+      </td>
+      <td width="50%">
+        <div class="input-label-custom ">
+          <label class='form-field-lable control-label'>Email</label>
+          <input type="text" class="form-control" name="email" formControlName="email" maxlength="128" appTrimInput
+            [readonly]="false">
+        </div>
+      </td>
+    </tr>
+    <tr
+      *ngIf="(cfFormPanel.controls['name']?.errors && (cfFormPanel.controls['name']?.dirty || cfFormPanel.controls['name']?.touched)) || (cfFormPanel.controls['email']?.errors && (cfFormPanel.controls['email']?.dirty || cfFormPanel.controls['email']?.touched))">
+      <td style="width: 50%">
+        <label *ngIf="cfFormPanel.controls['name']?.errors && !cfFormPanel.controls['name']?.errors.required"
+          class='form-field-lable' style="color:red; margin-left: 4px;">Name already exists</label>
+      </td>
+      <td style="width: 50%">
+        <label
+          *ngIf="cfFormPanel.controls['email']?.errors && !cfFormPanel.controls['email']?.errors.required && !cfFormPanel.controls['email']?.errors.email"
+          class='form-field-lable' style="color:red; margin-left: 4px;">Email already exists</label>
+        <label style="color:red;"
+          *ngIf="cfFormPanel.controls['email'].errors?.email && cfFormPanel.controls['email'].errors"
+          class='form-field-lable' style="color:red; margin-left: 4px;">Please enter
+          valid Email</label>
+      </td>
+    </tr>
+    <tr>
+      <td style="width: 50%">
+        <div class="input-label-custom">
+          <label class='form-field-lable'>Phone Number</label>
+          <input type="text" class="form-control" name="phone" NumbersOnly formControlName="phone" maxlength="16"
+            NumberOnly appTrimInput>
+        </div>
+      </td>
+      <td style="width: 50%">
+        <div class="input-label-custom">
+          <label class='form-field-lable control-label'>Status</label>
+          <ng-select appendTo="body" [clearable]="false" [items]="enumStatus" formControlName="status"
+            [searchable]="false" bindLabel="enumValue" bindValue="enumKey" placeholder="Make a selection"
+            class="ng-select-dropdown">
+          </ng-select>
+        </div>
+      </td>
+    <tr>
+      <td style="width: 50%">
+        <div style="display: flex;">
+          <div class="input-label-custom" style="width: 90%;">
+            <label class='form-field-lable control-label'>Primary Trade</label>
+            <ng-select appendTo="body" [clearable]="false" [items]="tradesData" formControlName="primaryTrade" [searchable]="true"
+              bindLabel="tradeCode" bindValue="tradeId" placeholder="Make a selection" class="ng-select-dropdown">
+            </ng-select>
+          </div>
+          <div style="margin: 16px 0px 0px -5px;">
+            <p-button id="add-btn" (click)="onAddTrade()" class="pull-right m-3" icon="pi pi-plus" matTooltip="Add Primary Trade">
+            </p-button>
+          </div>
+        </div>
+      </td>
+      <td style="width: 50%">
+        <div class="input-label-custom">
+          <label class='form-field-lable'>Special Skills</label>
+          <input type="text" class="form-control" name="skills" formControlName="skills" maxlength="128" appTrimInput>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td width="50%">
+        <div class="input-label-custom">
+          <label class='form-field-lable control-label'>Hourly Rate</label>
+          <input type="text" class="form-control" name="rateHourly" formControlName="rateHourly" 
+            NumbersOnly TwoDigitDecimalNumber appTrimInput>
+        </div>
+      </td>
+      <td style="width: 50%">
+        <div class="input-label-custom">
+          <label class='form-field-lable control-label'>Overtime Rate</label>
+          <input type="text" class="form-control" name="rateOver" formControlName="rateOver"  NumbersOnly
+            TwoDigitDecimalNumber appTrimInput>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td width="50%">
+        <div class="input-label-custom ">
+          <label class='form-field-lable control-label'>Doubletime Rate</label>
+          <input type="text" class="form-control" name="rateDouble" formControlName="rateDouble"
+            NumbersOnly TwoDigitDecimalNumber appTrimInput>
+        </div>
+      </td>
+      <td style="width: 50%">
+        <div class="input-label-custom ">
+          <label class='form-field-lable control-label '>Standard Available Time (Hours/Day)</label>
+          <input type="text" class="form-control" name="stdHoursAvail" formControlName="stdHoursAvail" 
+            NumbersOnly TwoDigitDecimalNumber appTrimInput>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td style="width: 50%">
+        <div class="input-label-custom ">
+          <label class='form-field-lable control-label'>In House/Contractor ?</label>
+          <ng-select appendTo="body" [clearable]="false" [items]="enumInHouseOrContractor"
+            formControlName="inHouseOrContractor" [searchable]="false" bindLabel="enumValue" bindValue="enumKey"
+            placeholder="Make a selection" class="ng-select-dropdown ">
+          </ng-select>
+        </div>
+      </td>
+      <td width="50%">
+        <div class="input-label-custom">
+          <label class='form-field-lable control-label'>Is Superviser</label>
+          <p-selectButton [options]="enumYes" formControlName="isSupervisor" optionLabel="enumValue"
+            optionValue="enumKey"></p-selectButton>
+        </div>
+      </td>
+    </tr>
+  </table>
+</form>

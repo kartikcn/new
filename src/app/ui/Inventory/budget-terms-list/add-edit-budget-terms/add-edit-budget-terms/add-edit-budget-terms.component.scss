@@ -1,0 +1,50 @@
+@import '/src/scss/variables';
+
+  .form-field-lable {
+    font-size: 11px;
+    margin-bottom: 0px;
+    font-weight: 500;
+  }
+  .form-control {
+    margin-top: -3px;
+    padding-left: 5px;
+  }  
+  
+  ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: #555;
+    opacity: 1; /* Firefox */
+  }
+  
+  :-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: #555;
+  }
+  
+  ::-ms-input-placeholder { /* Microsoft Edge */
+    color: #555;
+  }
+  
+  .blue-border {
+  border-color: #879cc9 !important;
+  height: 24px !important;
+  margin-top: 2px !important;
+  }
+  
+  :host ::ng-deep .p-dialog .p-dialog-header {
+      background-color: $toolbar;
+      color: black;
+      padding-left: 10px;
+      font-weight: normal;
+      margin-bottom: 0px;
+      height: 10px !important;
+  }
+  label {
+    font-size: 10px;
+    padding: 0;
+    font-weight: 500;
+    padding-left: 3px;
+    margin-bottom: -10px !important;
+  }
+
+  :host ::ng-deep .p-fluid .p-calendar .p-inputtext{
+    height:24px !important;
+}

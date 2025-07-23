@@ -1,0 +1,18 @@
+<h2 mat-dialog-title class="mat-dialog-title-ext">{{title}} Holiday Details</h2>
+<mat-dialog-content class="mat-typography mat-dialog-content-ext">
+  <form [formGroup]="frmHolidayDetail">
+    <mat-card>
+      <mat-card-content id="holidayFrm">
+        <app-add-holiday-form formControlName="holidayFormPanel" [isNew]="isNew"></app-add-holiday-form>
+      </mat-card-content>
+    </mat-card>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end" class="mat-dialog-actions-ext">
+  <p-button label="Delete" (click)="onDelete()" [hidden]="isNew" icon="pi pi-trash" class="mr5"></p-button>
+  <p-button label="Save" (click)="saveRecords()" [disabled]="!frmHolidayDetail.valid" icon="pi pi-check"></p-button>
+  <p-button label="Cancel" icon="pi pi-times" (click)="confirmDialog()" styleClass="p-button-secondary"
+            [style]="{'margin-left': '.5em'}"></p-button>
+</mat-dialog-actions>
+<p-toast key="holidayMessage"></p-toast>
+<p-confirmDialog key="holiday" header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>

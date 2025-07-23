@@ -1,0 +1,145 @@
+<div class="card" style="height: 90vh">
+  <p-panel header="Inventory Center Usage">
+    <ng-template pTemplate="icons">
+      <button pButton (click)="onAdd()" label="Add" icon="pi pi-plus"></button>
+    </ng-template>
+    <p-table
+      [value]="centerUsageList"
+      [paginator]="true"
+      dataKey="centerUsageId"
+      [rows]="rowCount"
+      [tableStyle]="{ 'min-width': '68rem', width: '100%' }"
+      styleClass="p-datatable-responsive-demo p-datatable-gridlines"
+      [rowHover]="true"
+      [scrollable]="true"
+      scrollDirection="both"
+      scrollHeight="540px"
+      [showCurrentPageReport]="true"
+      currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+      [rowsPerPageOptions]="[25, 50, 100]"
+    >
+      <ng-template pTemplate="header">
+        <tr>
+          <th style="width: 8rem"></th>
+          <th pSortableColumn="budgetTermId">
+            <div class="grid-header-column">
+              <div class="grid-header-label">
+                <p class="grid-label-paragraph">Budget Term Id</p>
+              </div>
+              <div class="grid-sort-icon">
+                <p-sortIcon field="budgetTermId"></p-sortIcon>
+              </div>
+            </div>
+          </th>
+          <th pSortableColumn="blId">
+            <div class="grid-header-column">
+              <div class="grid-header-label">
+                <p class="grid-label-paragraph">Building Id</p>
+              </div>
+              <div class="grid-sort-icon">
+                <p-sortIcon field="blId"></p-sortIcon>
+              </div>
+            </div>
+          </th>
+          <th pSortableColumn="flId">
+            <div class="grid-header-column">
+              <div class="grid-header-label">
+                <p class="grid-label-paragraph">Floor Id</p>
+              </div>
+              <div class="grid-sort-icon">
+                <p-sortIcon field="flId"></p-sortIcon>
+              </div>
+            </div>
+          </th>
+          <th pSortableColumn="itemId">
+            <div class="grid-header-column">
+              <div class="grid-header-label">
+                <p class="grid-label-paragraph">Item Id</p>
+              </div>
+              <div class="grid-sort-icon">
+                <p-sortIcon field="itemId"></p-sortIcon>
+              </div>
+            </div>
+          </th>
+          <th pSortableColumn="quantity">
+            <div class="grid-header-column">
+              <div class="grid-header-label">
+                <p class="grid-label-paragraph">Quantity</p>
+              </div>
+              <div class="grid-sort-icon">
+                <p-sortIcon field="quantity"></p-sortIcon>
+              </div>
+            </div>
+          </th>
+          <th pSortableColumn="rate">
+            <div class="grid-header-column">
+              <div class="grid-header-label">
+                <p class="grid-label-paragraph">Cost Per Unit</p>
+              </div>
+              <div class="grid-sort-icon">
+                <p-sortIcon field="rate"></p-sortIcon>
+              </div>
+            </div>
+          </th>
+          <th pSortableColumn="cost">
+            <div class="grid-header-column">
+              <div class="grid-header-label">
+                <p class="grid-label-paragraph">Cost</p>
+              </div>
+              <div class="grid-sort-icon">
+                <p-sortIcon field="cost"></p-sortIcon>
+              </div>
+            </div>
+          </th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-centerUsage>
+        <tr>
+          <td style="width: 8rem">
+            <button
+              pButton
+              pRipple
+              icon="pi pi-pencil"
+              type="button"
+              (click)="openEditItem(centerUsage.centerUsageId)"
+              class="p-button-text"
+            ></button>
+            <button
+              pButton
+              pRipple
+              icon="pi pi-times"
+              type="button"
+              (click)="onDelete(centerUsage)"
+              class="p-button-text pull-right"
+              style="font-size: 5rem; color: red"
+            ></button>
+          </td>
+          <td>{{ getNameById(centerUsage.budgetTermId, "BUDGET") }}</td>
+          <td>{{ getNameById(centerUsage.blId, "BUILDING") }}</td>
+          <td>{{ getNameById(centerUsage.flId, "FLOOR") }}</td>
+          <td>{{ getNameById(centerUsage.itemId, "ITEM") }}</td>
+          <td>{{ centerUsage.quantity }}</td>
+          <td>{{ centerUsage.rate }}</td>
+          <td>{{ centerUsage.cost }}</td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="emptymessage" let-columns>
+        <tr>
+          <td [attr.colspan]="8">No records found</td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </p-panel>
+  <div *ngIf="isOpen">
+    <app-add-edit-center-usage
+      [centerUsageData]="centerUsageData"
+      (parentFun)="loadCenterUsageData($event)"
+    ></app-add-edit-center-usage>
+  </div>
+</div>
+<p-toast key="successKey" position="top-right"></p-toast>
+<p-confirmDialog
+  key="confirmeKey"
+  header="Confirmation"
+  icon="pi pi-exclamation-triangle"
+></p-confirmDialog>

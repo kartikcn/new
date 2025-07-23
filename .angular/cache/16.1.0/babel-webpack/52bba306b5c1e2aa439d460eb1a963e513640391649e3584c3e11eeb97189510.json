@@ -1,0 +1,1 @@
+{"ast":null,"code":"export class RmTypeFilterInputDTO {\n  constructor(id, name, rmCat) {\n    this.id = \"\";\n    this.name = \"\";\n    this.rmCat = \"\";\n    this.id = id;\n    this.name = name;\n    this.rmCat = rmCat;\n  }\n}","map":null,"metadata":{},"sourceType":"module","externalDependencies":[]}

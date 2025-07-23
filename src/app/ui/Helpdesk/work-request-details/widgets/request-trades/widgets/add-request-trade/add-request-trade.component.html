@@ -1,0 +1,69 @@
+<form [formGroup]="reqTradeFormPanel">
+    <table width="100%">
+        <div>
+        <tr>
+            <td style="width: 50%;"> 
+                <div class="input-label-custom input-container">
+                    <label class='form-field-lable control-label'>Trade</label>
+                    <ng-select appendTo="body" [clearable]="false" [items]="tradesData" name="tradeId"
+                        formControlName="tradeId" [searchable]="true" bindLabel="tradeCode" bindValue="tradeId"
+                        placeholder="Make a selection" class="ng-select-dropdown" (change)="selectTrade($event)"
+                        [readonly]="!isSupervisor && !isNew">
+                    </ng-select>
+                </div>
+            </td>
+        
+            <td style="width: 50%;">
+                <div class="input-label-custom ">
+                    <label class='form-field-lable control-label'>Required Hours</label><br>
+                    <input type="text" class="form-control" name="hoursRequired" NumbersOnly TwoDigitDecimalNumber
+                        formControlName="hoursRequired" [readonly]="!isSupervisor && !isNew">
+                 </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label class='form-field-lable' *ngIf="tradeExists" style="color:red;">Trade already exists</label>
+            </td>
+            <td></td>
+        </tr>
+         </div>
+         <div class="actual-hours-container"  [hidden]="isNew">
+            <fieldset class="scheduler-border form-field-lable">
+                <legend class="scheduler-border" >Actual Hours</legend>
+                <tr>
+                    <td>
+                      <div class="input-label-custom "style="margin-left: -80px;margin-top: 10px" >
+                            <label class='form-field-lable'>Standard Hours</label><br>
+                            <input type="text" class="form-control" name="actualHoursStd" NumbersOnly TwoDigitDecimalNumber
+                                formControlName="actualHoursStd" style="width: 80%;"(input)=onChangeHours($event)>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="input-label-custom " style="margin-left: -20px;"  >
+                            <label class='form-field-lable'> Overtime Hours </label><br>
+                            <input type="text" class="form-control" name="actualHoursOvertime" NumbersOnly TwoDigitDecimalNumber
+                                formControlName="actualHoursOvertime" style="width: 90%;"(input)=onChangeHours($event)>
+                        </div>
+                    </td>
+                </tr><tr>
+                    <td >
+                        <div class="input-label-custom "  style="margin-left: -80px;">
+                            <label class='form-field-lable'>Double Time Hours</label><br>
+                            <input type="text" class="form-control" name="actualHoursDouble" NumbersOnly TwoDigitDecimalNumber
+                                formControlName="actualHoursDouble"style="width: 80%;"(input)=onChangeHours($event)>
+                        </div>
+                    </td>
+                    <td >
+                        <div class="input-label-custom "   style="margin-left: -20px;">
+                            <label class='form-field-lable'>Total Hours</label><br>
+                            <input type="text" class="form-control" name="totalHours" NumbersOnly TwoDigitDecimalNumber
+                                formControlName="totalHours"[readOnly]="true"style="width: 90%;">
+                        </div>
+                    </td>
+                </tr>
+            </fieldset>
+        </div>
+    </table>
+</form>
+

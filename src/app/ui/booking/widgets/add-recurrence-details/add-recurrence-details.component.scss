@@ -1,0 +1,360 @@
+@import '/src/scss/variables';
+
+.mat-dialog-title-ext {
+  background-color: #879cc9;
+  padding-left: 10px;
+  font-weight: normal;
+  margin-bottom: 0px;
+}
+
+.mat-dialog-content-ext {
+  /*border: thin double #879cc9;*/
+  margin: 0;
+  padding: 10px;
+  background-color: white !important;
+}
+
+.mat-dialog-actions-ext {
+  border-top: none;
+  padding: 3px;
+  min-height: 36px !important;
+  margin-bottom: 5px;
+  /* margin-right: 15px; */
+  background-color: white !important;
+}
+
+
+.action-buttons {
+  height: 30px;
+  width: 70px;
+}
+
+.margin-left-20 {
+  margin-left: 20px;
+}
+
+.margin-5 {
+  margin: 5px !important;
+}
+
+.mat-card {
+  border-radius: 0px;
+}
+
+.mat-expansion-panel {
+  background-color: $toolbar;
+}
+
+.mat-expansion-panel-header-title {
+  color: white;
+  letter-spacing: 1px;
+}
+
+.mat-card-title {
+  color: white;
+  letter-spacing: 1px;
+  font-size: 13px;
+  margin: 0px !important;
+}
+
+.mat-card-header-text {
+  margin: 0px !important;
+}
+
+.mat-card-header {
+  padding: 5px !important;
+  margin-left: -15px;
+}
+
+.mat-card-content {
+  background-color: white !important;
+  /* padding: 5px; */
+}
+
+.mat-expansion-panel-content {
+  background-color: white !important;
+}
+
+.mat-button,
+.mat-flat-button,
+.mat-icon-button,
+.mat-stroked-button {
+  line-height: inherit !important;
+}
+
+::placeholder {
+  /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: #555;
+  opacity: 1;
+  /* Firefox */
+}
+
+:-ms-input-placeholder {
+  /* Internet Explorer 10-11 */
+  color: #555;
+}
+
+::-ms-input-placeholder {
+  /* Microsoft Edge */
+  color: #555;
+}
+
+.ng-select.ng-select-single .ng-select-container {
+  border-radius: 0px !important;
+}
+
+.mat-expansion-panel-header-title {
+  color: white;
+  letter-spacing: 1px;
+}
+
+.mat-card {
+  padding: 0px;
+  border: thin double rgb(181, 155, 90);
+}
+
+.mat-card-title {
+  color: white;
+  letter-spacing: 1px;
+  font-size: 13px;
+  margin: 0px !important;
+}
+
+.mat-card-header-text {
+  margin: 0px !important;
+}
+
+.mat-card-header {
+  padding: 5px !important;
+  margin-left: -15px;
+}
+
+.action-buttons {
+  height: 30px;
+  width: 70px;
+}
+
+//--------------------------
+
+input[type=text],
+input[type=time] {
+  background-color: white !important;
+  border-color: #879cc9 !important;
+  height: 20px !important;
+  width: 10%;
+  margin: 0px 5px 0px 5px;
+}
+
+#noOfOccurence {
+  background-color: white !important;
+  border-color: #879cc9 !important;
+  height: 24px !important;
+  width: 100% !important;
+  margin: 0px 5px 0px 5px;
+}
+
+input[type='radio'],
+input[type='checkbox'] {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 5px 5px 15px 5px;
+}
+
+//---------------------------------------------
+.tabs-rounded>ul>li>a {
+  border-top-left-radius: 7px;
+  border-top-right-radius: 7px;
+  border-bottom: $tabBorderBottom;
+  outline: none;
+  margin-top: 20px;
+
+}
+
+span {
+  height: 24px !important;
+  font-size: 10px !important;
+}
+
+.trFont {
+  font-size: 11px !important;
+}
+
+.panel-group-custom {
+  margin: -12px !important;
+}
+
+label {
+  font-size: 10px;
+  padding: 0;
+  font-weight: 500;
+  padding-left: 3px;
+  margin-bottom: -10px !important;
+  margin-left: 1px;
+}
+
+.nav>li {
+  position: relative;
+  display: block;
+}
+
+.nav>li>a {
+  position: relative;
+  display: block;
+  background-color: $tabBgColor;
+  color: $tabFontColor;
+  padding: 5px 10px;
+}
+
+.nav>li>a:hover,
+.nav>li>a:focus {
+  text-decoration: none;
+  color: $ActiveTabFontColor;
+  background-color: $tabActiveBgColor;
+
+}
+
+.nav>li.disabled>a {
+  color: #777;
+}
+
+.nav>li.disabled>a:hover,
+.nav>li.disabled>a:focus {
+  color: #777;
+  text-decoration: none;
+  cursor: not-allowed;
+  background-color: transparent;
+}
+
+.nav .open>a,
+.nav .open>a:hover,
+.nav .open>a:focus {
+  background-color: #eee;
+  border-color: #337ab7;
+}
+
+.nav .nav-divider {
+  height: 1px;
+  margin: 9px 0;
+  overflow: hidden;
+  background-color: #e5e5e5;
+}
+
+.nav>li>a>img {
+  max-width: none;
+}
+
+.nav-tabs {
+  border-bottom: 1px solid #ddd;
+}
+
+.nav-tabs>li {
+  float: left;
+  margin-bottom: -1px;
+}
+
+.nav-tabs>li>a {
+  margin-right: 2px;
+  line-height: 1.25;
+  min-width: $tabWidth;
+  /*4*/
+  border: 1px solid transparent;
+  border-radius: $tabBorderRadius;
+}
+
+.nav-tabs>li>a:hover {
+  border-color: #eee #eee #ddd;
+
+}
+
+.nav-tabs>li.active>a,
+.nav-tabs>li.active>a:hover,
+.nav-tabs>li.active>a:focus {
+  color: $ActiveTabFontColor;
+  cursor: default;
+  background-color: $tabActiveBgColor;
+  border: 1px solid #ddd;
+  border-bottom-color: transparent;
+
+}
+
+.nav-tabs.nav-justified {
+  width: 100%;
+  border-bottom: 0;
+}
+
+.nav-tabs.nav-justified>li {
+  float: none;
+}
+
+.nav-tabs.nav-justified>li>a {
+  margin-bottom: 5px;
+  text-align: center;
+}
+
+.nav-tabs.nav-justified>.dropdown .dropdown-menu {
+  top: auto;
+  left: auto;
+}
+
+
+:host ::ng-deep .p-multiselect {
+  margin: 0px 7px 10px 5px;
+  max-width: 15px;
+  max-height: 1.6rem;
+}
+
+:host ::ng-deep .multiselect-custom-virtual-scroll .p-multiselect {
+  min-width: 10rem;
+}
+
+
+.grid-container {
+  padding-top: 10px;
+}
+
+.card-container {
+  display: flex;
+  flex-direction: row;
+
+}
+
+.form-control:disabled,
+input[type=text]:disabled,
+.p-multiselect:disabled,
+.form-control:read-only,
+.ng-select-disabled {
+  background-color: #e9ecef !important;
+  opacity: 1;
+  cursor: no-drop !important;
+}
+
+:host ::ng-deep .p-multiselect .p-multiselect-label.p-placeholder {
+  color: #6c757d;
+  padding-top: 7px;
+  font-family: 'Roboto'
+}
+
+ul {
+  padding-left: 1rem !important;
+}
+
+.recurrence-details-container {
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-gap: 1rem;
+}
+
+.recurrence-details-item {
+  display: flex;
+  justify-content: space-between;
+  text-align: start;
+  height: 24px;
+}
+.total-occurence{
+  font-size: 13px;
+  font-weight: 700;
+}
+span{
+  font-size: 12px;
+  font-weight: 500;
+}

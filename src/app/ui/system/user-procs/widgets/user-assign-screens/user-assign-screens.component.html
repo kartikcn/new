@@ -1,0 +1,79 @@
+<div class="card">
+  <p-table [value]="assignUserScreens" [(selection)]="selectedScreens" dataKey="userScreensNum" [scrollable]="true"
+  [globalFilterFields]="['','processId','subProcessId','screenName']" [loading]="loading"
+  [showCurrentPageReport]="true"
+  styleClass="p-datatable-customers" scrollHeight="200px">
+    <ng-template pTemplate="caption">
+      <div class="d-flex flex-row">
+        <div style="flex: auto;">
+          <h4>Un Assign Processes</h4>
+        </div>
+
+        <div>
+          <button pButton pRipple label="Un-Assign" icon="pi pi-minus" class="p-button-primary p-button-sm p-mr-2"
+            (click)="onUnAssign()" [disabled]="!(selectedScreens.length >0)"></button>
+
+        </div>
+      </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+      <tr>
+        <th style="width: 3rem">
+          <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+        </th>
+        <th pSortableColumn="processCode">
+          <div class="grid-header-column">
+            <div class="grid-header-label">
+              <p class="grid-label-paragraph">Processes</p>
+            </div>
+            <div class="grid-sort-icon">
+            <p-sortIcon field="processCode"></p-sortIcon>
+            <p-columnFilter type="text" field="processCode" display="menu"></p-columnFilter>
+              </div>
+           </div>
+        </th>
+        <th pSortableColumn="subProcessCode">
+          <div class="grid-header-column">
+            <div class="grid-header-label">
+              <p class="grid-label-paragraph">Subprocesses</p>
+            </div>
+            <div class="grid-sort-icon">
+            <p-sortIcon field="subProcessCode"></p-sortIcon>
+            <p-columnFilter type="text" field="subProcessCode" display="menu"></p-columnFilter>
+              </div>
+           </div>
+        </th>
+        <th pSortableColumn="screenName">
+          <div class="grid-header-column">
+            <div class="grid-header-label">
+              <p class="grid-label-paragraph">Screen Name</p>
+            </div>
+            <div class="grid-sort-icon">
+            <p-sortIcon field="screenName"></p-sortIcon>
+            <p-columnFilter type="text" field="screenName" display="menu"></p-columnFilter>
+              </div>
+           </div>
+        </th>
+
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-assign>
+      <tr>
+        <td  style="width: 3rem">
+          <p-tableCheckbox [value]="assign"></p-tableCheckbox>
+        </td>
+        <td>{{assign.processCode}}</td>
+        <td>{{assign.subProcessCode}}</td>
+        <td>{{assign.screenName}}</td>
+
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage" let-columns>
+      <tr>
+        <td [attr.colspan]="4">
+          No records found
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>

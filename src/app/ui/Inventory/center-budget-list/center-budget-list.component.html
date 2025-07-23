@@ -1,0 +1,134 @@
+<div class="card" style="height: 90vh">
+  <p-panel header="Inventory Center Budget">
+    <ng-template pTemplate="icons">
+      <button pButton (click)="onAdd()" label="Add" icon="pi pi-plus"></button>
+    </ng-template>
+    <p-table
+      [value]="centerBudgetList"
+      [paginator]="true"
+      dataKey="centerBudgetId"
+      [rows]="rowCount"
+      [tableStyle]="{ 'min-width': '60rem', width: '100%' }"
+      styleClass="p-datatable-responsive-demo p-datatable-gridlines"
+      [rowHover]="true"
+      [scrollable]="true"
+      scrollDirection="both"
+      scrollHeight="540px"
+      [showCurrentPageReport]="true"
+      currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+      [rowsPerPageOptions]="[25, 50, 100]"
+    >
+      <ng-template pTemplate="header">
+        <tr>
+          <th style="width: 8rem"></th>
+          <th pSortableColumn="budgetTermId">
+            <div class="grid-header-column">
+              <div class="grid-header-label">
+                <p class="grid-label-paragraph">Budget Term Id</p>
+              </div>
+              <div class="grid-sort-icon">
+                <p-sortIcon field="budgetTermId"></p-sortIcon>
+                <!-- <p-columnFilter type="text" field="budgetTermId" display="menu"></p-columnFilter> -->
+              </div>
+            </div>
+          </th>
+          <th pSortableColumn="blId">
+            <div class="grid-header-column">
+              <div class="grid-header-label">
+                <p class="grid-label-paragraph">Building Id</p>
+              </div>
+              <div class="grid-sort-icon">
+                <p-sortIcon field="blId"></p-sortIcon>
+                <!-- <p-columnFilter type="text" field="blId" display="menu"></p-columnFilter> -->
+              </div>
+            </div>
+          </th>
+          <th pSortableColumn="flId">
+            <div class="grid-header-column">
+              <div class="grid-header-label">
+                <p class="grid-label-paragraph">Floor Id</p>
+              </div>
+              <div class="grid-sort-icon">
+                <p-sortIcon field="flId"></p-sortIcon>
+                <!-- <p-columnFilter type="text" field="flId" display="menu"></p-columnFilter> -->
+              </div>
+            </div>
+          </th>
+          <th pSortableColumn="itemId">
+            <div class="grid-header-column">
+              <div class="grid-header-label">
+                <p class="grid-label-paragraph">Item Id</p>
+              </div>
+              <div class="grid-sort-icon">
+                <p-sortIcon field="itemId"></p-sortIcon>
+                <!-- <p-columnFilter type="text" field="itemId" display="menu"></p-columnFilter> -->
+              </div>
+            </div>
+          </th>
+          <th pSortableColumn="budget">
+            <div class="grid-header-column">
+              <div class="grid-header-label">
+                <p class="grid-label-paragraph">Budget</p>
+              </div>
+              <div class="grid-sort-icon">
+                <p-sortIcon field="budget"></p-sortIcon>
+                <!-- <p-columnFilter type="text" field="budget" display="menu"></p-columnFilter> -->
+              </div>
+            </div>
+          </th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-cntbdg>
+        <tr>
+          <td style="width: 8rem">
+            <button
+              pButton
+              pRipple
+              icon="pi pi-pencil"
+              type="button"
+              (click)="openEditItem(cntbdg.centerBudgetId)"
+              class="p-button-text"
+            ></button>
+            <button
+              pButton
+              pRipple
+              icon="pi pi-times"
+              type="button"
+              (click)="onDelete(cntbdg)"
+              class="p-button-text pull-right"
+              style="font-size: 5rem; color: red"
+            ></button>
+          </td>
+          <td>{{ getNameById(cntbdg.budgetTermId, 'BUDGET') }}</td>
+          <td>{{ getNameById(cntbdg.blId, 'BUILDING') }}</td>
+          <td>{{ getNameById(cntbdg.flId, 'FLOOR')}}</td>
+          <td>{{ getNameById(cntbdg.itemId, 'ITEM') }}</td>
+          <td>{{ cntbdg.budget }}</td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="emptymessage" let-columns>
+        <tr>
+          <td [attr.colspan]="6">No records found</td>
+        </tr>
+      </ng-template>
+    </p-table>
+    <!-- <div class="paginator">
+            <p-paginator [rows]="rowCount" [totalRecords]="totalElements" (onPageChange)="onPageChange($event)"
+            [first]="paginationObj.pageNo * paginationObj.pageSize"
+                currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                [showCurrentPageReport]="true" [rowsPerPageOptions]="[25,50,100]"></p-paginator>
+        </div> -->
+  </p-panel>
+  <div *ngIf="isOpen">
+    <app-add-edit-center-budget
+      [centerBudgetData]="centerBudgetData"
+      (parentFun)="loadCenterBudgetData($event)"
+    ></app-add-edit-center-budget>
+  </div>
+</div>
+<p-toast key="successKey" position="top-right"></p-toast>
+<p-confirmDialog
+  key="confirmeKey"
+  header="Confirmation"
+  icon="pi pi-exclamation-triangle"
+></p-confirmDialog>

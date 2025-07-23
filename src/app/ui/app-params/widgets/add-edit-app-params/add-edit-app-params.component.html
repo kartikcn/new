@@ -1,0 +1,20 @@
+<h2 mat-dialog-title class="mat-dialog-title-ext">{{title}} App Params Details</h2>
+<mat-dialog-content class="mat-typography mat-dialog-content-ext">
+        <form [formGroup]="frmAppParamDetail">
+                <mat-card>
+                        <mat-card-content id="AppParamFrm">
+                                <app-add-app-params formControlName="AppParamFormPanel" [isNew]="isNew">
+                                </app-add-app-params>
+                        </mat-card-content>
+                </mat-card>
+        </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end" class="mat-dialog-actions-ext">
+        <p-button label="Save" (click)="saveRecords()"  icon="pi pi-check" [disabled]="!frmAppParamDetail.valid">
+        </p-button>
+        <p-button label="Cancel"  icon="pi pi-times"
+                (click)="confirmDialog()" styleClass="p-button-secondary" [style]="{'margin-left': '.5em'}"></p-button>
+</mat-dialog-actions>
+<p-confirmDialog header="Confirmation" 
+        icon="pi pi-exclamation-triangle"></p-confirmDialog>
+<p-toast  position="top-right"></p-toast>

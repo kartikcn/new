@@ -1,0 +1,673 @@
+<!-- filterPanel card container -->
+<div class="card">
+    <form [formGroup]="filterPanel">
+        <div *ngIf="useTabletLandscape || useTabletProtrait">
+            <div style="margin: 5px 5px 0 5px; display:flex;justify-content: flex-end;">
+                <p-button [label]="'Resources'" (click)="op.toggle($event)"></p-button>
+                <button (click)="onSearch()" [disabled]="!filterPanel.valid || isSVGView" pButton pRipple label="Search"
+                    style="width: 60px;  margin-left: 5px;"
+                    class="p-button-primary p-button-sm pull right"></button>
+                <button (click)="onClear()" pButton pRipple label="Clear"
+                    style="width: 60px;  margin-left: 5px;"
+                    class="p-button-primary p-button-sm pull right"></button>
+            </div>        
+        </div>
+        <table width="100%" *ngIf="!useTabletProtrait">
+            <tr *ngIf="!(useTabletLandscape || useTabletProtrait)">
+                <td style="width: 20%"></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td style="width: 20%;">
+                    <div style="margin: 5px 0 0 5px ">
+                        <p-button [label]="'Resources'" (click)="op.toggle($event)"></p-button>
+                        <button (click)="onSearch()" [disabled]="!filterPanel.valid || isSVGView" pButton pRipple label="Search"
+                            style="width: 60px;  margin-left: 5px;" class="p-button-primary p-button-sm pull right"></button>
+                        <button (click)="onClear()" pButton pRipple label="Clear"
+                            style="width: 60px;  margin-left: 5px;"class="p-button-primary p-button-sm pull right"></button>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 20%">
+                    <div class="input-label-custom ">
+                        <label class='form-field-lable control-label'>Building </label>
+                        <ng-select appendTo="body" [clearable]="false" [items]="enumBL" formControlName="blId"
+                            [searchable]="true" bindLabel="blNameString" bindValue="blId" (change)="onSelectBlCode($event)"
+                            placeholder="Make a selection" class="ng-select-dropdown">
+                        </ng-select>
+                    </div>
+                </td>
+                <td style="width: 20%">
+                    <div class="input-label-custom ">
+                        <label class='form-field-lable control-label'>Floor</label>
+                        <ng-select appendTo="body" [clearable]="false" [items]="enumFL" formControlName="flId"
+                            [searchable]="true" bindLabel="flNameString" bindValue="flId" placeholder="Make a selection"
+                            class="ng-select-dropdown" (change)="onSelectFlCode($event)">
+                        </ng-select>
+                    </div>
+                </td>
+                <td style="width: 20%">
+                    <div class="input-label-custom ">
+                        <label class='form-field-lable '>Room</label>
+                        <ng-select appendTo="body" [clearable]="false" [items]="rm_data" formControlName="rmId"
+                            [searchable]="true" bindLabel="rmNameString" bindValue="rmId" placeholder="Make a selection"
+                            class="ng-select-dropdown" (change)="onSelectRmCode($event)">
+                        </ng-select>
+                    </div>
+                </td>
+                <td style="width: 20%">
+                    <div class="input-label-custom ">
+                        <label class='form-field-lable'>Arrangement Type</label>
+                        <ng-select appendTo="body" [clearable]="false" [items]="enumArrangementType"
+                            formControlName="arrangementType" [searchable]="true" bindLabel="name"
+                            bindValue="arrangementId" placeholder="Make a selection" class="ng-select-dropdown">
+                        </ng-select>
+                    </div>
+                </td>
+                <td style="width: 20%">
+                    <div class="input-label-custom ">
+                        <label class='form-field-lable control-label'>Capacity</label>
+                        <input type="text" NumbersOnly class="form-control" name="capacity" formControlName="capacity" maxlength="9">
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 20%">
+                    <div class="input-label-custom">
+                        <div class="p-fluid">
+                            <div class="p-field">
+                                <label class='form-field-lable control-label'>Booking Date</label>
+                                <p-calendar appendTo="body" [minDate]="today" dateFormat="dd M yy" name="date"
+                                    formControlName="date" [showIcon]="false" inputId="icon"></p-calendar>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td style="width: 20%">
+                    <div class="input-label-custom ">
+                        <label class='form-field-lable control-label'>From Time</label>
+                        <ng-select appendTo="body" [clearable]="false" [items]="fromTimes" formControlName="fromTime"
+                            [searchable]="true" bindLabel="time" (change)="setTimerFromTime()" bindValue="time"
+                            placeholder="Make a selection" class="ng-select-dropdown">
+                        </ng-select>
+                    </div>
+                </td>
+                <td style="width: 20%">
+                    <div class="input-label-custom ">
+                        <label class='form-field-lable control-label'>To Time</label>
+                        <ng-select appendTo="body" [clearable]="false" [items]="toTimes" formControlName="toTime"
+                            [searchable]="true" bindLabel="time" bindValue="time" (change)="setTimerToTime()"
+                            placeholder="Make a selection" class="ng-select-dropdown">
+                        </ng-select>
+                    </div>
+                </td>
+                <td style="width: 20%">
+                    <div style="display: flex;">
+                        <div>
+                            <label class='form-field-lable' style="margin-right: 5px;">Booking Type</label>
+                        </div>
+                        <div style="display: flex;">
+                            <div>
+                                <p-radioButton name="bookingType" (click)="onRegular()" value="Regular"
+                                    formControlName="bookingType">
+                                </p-radioButton>
+                                <label class='form-field-lable' style="margin-left: 5px;">Regular</label>
+                            </div>
+                            <div style="margin-left: 5px;">
+                                <p-radioButton name="bookingType" (click)="onRecurring()" value="Recurring"
+                                    formControlName="bookingType">
+                                </p-radioButton>
+                                <label class='form-field-lable' style="margin-left: 5px;">Recurring</label>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="recurrencePattern.length > 0" style="text-align: left;">
+                        <label class="recurrence-label">{{recurrencePattern}}</label>
+                    </div>
+                </td>
+            </tr>
+            <tr *ngIf="(filterPanel.controls['fromTime']?.errors && filterPanel.controls['fromTime'].dirty)">
+                <td style="width:20%"></td>
+                <td style="width:20%">
+                    <label *ngIf="!filterPanel.controls['fromTime']?.errors.required" class='form-field-lable'
+                        style="color:red;">{{errorMsg}}</label>
+
+                </td>
+            </tr>
+            <tr *ngIf="(filterPanel.controls['toTime']?.errors && filterPanel.controls['toTime'].dirty)">
+                <td style="width:20%"></td>
+                <td style="width:20%"></td>
+                <td style="width:20%">
+                    <label *ngIf="!filterPanel.controls['toTime']?.errors.required" class='form-field-lable'
+                        style="color:red;">{{errorMsg}}</label>
+                </td>
+            </tr>
+        </table>
+        <div  *ngIf="useTabletProtrait" style="overflow-x: auto; padding: 10px;">
+            <table>
+                <tr>
+                    <td style="width: 25%">
+                        <div class="input-label-custom ">
+                            <label class='form-field-lable control-label'>Building </label>
+                            <ng-select appendTo="body" [clearable]="false" [items]="enumBL" formControlName="blId"
+                                [searchable]="true" bindLabel="blNameString" bindValue="blId" (change)="onSelectBlCode($event)"
+                                placeholder="Make a selection" class="ng-select-dropdown">
+                            </ng-select>
+                        </div>
+                    </td>
+                    <td style="width: 25%">
+                        <div class="input-label-custom ">
+                            <label class='form-field-lable control-label'>Floor</label>
+                            <ng-select appendTo="body" [clearable]="false" [items]="enumFL" formControlName="flId"
+                                [searchable]="true" bindLabel="flNameString" bindValue="flId" placeholder="Make a selection"
+                                class="ng-select-dropdown" (change)="onSelectFlCode($event)">
+                            </ng-select>
+                        </div>
+                    </td>
+                    <td style="width: 25%">
+                        <div class="input-label-custom ">
+                            <label class='form-field-lable '>Room</label>
+                            <ng-select appendTo="body" [clearable]="false" [items]="rm_data" formControlName="rmId"
+                                [searchable]="true" bindLabel="rmNameString" bindValue="rmId" placeholder="Make a selection"
+                                class="ng-select-dropdown" (change)="onSelectRmCode($event)">
+                            </ng-select>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 25%">
+                        <div class="input-label-custom ">
+                            <label class='form-field-lable'>Arrangement Type</label>
+                            <ng-select appendTo="body" [clearable]="false" [items]="enumArrangementType"
+                                formControlName="arrangementType" [searchable]="true" bindLabel="name"
+                                bindValue="arrangementId" placeholder="Make a selection" class="ng-select-dropdown">
+                            </ng-select>
+                        </div>
+                    </td>
+                    <td style="width: 25%">
+                        <div class="input-label-custom ">
+                            <label class='form-field-lable control-label'>Capacity</label>
+                            <input type="text" NumbersOnly class="form-control" name="capacity" formControlName="capacity" maxlength="9">
+                        </div>
+                    </td>
+                    <td style="width: 25%">
+                        <div class="input-label-custom">
+                            <div class="p-fluid">
+                                <div class="p-field">
+                                    <label class='form-field-lable control-label'>Booking Date</label>
+                                    <p-calendar appendTo="body" [minDate]="today" dateFormat="dd M yy" name="date"
+                                        formControlName="date" [showIcon]="false" inputId="icon"></p-calendar>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 25%">
+                        <div class="input-label-custom ">
+                            <label class='form-field-lable control-label'>From Time</label>
+                            <ng-select appendTo="body" [clearable]="false" [items]="fromTimes" formControlName="fromTime"
+                                [searchable]="true" bindLabel="time" (change)="setTimerFromTime()" bindValue="time"
+                                placeholder="Make a selection" class="ng-select-dropdown">
+                            </ng-select>
+                        </div>
+                    </td>
+                    <td style="width: 25%">
+                        <div class="input-label-custom ">
+                            <label class='form-field-lable control-label'>To Time</label>
+                            <ng-select appendTo="body" [clearable]="false" [items]="toTimes" formControlName="toTime"
+                                [searchable]="true" bindLabel="time" bindValue="time" (change)="setTimerToTime()"
+                                placeholder="Make a selection" class="ng-select-dropdown">
+                            </ng-select>
+                        </div>
+                    </td>
+                    
+                </tr>
+                <tr *ngIf="(filterPanel.controls['fromTime']?.errors && filterPanel.controls['fromTime'].dirty)">
+                    <td style="width:25%"></td>
+                    <td style="width:25%"></td>
+                    <td style="width:25%">
+                        <label *ngIf="!filterPanel.controls['fromTime']?.errors.required" class='form-field-lable'
+                            style="color:red;">{{errorMsg}}</label>
+    
+                    </td>
+                </tr>
+                <tr *ngIf="(filterPanel.controls['toTime']?.errors && filterPanel.controls['toTime'].dirty)">
+                    <td style="width:25%"></td>
+                    <td style="width:25%"></td>
+                    <td style="width:25%"></td>
+                    <td style="width:25%">
+                        <label *ngIf="!filterPanel.controls['toTime']?.errors.required" class='form-field-lable'
+                            style="color:red;">{{errorMsg}}</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 25%">
+                        <div style="display: flex; flex-direction: column;">
+                            <div>
+                                <label class='form-field-lable' style="margin-right: 5px;">Booking Type</label>
+                            </div>
+                            <div style="display: flex;">
+                                <div>
+                                    <p-radioButton name="bookingType" (click)="onRegular()" value="Regular"
+                                        formControlName="bookingType">
+                                    </p-radioButton>
+                                    <label class='form-field-lable' style="margin-left: 5px;">Regular</label>
+                                </div>
+                                <div style="margin-left: 5px;">
+                                    <p-radioButton name="bookingType" (click)="onRecurring()" value="Recurring"
+                                        formControlName="bookingType">
+                                    </p-radioButton>
+                                    <label class='form-field-lable' style="margin-left: 5px;">Recurring</label>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                    <td colspan="2">
+                        <div *ngIf="recurrencePattern.length > 0" style="text-align: left;">
+                            <label class="recurrence-label">{{recurrencePattern}}</label>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </form>
+
+</div>
+
+<!-- Resources List panel -->
+<p-overlayPanel #op [showCloseIcon]="true" appendTo="body" [dismissable]="false" [style]="{width: '750px'}">
+    <ng-template pTemplate>
+        <p-table [value]="resourcesData" [(selection)]="selectedScreens" dataKey="resourcesId" [scrollable]="true"
+            [showCurrentPageReport]="true" styleClass="p-datatable-customers" scrollHeight="250px" [rows]="5"
+            [paginator]="true">
+            <ng-template pTemplate="caption">
+                <div>
+                    <p-button label="Save" (click)="[saveResources($event),op.hide()]"
+                        [disabled]="!(selectedScreens.length >0) || errorMsg.length > 1" icon="pi pi-check"
+                        [style]="{'margin-left': '.5em'}"></p-button>
+                </div>
+            </ng-template>
+            <ng-template pTemplate="header">
+                <tr>
+                    <th style="width: 3rem">
+                    </th>
+                    <th pSortableColumn="title">
+                        Resource Title <p-sortIcon field="title"></p-sortIcon>
+                        <p-columnFilter type="text" field="title" display="menu"></p-columnFilter>
+                    </th>
+                    <th pSortableColumn="description">
+                        Description <p-sortIcon field="description"></p-sortIcon>
+                        <p-columnFilter type="text" field="description" display="menu"></p-columnFilter>
+                    </th>
+                    <!-- <th pSortableColumn="quanity">
+                            Available Quanity<p-sortIcon field="quanity"></p-sortIcon>
+                            <p-columnFilter type="text" field="quanity" display="menu"></p-columnFilter>
+                        </th>
+    
+                        <th>
+                            Required Quanity
+                        </th> -->
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-resource>
+                <tr>
+                    <td style="width: 3rem">
+                        <p-tableCheckbox [value]="resource"></p-tableCheckbox>
+                    </td>
+                    <td>{{resource.title}}</td>
+                    <td>{{resource.description}}</td>
+                    <!-- <td>{{resource.quanity}}</td>
+                        <td pEditableColumn>
+                            <p-cellEditor>
+                                <ng-template pTemplate="input">
+                                    <input pInputText type="text"
+                                        (change)="onEditReqQuantity(resource.requiredQuantity,resource.quanity)"
+                                        [(ngModel)]="resource.requiredQuantity">
+                                </ng-template>
+                                <ng-template pTemplate="output">
+                                    {{resource.requiredQuantity}}
+                                    <label *ngIf="resource.quanity < resource.requiredQuantity " class='form-field-lable'
+                                        style="color:red;">{{errorMsg}}</label>
+                                </ng-template>
+                            </p-cellEditor>
+                        </td> -->
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage" let-columns>
+                <tr>
+                    <td [attr.colspan]="resourcesData.length">
+                        No records found
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </ng-template>
+</p-overlayPanel>
+
+<!-- Rooms card container -->
+<div class="card room-card booking-card" *ngIf="(data.length > 0) && filterPanel.valid && isNormalView">
+    <div style="overflow:auto;">
+        <h2 *ngIf="resultData.length>0" class="avail-rooms">Available Rooms</h2>
+        <div class="grid-container">
+            <ul *ngFor="let item of resultData;">
+                <div class="card-container" (click)="selectRoom(item)">
+                    <div class="image-container">
+                        <img [src]="item.rmPhoto" alt="Room" class="card-img" />
+                    </div>
+                    <div class="card-text-container">
+                        <h6 class="heading">{{item.arrangementArrangementType}}-{{item.rmRmCode}}</h6>
+                        <p class="para">Building: {{item.blBlName}}-({{item.blBlCode}})</p>
+                        <p class="para">Floor: {{item.flFlCode}}</p>
+                        <p class="para">Capacity: 1 - {{item.maxCapacity}} Seats</p>
+                        <p class="para" *ngIf="item.conflicts > 0"
+                            style="background-color: #ff2026; border-radius: 5px; text-align: center;">Conflicts:
+                            {{item.conflicts}}</p>
+                    </div>
+                    <i class="pi pi-info-circle" (click)="onDetails($event,item)" style="font-size: 1.25rem"></i>
+                </div>
+            </ul>
+        </div>
+    </div>
+    <div style="display: flex; justify-content: flex-end;">
+        <button type="button" class="btn btn-primary" style="width:fit-content" (click)="viewSvgLook()">SVG
+            View</button>
+    </div>
+
+</div>
+<mat-paginator [hidden]="!resultData.length || isSVGView || displayNoFloorPlanInfo " [length]="data.length" [pageSize]="defaultRecords"
+    [pageSizeOptions]="[12, 24,36,48]" (page)="onPaginateChange($event)">
+</mat-paginator>
+<div class="card no-room-card" *ngIf="isNoRooms && isSearchClicked">
+    <h2 class="no-avail-rooms"> No rooms available </h2>
+</div>
+<div class="card no-room-card" *ngIf="(data.length == 0) && !isSearchClicked">
+    <h2 class="no-avail-rooms"> Select building to continue... </h2>
+</div>
+
+<!-- Room Information panel -->
+<p-dialog header="Room Information" [(visible)]="displayMaximizable" [modal]="true" [style]="{width: '45vw'}"
+    [maximizable]="true" [draggable]="false" [resizable]="false">
+    <table style="margin-top: 10px; width: 80%;">
+        <tr>
+            <th class="border-bottom">Room Details</th>
+        </tr>
+        <tr>
+            <td>
+                <p class="rm-details-para">Arrangement Type </p>
+            </td>
+            <td>
+                <p class="rm-details-para">:</p>
+            </td>
+            <td>
+                <p class="rm-details-para2">{{roomInfo.arrangementArrangementType}}</p>
+            </td>
+            <td>
+                <p class="rm-details-para">Building </p>
+            </td>
+            <td>
+                <p class="rm-details-para">:</p>
+            </td>
+            <td>
+                <p class="rm-details-para2">{{roomInfo.blBlCode}}</p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p class="rm-details-para">Minimum Capacity </p>
+            </td>
+            <td>
+                <p class="rm-details-para">:</p>
+            </td>
+            <td>
+                <p class="rm-details-para2">{{roomInfo.minCapacity}}</p>
+            </td>
+            <td class="border-left">
+                <p class="rm-details-para">Floor </p>
+            </td>
+            <td>
+                <p class="rm-details-para">:</p>
+            </td>
+            <td>
+                <p class="rm-details-para2">{{roomInfo.flFlCode}}</p>
+            </td>
+        </tr>
+        <tr>
+            <td class="border-left">
+                <p class="rm-details-para">Maximum Capacity </p>
+            </td>
+            <td>
+                <p class="rm-details-para">:</p>
+            </td>
+            <td>
+                <p class="rm-details-para2">{{roomInfo.maxCapacity}}</p>
+            </td>
+            <td>
+                <p class="rm-details-para">Room </p>
+            </td>
+            <td>
+                <p class="rm-details-para">:</p>
+            </td>
+            <td>
+                <p class="rm-details-para2">{{roomInfo.rmRmCode}}</p>
+            </td>
+        </tr>
+        <tr>
+            <td class="border-left">
+                <p class="rm-details-para">Preblock(Minutes) </p>
+            </td>
+            <td>
+                <p class="rm-details-para">:</p>
+            </td>
+            <td>
+                <p class="rm-details-para2">{{roomInfo.preBlock}}</p>
+            </td>
+            <td class="border-left">
+                <p class="rm-details-para">Room Name </p>
+            </td>
+            <td>
+                <p class="rm-details-para">:</p>
+            </td>
+            <td>
+                <p class="rm-details-para2">{{roomInfo.rmRmName}}</p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p class="rm-details-para">Postblock(Minutes) </p>
+            </td>
+            <td>
+                <p class="rm-details-para">:</p>
+            </td>
+            <td>
+                <p class="rm-details-para2">{{roomInfo.postBlock}}</p>
+            </td>
+            <td class="border-left">
+                <p class="rm-details-para">External Visitors Allowed </p>
+            </td>
+            <td>
+                <p class="rm-details-para">:</p>
+            </td>
+            <td>
+                <p class="rm-details-para2">{{getEnumByEnumId(roomInfo.externalAllowed)}}</p>
+            </td>
+        </tr>
+    </table>
+    <table style="margin-top: 10px; width: 40%;">
+        <tr>
+            <th class="border-bottom">Resources</th>
+        </tr>
+        <tr *ngFor="let item of rmResources;">
+            <td>
+                <p class="rm-details-para">{{item.resourceTitle}}</p>
+
+            </td>
+            <td>
+                <p class="rm-details-para">:</p>
+            </td>
+            <td>
+                <p class="rm-details-para2">{{item.quanity}}</p>
+
+            </td>
+        </tr>
+        <tr *ngIf="rmResources.length < 1">
+            <td>No records found</td>
+        </tr>
+    </table>
+</p-dialog>
+
+<!-- Booking Details Panel -->
+<p-dialog header="Booking Details" [(visible)]="displaySummary" [closable]="false" [style]="{width: '45vw'}">
+    <div class="row">
+        <div class="column1">
+            <table width="100%">
+                <tr>
+                    <div class="input-label-custom">
+                        <div class="p-fluid">
+                            <div class="p-field">
+                                <label class='detailsHead' style="margin-left:8px;">Meeting Name :</label>
+                            </div>
+                        </div>
+                    </div>
+                    <label class='detailsPara'>
+                        {{summaryData.meetingName}}
+
+                    </label>
+                </tr>
+                <tr>
+                    <div class="input-label-custom">
+                        <div class="p-fluid">
+                            <div class="p-field">
+                                <label class='detailsHead' style="margin-left:8px;">Requested By :</label>
+                            </div>
+                        </div>
+                    </div>
+                    <label class='detailsPara'>
+                        {{getUsernameFromId(summaryData.requestedBy)}}
+                    </label>
+                </tr>
+                <tr>
+                    <div class="input-label-custom">
+                        <div class="p-fluid">
+                            <div class="p-field">
+                                <label class='detailsHead' style="margin-left:8px;">Attendees :</label>
+                            </div>
+                        </div>
+                    </div>
+                    <label class='detailsPara'>
+                        {{attendeesEmails}}
+                    </label>
+                </tr>
+                <tr>
+                    <div class="input-label-custom">
+                        <div class="p-fluid">
+                            <div class="p-field">
+                                <label class='detailsHead' style="margin-left:8px;">Recurrence Pattern :</label>
+                            </div>
+                        </div>
+                    </div>
+                    <label class='detailsPara'>
+                        {{recurrencePattern}}
+                    </label>
+                </tr>
+            </table>
+        </div>
+        <div class="column2">
+            <table width="100%">
+                <tr *ngIf="summaryData.reserveId != 0">
+                    <div class="input-label-custom">
+                        <div class="p-fluid">
+                            <div class="p-field">
+                                <label class='detailsHead' style="margin-left:8px;">Meeting Id :</label>
+                            </div>
+                        </div>
+                    </div>
+                    <label class='detailsPara'>
+                        {{summaryData.reserveId}}
+                    </label>
+                </tr>
+                <tr>
+                    <div class="input-label-custom">
+                        <div class="p-fluid">
+                            <div class="p-field">
+                                <label class='detailsHead' style="margin-left:8px;">Location :</label>
+                            </div>
+                        </div>
+                    </div>
+                    <label class='detailsPara'>
+                        Building - {{getBlCodeFromBlId(summaryData.blId)}} | Floor - {{getFlCodeFromFlId(summaryData.flId,summaryData.blId)}} | Room - {{getRmCodeFromRmId(summaryData.rmId,summaryData.flId,summaryData.blId)}}
+                    </label>
+                </tr>
+                <tr>
+                    <div class="input-label-custom">
+                        <div class="p-fluid">
+                            <div class="p-field">
+                                <label class='detailsHead' style="margin-left:8px;">Date/Time :</label>
+                            </div>
+                        </div>
+                    </div>
+                    <label class='detailsPara'>
+                        {{filterData.date | date :"dd MMM yyyy"}}
+                        {{getTime(filterData.fromTime) | date: "HH:mm"}} - {{getTime(filterData.toTime) | date: "HH:mm"}}
+                    </label>
+                </tr>
+                <tr>
+                    <div class="input-label-custom">
+                        <div class="p-fluid">
+                            <div class="p-field">
+                                <label class='detailsHead' style="margin-left:8px;">Resources :</label>
+                            </div>
+                        </div>
+                    </div>
+                    <label class='detailsPara'>
+                        {{resourcesNames}}
+                    </label>
+                </tr>
+                <tr *ngIf="conflictDates.length != 0">
+                    <div class="input-label-custom">
+                        <div class="p-fluid">
+                            <div class="p-field">
+                                <label class='detailsHead' style="margin-left:8px;">Conflict Dates :</label>
+                            </div>
+                        </div>
+                    </div>
+                    <label class='detailsPara'>
+                        {{conflictDates}}
+                    </label>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <ng-template pTemplate="footer">
+        <button icon="pi pi-times" (click)="closeBookDetails()" label="Close" pButton styleClass="p-button-text"></button>
+    </ng-template>
+</p-dialog>
+
+<div class="card no-file-found" *ngIf="displayNoFloorPlanInfo">
+    <div style="margin-top: auto;margin-bottom: auto;display: flex;justify-content: center;">
+        <h1>No Floorplan available</h1>
+    </div>
+    <div  style="display: flex; justify-content: flex-end; margin-top:10px">
+        <button type="button" class="btn btn-primary" style="width:fit-content" (click)="viewNormalLook()">Normal
+            View</button>
+    </div>
+    
+</div>
+<div class="card room-card booking-card" *ngIf="isSVGView">
+    <app-svg-view   [svgInputData]="svgInputData" (onRoomClick)="roomOnClickListener($event)" style="height: 460px;"></app-svg-view>
+    <div style="display: flex; justify-content: flex-end; margin-top:10px">
+        <button type="button" class="btn btn-primary" style="width:fit-content" (click)="viewNormalLook()">Normal
+            View</button>
+    </div>
+
+</div>
+
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#879cc9" class="spinner-color" type="square-jelly-box"
+    [fullScreen]="true">
+    <p style="color: white"> Loading... </p>
+</ngx-spinner>
+<p-toast key="bookingGrid" position="top-right"></p-toast>
+<p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>

@@ -1,0 +1,304 @@
+<div class="card">
+  <form [formGroup]="scheduleDetailsForm">
+    <table>
+      <tr>
+        <td style="width: 20%">
+          <div class="input-label-custom">
+            <div class="p-fluid">
+              <div class="p-field">
+                <label class='form-field-lable control-label'>Start Date</label>
+                <p-calendar appendTo="body" [minDate]="today" dateFormat="dd M yy" name="dateStart"
+                  formControlName="dateStart" [showIcon]="false" inputId="icon"></p-calendar>
+              </div>
+            </div>
+          </div>
+        </td>
+        <td style="width: 20%">
+          <div class="input-label-custom">
+            <div class="p-fluid">
+              <div class="p-field">
+                <label class='form-field-lable control-label'>End Date</label>
+                <p-calendar appendTo="body" [minDate]="today" dateFormat="dd M yy" name="dateEnd"
+                  formControlName="dateEnd" [showIcon]="false" inputId="icon"></p-calendar>
+              </div>
+            </div>
+          </div>
+        </td>
+        <td style="width: 25%">
+          <div class="input-label-custom " style="width: 90%;">
+            <label class='form-field-lable control-label'>Is Active</label>
+            <ng-select appendTo="body" [clearable]="false" [items]="enumIsActiveData" formControlName="isActive"
+              [searchable]="true" bindLabel="enumValue" bindValue="enumKey" placeholder="Make a selection"
+              class="ng-select-dropdown">
+              <!-- (change)="checkPriorityExists($event)" -->
+            </ng-select>
+          </div>
+        </td>
+        <td style="width: 35%">
+          <div style="display: flex;">
+            <div class="input-label-custom " style="width: 90%;">
+              <label class='form-field-lable control-label'>Priority</label>
+              <ng-select appendTo="body" [clearable]="false" [items]="priorityList" formControlName="priority"
+                [searchable]="true" bindLabel="id" bindValue="id" placeholder="Make a selection"
+                class="ng-select-dropdown">
+                <!-- (change)="checkPriorityExists($event)" -->
+              </ng-select>
+            </div>
+            <div style="display: flex;  margin-top: 25px;">
+              <p-button id="detailsBtn" icon="pi pi-info-circle" matTooltip="View Details"
+                (click)="displayPriorityDetails = true" styleClass="p-button-rounded"></p-button>
+            </div>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td style="width: 30%">
+          <div
+            *ngIf="(scheduleDetailsForm.controls['dateStart']?.errors && scheduleDetailsForm.controls['dateStart'].dirty) || 
+                          (scheduleDetailsForm.controls['dateEnd']?.errors && scheduleDetailsForm.controls['dateEnd'].dirty)">
+            <label class='form-field-lable' style="color:red;">Start date should be less than end
+              date</label>
+          </div>
+        </td>
+        <td></td>
+      </tr>
+    </table>
+    <!-- Daily card -->
+    <div class="card" style="margin: 0px 3px 0px 3px;">
+      <div class="heading-container">
+        <input class="header-radio" type="radio" name="selectedCard" (click)="selectCard('daily')"
+          [checked]="selectedCard === 'daily'">
+        <h2 class="heading">Daily</h2>
+      </div>
+      <div [class.card-readonly]="selectedCard !== 'daily'" style="padding-left: 10px;">
+        <div class="input-label-custom " style="display: flex; justify-content: baseline; margin-top: 5px;">
+          <label class='form-field-lable'>Every:</label>
+          <input type="text" NumbersOnly class="form-control" formControlName="daysFrequency" maxlength="9">
+          <label class='form-field-lable'>day(s)</label>
+        </div>
+        <div *ngIf="scheduleDetailsForm.controls.daysFrequency.value < 1">
+          <label class='form-field-lable' style="color:red;">Value Can not be less than one</label>
+        </div>
+      </div>
+    </div>
+    <!-- Weekly Card -->
+    <div class="card" style="margin: 0px 3px 0px 3px;">
+      <div class="heading-container">
+        <input class="header-radio" type="radio" name="selectedCard" (click)="selectCard('weekly')"
+          [checked]="selectedCard === 'weekly'">
+        <h2 class="heading">Weekly</h2>
+      </div>
+      <div [class.card-readonly]="selectedCard !== 'weekly'" style="padding-left: 10px;">
+        <div class="input-label-custom " style=" margin-top: 5px; display: flex; overflow: auto;">
+          <label class='form-field-lable'>Every:</label>
+          <ul *ngFor="let week of weekNames" class="field-checkbox">
+            <div class="card-container">
+              <p-checkbox name="group2" (onChange)="checked()" [formControlName]=[week.dayName] [value]="week.dayName"
+                [inputId]="week.dayName" binary="true" [(ngModel)]="week.isSelected">
+              </p-checkbox>
+              <label class='form-field-lable' [for]="week.dayName"
+                style="margin-left:3px !important;">{{week.dayName}}</label>
+
+            </div>
+          </ul>
+        </div>
+        <div class="input-label-custom " style="display: flex;justify-content: baseline;">
+          <label class='form-field-lable'>for every</label>
+          <input type="text" NumbersOnly class="form-control" formControlName="weeksFrequency" maxlength="9">
+          <label class='form-field-lable'>week(s)</label>
+        </div>
+        <div *ngIf="scheduleDetailsForm.controls.weeksFrequency.value < 1">
+          <label class='form-field-lable' style="color:red;">Value Can not be less than one</label>
+        </div>
+      </div>
+    </div>
+    <!-- Monthly Card -->
+    <div class="card" style="margin: 0px 3px 0px 3px;">
+      <div class="heading-container">
+        <input class="header-radio" type="radio" name="selectedCard" (click)="selectCard('monthly')"
+          [checked]="selectedCard === 'monthly'">
+        <h2 class="heading">Monthly</h2>
+      </div>
+      <div [class.card-readonly]="selectedCard !== 'monthly'" style="padding-left: 10px;overflow: auto;">
+        <div style=" display: flex; flex-direction: row; margin-top: 15px;">
+          <input type="radio" name="monthly_type" id="dayOfMonth" (click)="onSelectMonthlyType($event)"
+            [checked]="isDayOfMonthVisible">
+          <p-multiSelect [options]="dayOfMonth" appendTo="body" (onChange)="checked()"
+            formControlName="selectedDayNumbers" [placeholder]="'Select day(s)'" optionLabel="day"
+            [readonly]="!isDayOfMonthVisible" [panelStyle]="{'width':'150px'}"></p-multiSelect>
+          <label class='form-field-lable'>day(s)</label>
+          <label class='form-field-lable'> every</label>
+          <input type="text" NumbersOnly class="form-control" [readonly]="!isDayOfMonthVisible"
+            formControlName="monthsFrequency" maxlength="9">
+          <label style="margin-left:4px" class='form-field-lable'>month(s)</label>
+
+        </div>
+
+        <div #mydiv style=" display: flex; flex-direction: row;">
+          <input type="radio" name="monthly_type" id="weekOfMonth_months" (click)="onSelectMonthlyType($event)"
+            placeholder="1" [checked]="isWeekOfMonthVisible">
+          <p-multiSelect [options]="weekNums" [placeholder]="'Select week(s)'" (onChange)="checked()"
+            [readonly]="!isWeekOfMonthVisible" formControlName="selectedWeekNumbers" appendTo="body" optionLabel="id"
+            [panelStyle]="{'width':'150px'}"></p-multiSelect>
+          <p-multiSelect [options]="weekDays" (onChange)="checked()" formControlName="selectedWeekNames"
+            [readonly]="!isWeekOfMonthVisible" [placeholder]="'Select day(s) of week'" appendTo="body"
+            optionLabel="dayName" [panelStyle]="{'width':'200px'}"></p-multiSelect>
+          <label class='form-field-lable'>every</label>
+          <input type="text" NumbersOnly class="form-control" [readonly]="!isWeekOfMonthVisible"
+            formControlName="monthsFrequency2" id="dayOfMonth_months" maxlength="9">
+          <label style="margin-left:4px" class='form-field-lable'>month(s)</label>
+        </div>
+      </div>
+    </div>
+    <!-- Annual card -->
+    <div class="card" style="margin: 0px 3px 0px 3px;">
+      <div class="heading-container">
+        <input class="header-radio" type="radio" name="selectedCard" (click)="selectCard('annually')"
+          [checked]="selectedCard === 'annually'">
+        <h2 class="heading">Annually</h2>
+      </div>
+      <div [class.card-readonly]="selectedCard !== 'annually'" style="padding-left: 10px;">
+        <div class="input-label-custom " style="display: flex; justify-content: baseline; margin-top: 5px;">
+          <label class='form-field-lable'>Every:</label>
+          <input type="text" NumbersOnly class="form-control" formControlName="yearFrequency" maxlength="9">
+          <label class='form-field-lable'>year(s)</label>
+        </div>
+        <div *ngIf="scheduleDetailsForm.controls.yearFrequency.value < 1">
+          <label class='form-field-lable' style="color:red;">Value Can not be less than one</label>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="isError">
+      <label class='form-field-lable' style="color:red;">Provide the required
+        information</label>
+    </div>
+  </form>
+
+  <mat-dialog-actions align="end" class="mat-dialog-actions-ext">
+    <p-button label="Preview" (click)="previewDates()" [disabled]="!scheduleDetailsForm.valid" icon="pi pi-eye">
+    </p-button>
+    <p-button label="Save" (click)="saveRecurrence()" [disabled]="!scheduleDetailsForm.valid" icon="pi pi-check"
+      [style]="{'margin-left': '.5em'}">
+    </p-button>
+    <p-button label="Cancel" icon="pi pi-times" (click)="confirmDialog()" styleClass="p-button-secondary"
+      [style]="{'margin-left': '.5em'}"></p-button>
+  </mat-dialog-actions>
+
+</div>
+<p-toast key="wrSave" position="top-right"></p-toast>
+<p-toast key="exists" position="top-center"></p-toast>
+<p-confirmDialog key="wrGrid" header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>
+<!-- Schedule Preview -->
+<p-dialog header="Schedule Preview" [(visible)]="displaySchedulePreview" [closable]="false" [style]="{width: '30vw'}"
+  [modal]="true" id="preview">
+  <ng-template pTemplate="body">
+    <div class="card">
+      <div class="card-body">
+        <table>
+          <tr>
+            <td>
+              <p><span class="month-name">Type:</span> {{ selectedCard }}</p>
+            </td>
+            <td>
+              <p style="margin-left: 25px;"><span class="month-name">Start Date:</span> {{
+                scheduleDetailsForm.controls.dateStart.value | date: 'dd MMM
+                yyyy' }}</p>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <p><span class="month-name">Total Requests: </span>{{ totalOccurence}} </p>
+            </td>
+            <td>
+              <p style="margin-left: 25px;"><span class="month-name">End Date:</span> {{
+                scheduleDetailsForm.controls.dateEnd.value | date: 'dd MMM
+                yyyy' }}</p>
+            </td>
+          </tr>
+        </table>
+        <div style="margin:10px 0px 10px 0px;">
+          <p><span class="month-name">Description:</span> {{scheduleDetailsMsg}}</p>
+
+        </div>
+        <div *ngIf="scheduleDates.length > 0">
+          <p><span class="month-name">Schedule Dates for Each Month:</span></p>
+          <p-accordion (onOpen)="onTabOpen($event)" (onClose)="onTabClose($event)">
+            <p-accordionTab *ngFor="let obj of uniqueMonthsData "
+              header="{{ obj.month | date: 'MMMM yyyy' }} ({{obj.count}})">
+              <ul class="list-group">
+                <li *ngFor="let date of monthDates" class="list-group-item">
+                  {{ date | date: 'dd MMM yyyy' }} - {{ date | date: 'EEEE' }}
+                </li>
+              </ul>
+            </p-accordionTab>
+          </p-accordion>
+        </div>
+
+        <div *ngIf="scheduleDates.length === 0" class="alert alert-warning mt-3">
+          No schedule dates found within the selected range.
+        </div>
+      </div>
+    </div>
+  </ng-template>
+  <ng-template pTemplate="footer">
+    <p-button icon="pi pi-times" (click)="displaySchedulePreview=false" label="Close" styleClass="p-button-secondary">
+    </p-button>
+  </ng-template>
+</p-dialog>
+<!-- Priority Detailed Information with example -->
+<p-dialog [(visible)]="displayPriorityDetails" [closable]="false" [style]="{width: '40vw'}" [modal]="true" id="preview">
+  <ng-template pTemplate="body">
+    <div class="priority-details">
+      <h3>Priority Details</h3>
+      <hr>
+      <p>
+        <strong>Priorities are defined on a scale from 0 to 5, with 0 being the highest priority.</strong>
+      </p>
+      <p>
+        The priority field is utilized to manage plan suppression.
+      </p>
+
+      <!-- <h4>Example:</h4> -->
+      <p>Consider a cleaning process plan linked to the floor, and we have created two schedules for the month of
+        January 2023:</p>
+      <ul>
+        <li>First Schedule: Daily cleaning schedule</li>
+        <li>Second Schedule: Weekly deep cleaning schedule (every Sunday)</li>
+      </ul>
+
+      <h4>Case 1:</h4>
+      <p>Assigning both schedules a priority of 0</p>
+      <p>The system will generate requests for both schedules as follows:</p>
+      <ul>
+        <li>First Schedule - Daily cleaning schedule: Every day for the month of January 2023.</li>
+        <li>Second Schedule - Weekly deep cleaning schedule: Every Sunday for the month of January 2023.</li>
+      </ul>
+
+      <h4>Case 2:</h4>
+      <p>Setting priority 1 for the first schedule and 0 for the second schedule</p>
+      <p>The system will create requests as follows:</p>
+      <ul>
+        <li>First Schedule - Daily cleaning schedule: Every day for the month of January 2023, except Sundays. Since the
+          second schedule has a higher priority (0), it will suppress the first schedule on Sundays, preventing requests
+          for that day.</li>
+        <li>Second Schedule - Weekly deep cleaning schedule: Every Sunday for the month of January 2023.</li>
+      </ul>
+    </div>
+  </ng-template>
+  <ng-template pTemplate="footer">
+    <p-button icon="pi pi-times" (click)="displayPriorityDetails=false" label="Close" styleClass="p-button-secondary">
+    </p-button>
+  </ng-template>
+</p-dialog>
+<!-- Schedule Exists Message -->
+<p-dialog header="Message" [(visible)]="displayScheduleExist" [style]="{width: '20vw'}" [closable]="false"
+  [draggable]="false" [resizable]="false" [modal]="true">
+  <ng-template pTemplate="body">
+    <p><span class="message">{{scheduleExistsMsg}}</span></p>
+  </ng-template>
+  <ng-template pTemplate="footer">
+    <p-button icon="pi pi-times" (click)="displayScheduleExist=false" label="Close"
+      styleClass="p-button-secondary"></p-button>
+    <button type="button" pButton icon="pi pi-check" label="Continue" (click)="updateScheduleDates()"></button>
+  </ng-template>
+</p-dialog>

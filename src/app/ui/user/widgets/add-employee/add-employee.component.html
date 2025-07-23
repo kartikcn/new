@@ -1,0 +1,107 @@
+<form nz-form [formGroup]="frmEmployeeDetails">
+  <table width="100%">
+    <tr>
+      <td style="width: 50%">
+        <div class="input-label-custom ">
+          <label class='form-field-lable ' [ngClass]="{'control-label': isNew}">Employee Code</label>
+          <input type="text" class="form-control" name="emCode" formControlName="emCode" maxlength="64" appTrimInput>
+        </div>
+      </td>
+      <td style="width: 50%">
+        <div class="input-label-custom">
+          <label class='form-field-lable control-label'>Title</label>
+          <ng-select  [clearable]="false" [items]="enumInitial" formControlName="initials" [searchable]="false"
+                     bindLabel="enumValue" bindValue="enumKey" placeholder="Make a selection" class="ng-select-dropdown ">
+          </ng-select>
+        </div>
+      </td>
+    </tr>
+    <tr *ngIf="(frmEmployeeDetails.controls['emCode']?.errors && (frmEmployeeDetails.controls['emCode']?.dirty || frmEmployeeDetails.controls['emCode']?.touched))">
+      <td style="width: 50%">
+        <label *ngIf="frmEmployeeDetails.controls['emCode']?.errors && !frmEmployeeDetails.controls['emCode']?.errors.required"
+               class='form-field-lable' style="color:red;">
+          Employee code is already exists
+        </label>
+      </td>
+
+      <td style="width:calc(100% / 2)">
+      </td>
+    </tr>
+    <tr>
+      <td style="width: 50%">
+        <div class="input-label-custom ">
+          <label class='form-field-lable control-label'>First Name</label>
+          <input type="text" class="form-control" name="firstName" formControlName="firstName" maxlength="64" appTrimInput>
+        </div>
+      </td>
+      <td style="width: 50%">
+        <div class="input-label-custom ">
+          <label class='form-field-lable'>Middle Name</label>
+          <input type="text" class="form-control" name="maidenName" formControlName="maidenName" maxlength="64" appTrimInput>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td style="width: 50%">
+        <div class="input-label-custom ">
+          <label class='form-field-lable control-label'>Surname</label>
+          <input type="text" class="form-control" name="lastName" formControlName="lastName" maxlength="64" appTrimInput>
+        </div>
+      </td>
+      <td style="width: 50%">
+        <div class="input-label-custom">
+          <label class='form-field-lable control-label'>Gender</label>
+          <ng-select  [clearable]="false" [items]="enumGender" formControlName="gender" [searchable]="false"
+                     bindLabel="enumValue" bindValue="enumKey" placeholder="Make a selection" class="ng-select-dropdown ">
+          </ng-select>
+        </div>
+      </td>
+    </tr>
+
+    <tr>
+      <td style="width: 50%">
+        <div class="input-label-custom ">
+          <label class='form-field-lable control-label'>Email</label>
+          <input type="email" class="form-control blue-border" name="email" formControlName="email" maxlength="64" appTrimInput>
+        </div>
+      </td>
+      <td style="width: 50%">
+        <div class="input-label-custom ">
+          <label class='form-field-lable control-label'>Employee Standard</label>
+          <!-- <input type="text" class="form-control" name="emStd" formControlName="emStd" maxlength="64"> -->
+          <ng-select  [clearable]="false" [items]="enumEmStandard" formControlName="emstdId" [searchable]="false"
+          bindLabel="emStdDesc" bindValue="emstdId" placeholder="Make a selection" class="ng-select-dropdown ">
+        </ng-select>
+        </div>
+      </td>
+    </tr>
+    <tr *ngIf="(frmEmployeeDetails.controls['email']?.errors && (frmEmployeeDetails.controls['email']?.dirty || frmEmployeeDetails.controls['email']?.touched))">
+      <td style="width: 50%">
+        <label *ngIf="frmEmployeeDetails.controls['email']?.errors && !frmEmployeeDetails.controls['email']?.errors.required"
+               class='form-field-lable' style="color:red;">
+          Please enter valid Email
+        </label>
+      </td>
+      <td style="width:calc(100% / 2)">
+      </td>
+    </tr>
+    <tr>
+      <td style="width: 50%">
+        <div class="input-label-custom ">
+          <label class='form-field-lable control-label'>Employee Status</label>
+          <ng-select  [clearable]="false" [items]="enumEmStatus" formControlName="emStatus" [searchable]="false"
+                     bindLabel="enumValue" bindValue="enumKey" placeholder="Make a selection" class="ng-select-dropdown ">
+          </ng-select>
+        </div>
+      </td>
+      <td style="width: 50%">
+        <div class="input-label-custom ">
+          <label class='form-field-lable'>Line Manager</label>
+          <ng-select  [clearable]="false" [items]="enumLineMngr" formControlName="lineMngr" [searchable]="true"
+            bindLabel="firstName" bindValue="emId" placeholder="Make a selection" class="ng-select-dropdown ">
+          </ng-select>
+        </div>
+      </td>
+    </tr>
+  </table>
+</form>

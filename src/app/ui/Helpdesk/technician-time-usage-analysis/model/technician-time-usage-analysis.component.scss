@@ -1,0 +1,60 @@
+@import '/src/scss/variables';
+.ellipsis{
+    white-space: nowrap; 
+    overflow: hidden;
+    text-overflow: ellipsis; 
+  }
+
+::ng-deep p-datatable-scrollable-header-box {
+  padding: 0px;
+}
+
+::ng-deep .p-panel .p-panel-content {
+  border: none !important;
+  padding: 0px !important;
+}
+
+::ng-deep .ng-select.ng-select-single .ng-select-container .ng-value-container .ng-value {
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+  max-width: 280px !important;
+}
+
+:host ::ng-deep .pi-chevron-down:before {
+  content: "\2212" !important;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #0d89ec;
+}
+
+:host ::ng-deep .pi-chevron-right:before {
+  content: "\002B" !important;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #0d89ec;
+}
+
+.hold-dialog-header {
+  margin-left: 5px;
+  font-weight:bold;
+  font-size: 14px;
+}
+
+:host ::ng-deep .p-dialog .p-dialog-content {
+ 
+  padding: 0 1.5rem 0rem 1.5rem;
+}
+
+.xls-container {
+  width: 100%;
+}
+
+.filter-search-button{
+  width: 80px; 
+  margin: 0px 20px 0px 0px;
+}
+.filter-clear-button{
+  width: 80px;
+  margin-left: -05px;
+}

@@ -1,0 +1,81 @@
+<div class="card" style="height: 90vh !important">
+    <p-panel header="{{title}} Asset">
+        <ng-template pTemplate="icons">
+            <p-button label="Save" (click)="saveRecords()" icon="pi pi-check"
+                [disabled]="!frmEqDetail.valid"></p-button>
+            <p-button label="Back" icon="pi pi-arrow-circle-left" (click)="clickBack()" styleClass="p-button-secondary"
+                [style]="{'margin-left': '.5em'}"></p-button>
+        </ng-template>
+        <p-tabView [(activeIndex)]="index" (onChange)="handleChange($event)">
+            <p-tabPanel header="Basic Details" #details>
+                <mat-dialog-content class="mat-typography mat-dialog-content-ext">
+                    <form [formGroup]="frmEqDetail">
+                        <mat-card-content id="equipment">
+                            <app-add-eq-form formControlName="eqFormPanel" [isNew]="isNew">
+                            </app-add-eq-form>
+                        </mat-card-content>
+                    </form>
+                </mat-dialog-content>
+            </p-tabPanel>
+            <p-tabPanel header="Other Details" #location>
+                <mat-dialog-content class="mat-typography mat-dialog-content-ext">
+                    <form [formGroup]="frmEqDetail">
+                        <mat-card-content id="eqLocationPanel">
+                            <app-asset-location formControlName="eqLocationPanel" [isNew]="isNew"></app-asset-location>
+                        </mat-card-content>
+                    </form>
+                </mat-dialog-content>
+            </p-tabPanel>
+            <p-tabPanel header="Insurance, Lease and Warranty" #insurance>
+                <mat-dialog-content class="mat-typography mat-dialog-content-ext">
+                    <div class="section">
+                        <h3>Insurance</h3>
+                        <form [formGroup]="frmEqDetail">
+                            <mat-card-content id="eqInsurance">
+                                <app-asset-insurance formControlName="eqInsurance"
+                                    [isNew]="isNew"></app-asset-insurance>
+                            </mat-card-content>
+                        </form>
+                    </div>
+                </mat-dialog-content>
+
+                <mat-dialog-content class="mat-typography mat-dialog-content-ext">
+                    <div class="section">
+                        <h3>Lease</h3>
+                        <form [formGroup]="frmEqDetail">
+                            <mat-card-content id="eqLease">
+                                <app-asset-lease formControlName="eqLease" [isNew]="isNew"></app-asset-lease>
+                            </mat-card-content>
+                        </form>
+                    </div>
+                </mat-dialog-content>
+
+                <mat-dialog-content class="mat-typography mat-dialog-content-ext">
+                    <div class="section">
+                        <h3>Warranty</h3>
+                        <form [formGroup]="frmEqDetail">
+                            <mat-card-content id="eqWarranty">
+                                <app-asset-warranty formControlName="eqWarranty" [isNew]="isNew"></app-asset-warranty>
+                            </mat-card-content>
+                        </form>
+                    </div>
+                </mat-dialog-content>
+            </p-tabPanel>
+            <p-tabPanel header="Documents" [disabled]="(eqId == 0)" #document>
+                <app-documents-list [docBucketId]="docBucketId"></app-documents-list>
+            </p-tabPanel>
+        </p-tabView>
+    </p-panel>
+</div>
+
+<p-toast key="eqSave" position="top-right"></p-toast>
+<p-toast key="error" position="top-right"></p-toast>
+<p-confirmDialog key="positionDialog" header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>
+
+<p-confirmDialog key="confirmDialog" header="Confirmation" icon="pi pi-exclamation-triangle" #cd
+    [style]="{ width: '25vw' }">
+    <ng-template pTemplate="footer">
+        <button type="button" pButton icon="pi pi-times" label="No" (click)="cd.reject()"></button>
+        <button type="button" pButton icon="pi pi-check" label="Yes" (click)="cd.accept()"></button>
+    </ng-template>
+</p-confirmDialog>

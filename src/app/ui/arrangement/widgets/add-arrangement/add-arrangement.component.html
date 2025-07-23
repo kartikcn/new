@@ -1,0 +1,40 @@
+<form [formGroup]="arrangementFormPanel">
+        <table width="100%">
+
+                <tr>
+                        <td style="width: 100%">
+                                <div class="input-label-custom">
+                                        <label class='form-field-lable control-label'>Arrangement Type</label>
+                                        <input type="text" class="form-control" name="arrangementType" formControlName="arrangementType" maxlength="64"
+                                                appTrimInput>
+                                </div>
+                        </td>
+                </tr>
+                <!-- <tr
+                        *ngIf="(arrangementFormPanel.controls['arrangementType']?.errors && (arrangementFormPanel.controls['arrangementType']?.dirty || arrangementFormPanel.controls['arrangementType']?.touched))">
+                        <td style="width: 100%">
+                                <label *ngIf="arrangementFormPanel.controls['arrangementType']?.errors && !arrangementFormPanel.controls['arrangementType']?.errors.required"
+                                        class='form-field-lable' style="color:red;">Arrangement Type already
+                                        exists.</label>
+                        </td>
+                </tr> -->
+                <tr>
+                        <td style="width: 100%" colspan="2">
+                                <div class="input-label-custom ">
+                                        <label class='form-field-lable control-label'>Description</label>
+                                        <textarea class="form-control note-border" name="description" formControlName="description" rows="2" nz-input
+                                                maxlength="128" appTrimInput></textarea>
+                                </div>
+                        </td>
+                </tr>
+                <tr>
+                        <td style="width: 100%">
+                                <div class="input-label-custom">
+                                        <label class='form-field-lable control-label'>Highlight Color </label>
+                                        <input type="color" class="form-control" name="highlightColor" style="width: 100px;"
+                                                formControlName="highlightColor" maxlength="32">
+                                </div>
+                        </td>
+                </tr>
+        </table>
+</form>

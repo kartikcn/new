@@ -1,0 +1,110 @@
+<form [formGroup]="slaRequestFormPanel">
+    <table width="100%" *ngIf="!useTabletProtrait">
+        <tr>
+            <td width="20%">
+                <div class="input-label-custom">
+                    <label class='form-field-lable control-label'>Problem Type</label>
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <div style="width: 85%;">
+                            <textarea class="form-control note-border"  name="problemTypeString" rows="2"
+                                formControlName="problemTypeString" [readonly]="true" 
+                                placeholder="Add problem type" nz-input></textarea>
+                        </div>
+                        <div style="margin-left: 10px">
+                            <p-button  (click)="onAddProblemType()" icon="pi pi-search"  matTooltip="Select"
+                            matTooltipPosition="below" >
+                            </p-button>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr>   
+            <td width="20%">
+                <div class="input-label-custom ">
+                    <label class='form-field-lable  '>Site</label>
+                    <ng-select appendTo="body" [clearable]="false" [items]="enumSites" formControlName="siteId" [searchable]="true"
+                        bindLabel="siteName" bindValue="siteId" placeholder="Make a selection" class="ng-select-dropdown"
+                        (change)="onChangeSite($event)" (scrollToEnd)="scrollToEndSite()" (search)="searchSite($event)"
+                        (open)="onOpenSite()">
+                    </ng-select>
+                </div>
+            </td>
+        </tr>
+        <tr>    
+            <td width="20%">
+                <div class="input-label-custom ">
+                    <label class='form-field-lable  '>Building</label>
+                    <ng-select appendTo="body" [clearable]="false" [items]="enumBL" formControlName="blId" [searchable]="true"
+                        bindLabel="blNameString" bindValue="blId" placeholder="Make a selection" class="ng-select-dropdown"
+                        (change)="onSelectBl($event)" (scrollToEnd)="scrollToEndBl()" (search)="searchBl($event)"
+                        (open)="onOpenBl()">
+                    </ng-select>
+                </div>
+            </td> 
+        </tr>
+        <tr>    
+            <td width="20%">
+                <div class="input-label-custom ">
+                    <label class='form-field-lable  '>Asset Standard</label>
+                    <ng-select appendTo="body" [clearable]="false" [items]="eqStdData" formControlName="eqStdId"
+                        [searchable]="true" bindLabel="displayName" bindValue="eqStdId" placeholder="Make a selection"
+                        class="ng-select-dropdown"  (change)="onChangeEqStd($event)">
+                    </ng-select>
+                </div>
+            </td>
+        </tr>
+    </table>
+    <table width="100%" *ngIf="useTabletProtrait">
+        <tr>
+            <td width="50%">
+                <div class="input-label-custom">
+                    <label class='form-field-lable control-label'>Problem Type</label>
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <div style="width: 85%;">
+                            <textarea class="form-control note-border"  name="problemTypeString" rows="2"
+                                formControlName="problemTypeString" [readonly]="true" 
+                                placeholder="Add problem type" nz-input></textarea>
+                        </div>
+                        <div style="margin-left: 10px">
+                            <p-button  (click)="onAddProblemType()" icon="pi pi-search"  matTooltip="Select"
+                            matTooltipPosition="top" >
+                            </p-button>
+                        </div>
+                    </div>
+                </div>
+            </td>
+            <td width="50%">
+                <div class="input-label-custom ">
+                    <label class='form-field-lable  '>Asset Standard</label>
+                    <ng-select appendTo="body" [clearable]="false" [items]="eqStdData" formControlName="eqStdId"
+                        [searchable]="true" bindLabel="displayName" bindValue="eqStdId" placeholder="Make a selection"
+                        class="ng-select-dropdown"  (change)="onChangeEqStd($event)">
+                    </ng-select>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td width="50%">
+                <div class="input-label-custom ">
+                    <label class='form-field-lable  '>Site</label>
+                    <ng-select appendTo="body" [clearable]="false" [items]="enumSites" formControlName="siteId" [searchable]="true"
+                        bindLabel="siteName" bindValue="siteId" placeholder="Make a selection" class="ng-select-dropdown"
+                        (change)="onChangeSite($event)" (scrollToEnd)="scrollToEndSite()" (search)="searchSite($event)"
+                        (open)="onOpenSite()">
+                    </ng-select>
+                </div>
+            </td>
+            <td width="50%">
+                <div class="input-label-custom ">
+                    <label class='form-field-lable  '>Building</label>
+                    <ng-select appendTo="body" [clearable]="false" [items]="enumBL" formControlName="blId" [searchable]="true"
+                        bindLabel="blNameString" bindValue="blId" placeholder="Make a selection" class="ng-select-dropdown"
+                        (change)="onSelectBl($event)" (scrollToEnd)="scrollToEndBl()" (search)="searchBl($event)"
+                        (open)="onOpenBl()">
+                    </ng-select>
+                </div>
+            </td> 
+        </tr>
+    </table>
+</form>

@@ -1,0 +1,115 @@
+<div class="card" style="height: 92vh;">
+  <p-panel header="Resources Details">
+    <ng-template pTemplate="icons">
+      <button pButton label="Add" (click)="onAdd()" icon="pi pi-plus">
+      </button>
+    </ng-template>
+    <div class="card">
+      <p-table [value]="resourcesData" [paginator]="false" [rows]="rowCount" [scrollable]="true"
+        scrollDirection="both" scrollHeight="500px" (onFilter)="onInnerFilter($event)"
+        styleClass="p-datatable-responsive-demo p-datatable-gridlines" [rowHover]="false">
+        <ng-template pTemplate="header">
+          <tr>
+            <th style="width:8rem"> </th>
+            <!-- <th pSortableColumn="id" hidden="true">
+              <div class="grid-header-column">
+                <div class="grid-header-label">
+                  <p class="grid-label-paragraph">ID</p>
+                </div>
+                <div class="grid-sort-icon">
+                  <p-sortIcon field="id"></p-sortIcon>
+                  <p-columnFilter type="text" field="id" display="menu"></p-columnFilter>
+                </div>
+              </div>
+            </th> -->
+            <th pSortableColumn="title">
+              <div class="grid-header-column">
+                <div class="grid-header-label">
+                  <p class="grid-label-paragraph">Resource Title</p>
+                </div>
+                <div class="grid-sort-icon">
+                  <p-sortIcon field="title"></p-sortIcon>
+                  <p-columnFilter type="text" field="title" display="menu"></p-columnFilter>
+                </div>
+              </div>
+            </th>
+            <th pSortableColumn="description">
+              <div class="grid-header-column">
+                <div class="grid-header-label">
+                  <p class="grid-label-paragraph">Description</p>
+                </div>
+                <div class="grid-sort-icon">
+                  <p-sortIcon field="description"></p-sortIcon>
+                  <p-columnFilter type="text" field="description" display="menu"></p-columnFilter>
+                </div>
+              </div>
+            </th>
+            <th pSortableColumn="type">
+              <div class="grid-header-column">
+                <div class="grid-header-label">
+                  <p class="grid-label-paragraph">Type</p>
+                </div>
+                <div class="grid-sort-icon">
+                  <p-sortIcon field="type"></p-sortIcon>
+                  <p-columnFilter field="type" matchMode="equals" display="menu">
+                    <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                      <p-dropdown [ngModel]="value" [options]="enummTypeData" optionLabel="enumValue" optionValue="enumKey"
+                        (onChange)="filter($event.value)" placeholder="Select a Type" [showClear]="true"></p-dropdown>
+                    </ng-template>
+                  </p-columnFilter>
+                </div>
+              </div>
+            </th>
+            <th pSortableColumn="quanity">
+              <div class="grid-header-column">
+                <div class="grid-header-label">
+                  <p class="grid-label-paragraph">Quantity</p>
+                </div>
+                <div class="grid-sort-icon">
+                  <p-sortIcon field="quanity"></p-sortIcon>
+                  <p-columnFilter type="numeric" field="quanity" display="menu"></p-columnFilter>
+                </div>
+              </div>
+            </th>
+            <th pSortableColumn="costPerUnit">
+              <div class="grid-header-column">
+                <div class="grid-header-label">
+                  <p class="grid-label-paragraph">Cost Per unit</p>
+                </div>
+                <div class="grid-sort-icon">
+                  <p-sortIcon field="costPerUnit"></p-sortIcon>
+                  <p-columnFilter type="numeric" field="costPerUnit" display="menu"></p-columnFilter>
+                </div>
+              </div>
+            </th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-resource>
+          <tr [pSelectableRow]="resource">
+            <td style="width:8rem">
+              <button pButton pRipple icon="pi pi-pencil" (click)="onEdit(resource.resourcesId)" type="button"
+                class="p-button-text">
+              </button>
+              <button pButton pRipple icon="pi pi-eye" type="button" (click)="onView(resource.resourcesId)"
+                class="p-button-text pull-right" style="font-size: 5rem;">
+              </button>
+            </td>
+            <td>{{resource.title}}</td>
+            <td>{{resource.description}}</td>
+            <td>{{getTypeById(resource.type)}}</td>
+            <td>{{resource.quanity}}</td>
+            <td>{{resource.costPerUnit | currency: 'GBP':true}}</td>
+          </tr>
+        </ng-template>
+      </p-table>
+      <div class="paginator">
+        <p-paginator  [rows]="rowCount" [totalRecords]="totalElements" (onPageChange)="onPageChange($event)"
+        [first]="paginationObj.pageNo * paginationObj.pageSize"
+          currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true"
+          [rowsPerPageOptions]="[25,50,100]"></p-paginator>
+      </div>
+    </div>
+  </p-panel>
+</div>
+<p-toast key="resourceGrid" position="top-right"></p-toast>
+<p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>

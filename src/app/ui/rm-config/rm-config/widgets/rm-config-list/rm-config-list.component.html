@@ -1,0 +1,102 @@
+<p-panel header="Room Configurations List">
+        <ng-template pTemplate="icons">
+                <button pButton (click)="addRecord()" label="Add" icon="pi pi-plus"></button>
+                <button pButton  label="Cancel" (click)="onCancel()" class="cancel-button"></button>
+        </ng-template>
+        <div class="card">
+                <p-table [value]="roomConfigsRecords">
+                        <ng-template pTemplate="header">
+                                <tr>
+                                        <th style="width:8rem"></th>
+                                        <!-- <th pSortableColumn="rmCat">
+                                                <div class="p-d-flex p-jc-between p-ai-center">Room Category
+                                                        <p-sortIcon field="rmCat"></p-sortIcon>
+                                                        <p-columnFilter type="text" field="rmCat" display="menu">
+                                                        </p-columnFilter>
+                                                </div>
+                                        </th>
+                                        <th pSortableColumn="rmType">
+                                                <div class="p-d-flex p-jc-between p-ai-center">Room Type
+                                                        <p-sortIcon field="rmType"></p-sortIcon>
+                                                        <p-columnFilter type="text" field="rmType" display="menu">
+                                                        </p-columnFilter>
+                                                </div>
+                                        </th> -->
+                                        <th pSortableColumn="arrangementArrangementType">
+                                                <div class="grid-header-column">
+                                                        <div class="grid-header-label">
+                                                                <p class="grid-label-paragraph">Arrangement Type</p>
+                                                        </div>
+                                                        <div class="grid-sort-icon">
+                                                                <p-sortIcon field="arrangementArrangementType"></p-sortIcon>
+                                                                <p-columnFilter type="text" field="arrangementArrangementType"
+                                                                        display="menu"></p-columnFilter>
+                                                        </div>
+                                                </div>
+                                        </th>
+                                        <th pSortableColumn="isReservable">
+                                                <div class="grid-header-column">
+                                                        <div class="grid-header-label">
+                                                                <p class="grid-label-paragraph">Is Reservable?</p>
+                                                        </div>
+                                                        <div class="grid-sort-icon">
+                                                                <p-sortIcon field="isReservable"></p-sortIcon>
+                                                                <p-columnFilter field="isReservable" matchMode="equals"
+                                                                        display="menu">
+                                                                        <ng-template pTemplate="filter" let-value
+                                                                                let-filter="filterCallback">
+                                                                                <p-dropdown [ngModel]="value"
+                                                                                        [options]="enumIsReservable"
+                                                                                        optionLabel="enumValue"
+                                                                                        optionValue="enumKey"
+                                                                                        (onChange)="filter($event.value)"
+                                                                                        placeholder="Select a Type"
+                                                                                        [showClear]="true"></p-dropdown>
+                                                                        </ng-template>
+                                                                </p-columnFilter>
+                                                        </div>
+                                                </div>
+                                        </th>
+                                        <th pSortableColumn="maxCapacity">
+                                                <div class="grid-header-column">
+                                                        <div class="grid-header-label">
+                                                                <p class="grid-label-paragraph">Maximum Capacity</p>
+                                                        </div>
+                                                        <div class="grid-sort-icon">
+                                                                <p-sortIcon field="maxCapacity"></p-sortIcon>
+                                                                <p-columnFilter type="text" field="maxCapacity"
+                                                                        display="menu"></p-columnFilter>
+                                                        </div>
+                                                </div>
+                                        </th>
+                                </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-rmc>
+                                <tr [pSelectableRow]="rmc">
+                                        <td style="width:8rem">
+                                                <button icon="pi pi-pencil" pButton pRipple type="button"
+                                                        (click)="openEditItem(rmc)"
+                                                        class="p-button-text p-button-rounded"></button>
+                                                <button pButton type="button"
+                                                        class="p-button-text p-button-rounded pull-right"
+                                                        style="font-size: 5rem; color: red;" icon="pi pi-times"
+                                                        iconPos="left"
+                                                        (click)="deleteRecordConfirm(rmc.configId)"></button>
+                                        </td>
+                                        <td>{{rmc.arrangementArrangementType}}</td>
+                                        <td>{{getEnumById(rmc.isReservable)}}</td>
+                                        <td>{{rmc.maxCapacity}}</td>
+                                </tr>
+                        </ng-template>
+                        <ng-template pTemplate="emptymessage" let-columns>
+                                <tr>
+                                        <td [attr.colspan]="5">
+                                                No records found
+                                        </td>
+                                </tr>
+                        </ng-template>
+                </p-table>
+        </div>
+</p-panel>
+<p-confirmDialog key="rmcGrid" header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>
+<p-toast key="rmcMessage" position="top-right"></p-toast>

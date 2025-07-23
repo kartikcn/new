@@ -1,0 +1,43 @@
+<div class="p-d-flex p-flex-column" id="wrStatusCardComponent">
+    <div class="ng-value" *ngFor="let item of stepsWithStatusData" style="margin-bottom:1%;">
+        <div class="p-mb-2">
+            <p-card  header={{item.status.enumValue}} [ngClass]="{ 'readonly-panel': item.hide  }" styleClass="p-card-shadow">
+                <ng-template pTemplate="header">
+                    <p-button id="add-btn" (click)="addSteps(item.status.enumKey)" class="pull-right m-3"
+                        icon="pi pi-plus"   matTooltip="Add" matTooltipPosition="above">
+                    </p-button>
+                </ng-template>
+                <p>
+                    <p-table #dt1 [value]="item.steps">
+                        <ng-template pTemplate="body" let-step>
+                            <tr [pSelectableRow]="step">
+                                <td style="width:4rem">
+                                    <button pButton pRipple type="button" icon="pi pi-pencil" class="p-button-text"
+                                        (click)="onEdit(step,item.status.enumKey)">
+                                    </button>
+                                </td>
+                                <td style="width:4rem">
+                                    <button pButton pRipple icon="pi pi-times" type="button" (click)="onDelete(step)"
+                                        class="p-button-text pull-right" style="font-size: 5rem; color: red;">
+                                    </button>
+                                </td>
+                                <td>{{getStepTypeEnumById(step.stepType)}}</td>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="emptymessage" let-columns>
+                            <tr>
+                                <td [attr.colspan]="3">
+                                    No records found
+                                </td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </p>
+                <ng-template pTemplate="footer">
+                </ng-template>
+            </p-card>
+        </div>
+    </div>
+</div>
+<p-toast key="saveStep" position="top-right"></p-toast>
+<p-confirmDialog key="mygrid" header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>

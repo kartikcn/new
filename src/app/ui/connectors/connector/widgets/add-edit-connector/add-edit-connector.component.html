@@ -1,0 +1,18 @@
+<h2 mat-dialog-title class="mat-dialog-title-ext">{{title}} Connector</h2>
+<mat-dialog-content class="mat-typography mat-dialog-content-ext">
+  <form [formGroup]="connectorDetail">
+    <mat-card>
+      <mat-card-content id="id">
+        <app-add-connector formControlName="connectorFormPanel" [isNew]="isNew"></app-add-connector>
+      </mat-card-content>
+    </mat-card>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end" class="mat-dialog-actions-ext">
+  <p-button label="Save" (click)="saveRecords()" [disabled]="!connectorDetail.valid" icon="pi pi-check"></p-button>
+  <p-button label="Cancel" icon="pi pi-times" (click)="confirmDialog()" styleClass="p-button-secondary"
+    [style]="{'margin-left': '.5em'}"></p-button>
+</mat-dialog-actions>
+<p-toast key="error" position="top-right"></p-toast>
+<p-confirmDialog key="positionDialog" header="positionDialog" icon="pi pi-exclamation-triangle"></p-confirmDialog>

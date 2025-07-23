@@ -1,0 +1,26 @@
+:host ::ng-deep .p-card .p-card-title {
+    font-size: 1rem !important;
+    font-weight: 700 !important;
+  }
+  
+  .p-card .p-button {
+    margin-top: 8px;
+    margin-right: 0;
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+  
+  .readonly-panel {
+    opacity: 0.5; /* Reduce opacity to visually indicate that panel is disabled */
+    pointer-events: none; /* Prevent user interactions with the panel */
+  }
+
+  :host ::ng-deep #add-btn .p-button {
+    background-color: white !important;
+    border-radius: 50%;
+    border: 2px solid #2196F3;
+  }
+
+  :host ::ng-deep .pi.pi-plus {
+    color: #2196F3;
+  }

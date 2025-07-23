@@ -1,0 +1,96 @@
+<div class="card">
+    <p-table [value]="eqData" [paginator]="true" [rows]="5" [showCurrentPageReport]="true"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [scrollable]="true"
+        scrollDirection="both" [rowsPerPageOptions]="[5,10,25]"
+        styleClass="p-datatable-responsive-demo p-datatable-gridlines"
+         [(selection)]="selectedScreens" dataKey="eqId">
+        <ng-template pTemplate="caption">
+            <div class="d-flex flex-row">
+                <div class="available-assets-heading-div">
+                    <h4 class="available-assets-heading">Available Assets For {{selectedPlan}}</h4>
+                </div>
+                <div class="available-assests-button-div">
+                    <button pButton pRipple label="Link" class="p-button-primary p-button-sm p-mr-2"
+                        (click)="confirmDialog()" [disabled]="!(selectedScreens.length>0)"></button>
+                </div>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th style="width: 3rem">
+                    <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                </th>
+                <th pSortableColumn="eqCode">
+                    <div class="grid-header-column">
+                        <div class="grid-header-label">
+                            <p class="grid-label-paragraph">Asset</p>
+                        </div>
+                        <div class="grid-sort-icon">
+                            <p-sortIcon field="eqCode"></p-sortIcon>
+                            <p-columnFilter type="text" field="eqCode" display="menu"></p-columnFilter>
+                        </div>
+                    </div>
+                </th>
+                <th pSortableColumn="eqStd">
+                    <div class="grid-header-column">
+                        <div class="grid-header-label">
+                            <p class="grid-label-paragraph">Asset Standard </p>
+                        </div>
+                        <div class="grid-sort-icon">
+                            <p-sortIcon field="eqStd"></p-sortIcon>
+                            <p-columnFilter type="text" field="eqStd" display="menu"></p-columnFilter>
+                        </div>
+                    </div>
+                </th>
+                <th pSortableColumn="blName">
+                    <div class="grid-header-column">
+                        <div class="grid-header-label">
+                            <p class="grid-label-paragraph">Building </p>
+                        </div>
+                        <div class="grid-sort-icon">
+                            <p-sortIcon field="blName"></p-sortIcon>
+                            <p-columnFilter type="text" field="blName" display="menu"></p-columnFilter>
+                        </div>
+                    </div>
+                </th>
+                <th pSortableColumn="floorName">
+                    <div class="grid-header-column">
+                        <div class="grid-header-label">
+                            <p class="grid-label-paragraph">Floor</p>
+                        </div>
+                        <div class="grid-sort-icon">
+                            <p-sortIcon field="floorName"></p-sortIcon>
+                            <p-columnFilter type="text" field="floorName" display="menu"></p-columnFilter>
+                        </div>
+                    </div>
+                </th>
+                <th pSortableColumn="rmName">
+                    <div class="grid-header-column">
+                        <div class="grid-header-label">
+                            <p class="grid-label-paragraph">Room</p>
+                        </div>
+                        <div class="grid-sort-icon">
+                            <p-sortIcon field="rmName"></p-sortIcon>
+                            <p-columnFilter type="text" field="rmName" display="menu"></p-columnFilter>
+                        </div>
+                    </div>
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-eq>
+            <tr [pSelectableRow]="eq">
+                <td style="width: 3rem">
+                    <p-tableCheckbox [value]="eq"></p-tableCheckbox>
+                </td>
+                <td>{{eq.eqCode}}</td>
+                <td>{{eq.eqStd}}</td>
+                <td>{{eq.blName}}</td>
+                <td>{{eq.floorName}}</td>
+                <td>{{eq.rmName}}</td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
+
+<p-toast key="linkGrid" position="top-right"></p-toast>
+<p-confirmDialog key="linkGrid" header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>

@@ -1,0 +1,60 @@
+<div class="container">
+    <div id="loginbox" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 logInBoxDiv">
+      <div class="panel panel-info" style="background-color: white !important;">
+        <a href="#" target="_blank"><img src="assets/images/fms_logo_dark_uncollapsed.png" width="250px" height="100px"  alt="FMS" class="companyLogo" />
+        </a>
+        <div style="padding-top:15px; margin: 10%; " class="panel-body">
+          <div style="display:none" id="login-alert" class="alert alert-danger col-sm-12"></div>
+          <form id="loginTenant" [formGroup]="loginForm">
+            <div class="input-group mBottom mBottom">
+              <input type="email" formControlName="username" uppercase  autofocus placeholder="User Name" id="email" class="form-control" required maxlength="64">
+            </div>
+            <div class="input-group mBottom">
+                <input type="password" formControlName="password" autofocus id="pass" class="form-control" placeholder="Password" required maxlength="64">
+                <span class="input-group-btn" style=" margin-top: -2px; float:left;outline: 0.01em solid #dee2e6;margin-left: 0.5px;">
+                <button class="btn btn-default reveal" (click)="showPwd()" type="button"><em class="fa fa-eye"></em></button>
+                </span>
+            </div>
+            <div *ngIf="isLoginFailed" style="color: red;">
+                   {{loginFailedMsg}}
+            </div>
+            <div style="margin-top:10px" class="form-group">
+              <div class="col-sm-12 controls">
+                <button id="login_btn" (click)="onSubmit()" class="btn btn-success">LOGIN</button>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="textRed"></div>
+              <div class="col-md-12 control">
+                <!-- <div class="hTrouble">
+                  Having login trouble?
+                  <br/>
+                  <button (click)="passwordShow();" class=" btn btn-link reset">Reset Password</button> or <a href="" style="color:#00a9c4"> Contact Support</a>
+                </div> -->
+              </div>
+            </div>
+          </form>
+        </div>
+        <form id="passwordReset" *ngIf="isPasswordResetChecked" class="form-horizontal" role="form" style="text-decoration: none !important;"  [formGroup]="resetForm">
+          &nbsp;&nbsp;&nbsp;
+          <button (click)="backLogin();" class="btn bLogin" style="margin-left:15px !important;margin-right:0px !important;">&nbsp;&nbsp;&nbsp;&larr; GO BACK</button>
+          <div class='bLoginDiv'>
+            <br/>
+            <div class="input-group input-groupSub">
+              <input id="Ema" type="text" formControlName="userEmail" class="form-control input_box" name="email" value="" placeholder="Email" maxlength="64">
+            </div>
+            <div class="col-sm-12 controls">
+              <button id="resetBtn" class="btn btn-success" (click)="onReset()" [disabled]="(!resetForm.valid && isEmailSent)">RESET PASSWORD</button>
+            </div>
+            <div class="textRed1">{{resetErrorMsg}}</div>
+            <div class="textGreen">{{resetMsg}}</div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" class="spinner-color" type="square-jelly-box" [fullScreen]="true">
+    <p style="color: white"> Loading... </p>
+  </ngx-spinner>
+
+ 

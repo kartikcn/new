@@ -1,0 +1,302 @@
+<div class="card" style="height: 90vh;">
+    <p-panel header="SLA Escalation Analysis" [toggleable]="true">
+        <form [formGroup]="filterPanel">
+            <table width="100%" *ngIf="!useTabletProtrait">
+                <tr >
+                    <td style="width:10%;">
+                        <div class="input-label-custom">
+                            <div class="p-fluid">
+                                <div class="p-field">
+                                    <label class='form-field-lable'>From Date</label>
+                                    <p-calendar appendTo="body" dateFormat="dd M yy" name="dateRequestedFrom"
+                                        formControlName="dateRequestedFrom" [showIcon]="false"
+                                        inputId="icon"></p-calendar>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                    <td style="width:10%;">
+                        <div class="input-label-custom">
+                            <div class="p-fluid">
+                                <div class="p-field">
+                                    <label class='form-field-lable'>To Date</label>
+                                    <p-calendar appendTo="body" dateFormat="dd M yy" name="dateRequestedTo"
+                                        formControlName="dateRequestedTo" [showIcon]="false"
+                                        inputId="icon"></p-calendar>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                    <td style="width:20%;">
+                        <div class="input-label-custom ">
+                            <label class='form-field-lable '>Building </label>
+                            <ng-select appendTo="body" [clearable]="false" [items]="enumBL" formControlName="blId" [searchable]="true"
+                                bindLabel="blNameString" bindValue="blId" (change)="onSelectBlCode($event)" placeholder="Make a selection"
+                                class="ng-select-dropdown" (scrollToEnd)="scrollToEndBl()" (search)="searchBl($event)"(open)="onOpenBl()">
+                            </ng-select>
+                        </div>
+
+                    </td>
+                    <td style="width:20%;">
+                        <div class="input-label-custom ">
+                            <label class='form-field-lable '>Floor</label>
+                            <ng-select appendTo="body" [clearable]="false" [items]="enumFL" formControlName="flId" [searchable]="true"
+                                bindLabel="flNameString" bindValue="flId" placeholder="Make a selection" class="ng-select-dropdown"
+                                (change)="onSelectFlCode($event)" (scrollToEnd)="scrollToEndFl()" (search)="searchFl($event)"
+                                (open)="onOpenFl()">
+                            </ng-select>
+                        </div>
+                    </td>
+                    <td style="width:20%;">
+                        <div class="input-label-custom ">
+                            <label class='form-field-lable'>Requests Type </label>
+                            <ng-select appendTo="body" [clearable]="false" [searchable]="true"
+                                placeholder="Make a selection" class="ng-select-dropdown" [items]="showRequestsTypeList"
+                                formControlName="showType"  [searchable]="true"
+                                bindLabel="label" bindValue="value">
+                            </ng-select>
+                        </div>
+                    </td>
+                    <td style="width:15%;">
+                        <button (click)="onSearch()" pButton pRipple label="Search" [disabled]="!filterPanel.valid"
+                            class="p-button-primary p-button-sm pull right filter-button"></button>
+                        <button (click)="onClear()" pButton pRipple label="Clear"
+                            class="p-button-primary p-button-sm pull right filter-button"></button>
+                    </td>
+                </tr>
+            </table>
+            <table *ngIf="useTabletProtrait">
+                <tr >
+                    <td style="width:32%;">
+                        <div class="input-label-custom">
+                            <div class="p-fluid">
+                                <div class="p-field">
+                                    <label class='form-field-lable'>From Date</label>
+                                    <p-calendar appendTo="body" dateFormat="dd M yy" name="dateRequestedFrom"
+                                        formControlName="dateRequestedFrom" [showIcon]="false" inputId="icon"></p-calendar>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                    <td style="width:32%;">
+                        <div class="input-label-custom">
+                            <div class="p-fluid">
+                                <div class="p-field">
+                                    <label class='form-field-lable'>To Date</label>
+                                    <p-calendar appendTo="body" dateFormat="dd M yy" name="dateRequestedTo"
+                                        formControlName="dateRequestedTo" [showIcon]="false"inputId="icon"></p-calendar>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                    <td style="width:32%;">
+                        <div class="input-label-custom ">
+                            <label class='form-field-lable '>Building </label>
+                            <ng-select appendTo="body" [clearable]="false" [items]="enumBL" formControlName="blId" [searchable]="true"
+                                bindLabel="blNameString" bindValue="blId" (change)="onSelectBlCode($event)" placeholder="Make a selection"
+                                class="ng-select-dropdown" (scrollToEnd)="scrollToEndBl()" (search)="searchBl($event)"(open)="onOpenBl()">
+                            </ng-select>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width:32%;">
+                        <div class="input-label-custom ">
+                            <label class='form-field-lable '>Floor</label>
+                            <ng-select appendTo="body" [clearable]="false" [items]="enumFL" formControlName="flId" [searchable]="true"
+                                bindLabel="flNameString" bindValue="flId" placeholder="Make a selection" class="ng-select-dropdown"
+                                (change)="onSelectFlCode($event)" (scrollToEnd)="scrollToEndFl()" (search)="searchFl($event)"
+                                (open)="onOpenFl()">
+                            </ng-select>
+                        </div>
+                    </td>
+                    <td style="width:32%;">
+                        <div class="input-label-custom ">
+                            <label class='form-field-lable'>Requests Type </label>
+                            <ng-select appendTo="body" [clearable]="false" [searchable]="true"
+                                placeholder="Make a selection" class="ng-select-dropdown" [items]="showRequestsTypeList"
+                                formControlName="showType"  [searchable]="true"
+                                bindLabel="label" bindValue="value">
+                            </ng-select>
+                        </div>
+                    </td>
+                    <td style="width:32%;">
+                        <button (click)="onSearch()" pButton pRipple label="Search" [disabled]="!filterPanel.valid"
+                            class="p-button-primary p-button-sm pull right filter-button"></button>
+                        <button (click)="onClear()" pButton pRipple label="Clear"
+                            class="p-button-primary p-button-sm pull right filter-button"></button>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </p-panel>
+
+    <!-- show grid -->
+    <div style="flex: auto; margin-top: 10px;" class="checkbox-grid">
+        <table class="checkbox-table">
+            <tr>
+                <td>
+                    <div style="display: flex; align-items: center; margin-left: 15px">
+                        <div style="width: 50px; height: 15px; background-color: #fbae5c;"></div>
+                        <div class="escalation-type-title">
+                            <p>Escalated For Response</p>
+                        </div>
+                        <!-- <input type="checkbox" id="responseCheckbox" onchange="updateDataDisplay()" /> -->
+                        <p-checkbox name="responseCheckbox" [(ngModel)]="responseCheckbox" id="responseCheckbox"
+                            binary="true" (onChange)="updateSelectedData()"></p-checkbox>
+                    </div>
+                </td>
+                <td>
+                    <div style="display: flex; align-items: center;">
+                        <div style="width: 50px; height: 15px; background-color: #E77471;"></div>
+                        <div class="escalation-type-title">
+                            <p>Escalated For Complete</p>
+                        </div>
+                        <p-checkbox name="completeCheckbox" [(ngModel)]="completeCheckbox" binary="true"
+                            id="completeCheckbox" (onChange)="updateSelectedData()"></p-checkbox>
+                        <!-- <input type="checkbox" id="completeCheckbox" onchange="updateDataDisplay()" /> -->
+                    </div>
+                </td>
+                <td>
+                    <div style="display: flex; align-items: center;">
+                        <div style="width: 50px; height: 15px; background-color:#F75D59;"></div>
+                        <div class="escalation-type-title">
+                            <p>Escalated For Response and Complete</p>
+                        </div>
+                        <p-checkbox name="completeResponseCheckbox" [(ngModel)]="completeResponseCheckbox" binary="true"
+                            id="completeResponseCheckbox" (onChange)="updateSelectedData()"></p-checkbox>
+                        <!-- <input type="checkbox" id="completeResponseCheckbox" onchange="updateDataDisplay()" /> -->
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <p-table #tt [value]="selectedData" [paginator]="true" [scrollable]="true" scrollDirection="both" [rows]="rowCount"
+        [showCurrentPageReport]="true" scrollHeight="500px"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [rowsPerPageOptions]="[25,50,100]"
+        styleClass="p-datatable-customers p-datatable-gridlines" [rowHover]="false" [totalRecords]="totalRecords">
+        <ng-template pTemplate="header">
+            <tr>
+                <th style="width:4rem"> </th>
+                <th pSortableColumn="wrId">
+                    <div class="grid-header-column">
+                        <div class="grid-header-label">
+                            <p class="grid-label-paragraph">Request Id </p>
+                        </div>
+                        <div class="grid-sort-icon">
+                            <p-sortIcon field="wrId"></p-sortIcon>
+                            <!-- <p-columnFilter type="text" field="wrId" display="menu"></p-columnFilter> -->
+                        </div>
+                    </div>
+                </th>
+                <th pSortableColumn="formatedRequestedFor">
+                    <div class="grid-header-column">
+                        <div class="grid-header-label">
+                            <p class="grid-label-paragraph">Requested For </p>
+                        </div>
+                        <div class="grid-sort-icon">
+                            <p-sortIcon field="formatedRequestedFor"></p-sortIcon>
+                            <!-- <p-columnFilter type="text" field="formatedRequestedFor" display="menu"></p-columnFilter> -->
+                        </div>
+                    </div>
+                </th>
+                <th pSortableColumn="eqCode">
+                    <div class="grid-header-column">
+                        <div class="grid-header-label">
+                            <p class="grid-label-paragraph">Asset </p>
+                        </div>
+                        <div class="grid-sort-icon">
+                            <p-sortIcon field="eqId"></p-sortIcon>
+                            <p-columnFilter type="text" field="eqCode" display="menu"></p-columnFilter>
+                        </div>
+                    </div>
+                </th>
+                <th pSortableColumn="formatedDateRequested">
+                    <div class="grid-header-column">
+                        <div class="grid-header-label">
+                            <p class="grid-label-paragraph">Requested Date </p>
+                        </div>
+                        <div class="grid-sort-icon">
+                            <p-sortIcon field="formatedDateRequested"></p-sortIcon>
+                            <!-- <p-columnFilter type="text" field="formatedDateRequested" display="menu"></p-columnFilter> -->
+                        </div>
+                    </div>
+                </th>
+                <th pSortableColumn="fromatedDateToRespond">
+                    <div class="grid-header-column">
+                        <div class="grid-header-label">
+                            <p class="grid-label-paragraph">Date To Respond</p>
+                        </div>
+                        <div class="grid-sort-icon">
+                            <p-sortIcon field="fromatedDateToRespond"></p-sortIcon>
+                            <!-- <p-columnFilter type="text" field="fromatedDateToRespond" display="menu"></p-columnFilter> -->
+                        </div>
+                    </div>
+                </th>
+                <th pSortableColumn="formatedDateResponded">
+                    <div class="grid-header-column">
+                        <div class="grid-header-label">
+                            <p class="grid-label-paragraph">Date Responded</p>
+                        </div>
+                        <div class="grid-sort-icon">
+                            <p-sortIcon field="formatedDateResponded"></p-sortIcon>
+                            <!-- <p-columnFilter type="text" field="formatedDateResponded" display="menu"></p-columnFilter> -->
+                        </div>
+                    </div>
+                </th>
+                <th pSortableColumn="formatedDateToComplete">
+                    <div class="grid-header-column">
+                        <div class="grid-header-label">
+                            <p class="grid-label-paragraph">Date To Complete</p>
+                        </div>
+                        <div class="grid-sort-icon">
+                            <p-sortIcon field="formatedDateToComplete"></p-sortIcon>
+                            <!-- <p-columnFilter type="text" field="formatedDateToComplete" display="menu"></p-columnFilter> -->
+                        </div>
+                    </div>
+                </th>
+                <th pSortableColumn="formatedDateCompleted">
+                    <div class="grid-header-column">
+                        <div class="grid-header-label">
+                            <p class="grid-label-paragraph">Date Completed</p>
+                        </div>
+                        <div class="grid-sort-icon">
+                            <p-sortIcon field="formatedDateCompleted"></p-sortIcon>
+                            <!-- <p-columnFilter type="text" field="formatedDateCompleted" display="menu"></p-columnFilter> -->
+                        </div>
+                    </div>
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-wr>
+            <tr [pSelectableRow]="wr" [style.background]="getColorCode(wr)" >
+                <td style="width:4rem" [style.background]="'#ffffff'">
+                    <button icon="pi pi-eye" pButton pRipple type="button" (click)="onClickView(wr)"
+                        class="p-button-text p-button-rounded"  matTooltipPosition="below"
+                        matTooltip="View"></button>
+                </td>
+                <td>{{wr.wrId}}</td>
+                <td>{{getEmployeeFullName(wr.requestedFor)}}</td>
+                <td>{{wr.eqCode}}</td>
+                <td>{{wr.dateRequested | date :"dd MMM yyyy"}}</td>
+                <td>{{wr.escDateResponded | date :"dd MMM yyyy"}} {{convertToDisplayTime(wr.escTimeResponded)}}</td>
+                <td>{{wr.dateResponded | date :"dd MMM yyyy"}} {{convertToDisplayTime(wr.timeResponded)}}</td>
+                <td>{{wr.escDateCompleted | date :"dd MMM yyyy"}} {{convertToDisplayTime(wr.escTimeCompleted)}}</td>
+                <td>{{wr.dateCompleted | date :"dd MMM yyyy"}} {{convertToDisplayTime(wr.timeCompleted)}}</td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage" let-columns>
+            <tr>
+                <td [attr.colspan]="9">
+                    No records found.
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+    <!-- <div class="paginator">
+        <p-paginator  [rows]="rowCount" [totalRecords]="totalElements" (onPageChange)="onPageChange($event)"
+        [first]="paginationObj.pageNo * paginationObj.pageSize"
+          currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true"
+          [rowsPerPageOptions]="[25,50,100]"></p-paginator>
+    </div> -->
+</div>

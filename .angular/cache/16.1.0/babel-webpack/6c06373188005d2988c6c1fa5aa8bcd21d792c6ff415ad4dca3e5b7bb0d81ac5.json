@@ -1,0 +1,1 @@
+{"ast":null,"code":"export class RoomTypeFilterInputDTO {\n  constructor(rmtypeId, name, rmcatId = 0) {\n    this.rmtypeId = 0;\n    this.name = \"\";\n    this.rmcatId = 0;\n    this.rmtypeId = rmtypeId;\n    this.name = name;\n    this.rmcatId = rmcatId;\n  }\n}","map":null,"metadata":{},"sourceType":"module","externalDependencies":[]}

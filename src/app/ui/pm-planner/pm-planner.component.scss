@@ -1,0 +1,172 @@
+@import '/src/scss/variables';
+.example-container {
+   height: fit-content;
+   max-height:63vh;
+   overflow-y: auto;
+   margin-top:5px;
+   padding-left: 5px;
+   padding-right:5px;
+  }
+  
+    
+  .card-header {
+    font-weight: 500;
+    padding: 5px 5px 5px 0px;
+    font-size: 14px;
+  }
+  
+  .card-content-title {
+    font-weight: 400;
+    font-size: 11px;
+  }
+  
+  .table-header {
+  font-weight: 500;
+  font-size: 12px;
+  }
+
+  ::-webkit-scrollbar-thumb{
+    background: lightgray;
+    border-radius: 2px;
+  }
+
+  ::-webkit-scrollbar{
+    width:2px;
+    height:0px;
+  }
+
+  .select-box{
+    margin-right: 5px;
+  }
+
+  .select-label{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: normal;
+  }
+
+  .pmplanner-date-header-container{
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #c0dbf0;
+  }
+
+
+  ::ng-deep .dark-panel.p-dialog .p-dialog-header{
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    padding: 10px;
+    padding-left: 20px;
+  }
+
+  ::ng-deep .p-dialog-content{
+      overflow: visible;
+  }
+
+  ::ng-deep .p-dialog .p-dialog-content{
+      padding: 10px
+  }
+
+  .hover-pointer {
+    cursor: pointer;
+      transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+    }
+    
+    .hover-pointer:hover {
+    background-color: #c0dbf0; 
+      transform: scale(1); 
+      }
+
+  .zoom-on-hover {
+    transition: transform 0.3s;
+  }
+
+  .zoom-on-hover:hover {
+    padding-left:4px;
+    border-radius:2px;
+    transform: scale(1.05); 
+    cursor: pointer; 
+  }
+
+  .internal-card{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-left:2px;
+    padding-right:2px;
+    margin-bottom:4px;
+    height:25px;
+  }
+
+  ::ng-deep .p-panel .p-panel-header {
+    border-bottom: none;
+  }
+
+  ::ng-deep .p-panel .p-panel-content {
+    padding: 0px 10px 0px 10px;
+  }
+  .request-content-title{
+    font-weight: 400;
+    font-size: 12px;
+    padding-left:12px;
+  }
+
+  .request-card{
+    display: flex;
+    justify-content: center;
+    height:30px;
+    margin-top:5px;
+  }
+
+  .filter-container{
+    height:11vh;
+  }
+  .pmplanner-container{
+    height:79vh;
+  }
+
+  .plan-collection-container{
+    width:18.5vw;
+    height:68vh;
+    margin:0 5px 5px 5px;
+    overflow-y: auto;
+  }
+
+  .pm-planner-details-conatiner{
+    display:flex;
+    height:100%;
+  }
+
+  @media screen and (min-width: $tabletPotraitMinWidth) and (max-width:$tabletPotraitMaxWidth ){
+    .filter-container{
+      height:8vh;
+    }
+    .pm-planner-details-conatiner{
+      display:grid;
+      grid-template-columns: auto auto ;
+      grid-gap: 5px;
+    }
+    .plan-collection-container{
+      width:28vw;
+      height:35vh;
+      margin:0 5px 5px 5px;
+      overflow-y: auto;
+    }
+  }
+
+  @media screen and (min-width: $tabletLandscapeMinWidth) and (max-width:$tabletLandspaceMaxWidth ){
+
+    .plan-collection-container{
+      width:18vw;
+      height:68vh;
+      margin:0 5px 5px 5px;
+      overflow-y: auto;
+    }
+
+    :host ::ng-deep .p-dialog-mask{
+      top:-5vh;
+      }
+  }

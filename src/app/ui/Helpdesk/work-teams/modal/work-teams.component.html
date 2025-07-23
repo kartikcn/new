@@ -1,0 +1,42 @@
+<div class="container-fliud">
+    <div class="row">
+        <div class="col-sm-4 col-md-4 col-xm-4 col-lg-4">
+            <div style="padding-left: 0px;">
+                <div class="tabs-rounded" style="background-color: white;">
+                    <!-- <ul class="nav nav-tabs" id="asset_tabs" style="font-size:12px;border-bottom:0">
+                        <li class="loc-li" [ngClass]="{  'active': tab_name_clicked === 'cf' }"><a href="/"
+                                (click)="openClickTab($event,'cf')" prevent-default data-toggle="tab">Technician</a>
+                        </li>
+                        <li class="loc-li" [ngClass]="{  'active': tab_name_clicked === 'em' }"><a href="/"
+                                (click)="openClickTab($event,'em')" data-toggle="tab">Employee</a></li>
+                    </ul> -->
+                    <div id="rmtabContent" class="tab-content">
+                        <div class="tab-pane " id="cf">
+                            <div class="page-content" style="height: calc(100vh - 150px)">
+                                <app-cf-list (parentFun)="getData($event)"></app-cf-list>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="em">
+                            <div class="page-content" style="height: calc(100vh - 150px)">
+                                <app-em-list (parentFun)="getData($event)"></app-em-list>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-8 col-md-8 col-xm-8 col-lg-8">
+            <div class="row">
+                <div class="col-sm-12 col-md-12 col-lg-12">
+                    <app-un-assign-teams
+                        (unAssignSgPanels)="refreshPanels($event)"></app-un-assign-teams>
+                </div>
+            </div>
+            <div class="row" style="margin-top:10px !important">
+                <div class="col-sm-12 col-md-12 col-lg-12">
+                    <app-assign-teams (assignSgPanels)="refreshPanels($event)"></app-assign-teams>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

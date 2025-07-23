@@ -1,0 +1,205 @@
+@import '/src/scss/variables';
+
+.mat-dialog-title-ext {
+  background-color: #879cc9;
+  padding-left: 10px;
+  font-weight: normal;
+  margin-bottom: 0px;
+}
+
+.mat-dialog-content-ext {
+  /*border: thin double #879cc9;*/
+  margin: 0;
+  padding: 10px;
+  background-color: white !important;
+}
+
+.mat-dialog-actions-ext {
+  border-top: none;
+  padding: 3px;
+  min-height: 36px !important;
+  margin-bottom: 5px;
+  /* margin-right: 15px; */
+  background-color: white !important;
+}
+
+.action-buttons {
+  height: 30px;
+  width: 70px;
+}
+
+.margin-left-20 {
+  margin-left: 20px;
+}
+
+.margin-5 {
+  margin: 5px !important;
+}
+
+.mat-card {
+  border-radius: 0px;
+  // background-color: #ebebeba1 !important;
+}
+
+.mat-expansion-panel {
+  background-color: $toolbar;
+}
+
+.mat-expansion-panel-header-title {
+  color: white;
+  letter-spacing: 1px;
+}
+
+/* .mat-card {
+    padding: 0px;
+    border: thin double rgb(181, 155, 90);
+  } */
+
+.mat-card-title {
+  color: white;
+  letter-spacing: 1px;
+  font-size: 13px;
+  margin: 0px !important;
+}
+
+.mat-card-header-text {
+  margin: 0px !important;
+}
+
+.mat-card-header {
+  padding: 5px !important;
+  margin-left: -15px;
+}
+
+.mat-expansion-panel-content {
+  background-color: white !important;
+}
+
+.mat-button,
+.mat-flat-button,
+.mat-icon-button,
+.mat-stroked-button {
+  line-height: inherit !important;
+}
+
+.btn-filter {
+  margin-left: 4px;
+  margin-right: 5px;
+  width: 50px;
+  margin-top: 17px;
+}
+
+.btn-ggb-orange {
+  width: 90px !important;
+}
+
+
+.btn-ggb-default-custom {
+  margin: 16px !important
+}
+
+:host ::ng-deep .p-dialog  .p-dialog-header {
+  background-color: $toolbar;
+  color: black;
+  padding-left: 10px;
+  font-weight: normal;
+  margin-bottom: 0px;
+  height: 10px !important;
+}
+
+.row {
+  margin-left: 1px;
+  margin-right: 1px;
+  background-color: #fff;
+  background-clip: border-box;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  border-radius: 0.25rem;
+}
+
+.column1 {
+  float: left;
+  width: 65%;
+  padding: 5px;
+}
+
+.column2 {
+  float: left;
+  width: 35%;
+  padding: 10px;
+}
+
+.sum-para {
+  font-size: 12px !important;
+  padding: 0 !important;
+  font-weight: 500 !important;
+  padding-left: 3px !important;
+  margin-bottom: 1px;
+}
+
+.sum-label {
+  font-size: 11px !important;
+  padding: 0 !important;
+  font-weight: normal !important;
+  padding-left: 3px !important;
+  margin-top: -5px;
+  margin-left: 16px;
+  font-family: 'Roboto';
+}
+
+
+.phone-select {
+  width: 70px;
+}
+
+.register-are {
+  margin-bottom: 8px;
+}
+
+:host ::ng-deep .ng-select,
+.ng-select div,
+.ng-select input,
+.ng-select span {
+  box-sizing: border-box;
+  background-color: white;
+}
+
+.atndAcrdn {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-height: 10px;
+}
+:host ::ng-deep .p-confirm-dialog .p-dialog-header .p-dialog-content  {
+  align-items: center;
+  background-color: #f9fcfc;
+  display: flex;
+  padding: 10px;
+}
+:host ::ng-deep .p-confirm-dialog .p-dialog-header {
+  align-items: center;
+  background-color: #f9fcfc;
+}
+:host ::ng-deep .mat-typography h3{
+  margin: 10px 0 16px;
+}
+.visitorNotAlwd{
+  font-size: 12px;
+  margin-left: 12px;
+  color: red;
+}
+
+::ng-deep .ant-input-disabled {
+  color: rgba(0, 0, 0,0.75) !important;
+}
+.fixed-resource{
+  font-size: 11px !important;
+  margin:6px 0px 0px;
+  font-family: 'Roboto';
+}
+
+.btn-sm{
+  font-size: 0.875rem;
+  padding: 0.4375rem 0.875rem;
+  height: 25px !important;
+}

@@ -1,0 +1,57 @@
+<form [formGroup]="termFormPanel">
+    <table width="100%">
+            <tr>
+                <td style="width: 50%" colspan="2">
+                 <div class="input-label-custom ">
+                  <label class='form-field-lable control-label'>Term</label>
+                  <input type="text" class="form-control" name="term" formControlName="term" maxlength="64" appTrimInput>
+                 </div>
+                </td>
+            </tr>
+            <!-- <tr
+                *ngIf="(termFormPanel.controls['term']?.errors && (termFormPanel.controls['term']?.dirty || termFormPanel.controls['term']?.touched))">
+                <td width="50%">
+                    <label
+                        *ngIf="termFormPanel.controls['term']?.errors && !termFormPanel.controls['term']?.errors.required"
+                        class='form-field-lable' style="color:red;margin-left:5px;">Term already exists.</label>
+                </td>
+            </tr> -->
+            <tr>
+                <td style="width: 50%">
+                <div class="input-label-custom">
+                 <div class="p-fluid p-field">
+                        <label class='form-field-lable control-label'>Date From</label>
+                        <p-calendar appendTo="body" dateFormat="dd M yy" name="date"
+                formControlName="dateFrom" [showIcon]="false" inputId="icon" (ngModelChange)="checkDates($event)"></p-calendar>
+                  </div>
+                 </div>
+                </td>
+                <td style="width: 50%">
+                    <div class="input-label-custom ">
+                     <div class="p-fluid p-field">
+                           <label class='form-field-lable control-label'>Date To</label>
+                           <p-calendar appendTo="body"  dateFormat="dd M yy" name="date"
+                   formControlName="dateTo" [showIcon]="false" inputId="icon" (ngModelChange)="checkDates($event)"></p-calendar>
+                     </div>    
+                    </div>
+                </td>
+            </tr>
+            <tr
+            *ngIf="termFormPanel.controls['dateTo']?.errors">
+            <td style="width:50%">
+                <label
+                    *ngIf="termFormPanel.controls['dateTo']?.errors && !termFormPanel.controls['dateTo']?.errors.required"
+                    class='form-field-lable' style="color:red;margin-left:5px;">Date To should be greater than Date From</label>
+            </td>
+            </tr>
+        <tr>
+            <td style="width:50%" colspan="2">
+                <div class="input-label-custom ">
+                    <label class='form-field-lable'>Notes</label>
+                    <textarea class="form-control note-border" name="comments" formControlName="comments" rows="2" nz-input maxlength="256"
+                        appTrimInput></textarea>
+                </div>
+            </td>
+        </tr>
+    </table>
+</form>

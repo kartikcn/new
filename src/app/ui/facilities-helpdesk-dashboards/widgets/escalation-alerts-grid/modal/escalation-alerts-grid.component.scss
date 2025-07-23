@@ -1,0 +1,9 @@
+::ng-deep .p-knob-value {
+    cursor: pointer;
+}
+
+::ng-deep.p-disabled,
+.p-disabled * {
+    opacity: 1;
+}
+

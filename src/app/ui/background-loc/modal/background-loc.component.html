@@ -1,0 +1,122 @@
+<p-panel header="Filter" [toggleable]="true">
+  <form [formGroup]="filterPanel">
+    <table width="100%" *ngIf="!useTabletProtrait">
+      <tr>
+        <td style="width: 20%">
+          <div class="input-label-custom ">
+            <label class='form-field-lable '>Site Name </label>
+            <ng-select appendTo="body" [clearable]="false" [items]="enumSite" formControlName="siteId"
+                [searchable]="true" bindLabel="siteNameString" bindValue="siteId" (change)="onSelectSiteCode($event)" (open)="onOpenSite()"
+                placeholder="Make a selection" class="ng-select-dropdown" (scrollToEnd)="scrollToEndSite()" (search)="searchSite($event)">
+            </ng-select>
+        </div>
+        </td>
+        <td style="width: 20%">
+          <div class="input-label-custom ">
+            <label class='form-field-lable '>Building Name </label>
+            <ng-select appendTo="body" [clearable]="false" [items]="enumBL" formControlName="blId"
+                [searchable]="true" bindLabel="blNameString" bindValue="blId" (change)="onSelectBlCode($event)"(open)="onOpenBl()"
+                placeholder="Make a selection" class="ng-select-dropdown" (scrollToEnd)="scrollToEndBl()" (search)="searchBl($event)">
+            </ng-select>
+        </div>
+        </td>
+        <td style="width: 20%">
+          <div class="input-label-custom ">
+            <label class='form-field-lable '>Floor Name </label>
+            <ng-select appendTo="body" [clearable]="false" [items]="enumFL" formControlName="flId"
+                [searchable]="true" bindLabel="flNameString" bindValue="flId" (change)="onSelectFlCode($event)"(open)="onOpenFl()"
+                placeholder="Make a selection" class="ng-select-dropdown" (scrollToEnd)="scrollToEndFl()" (search)="searchFl($event)">
+            </ng-select>
+        </div>
+        </td>
+        <td style="width: 20%">
+          <div class="input-label-custom ">
+            <label class='form-field-lable '>Room Name </label>
+            <ng-select appendTo="body" [clearable]="false" [items]="enumRM" formControlName="rmId" [searchable]="true"
+              bindLabel="rmNameString" bindValue="rmId" placeholder="Make a selection" class="ng-select-dropdown"(open)="onOpenRm()"
+              (change)="onSelectRmCode($event)" (scrollToEnd)="scrollToEndRm()" (search)="searchRm($event)">
+            </ng-select>
+        </div>
+        </td>
+        <td style="width:20%">
+          <div style="display: flex;flex-direction: row; justify-content: center; margin-top:12.2px;">
+            <button pButton pRipple class="p-button-raised filter-button" label="Filter" (click)="onFilter()"></button>
+            <button type="reset" pButton pRipple class="p-button-raised " label="Clear" (click)="onClear()"></button>
+          </div>
+        </td>
+      </tr>
+    </table>
+    <table width="100%" *ngIf="useTabletProtrait">
+      <tr>
+        <td style="width: 30%">
+          <div class="input-label-custom ">
+            <label class='form-field-lable '>Site Name </label>
+            <ng-select appendTo="body" [clearable]="false" [items]="enumSite" formControlName="siteId"
+                [searchable]="true" bindLabel="siteNameString" bindValue="siteId" (change)="onSelectSiteCode($event)"(open)="onOpenSite()"
+                placeholder="Make a selection" class="ng-select-dropdown" (scrollToEnd)="scrollToEndSite()" (search)="searchSite($event)">
+            </ng-select>
+          </div>
+        </td>
+        <td style="width: 30%">
+          <div class="input-label-custom ">
+            <label class='form-field-lable '>Building Name </label>
+            <ng-select appendTo="body" [clearable]="false" [items]="enumBL" formControlName="blId"
+                [searchable]="true" bindLabel="blNameString" bindValue="blId" (change)="onSelectBlCode($event)"(open)="onOpenBl()"
+                placeholder="Make a selection" class="ng-select-dropdown"  (scrollToEnd)="scrollToEndBl()" (search)="searchBl($event)">
+            </ng-select>
+          </div>
+        </td>
+        <td style="width: 30%">
+          <div class="input-label-custom ">
+            <label class='form-field-lable '>Floor Name </label>
+            <ng-select appendTo="body" [clearable]="false" [items]="enumFL" formControlName="flId"
+                [searchable]="true" bindLabel="flNameString" bindValue="flId" (change)="onSelectFlCode($event)"(open)="onOpenFl()"
+                placeholder="Make a selection" class="ng-select-dropdown" (scrollToEnd)="scrollToEndFl()" (search)="searchFl($event)">
+            </ng-select>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td style="width: 30%">
+          <div class="input-label-custom ">
+            <label class='form-field-lable '>Room Name </label>
+            <ng-select appendTo="body" [clearable]="false" [items]="enumRM" formControlName="rmId"
+                [searchable]="true" bindLabel="rmNameString" bindValue="rmId"(open)="onOpenRm()"
+                placeholder="Make a selection" class="ng-select-dropdown" (scrollToEnd)="scrollToEndRm()" (search)="searchRm($event)">
+            </ng-select>
+        </div>
+        </td>
+        <td style="width:30%">
+          <div style="display: flex;flex-direction: row; justify-content: center; margin-top:12.2px;">
+            <button pButton pRipple class="p-button-raised filter-button" label="Filter" (click)="onFilter()"></button>
+            <button type="reset" pButton pRipple class="p-button-raised " label="Clear" (click)="onClear()"></button>
+          </div>
+        </td>
+      </tr>
+    </table>
+  </form>
+</p-panel>
+<div style="padding-left: 0px;">
+  <div class="tabs-rounded" style="margin-top: 15px;background-color: white;">
+    <ul class="nav nav-tabs" id="asset_tabs" style="font-size:12px;border-bottom:0">
+      <li class="loc-li" [ngClass]="{  'active': tab_name_clicked === 'Site' }"><a href="/" (click)="openClickTab($event,'Site')" prevent-default data-toggle="tab">Site</a></li>
+      <li class="loc-li" [ngClass]="{  'active': tab_name_clicked === 'Building' }"><a href="/" (click)="openClickTab($event,'Building')" data-toggle="tab">Building</a></li>
+      <li class="loc-li" [ngClass]="{  'active': tab_name_clicked === 'Floor' }"><a href="/" (click)="openClickTab($event,'Floor')" data-toggle="tab">Floor</a></li>
+      <li class="loc-li" [ngClass]="{  'active': tab_name_clicked === 'Room' }"><a href="/" (click)="openClickTab($event,'Room')" data-toggle="tab">Room</a></li>
+    </ul>
+    <div id="tabContent" class="tab-content">
+      <div class="tab-pane " id="Site">
+        <app-site (parentFun)="loadBuildingTab($event)"></app-site>
+      </div>
+      <div class="tab-pane" id="Building">
+        <app-bl-list (parentFun)="loadFloorTab($event)"></app-bl-list>
+      </div>
+      <div class="tab-pane" id="Floor">
+        <app-fl-list (parentFun)="loadRoomTab($event)"></app-fl-list>
+      </div>
+      <div class="tab-pane" id="Room">
+        <app-rm-list (parentFun)="updateRoomTab($event)"></app-rm-list>
+      </div>
+    </div>
+  </div>
+</div>

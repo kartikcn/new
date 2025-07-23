@@ -1,0 +1,70 @@
+<p-panel header="{{title}} Sub Department">
+    <ng-template pTemplate="icons">
+        <button pButton (click)="saveRecords()" label="Save" [disabled]="!subDepartmentFormPanel.valid"></button>
+        <button pButton class="ml10" label="Cancel" (click)="cancel()"></button>
+    </ng-template>
+    <form [formGroup]="subDepartmentFormPanel">
+        <table width="100%">
+            <tr width="100%">
+                <td>
+                    <div class="input-label-custom">
+                        <label class='form-field-lable control-label'>Division Code</label>
+                        <ng-select appendTo="body" [clearable]="false" [items]="enumDivisions" formControlName="divId"
+                            [searchable]="true" bindLabel="displayDivId" bindValue="divId" placeholder="Make a selection"
+                            class="ng-select-dropdown custom-select" (change)="onSelectDivision($event)">
+                        </ng-select>
+                    </div>
+                </td>
+            </tr>
+            <tr width="100%">
+                <td>
+                    <div class="input-label-custom">
+                        <label class='form-field-lable control-label'>Department Code</label>
+                        <ng-select appendTo="body" [clearable]="false" [items]="enumDepartments" formControlName="depId"
+                        [searchable]="true" bindLabel="displayDepId" bindValue="depId" placeholder="Make a selection"
+                        class="ng-select-dropdown custom-select">
+                    </ng-select>
+                    </div>
+                </td>
+            </tr>
+            <tr width="100%">
+                <td>
+                    <div class="input-label-custom">
+                        <label class='form-field-lable control-label'>Sub Department Code</label>
+                        <input type="text" class="form-control" name="subDepCode" formControlName="subDepCode" maxlength="64" appTrimInput>
+                    </div>
+                </td>
+            </tr>
+            <tr width="100%">
+                <td>
+                    <div class="input-label-custom">
+                        <label class='form-field-lable control-label'>Sub Department Head</label>
+                        <ng-select appendTo="body" [clearable]="false" [items]="enumEm" formControlName="subDepHead"
+                            [searchable]="true" bindLabel="firstName" bindValue="emId" placeholder="Make a selection"
+                            class="ng-select-dropdown" (scrollToEnd)="scrollToEndEm()" (search)="searchEm($event)" (open)="openEm()">
+                        </ng-select>
+                    </div>
+                </td>
+            </tr>
+            <tr width="100%">
+                <td>
+                    <div class="input-label-custom ">
+                        <label class='form-field-lable'>Description</label>
+                        <textarea class="form-control note-border" name="description" formControlName="description" rows="2" nz-input
+                                maxlength="256" appTrimInput></textarea>
+                    </div>
+                </td>
+            </tr>
+            <tr >
+                <td style="width: 100%">
+                    <div class="input-label-custom">
+                            <label class='form-field-lable control-label'>Highlight Color </label>
+                            <input type="color" class="form-control" name="highlightColor" style="width: 100px;padding: 0.375rem;"
+                                    formControlName="highlightColor" maxlength="32" >
+                    </div>
+            </td>
+            </tr>
+        </table>
+    </form>
+</p-panel>
+<p-toast key="save" position="top-right"></p-toast>

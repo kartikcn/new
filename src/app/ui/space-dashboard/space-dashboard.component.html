@@ -1,0 +1,37 @@
+<div style="height:32vh;">
+  <div style="height: 4vh;">
+    <p-selectButton [options]="viewByData" [(ngModel)]="viewByValue" [multiple]="false" optionLabel="label"
+      optionValue="value" (onChange)="onViewByChange($event)"></p-selectButton>
+  </div>
+  <div class="card" style="width: 100%;height:27.3vh;display: flex;flex-direction:row;align-items:center; overflow-x: auto;">
+    <div *ngFor="let data of single; let i = index" style="margin-left:10px;">
+      <div>
+        <ngx-charts-pie-grid [results]="single[i]" [designatedTotal]="single[i][0].total" [view]="view"
+        [scheme]="colorSchemes[i % colorSchemes.length]" [label]="'Allocated Area (sq.ft)'">
+      </ngx-charts-pie-grid>
+      </div>
+    </div>
+  </div>
+</div>
+<div style="height:59vh;">
+  <div style="display: flex; flex-direction: row;height:100%;" *ngIf="isDashboardUse">
+    <div style="width:50%" class="card">
+      <div>
+        <p class="report-header">Allocation by Building</p>
+      </div>
+      <app-space-allocation-statistics-by-bl-fl [isDashboardUse]="isDashboardUse"
+        [dashboardDateRange]="dashboardDateRange"></app-space-allocation-statistics-by-bl-fl>
+    </div>
+    <div style="width:50%" class="card">
+      <div>
+        <p class="report-header">Allocation by Division</p>
+      </div>
+      <app-space-allocation-statistics-by-div-dep [isDashboardUse]="isDashboardUse"
+        [dashboardDateRange]="dashboardDateRange"></app-space-allocation-statistics-by-div-dep>
+    </div>
+  </div>
+</div>
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#879cc9" class="spinner-color" type="ball-spin-clockwise"
+  *ngIf="showSpinner" [fullScreen]="true">
+  <p style="color: white"> Loading... </p>
+</ngx-spinner>

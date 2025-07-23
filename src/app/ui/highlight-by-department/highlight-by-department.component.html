@@ -1,0 +1,104 @@
+<div class="card">
+    <form [formGroup]="filterPanel">
+        <table width="100%">
+            <tr>
+                <td class="filter-panel-td1">
+                    <div class="input-label-custom ">
+                        <label class='form-field-lable '>Department </label>
+                        <ng-select appendTo="body" [clearable]="false" [items]="enumDepartment" formControlName="depId"
+                            [searchable]="true" bindLabel="name" bindValue="depId"
+                            placeholder="Make a selection" class="ng-select-dropdown">
+                        </ng-select>
+                    </div>
+                </td>
+                <td class="filter-panel-td2"></td>
+                <td class="filter-panel-td3">
+                    <div style="margin: 5px 0 0 5px ">
+                        <button (click)="onSearch()" pButton pRipple label="Search"
+                            style="width: 60px;  margin-left: 5px;"
+                            class="p-button-primary p-button-sm pull right"></button>
+                        <button (click)="onClear()" pButton pRipple label="Clear"
+                            style="width: 60px;  margin-left: 5px;"
+                            class="p-button-primary p-button-sm pull right"></button>
+                        <button (click)="exportToPdf()" pButton pRipple label="Export" [disabled]="!viewSvg"
+                            style="width: 70px;  margin-left: 5px;" icon="pi pi-file-pdf"
+                            class="p-button-primary p-button-sm pull right"></button>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+<div class="card" >
+    <div style="display: flex;flex-direction:row;justify-content: space-between;height:620px;" #content>
+        <div class="division-selection-div">
+            <div class="card">
+                <p-table  [value]="accordionDepartment">
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th style="width:4rem"> </th>
+                            <th>Department</th>
+                            <th>Total Area (sq.ft)</th>
+                            <th>Highlight Color</th>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+            <p-accordion  (onClose)="onTabClose($event)" (onOpen)="onTabOpen($event)" #accordion class="acrdn-class">
+                <p-accordionTab *ngFor="let dept of accordionDepartment;">
+                    <p-header style="width:100%">
+                        <p-table [value]="[dept]" [style]="{ width: '100%' }"  [resizableColumns]="false" [paginator]="false">
+                          <ng-template pTemplate="body" let-dept>
+                            <tr>
+                              <td class="accordion-header-td1"></td>
+                              <td class="accordion-header-td2">{{dept.name}}</td>
+                              <td>{{getTotalAreaofDepartment(dept.divId,dept.depId).toFixed(2)}}</td>
+                              <td class="accordion-header-td4"><div [style.background-color]="dept.highlightColor" class="td-class"></div></td>
+                            </tr>
+                          </ng-template>
+                        </p-table>
+                      </p-header>
+                    <div>
+                        <p-table [value]="departmentFloorData" selectionMode="single" [rowHover]="true"
+                            (onRowSelect)="onViewSVGForFloor($event)" [rows]="rowCount">
+                            <ng-template pTemplate="header">
+                                <tr>
+                                    <th>Building Code</th>
+                                    <th>Floor Code</th>
+                                    <th>Area (sq.ft)</th>
+                            </ng-template>
+                            <ng-template pTemplate="body" let-fl>
+                                <tr [pSelectableRow]="fl">
+                                    <td>{{fl.blCode}}</td>
+                                    <td>{{fl.flCode}}</td>
+                                    <td>{{fl.totalArea}}</td>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="emptymessage" let-columns>
+                                <tr>
+                                    <td [attr.colspan]="departmentFloorData.length">
+                                        No records to display.
+                                    </td>
+                                </tr>
+                            </ng-template>
+                        </p-table>
+                    </div>
+                </p-accordionTab>
+            </p-accordion>
+        </div>
+        <div style="width:70%;margin-right:10px;margin-top:6px;height:610px;" *ngIf="!displayNoFloorPlanInfo" class="svg-view-div">
+            <div *ngIf="viewSvg" style="height:595px;">
+                <app-svg-view [svgInputData]="svgInputData"></app-svg-view>
+            </div>
+        </div> 
+        <div class="card no-file-found" *ngIf="displayNoFloorPlanInfo">
+            <h1>No Floorplan available</h1>
+        </div>
+    </div>
+</div>
+<p-toast key="highlightdeptmsg" position="top-center"></p-toast>
+<p-confirmDialog key="highlightdeptgrid" header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#879cc9" class="spinner-color" type="ball-spin-clockwise"
+    *ngIf="showSpinner" [fullScreen]="true">
+    <p style="color: white"> Loading... </p>
+</ngx-spinner>

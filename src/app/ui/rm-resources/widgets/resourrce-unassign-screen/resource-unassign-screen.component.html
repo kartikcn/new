@@ -1,0 +1,80 @@
+<div class="card">
+  <p-table [value]="AssignedResources" [(selection)]="selectedScreens" dataKey="resourcesId" [scrollable]="true"
+    [loading]="loading" scrollHeight="250px"[paginator]="true" [rows]="rowCount"  currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" 
+    [rowsPerPageOptions]="[25,50,100]" >
+    <ng-template pTemplate="caption">
+      <div class="d-flex flex-row">
+        <div style="flex: auto;">
+          <h4>Assigned Resources {{roomDetails}}</h4>
+        </div>
+
+        <div>
+          <button pButton pRipple label="Un-Assign" icon="pi pi-minus" class="p-button-primary p-button-sm p-mr-2"
+            (click)="confirmDialog()" [disabled]="!(selectedScreens.length >0)" ></button>
+
+        </div>
+      </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+      <tr>
+        <th style="width: 3rem">
+          <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+        </th>
+        <th pSortableColumn="resourceTitle">
+          <div class="grid-header-column">
+            <div class="grid-header-label">
+              <p class="grid-label-paragraph">Resource Title</p>
+            </div>
+            <div class="grid-sort-icon">
+            <p-sortIcon field="resourceTitle"></p-sortIcon>
+            <p-columnFilter type="text" field="resourceTitle" display="menu"></p-columnFilter>
+              </div>
+           </div>
+        </th>
+        <th pSortableColumn="resourceDescription">
+          <div class="grid-header-column">
+            <div class="grid-header-label">
+              <p class="grid-label-paragraph">Description</p>
+            </div>
+            <div class="grid-sort-icon">
+            <p-sortIcon field="resourceDescription"></p-sortIcon>
+            <p-columnFilter type="text" field="resourceDescription" display="menu"></p-columnFilter>
+              </div>
+           </div>
+        </th>
+        <th pSortableColumn="quanity">
+          <div class="grid-header-column">
+            <div class="grid-header-label">
+              <p class="grid-label-paragraph">Quantity</p>
+            </div>
+            <div class="grid-sort-icon">
+            <p-sortIcon field="quanity"></p-sortIcon>
+            <p-columnFilter type="text" field="quanity" display="menu"></p-columnFilter>
+              </div>
+           </div>
+        </th>
+
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-resource>
+      <tr>
+        <td style="width: 3rem">
+          <p-tableCheckbox [value]="resource"></p-tableCheckbox>
+        </td>
+        <td>{{resource.resourceTitle}}</td>
+        <td>{{resource.resourceDescription}}</td>
+        <td>{{resource.quanity}}</td>
+
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage" let-columns>
+      <tr>
+        <td [attr.colspan]="4">
+          No records found
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+  <p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>
+</div>
+<p-toast key="rmResource" position="top-right"></p-toast>

@@ -1,0 +1,11 @@
+<h2 mat-dialog-title class="mat-dialog-title-ext">{{title}}</h2>
+<mat-dialog-content class="mat-typography mat-dialog-content-ext">
+    <div *ngIf="message">
+        {{message}}
+    </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end" class="mat-dialog-actions-ext">
+  <p-button label="ok" (click)="onConfirm()"  icon="pi pi-check">
+  </p-button>
+ 
+</mat-dialog-actions>

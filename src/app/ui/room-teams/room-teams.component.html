@@ -1,0 +1,24 @@
+<div class="comtainer-fliud">
+    <div class="row">
+        <div class="col-sm-3 col-md-3 col-xm-3 col-lg-3">
+            <div style="padding-left: 0px;" >
+                <app-team-list (parentFun)="getData($event)"></app-team-list>
+            </div>
+        </div>
+        <div class="col-sm-9 col-md-9 col-xm-9 col-lg-9">
+            <div class="row">
+                <div class="col-sm-12 col-md-12 col-lg-12">
+                    <app-unassign-rooms [presentTeamId]="selectedteamId"
+                        (unAssignSgPanels)="refreshPanels($event)"></app-unassign-rooms>
+                </div>
+            </div>
+            <div class="row" style="margin-top:10px !important">
+                <div class="col-sm-12 col-md-12 col-lg-12">
+                    <app-assign-rooms [presentTeamId]="selectedteamId" (assignSgPanels)="refreshPanels($event)"></app-assign-rooms>
+                </div>
+            </div>
+        </div>
+       
+         
+    </div>
+</div>

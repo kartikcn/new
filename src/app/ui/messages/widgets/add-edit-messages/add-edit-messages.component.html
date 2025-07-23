@@ -1,0 +1,18 @@
+<h2 mat-dialog-title class="mat-dialog-title-ext"> {{title}} Message</h2>
+<mat-dialog-content class="mat-typography mat-dialog-content-ext">
+    <form [formGroup]="frmMessageDetail">
+        <mat-card>
+            <mat-card-content >
+                <app-add-messages formControlName="messagesFormPanel" [isNew]="isNew"></app-add-messages>
+            </mat-card-content >
+        </mat-card>
+     </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end" class="mat-dialog-actions-ext">
+        <p-button label="Save" (click)="saveRecords()" icon="pi pi-check" [disabled]="!frmMessageDetail.valid">
+        </p-button>
+        <p-button label="Cancel" style="margin-right: 9px;margin-left: 10px;" icon="pi pi-times" (click)="onCancel()"
+            styleClass="p-button-secondary" [style]="{'margin-left': '.5em'}"></p-button>
+</mat-dialog-actions>
+<p-toast key="msgMessage" position="top-right"></p-toast> 
+<p-confirmDialog  header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>

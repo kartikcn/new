@@ -1,0 +1,101 @@
+<div class="card">
+    <form [formGroup]="filterPanel">
+        <table width="100%" *ngIf="!useTabletProtrait">
+            <tr>
+                <td style="width: 20%">
+                    <div class="input-label-custom ">
+                        <label class='form-field-lable control-label'>Building </label>
+                        <ng-select appendTo="body" [clearable]="false" [items]="enumBL" formControlName="blId"
+                            [searchable]="true" bindLabel="blNameString" bindValue="blId" (change)="onSelectBlCode($event)"(open)="onOpenBl()"
+                            placeholder="Make a selection" class="ng-select-dropdown" (scrollToEnd)="scrollToEndBl()" (search)="searchBl($event)">
+                        </ng-select>
+                    </div>
+                </td>
+                <td style="width: 20%">
+                    <div class="input-label-custom ">
+                        <label class='form-field-lable control-label'>Floor</label>
+                        <ng-select appendTo="body" [clearable]="false" [items]="enumFL" formControlName="flId"
+                            [searchable]="true" bindLabel="flNameString" bindValue="flId" placeholder="Make a selection"(open)="onOpenFl()"
+                            class="ng-select-dropdown" (change)="onSelectFlCode($event)" (scrollToEnd)="scrollToEndFl()" (search)="searchFl($event)">
+                        </ng-select>
+                    </div>
+                </td>
+                <td style="width: 20%">
+                    <div class="input-label-custom ">
+                        <label class='form-field-lable control-label'>Room</label>
+                        <ng-select appendTo="body" [clearable]="false" [items]="enumRm" formControlName="rmId"
+                            [searchable]="true" bindLabel="rmNameString" bindValue="rmId" placeholder="Make a selection"(open)="onOpenRm()"
+                            class="ng-select-dropdown" (change)="onSelectRmCode($event)" (scrollToEnd)="scrollToEndRm()" (search)="searchRm($event)">
+                        </ng-select>
+                    </div>
+                </td>
+                <td style="width: 20%">
+                </td>
+                <td style="width: 20%">
+                    <div style="margin: 18px 0 0 5px ">
+                        <button (click)="onSearch()" [disabled]="!filterPanel.valid" pButton pRipple label="Search"
+                            style="width: 60px;  margin-left: 5px;" class="p-button-primary "></button>
+                        <button (click)="onClear()" pButton pRipple label="Clear"
+                            style="width: 60px;  margin-left: 5px;" class="p-button-primary "></button>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <table width="100%" *ngIf="useTabletProtrait">
+            <tr>
+                <td style="width:25%">
+                    <div class="input-label-custom ">
+                        <label class='form-field-lable control-label'>Building </label>
+                        <ng-select appendTo="body" [clearable]="false" [items]="enumBL" formControlName="blId"
+                            [searchable]="true" bindLabel="blNameString" bindValue="blId" (change)="onSelectBlCode($event)"(open)="onOpenBl()"
+                            placeholder="Make a selection" class="ng-select-dropdown" (scrollToEnd)="scrollToEndBl()" (search)="searchBl($event)">
+                        </ng-select>
+                    </div>
+                </td>
+                <td style="width:25%">
+                    <div class="input-label-custom ">
+                        <label class='form-field-lable control-label'>Floor</label>
+                        <ng-select appendTo="body" [clearable]="false" [items]="enumFL" formControlName="flId"
+                            [searchable]="true" bindLabel="flNameString" bindValue="flId" placeholder="Make a selection"(open)="onOpenFl()"
+                            class="ng-select-dropdown" (change)="onSelectFlCode($event)" (scrollToEnd)="scrollToEndFl()" (search)="searchFl($event)">
+                        </ng-select>
+                    </div>
+                </td>
+                <td style="width:25%">
+                    <div class="input-label-custom ">
+                        <label class='form-field-lable control-label'>Room</label>
+                        <ng-select appendTo="body" [clearable]="false" [items]="enumRm" formControlName="rmId"
+                            [searchable]="true" bindLabel="rmNameString" bindValue="rmId" placeholder="Make a selection"(open)="onOpenRm()"
+                            class="ng-select-dropdown" (change)="onSelectRmCode($event)" (scrollToEnd)="scrollToEndRm()" (search)="searchRm($event)">
+                        </ng-select>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td style="width:25%">
+                    <div style="margin: 0 0 5px 5px ">
+                        <button (click)="onSearch()" [disabled]="!filterPanel.valid" pButton pRipple label="Search"
+                            class="p-button-primary "></button>
+                        <button (click)="onClear()" pButton pRipple label="Clear"
+                            style="margin-left: 5px;" class="p-button-primary"></button>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </form>
+
+</div>
+<div class="card no-file-found" *ngIf="noSVGFound">
+    <h1>No Floorplan available</h1>
+</div>
+<div class="card" style="height: 600px;" *ngIf="viewSvg">
+    <div style="height: 590px;" >
+        <app-svg-view  [svgInputData]="svgInputData" ></app-svg-view>
+    </div>
+</div>
+
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#879cc9" class="spinner-color" type="ball-spin-clockwise"
+    *ngIf="showSpinner" [fullScreen]="true">
+    <p style="color: white"> Loading... </p>
+</ngx-spinner>
+

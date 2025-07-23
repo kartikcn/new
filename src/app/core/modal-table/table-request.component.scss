@@ -1,0 +1,22 @@
+.centre{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-end;
+}
+
+ .ellipsis{
+    white-space: nowrap; 
+    overflow: hidden;
+    text-overflow: ellipsis; 
+    
+  }
+  .tooltip{
+    height: 40px;
+    width: 100px;
+  }
+  
+  
+  :host ::ng-deep .p-datatable-table{
+    table-layout: fixed;
+  }

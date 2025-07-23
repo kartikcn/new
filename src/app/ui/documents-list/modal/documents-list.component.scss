@@ -1,0 +1,28 @@
+:host ::ng-deep.p-datatable .p-datatable-thead > tr > th .grid-header-column {
+    display: flex;
+    flex-direction: row;
+  }
+  
+  :host ::ng-deep.p-datatable .p-datatable-thead > tr > th .grid-header-label {
+    width: 70%;
+    justify-content: flex-start;
+    justify-content: space-between;
+    padding-right: 5px;
+  }
+  
+  :host ::ng-deep.p-datatable .p-datatable-thead > tr > th .grid-sort-icon {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 30%;
+  }
+
+  .ellipsis{
+    white-space: nowrap; 
+    overflow: hidden;
+    text-overflow: ellipsis; 
+  }
+  
+  :host ::ng-deep .p-datatable-table{
+    table-layout: fixed;
+  }

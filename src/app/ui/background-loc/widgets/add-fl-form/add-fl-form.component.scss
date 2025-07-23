@@ -1,0 +1,81 @@
+.form-field-lable {
+  font-size: 11px;
+  margin-bottom: 0px;
+  font-weight: 500;
+}
+
+.form-control {
+  margin-top: -3px;
+  padding-left: 5px;
+}
+
+
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: #555;
+  opacity: 1; /* Firefox */
+}
+
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+  color: #555;
+}
+
+::-ms-input-placeholder { /* Microsoft Edge */
+  color: #555;
+}
+
+
+
+
+.ng-select.ng-select-single .ng-select-container {
+  border-radius: 0px !important;
+}
+
+.mat-expansion-panel-header-title {
+  color: white;
+  letter-spacing: 1px;
+}
+
+.mat-card {
+  padding: 0px;
+  border: thin double rgb(181, 155, 90);
+}
+
+.mat-card-title {
+  color: white;
+  letter-spacing: 1px;
+  font-size: 13px;
+  margin: 0px !important;
+}
+
+.mat-card-header-text {
+  margin: 0px !important;
+}
+
+.mat-card-header {
+  padding: 5px !important;
+  margin-left: -15px;
+}
+
+.action-buttons {
+  height: 30px;
+  width: 70px;
+}
+
+.location-container {
+  display: flex;
+}
+
+.input-container {
+  width: 92%;
+}
+
+.icon-container {
+  display: flex;
+  align-self: center;
+  margin-top: 21px;
+}
+
+:host ::ng-deep .p-button {
+  height: 24px !important;
+  border: 1px red;
+}

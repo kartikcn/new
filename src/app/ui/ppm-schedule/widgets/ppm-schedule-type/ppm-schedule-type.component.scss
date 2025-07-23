@@ -1,0 +1,324 @@
+@import '/src/scss/variables';
+
+.mat-dialog-title-ext {
+  background-color: #879cc9;
+  padding-left: 10px;
+  font-weight: normal;
+  margin-bottom: 0px;
+}
+
+.mat-dialog-content-ext {
+  /*border: thin double #879cc9;*/
+  margin: 0;
+  padding: 10px;
+  background-color: white !important;
+}
+
+.mat-dialog-actions-ext {
+  border-top: none;
+  padding: 3px;
+  min-height: 36px !important;
+  margin-bottom: 5px;
+  /* margin-right: 15px; */
+  background-color: white !important;
+}
+
+
+.action-buttons {
+  height: 30px;
+  width: 70px;
+}
+
+.margin-left-20 {
+  margin-left: 20px;
+}
+
+.margin-5 {
+  margin: 5px !important;
+}
+
+.mat-card {
+  border-radius: 0px;
+}
+
+.mat-expansion-panel {
+  background-color: $toolbar;
+}
+
+.mat-expansion-panel-header-title {
+  color: white;
+  letter-spacing: 1px;
+}
+
+.mat-card-title {
+  color: white;
+  letter-spacing: 1px;
+  font-size: 13px;
+  margin: 0px !important;
+}
+
+.mat-card-header-text {
+  margin: 0px !important;
+}
+
+.mat-card-header {
+  padding: 5px !important;
+  margin-left: -15px;
+}
+
+.mat-card-content {
+  background-color: white !important;
+  /* padding: 5px; */
+}
+
+.mat-expansion-panel-content {
+  background-color: white !important;
+}
+
+.mat-button,
+.mat-flat-button,
+.mat-icon-button,
+.mat-stroked-button {
+  line-height: inherit !important;
+}
+
+::placeholder {
+  /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: #555;
+  opacity: 1;
+  /* Firefox */
+}
+
+:-ms-input-placeholder {
+  /* Internet Explorer 10-11 */
+  color: #555;
+}
+
+::-ms-input-placeholder {
+  /* Microsoft Edge */
+  color: #555;
+}
+
+.ng-select.ng-select-single .ng-select-container {
+  border-radius: 0px !important;
+}
+
+.mat-expansion-panel-header-title {
+  color: white;
+  letter-spacing: 1px;
+}
+
+.mat-card {
+  padding: 0px;
+  border: thin double rgb(181, 155, 90);
+}
+
+.mat-card-title {
+  color: white;
+  letter-spacing: 1px;
+  font-size: 13px;
+  margin: 0px !important;
+}
+
+.mat-card-header-text {
+  margin: 0px !important;
+}
+
+.mat-card-header {
+  padding: 5px !important;
+  margin-left: -15px;
+}
+
+.action-buttons {
+  height: 30px;
+  width: 70px;
+}
+
+//--------------------------
+
+input[type=text],
+input[type=time] {
+  background-color: white !important;
+  border-color: #879cc9 !important;
+  height: 20px !important;
+  width: 10%;
+  margin: 0px 5px 0px 5px;
+}
+
+#noOfOccurence {
+  background-color: white !important;
+  border-color: #879cc9 !important;
+  height: 24px !important;
+  width: 100% !important;
+  margin: 0px 5px 0px 5px;
+}
+
+input[type='radio'],
+input[type='checkbox'] {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 5px 5px 15px 5px;
+}
+
+:host ::ng-deep .p-multiselect {
+  margin: 0px 7px 10px 5px;
+  max-width: 15px;
+  max-height: 1.6rem;
+}
+
+:host ::ng-deep .multiselect-custom-virtual-scroll .p-multiselect {
+  min-width: 10rem;
+}
+
+
+.grid-container {
+  padding-top: 10px;
+}
+
+.card-container {
+  display: flex;
+  flex-direction: row;
+
+}
+
+.form-control:disabled,
+input[type=text]:disabled,
+.p-multiselect:disabled,
+.form-control:read-only,
+.ng-select-disabled {
+  background-color: #e9ecef !important;
+  opacity: 1;
+  cursor: no-drop !important;
+}
+
+:host ::ng-deep .p-multiselect .p-multiselect-label.p-placeholder {
+  color: #6c757d;
+  padding-top: 7px;
+  font-family: 'Roboto'
+}
+
+ul {
+  padding-left: 0.5rem !important;
+}
+
+.recurrence-details-container {
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-gap: 1rem;
+}
+
+.recurrence-details-item {
+  display: flex;
+  justify-content: space-between;
+  text-align: start;
+  height: 24px;
+}
+
+.total-occurence {
+  font-size: 13px;
+  font-weight: 700;
+}
+
+span {
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.heading {
+  font-family: inherit;
+  font-weight: 500;
+  color: #495057;
+  margin-bottom: 0px;
+  font-size: 16px;
+ // margin-top: 5px;
+}
+
+.heading-container {
+  padding: 5px;
+  display: flex;
+}
+
+.header-radio {
+  margin: 5px 5px 2px 5px !important;
+  height: 24px;
+  width: 12px;
+}
+
+.card-readonly {
+  pointer-events: none; /* Disable pointer events to make it read-only */
+  opacity: 0.6; /* Optionally, you can reduce the opacity to indicate read-only state */
+}
+.btn-container {
+  display: flex;
+    justify-content: end;
+    padding: 5px;
+}
+
+:host ::ng-deep #preview .p-dialog .p-dialog-header {
+  padding: 1rem !important;
+}
+
+:host ::ng-deep #preview .p-dialog .p-dialog-content {
+  padding: 0 0.5rem 1rem 0.5rem !important;
+}
+
+.month-name {
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.details-container {
+  display: flex;
+  margin-bottom: 10px;
+}
+
+:host ::ng-deep #detailsBtn button {
+  width: 20px !important;
+  height: 20px !important;
+}
+
+.priority-details {
+  max-width: 600px;
+  padding: 0px 20px;
+}
+
+.priority-details h3, .priority-details h4 {
+  margin-top: 15px;
+}
+
+.priority-details hr {
+  margin-top: 15px;
+}
+
+.priority-details ul {
+  list-style-type: disc;
+  padding-left: 30px;
+  margin-top: 10px;
+}
+
+.priority-details .close-button {
+  margin-top: 20px;
+  float: right;
+}
+
+p {
+  margin-bottom: 2px !important;
+}
+
+.message {
+  font-size: 12px;
+  font-weight: 400;
+  font-family: 'Roboto';
+}
+
+.radio-buttons-container {
+  display: flex;
+  // justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.radio-buttons-container input[type="radio"] {
+  margin-right: 10px;
+  padding: 0px 5px 0px 5px;
+}
+

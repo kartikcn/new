@@ -1,0 +1,95 @@
+<nz-drawer [nzVisible]="visibleSidebar"
+[nzBodyStyle]="{ overflow: 'auto' }"
+[nzMaskClosable]="false"
+[nzTitle]="titleTpl"     
+ [nzWidth]="440"  (nzOnClose)="close()">
+        <ng-template #titleTpl>
+                User Profile
+                <div style="float: right; margin-right: 25px;">
+                        <button pButton pRipple type="button" (click)="openEditItem()" icon="pi pi-pencil" class="p-button-text">
+                        </button>
+                </div>
+        </ng-template>
+        
+        <ng-container *nzDrawerContent>
+                <!-- <p class="title" style=" margin-bottom: 24px;">User Profile</p> -->
+                <div class="container" style="height: 100px;">
+                        <div class="row">
+                                <div class="col-md-4 col-sm-4 col-xm-4"></div>
+                                <div class="col-md-4 col-sm-4 col-xm-4" class="circle-icon circle-cc" [ngClass]="{'img-border-color': !isInitialShow}">
+                                         <p data-letters style="height: 70px !important;"  *ngIf="isInitialShow ; else elseTemplate" [title]='userProfileRec.initials' ></p>
+                                         <ng-template #elseTemplate>
+                                                <img [src]="userProfilePic" [alt]="userProfileRec.initials" />
+                                         </ng-template>
+                                        <div class="add-icon" [ngClass]="{'add-icon-trans': isInitialShow}">
+                                        <i class="pi pi-camera" style="font-size: 2rem" (click)="onAddPhoto()"></i>
+                                        </div>
+                                </div>
+                                <div class="col-md-4 col-sm-4 col-xm-4"></div>
+                        </div>
+                </div>
+                <div class="row" *ngIf="isUserProfileRec">
+                  <nz-descriptions [nzColumn]="2" nzTitle="Personal" [nzExtra]="extraTpl1">
+                        <nz-descriptions-item nzTitle="Full Name" [nzSpan]="1">{{userProfileRec.name}}</nz-descriptions-item>
+                        <nz-descriptions-item nzTitle="User Name" [nzSpan]="1">{{userProfileRec.userName}}
+                        </nz-descriptions-item>
+                        <nz-descriptions-item nzTitle="Role" [nzSpan]="1">{{userProfileRec.userRole}}
+                        </nz-descriptions-item>
+                        <nz-descriptions-item nzTitle="Gender" [nzSpan]="1">{{getNameById(userProfileRec.employeeGender)}}</nz-descriptions-item>
+                        <nz-descriptions-item nzTitle="Employee Code" [nzSpan]="1">{{userProfileRec.employeeEmCode}}</nz-descriptions-item>
+                         <nz-descriptions-item nzTitle="Employee Number" [nzSpan]="1">{{userProfileRec.employeeIdNumber}}</nz-descriptions-item>
+                        <!--<nz-descriptions-item nzTitle="Website" [nzSpan]="1">-</nz-descriptions-item>
+                        <nz-descriptions-item nzTitle="Message" [nzSpan]="2">
+                                Make things as simple as possible but no simpler.
+                        </nz-descriptions-item> -->
+                </nz-descriptions>
+                <ng-template #extraTpl1>
+                        <i nz-icon nzType="user" nzTheme="outline"  style="margin-right: 308px; margin-bottom:8px; font-size: large;"></i> 
+                      </ng-template>
+                
+                <nz-divider></nz-divider>
+                <nz-descriptions [nzColumn]="2" nzTitle="Location" [nzExtra]="extraTpl2">
+                        <nz-descriptions-item nzTitle="Position" [nzSpan]="1">{{userProfileRec.employeeEmStdEmStd}}</nz-descriptions-item>
+                        <nz-descriptions-item nzTitle="Building" [nzSpan]="1">{{userProfileRec.blName}}</nz-descriptions-item>
+                        <nz-descriptions-item nzTitle="Floor" [nzSpan]="1">{{userProfileRec.flName}}</nz-descriptions-item>
+                        <nz-descriptions-item nzTitle="Room" [nzSpan]="1">{{userProfileRec.rmName}}</nz-descriptions-item>
+                        <!-- <nz-descriptions-item nzTitle="Skills" [nzSpan]="2">
+                                C / C + +, data structures, software engineering, operating systems, computer networks,
+                                databases, compiler
+                                theory, computer architecture, Microcomputer Principle and Interface Technology,
+                                Computer English, Java,
+                                ASP, etc.
+                        </nz-descriptions-item> -->
+                </nz-descriptions>
+                <ng-template #extraTpl2>
+                        <i nz-icon nzType="insert-row-right" nzTheme="outline" style="margin-right: 308px; margin-bottom:7px; font-size: large;"></i>
+                </ng-template>
+                  
+                <nz-divider></nz-divider>
+                <nz-descriptions [nzColumn]="2" nzTitle="Contacts" [nzExtra]="extraTpl3">
+                        <nz-descriptions-item nzTitle="Email" [nzSpan]="1">{{userProfileRec.employeeEmail}}</nz-descriptions-item>
+                        <nz-descriptions-item nzTitle="Phone Number" [nzSpan]="1">{{userProfileRec.employeePhonePersonal}}
+                        </nz-descriptions-item>
+                        <nz-descriptions-item nzTitle="Work Number" [nzSpan]="1">{{userProfileRec.employeePhoneWork}}
+                        </nz-descriptions-item>
+                        <nz-descriptions-item nzTitle="Fax Number" [nzSpan]="1">{{userProfileRec.employeeFaxNum}}
+                        </nz-descriptions-item>
+                        
+                </nz-descriptions>
+                <ng-template #extraTpl3>
+                        <i nz-icon nzType="phone" nzTheme="outline" style="margin-right: 308px; margin-bottom:7px; font-size:large;"></i>
+                </ng-template>
+                <nz-divider></nz-divider>
+                <!-- <nz-descriptions [nzColumn]="1" nzTitle="Organization" >
+                <nz-descriptions-item nzTitle="Company Name" [nzSpan]="1">{{compName}}
+
+                </nz-descriptions-item>
+                <nz-descriptions-item nzTitle="Current Plan" [nzSpan]="1">{{planName}}
+
+                </nz-descriptions-item>
+                </nz-descriptions> -->
+                </div>
+
+        </ng-container>
+</nz-drawer>
+

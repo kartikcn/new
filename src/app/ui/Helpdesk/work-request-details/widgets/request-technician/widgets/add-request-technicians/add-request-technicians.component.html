@@ -1,0 +1,94 @@
+<form [formGroup]="reqTechnicianFormPanel">
+    <table width="100%">
+        <div>
+            <tr>
+                <td colspan="3">
+                    <div class="input-label-custom ">
+                        <label class='form-field-lable control-label'>Technician Name</label>
+                        <ng-select appendTo="body" [clearable]="false" [items]="technicianData" name="technicianId"
+                            formControlName="technicianId" [searchable]="true" bindLabel="name" bindValue="cfId"
+                            placeholder="Make a selection" class="ng-select-dropdown"(change)="selectTechnician($event)"
+                            [readonly]="!isSupervisor && !isNew" style="width: 350px;">
+                        </ng-select>
+                    </div>
+                </td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>
+                    <label class='form-field-lable' *ngIf="technicianExist" style="color:red;">Technician Name already exists</label>
+                </td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="input-label-custom ">
+                        <label class='form-field-lable control-label'>Required Hours</label><br>
+                        <input type="text" class="form-control" name="hoursRequired" NumbersOnly TwoDigitDecimalNumber
+                            formControlName="hoursRequired" style="width: 110px;" [readonly]="!isSupervisor && !isNew">
+                    </div>
+                </td>
+                <td>
+                    <div class="input-label-custom ">
+                        <label class='form-field-lable control-label'>Scheduled Date</label><br>
+                        <p-calendar appendTo="body" [minDate]="today" dateFormat="dd M yy" name="dateAssign"
+                            formControlName="dateAssign" [showIcon]="false" inputId="icon"[style]="{'width':'70%'}" [inputStyle]="{'width':'70%'}"
+                            [disabled]="(!isSupervisor && !isNew) || isView"></p-calendar>
+                    </div>
+                </td>
+                <td style="width:80px;">
+                    <div class="input-label-custom " style="margin-left: -40px;">
+                        <label class='form-field-lable control-label'>Scheduled Time</label>
+                        <p-calendar appendTo="body" name="timeAssign" formControlName="timeAssign"
+                            [timeOnly]="true" [disabled]="(!isSupervisor && !isNew) || isView"></p-calendar>
+                    </div>
+                </td>
+            </tr>
+        </div>
+<!--    hide on 17-05-2023 by sai    -->
+        <!-- <div class="actual-hours-container" [hidden]="isNew">
+            <fieldset class="scheduler-border form-field-lable">
+                <legend class="scheduler-border">Actual Hours</legend>
+                <tr>
+                    <td style="width: 30%;">
+                        <div class="input-label-custom " style="margin-left: -95px;margin-top: 10px">
+                            <label class='form-field-lable'>Standard Hours</label><br>
+                            <input type="text" class="form-control" name="actualHoursStd" [readOnly]="true" NumbersOnly
+                                TwoDigitDecimalNumber formControlName="actualHoursStd"  (change)="onChangeHours($event)">
+                            
+                        </div>
+                    </td>
+                    <td>
+                        <div class="input-label-custom " style="margin-right: 10px;">
+                            <label class='form-field-lable'> Overtime Hours </label><br>
+                            <input type="text" class="form-control" name="actualHoursOvertime" NumbersOnly
+                                TwoDigitDecimalNumber formControlName="actualHoursOvertime"
+                                (change)="onChangeHours($event)"  [readOnly]="true"style="width: 150px;">
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="input-label-custom " style="margin-left: -95px;">
+                            <label class='form-field-lable'>Double Time Hours</label><br>
+                            <input type="text" class="form-control" name="actualHoursDouble" [readOnly]="true" NumbersOnly
+                                TwoDigitDecimalNumber formControlName="actualHoursDouble"
+                                (change)="onChangeHours($event)">
+                        </div>
+                    </td>
+                    <td>
+                        <div class="input-label-custom " style="margin-right: 10px;">
+                            <label class='form-field-lable'>Total Hours</label><br>
+                            <input type="text" class="form-control" name="totalHours" NumbersOnly TwoDigitDecimalNumber
+                                formControlName="totalHours" [readOnly]="true" (change)="onChangeHours($event)" style="width: 150px;">
+                        </div>
+                    </td>
+
+                </tr>
+            </fieldset>
+        </div> -->
+    </table>
+
+</form>

@@ -1,0 +1,100 @@
+<div class="card" style="height:82vh;">
+    <p-panel header="Connectors">
+        <ng-template pTemplate="icons">
+            <button pButton label="Add" (click)="onAdd()" icon="pi pi-plus">
+            </button>
+        </ng-template>
+        <div class="card">
+            <p-table [value]="connectorFldsData" [paginator]="true" [rows]="rowCount" [showCurrentPageReport]="true"
+                currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [scrollable]="true"
+                scrollDirection="both" scrollHeight="550px" [rowsPerPageOptions]="[5,10,25]"
+                styleClass="p-datatable-responsive-demo p-datatable-gridlines" [rowHover]="false">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th style="width:3rem"> </th>
+                        <th pSortableColumn="connectorName">
+                            <div class="grid-header-column">
+                                <div class="grid-header-label">
+                                    <p class="grid-label-paragraph">Connector Name</p>
+                                </div>
+                                <div class="grid-sort-icon">
+                                    <p-sortIcon field="connectorName"></p-sortIcon>
+                                    <p-columnFilter type="text" field="connectorName" display="menu"></p-columnFilter>
+                                </div>
+                            </div>
+                        </th>
+                        <th pSortableColumn="fieldName">
+                            <div class="grid-header-column">
+                                <div class="grid-header-label">
+                                    <p class="grid-label-paragraph">Fielld Name</p>
+                                </div>
+                                <div class="grid-sort-icon">
+                                    <p-sortIcon field="fieldName"></p-sortIcon>
+                                    <p-columnFilter type="text" field="fieldName" display="menu"></p-columnFilter>
+                                </div>
+                            </div>
+                        </th>
+                        <th pSortableColumn="fieldTitle">
+                            <div class="grid-header-column">
+                                <div class="grid-header-label">
+                                    <p class="grid-label-paragraph">Fielld Title</p>
+                                </div>
+                                <div class="grid-sort-icon">
+                                    <p-sortIcon field="fieldTitle"></p-sortIcon>
+                                    <p-columnFilter type="text" field="fieldTitle" display="menu"></p-columnFilter>
+                                </div>
+                            </div>
+                        </th>
+                        <th pSortableColumn="defaultValue">
+                            <div class="grid-header-column">
+                                <div class="grid-header-label">
+                                    <p class="grid-label-paragraph">Default value</p>
+                                </div>
+                                <div class="grid-sort-icon">
+                                    <p-sortIcon field="defaultValue"></p-sortIcon>
+                                    <p-columnFilter type="text" field="defaultValue" display="menu"></p-columnFilter>
+                                </div>
+                            </div>
+                        </th>
+                        <th pSortableColumn="refTable">
+                            <div class="grid-header-column">
+                                <div class="grid-header-label">
+                                    <p class="grid-label-paragraph">Reference Table</p>
+                                </div>
+                                <div class="grid-sort-icon">
+                                    <p-sortIcon field="refTable"></p-sortIcon>
+                                    <p-columnFilter type="text" field="refTable" display="menu"></p-columnFilter>
+                                </div>
+                            </div>
+                        </th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-connectorFlds>
+                    <tr [pSelectableRow]="connectorFlds">
+                        <td style="width:3rem">
+                            <button pButton pRipple icon="pi pi-pencil" (click)="onEdit(connectorFlds)" type="button"
+                                class="p-button-text">
+                            </button>
+                        </td>
+                        <td matTooltip="{{connectorFlds.connector.connectorName}}" matTooltipPosition="below"
+                            class="ellipsis">
+                            {{connectorFlds.connector.connectorName}}</td>
+                        <td>{{connectorFlds.fieldName}}</td>
+                        <td>{{connectorFlds.fieldTitle}}</td>
+                        <td>{{connectorFlds.defaultValue}}</td>
+                        <td>{{connectorFlds.refTable}}</td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="emptymessage" let-columns>
+                    <tr>
+                        <td [attr.colspan]="6">
+                            No records found
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+    </p-panel>
+</div>
+<p-toast key="save" position="top-right"></p-toast>
+<p-confirmDialog key="mygrid" header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>

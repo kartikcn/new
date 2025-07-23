@@ -1,0 +1,21 @@
+:host ::ng-deep .p-button {
+    background-color: white !important;
+    border-radius: 50%;
+    border: 2px solid #2196F3;
+  }
+
+  :host ::ng-deep .pi.pi-plus {
+    color: #2196F3;
+  }
+
+
+  :host ::ng-deep .pi.pi-search {
+    color: #2196F3;
+  }
+
+  ::ng-deep .ng-select.ng-select-single .ng-select-container .ng-value-container .ng-value {
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+    max-width: 200px !important;
+  }

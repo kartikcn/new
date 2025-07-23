@@ -1,0 +1,37 @@
+@import '/src/scss/variables';
+::ng-deep .ng-select.ng-select-single .ng-select-container .ng-value-container, .ng-select.ng-select-single .ng-select-container .ng-value-container .ng-value{
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+    max-width: 250px !important;
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+  
+  .header-button {
+    margin-left: auto;
+  }
+
+  .filter-container{
+    width: 20%;
+    overflow: scroll;
+  }
+
+  .result-container{
+    width: 80%;
+  }
+
+  @media screen and (min-width: $tabletPotraitMinWidth) and (max-width:$tabletPotraitMaxWidth ){
+    .filter-container{
+      width: 40%;
+      overflow: scroll;
+    }
+  
+    .result-container{
+      width: 60%;
+    }
+  }

@@ -1,0 +1,19 @@
+<div class="container-fluid">
+        <div class="row" >
+                <div class="col-sm-6 col-xm-6 col-md-6">
+                        <p-panel header="User Roles">
+                                <ng-template pTemplate="icons">
+                                        <button pButton (click)="onAdd()" label="Add" icon="pi pi-plus">
+                                        </button>
+                                        
+                                </ng-template>
+                        <div class="page-content" style="height: calc(100vh - 150px)">
+                        <app-user-roles-list (parentFun)="getData($event)"></app-user-roles-list>
+                        </div>
+                        </p-panel>
+                </div>
+                <div class="col-sm-6 col-xm-6 col-md-6">
+                        <app-add-user-role *ngIf="isShowPanel" (notifyParent)="getNotify($event)" [isNew]="isNew" [role_title]="role_title" [dataRec]="rec"></app-add-user-role>
+                </div>
+        </div>
+</div>

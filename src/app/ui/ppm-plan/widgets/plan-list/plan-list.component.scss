@@ -1,0 +1,17 @@
+:host ::ng-deep .p-panel .p-panel-content {
+    padding: 0;
+}
+
+:host ::ng-deep .p-panel .p-panel-header {
+    padding: 0.5rem;
+}
+
+.ellipsis{
+    white-space: nowrap; 
+    overflow: hidden;
+    text-overflow: ellipsis; 
+  }
+
+  :host ::ng-deep .p-datatable-table{
+    table-layout: fixed;
+  }

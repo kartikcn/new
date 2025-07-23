@@ -1,0 +1,128 @@
+@import '/src/scss/variables';
+::ng-deep .p-card .p-card-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+::ng-deep .ng-select.ng-select-single .ng-select-container .ng-value-container .ng-value {
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+  max-width: 350px !important;
+}
+
+::ng-deep .p-card .p-card-body {
+  padding: 10px;
+}
+
+::ng-deep .mat-typography h2 {
+  margin: 0px;
+  font-size: 16px !important;
+  padding-left: 5px;
+}
+
+::ng-deep .p-card .p-card-content {
+  padding: 0px;
+}
+
+.margin-class {
+  margin: 10px;
+}
+
+
+::ng-deep .mat-dialog-content {
+  overflow: hidden !important;
+}
+
+.field-checkbox {
+  display: inline-block;
+  max-width: 200px;
+}
+
+.field-checkbox+.field-checkbox {
+  margin-top: 10px;
+}
+
+.ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+::ng-deep .p-datatable-table {
+  table-layout: fixed !important;
+}
+
+::ng-deep .cdk-overlay-container {
+  z-index: 1400;
+}
+
+.location-container {
+  display: flex;
+}
+
+.input-container {
+  width: 92%;
+}
+
+.icon-container {
+  display: flex;
+  align-self: center;
+  margin-top: 16px;
+}
+
+.blue-icon {
+  color: #2196F3;
+  cursor: pointer;
+}
+
+.no-file-found {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 500px;
+  padding-top: 5px
+}
+
+:host ::ng-deep .p-dialog-header {
+  background-color: $toolbar;
+  padding-left: 10px;
+  font-weight: normal;
+  margin-bottom: 0px;
+  height: 10px !important;
+}
+
+.msg-label {
+  font-size: 15px;
+  margin-bottom: 0px;
+  font-weight: 500;
+  font-family: sans-serif;
+  color: black;
+}
+
+.stop-event{
+  pointer-events: none;
+}
+.priority-container{
+  display: grid;
+  overflow-y: scroll;
+  max-height: 80px;
+  min-height: 55px;
+  grid-template-columns: repeat(5, 1fr)
+}
+
+@media screen and (min-width: $tabletPotraitMinWidth) and (max-width:$tabletPotraitMaxWidth ) {
+  ::ng-deep .p-button{
+    height: 40px !important;
+  }
+  .priority-container{
+    grid-template-columns: repeat(4, 1fr)
+  }
+}
+
+@media screen and (min-width:$tabletLandscapeMinWidth ) and (max-width: $tabletLandspaceMaxWidth){
+  ::ng-deep .p-button{
+    height: 38px !important;
+  }
+}

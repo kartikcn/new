@@ -1,0 +1,262 @@
+<div class="card" >
+    <p-panel header="Room Summary" [toggleable]="true">
+        <form [formGroup]="filterPanel">
+            <table width="100%">
+                <tr>
+                    <td style="width: 20%">
+                        <div class="input-label-custom">
+                            <div class="p-fluid p-field">
+                                <label class='form-field-lable control-label'>Date From</label>
+                                <p-calendar appendTo="body" dateFormat="dd M yy" name="date"
+                        formControlName="dateFrom" [showIcon]="false" inputId="icon" [readonlyInput]="true"
+                        style="height:32px;" (ngModelChange)="checkDates($event)"></p-calendar>
+                             </div>
+                        </div>
+                    </td>
+                    <td style="width: 20%">
+                        <div class="input-label-custom ">
+                            <div class="p-fluid p-field">
+                                <label class='form-field-lable control-label'>Date To</label>
+                                <p-calendar appendTo="body"  dateFormat="dd M yy" name="date"
+                        formControlName="dateTo" [showIcon]="false" inputId="icon" [readonlyInput]="true"
+                        (ngModelChange)="checkDates($event)"></p-calendar>
+                            </div>    
+                        </div>
+                    </td>
+                    <td width="20%">
+                        <div class="input-label-custom ">
+                            <label class='form-field-lable control-label'>View By</label>
+                            <ng-select appendTo="body" [clearable]="false" [searchable]="true"
+                                placeholder="Make a selection" class="ng-select-dropdown" [items]="viewByData"
+                                formControlName="viewBy" bindLabel="lable" bindValue="value"
+                                (change)="changeViewBy($event)">
+                            </ng-select>
+                        </div>
+                    </td>
+                    <td width="20%">
+                        <div class="input-label-custom ">
+                            <label class='form-field-lable '>Display Type</label>
+                            <ng-select appendTo="body" [clearable]="false" [searchable]="false"
+                                placeholder="Make a selection" class="ng-select-dropdown" [items]="displayTypeData"
+                                formControlName="displayType" bindLabel="lable" bindValue="value"
+                                (change)="onSelectDisplayType($event)">
+                            </ng-select>
+                        </div>
+                    </td>
+                    <td style="width: 20%"></td>
+                </tr>
+                <tr  *ngIf="filterPanel.controls['dateTo']?.errors">
+                    <td style="width: 20%">
+                        <label
+                        *ngIf="filterPanel.controls['dateTo']?.errors && filterPanel.controls['dateTo']?.errors.incorrect"
+                        class='form-field-lable' style="color:red;margin-left:5px;">Date To should be greater than Date From</label>
+                    </td>
+                    <td style="width: 20%"></td>
+                    <td style="width: 20%"></td>
+                    <td style="width: 20%"></td>
+                    <td style="width: 20%"></td>
+                </tr>
+                <tr>
+                    <td style="width:20%">
+                        <div class="input-label-custom ">
+                            <label class='form-field-lable '>Building </label>
+                            <ng-select appendTo="body" [clearable]="false" [items]="enumBL" formControlName="blId"
+                                [searchable]="true" bindLabel="blNameString" bindValue="id" (change)="onSelectBlCode($event)"
+                                placeholder="Make a selection" class="ng-select-dropdown">
+                            </ng-select>
+                        </div>
+                    </td>
+                    <td style="width:20%">
+                        <div class="input-label-custom ">
+                            <label class='form-field-lable '>Floor</label>
+                            <ng-select appendTo="body" [clearable]="false" [items]="enumFL" formControlName="flId"
+                                [searchable]="true" bindLabel="flNameString" bindValue="id" placeholder="Make a selection"
+                                class="ng-select-dropdown" (change)="onSelectFlCode($event)">
+                            </ng-select>
+                        </div>
+                    </td>
+                    <td style="width: 20%">
+                        <div class="input-label-custom ">
+                            <label class='form-field-lable '>Division </label>
+                            <ng-select appendTo="body" [clearable]="false" [items]="enumDivision" formControlName="divId"
+                                [searchable]="true" bindLabel="bindlabel" bindValue="divId"
+                                placeholder="Make a selection" class="ng-select-dropdown" (change)="onSelectDivision($event)">
+                            </ng-select>
+                        </div>
+                    </td>
+                    <td style="width: 20%">
+                        <div class="input-label-custom ">
+                            <label class='form-field-lable '>Department </label>
+                            <ng-select appendTo="body" [clearable]="false" [items]="departmentData" formControlName="depId"
+                                [searchable]="true" bindLabel="bindlabel" bindValue="depId"
+                                placeholder="Make a selection" class="ng-select-dropdown" (change)="onSelectDepartment($event)">
+                            </ng-select>
+                        </div>
+                    </td>
+                    <td>
+                        <button (click)="onSearch()" [disabled]="!filterPanel.valid" pButton pRipple label="Search"
+                    style="width: 67px;margin-left:32%;margin-top:20px;"
+                    class="p-button-primary "></button>
+                    <button (click)="onClear()"  pButton pRipple label="Clear"
+                    style="width: 67px;margin-left:5px;margin-top:20px;"
+                    class="p-button-primary "></button>
+                    <div *ngIf="showGrid" style="width:30px; display:inline-flex;margin-top:20px;">
+                        <button type="button" (click)="exportGridToExcel()" pButton pRipple  icon="pi pi-file-excel"
+                    class="p-button-success p-mr-2 pull-right" matTooltip="XLS" style="margin-left: 5px;" matTooltipPosition="below"></button>
+                    </div>
+                    <div *ngIf="showbarchart && barchartData.length>0" style="width:30px; display:inline-flex;margin-top:20px;">
+                        <p-button icon="pi pi-file-pdf" (click)="exportChartToPDF()" matTooltip="Generate PDF" matTooltipPosition="below" 
+                        style="width: 30px; margin-left: 5px;" styleClass="p-button-raised p-button-danger"></p-button>
+                    </div>
+                    </td>
+                </tr>
+                
+            </table>
+        </form>
+    </p-panel>
+</div>
+<div class="card" *ngIf="showGrid">
+    <p-table [value]="gridblfldata" [paginator]="true" [rows]="rowCount" [showCurrentPageReport]="true"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+        [rowsPerPageOptions]="[5,10,25]" styleClass="p-datatable-responsive-demo p-datatable-gridlines"
+        [rowHover]="false"  [scrollable]="true" scrollDirection="both" scrollHeight="430px" >
+        <ng-template pTemplate="header">
+            <tr>
+                <th  pSortableColumn="firstvalue">
+                    <div class="grid-header-column">
+                        <div class="grid-header-label">
+                            <p class="grid-label-paragraph"> {{firstParamName}}</p>
+                        </div>
+                        <div class="grid-sort-icon">
+                            <p-sortIcon field="firstvalue"></p-sortIcon>
+                            <p-columnFilter type="text" field="firstvalue" display="menu"></p-columnFilter>
+                        </div>
+                    </div>
+                </th>
+                <th *ngIf="showSecondParam" pSortableColumn="secondvalue">
+                    <div class="grid-header-column">
+                        <div class="grid-header-label">
+                            <p class="grid-label-paragraph"> {{secondParamName}}</p>
+                        </div>
+                        <div class="grid-sort-icon">
+                            <p-sortIcon field="secondParamValue"></p-sortIcon>
+                            <p-columnFilter type="text" field="secondvalue" display="menu"></p-columnFilter>
+                        </div>
+                    </div>
+                </th>
+                <th  *ngIf="!showOnlyAllocationArea" pSortableColumn="totalarea">
+                    <div class="grid-header-column">
+                        <div class="grid-header-label">
+                            <p class="grid-label-paragraph">Total Area (sq.ft)</p>
+                        </div>
+                        <div class="grid-sort-icon">
+                            <p-sortIcon field="totalarea"></p-sortIcon>
+                        </div>
+                    </div>
+                </th>
+                <th pSortableColumn="occupiedarea">
+                    <div class="grid-header-column">
+                        <div class="grid-header-label">
+                            <p class="grid-label-paragraph">Allocated Area (sq.ft)</p>
+                        </div>
+                        <div class="grid-sort-icon">
+                            <p-sortIcon field="occupiedarea"></p-sortIcon>
+                        </div>
+                    </div>
+                </th>
+                <th *ngIf="!showOnlyAllocationArea" pSortableColumn="availablearea">
+                    <div class="grid-header-column">
+                        <div class="grid-header-label">
+                            <p class="grid-label-paragraph">Available Area (sq.ft)</p>
+                        </div>
+                        <div class="grid-sort-icon">
+                            <p-sortIcon field="availablearea"></p-sortIcon>
+                        </div>
+                    </div>
+                </th>
+                <th *ngIf="!showOnlyAllocationArea" pSortableColumn="allocationpercentage">
+                    <div class="grid-header-column">
+                        <div class="grid-header-label">
+                            <p class="grid-label-paragraph">Allocation (%)</p>
+                        </div>
+                        <div class="grid-sort-icon">
+                            <p-sortIcon field="allocationpercentage"></p-sortIcon>
+                        </div>
+                    </div>
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-room>
+            <tr  style="cursor: pointer;" (click)="getRoomData(room)">
+               <ng-container *ngIf="showSecondParam; else elseBlock">
+                <td>{{room.firstvalue}}</td>
+               <td>{{room.secondvalue}}</td>
+               <td *ngIf="!showOnlyAllocationArea" style="text-align: right;">{{room.totalarea.toFixed(2)}}</td>
+               <td style="text-align: right;">{{room.occupiedarea.toFixed(2)}}</td>
+               <td *ngIf="!showOnlyAllocationArea" style="text-align: right;">{{room.availablearea.toFixed(2)}}</td>
+               <td *ngIf="!showOnlyAllocationArea" style="text-align: right;">{{room.allocationpercentage.toFixed(2)}}</td>
+              </ng-container>
+              <ng-template #elseBlock>
+                <td>{{room.firstvalue}}</td>
+               <td *ngIf="!showOnlyAllocationArea" style="text-align: right;">{{room.totalarea.toFixed(2)}}</td>
+               <td style="text-align: right;">{{room.occupiedarea.toFixed(2)}}</td>
+               <td *ngIf="!showOnlyAllocationArea" style="text-align: right;">{{room.availablearea.toFixed(2)}}</td>
+               <td *ngIf="!showOnlyAllocationArea" style="text-align: right;">{{room.allocationpercentage.toFixed(2)}}</td>
+              </ng-template>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage" let-columns>
+            <tr>
+                <td [attr.colspan]="3">
+                    No records found
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
+<div *ngIf="showbarchart" #chartContainer >
+    <div *ngIf="barchartData.length>0" style="overflow-x: auto;">
+    <ngx-charts-bar-vertical-2d
+    [view]="view"
+    [scheme]="colorScheme"
+    [results]="barchartData"
+    [gradient]="gradient"
+    [xAxis]="showXAxis"
+    [yAxis]="showYAxis"
+    [legend]="showLegend"
+    [showXAxisLabel]="showXAxisLabel"
+    [showYAxisLabel]="showYAxisLabel"
+    [xAxisLabel]="xAxisLabel"
+    [yAxisLabel]="yAxisLabel"
+    (select)="onSelectBarChart($event)"
+    [showGridLines]="showGridLines"
+    >
+    </ngx-charts-bar-vertical-2d>
+    </div>
+    <div *ngIf="!(barchartData.length>0)" style="width:100%;height:450px; display:flex;justify-content: center;align-items: center;">
+        <div>
+            <h1>No data found</h1>
+        </div>
+    </div>
+    
+</div>
+<p-dialog [(visible)]="showAllocatedPopup" [modal]="true" [style]="{width: '75vw'}" [maximizable]="true"
+        [draggable]="false" [resizable]="false" styleClass="dark-panel" id="preview">
+        <ng-template pTemplate="header">
+            <h2 style="margin: 0px;">Room List</h2>
+        </ng-template>
+        <ng-template pTemplate="body">
+            <app-space-allocation-room-list [data] ="roomData"></app-space-allocation-room-list>
+        </ng-template>
+</p-dialog>
+<p-dialog [(visible)]="showAllRoomsPopup" [modal]="true" [style]="{width: '66vw'}" [maximizable]="true"
+        [draggable]="false" [resizable]="false" styleClass="dark-panel" id="preview">
+        <ng-template pTemplate="header">
+            <h2 style="margin: 0px;">Room List</h2>
+        </ng-template>
+        <ng-template pTemplate="body">
+            <app-add-room-report-table [data] ="allroomData"></app-add-room-report-table>
+        </ng-template>
+</p-dialog>
+<p-toast key="spaceallocationMsg" position="top-center"></p-toast>
+<p-confirmDialog key="spaceallocationGrid" header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>

@@ -1,0 +1,90 @@
+<p-panel header="Comments">
+    <ng-template pTemplate="icons">
+        <button pButton (click)="onAddComments()" [disabled]="isReadOnly" label="Add" icon="pi pi-plus"></button>
+    </ng-template>
+    <div class="card">
+        <p-table [value]="wrCommentsData" [paginator]="true" [rows]="rowCount" [showCurrentPageReport]="true"
+            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+            [rowsPerPageOptions]="[5,10,20]" styleClass="p-datatable-customers p-datatable-gridlines"
+            [scrollable]="true" scrollDirection="both" scrollHeight="130px">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th style="width:3rem"></th>
+                    <th pSortableColumn="comments">
+                        <div class="grid-header-column">
+                            <div class="grid-header-label">
+                                <p class="grid-label-paragraph">Comments</p>
+                            </div>
+                            <div class="grid-sort-icon">
+                                <p-sortIcon field="comments"></p-sortIcon>
+                                <p-columnFilter type="text" field="comments"
+                                    display="menu"></p-columnFilter>
+                            </div>
+                        </div>
+                    </th>
+                    <th pSortableColumn="formatedCommentedBy">
+                        <div class="grid-header-column">
+                            <div class="grid-header-label">
+                                <p class="grid-label-paragraph">Comment By</p>
+                            </div>
+                            <div class="grid-sort-icon">
+                                <p-sortIcon field="formatedCommentedBy"></p-sortIcon>
+                                <p-columnFilter type="text" field="formatedCommentedBy"
+                                    display="menu"></p-columnFilter>
+                            </div>
+                        </div>
+                    </th>
+                    <th pSortableColumn="formatedCommentedDate">
+                        <div class="grid-header-column">
+                            <div class="grid-header-label">
+                                <p class="grid-label-paragraph">Comment Date</p>
+                            </div>
+                            <div class="grid-sort-icon">
+                                <p-sortIcon field="formatedCommentedDate"></p-sortIcon>
+                                <p-columnFilter type="text" field="formatedCommentedDate"
+                                    display="menu"></p-columnFilter>
+                            </div>
+                        </div>
+                    </th>
+                    <th pSortableColumn="commentTime">
+                        <div class="grid-header-column">
+                            <div class="grid-header-label">
+                                <p class="grid-label-paragraph"> Comment Time</p>
+                            </div>
+                            <div class="grid-sort-icon">
+                                <p-sortIcon field="commentTime"></p-sortIcon>
+                                <p-columnFilter type="text" field="commentTime"
+                                    display="menu"></p-columnFilter>
+                            </div>
+                        </div>
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-wrComments>
+                <tr [pSelectableRow]="wrComments">
+                    <td style="width:3rem">
+                        <button *ngIf="!isReadOnly" icon="pi pi-pencil" pButton pRipple type="button"
+                            (click)="onEdit(wrComments.commentId)" class="p-button-text p-button-rounded"
+                            [disabled]="wrComments.emId != loggedInEm"></button>
+                        <button *ngIf="isReadOnly" icon="pi pi-eye" pButton pRipple type="button"
+                            (click)="onView(wrComments.commentId)" class="p-button-text p-button-rounded"
+                            ></button>
+                    </td>
+                    <td>{{wrComments.comments}}</td>
+                    <td>{{getEmployeeFullName(wrComments.emId)}}</td>
+                    <td>{{wrComments.commentDate | date :"dd MMM yyyy"}}</td>
+                    <td>{{convertToDisplayTime(wrComments.commentTime)}}</td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage" let-columns>
+                <tr>
+                    <td colspan="5" style="text-align: center;">
+                        No Records Found
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+</p-panel>
+<p-confirmDialog key="wr-view" header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>
+<p-toast key="wr-comments-save" position="top-right"></p-toast>

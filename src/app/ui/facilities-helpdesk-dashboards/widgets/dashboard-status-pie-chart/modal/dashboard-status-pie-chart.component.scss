@@ -1,0 +1,35 @@
+:host ::ng-deep .total-label{
+    margin-top:10px;
+    margin-bottom:10px !important;
+    font-size: 18px !important;
+}
+
+:host ::ng-deep .advanced-pie-legend .legend-items-container .legend-items .legend-item .item-value {
+    margin-top:0px;
+    margin-bottom: 3px;
+    font-size:18px !important;
+}
+
+:host ::ng-deep .advanced-pie-legend .legend-items-container .legend-items {
+    white-space: pre-wrap;
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 10px; 
+}
+
+:host ::ng-deep .advanced-pie-legend .total-value{
+    font-size: 24px !important;
+}
+
+:host ::ng-deep .advanced-pie-legend .legend-items-container .legend-items .legend-item .item-percent {
+    font-size:18px !important;
+}
+
+:host ::ng-deep .advanced-pie-legend-wrapper{
+    overflow: scroll !important;
+}
+
+:host ::ng-deep .advanced-pie-legend{
+    top: 58% !important;
+}

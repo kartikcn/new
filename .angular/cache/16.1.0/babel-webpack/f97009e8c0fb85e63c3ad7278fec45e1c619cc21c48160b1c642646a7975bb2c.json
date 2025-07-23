@@ -1,0 +1,1 @@
+{"ast":null,"code":"export class SiteFilterInput {\n  constructor(id, name, compId) {\n    this.siteId = \"\";\n    this.siteName = \"\";\n    this.compId = 0;\n    this.siteId = id;\n    this.siteName = name;\n    this.compId = compId;\n  }\n}","map":null,"metadata":{},"sourceType":"module","externalDependencies":[]}

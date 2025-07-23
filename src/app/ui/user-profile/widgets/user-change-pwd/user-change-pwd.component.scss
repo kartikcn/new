@@ -1,0 +1,85 @@
+@import '/src/scss/variables';
+
+.mat-dialog-title-ext {
+  background-color:$toolbar;
+  padding-left: 10px;
+ 
+  font-weight: normal;
+  margin-bottom: 0px;
+}
+
+.mat-dialog-content-ext {
+  margin: 0;
+  padding: 10px;
+}
+
+.mat-dialog-actions-ext {
+  
+  border-top: none;
+  padding: 3px;
+  min-height: 36px !important;
+  margin-bottom: 5px;
+  margin-right: 15px;
+}
+
+.action-buttons {
+  height: 30px;
+  width: 70px;
+}
+
+.margin-left-20 {
+  margin-left: 20px;
+}
+
+.margin-5 {
+  margin: 5px !important;
+}
+
+ .mat-card {
+ // background-color: $toolbar;
+  border-radius: 0px;
+  margin-top: 2px;
+}
+
+.mat-expansion-panel {
+  //background-color: $toolbar;
+} 
+
+.mat-expansion-panel-header-title {
+  color: white;
+  letter-spacing: 1px;
+}
+
+
+
+.mat-card-title {
+  color: white;
+  letter-spacing: 1px;
+  font-size: 13px;
+  margin: 0px !important;
+}
+
+.mat-card-header-text {
+  margin: 0px !important;
+}
+
+.mat-card-header {
+  padding: 5px !important;
+  margin-left: -15px;
+}
+
+.mat-card-content {
+  background-color: white !important;
+  /* padding: 5px; */
+}
+
+.mat-expansion-panel-content {
+  background-color: white !important;
+}
+
+.mat-button, .mat-flat-button, .mat-icon-button, .mat-stroked-button {
+  line-height: inherit !important;
+}
+
+
+

@@ -1,0 +1,210 @@
+<form [formGroup]="rmFormPanel">
+  <table width="100%">
+    <tr>
+      <td style="width: 50%">
+        <div class="input-label-custom ">
+          <label class='form-field-lable control-label'>Building</label>
+          <ng-select appendTo="body" [clearable]="false" [items]="enumBL" formControlName="blId" [readonly]="isView"
+            [searchable]="true" bindLabel="blNameString" bindValue="blId" (change)="onSelectBlCode($event)" placeholder="Make a selection"
+              class="ng-select-dropdown" (scrollToEnd)="scrollToEndBl()" (search)="searchBl($event)" (open)="onOpenBl()">
+          </ng-select>
+        </div>
+      </td>
+      <td style="width: 50%">
+        <div class="input-label-custom ">
+          <label class='form-field-lable control-label'>Floor</label>
+          <ng-select appendTo="body" [readonly]="isView" [clearable]="false" [items]="enumFL" formControlName="flId"
+             [searchable]="true" bindLabel="flNameString" bindValue="flId" placeholder="Make a selection"(open)="onOpenFl()"
+              class="ng-select-dropdown" (change)="onSelectFlCode($event)"  (scrollToEnd)="scrollToEndFl()" (search)="searchFl($event)">
+          </ng-select>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td style="width: 50%">
+        <div class="input-label-custom ">
+          <label class='form-field-lable control-label'>Room Code</label>
+          <input type="text" class="form-control" [readonly]="isView" name="rmCode" uppercase formControlName="rmCode" maxlength="32" appTrimInput>
+        </div>
+      </td>
+      <td style="width: 50%">
+        <div class="input-label-custom ">
+          <label class='form-field-lable  control-label'>Room Name</label>
+          <input type="text" class="form-control" [readonly]="isView" name="rmName" formControlName="rmName" maxlength="64" appTrimInput>
+        </div>
+      </td>
+    </tr>
+    <!-- <tr
+      *ngIf="(rmFormPanel.controls['rmId']?.errors && (rmFormPanel.controls['rmId']?.dirty || rmFormPanel.controls['rmId']?.touched))">
+      <td style="width: 50%">
+        <label *ngIf="rmFormPanel.controls['rmId']?.errors && !rmFormPanel.controls['rmId']?.errors.required"
+          class='form-field-lable' style="color:red;">Building Id ,Floor Id and Room Id combination already
+          exists.</label>
+      </td>
+      <td></td>
+    </tr> -->
+    <tr>
+      <td style="width: 50%">
+        <div class="input-label-custom ">
+          <label class='form-field-lable control-label'>Space Standard</label>
+          <ng-select appendTo="body" [clearable]="false" [items]="spaceStandardEnumList" formControlName="spaceStandard" 
+          [readonly]="isView"   [searchable]="true" bindLabel="enumValue" bindValue="enumKey"  placeholder="Make a selection" class="ng-select-dropdown">
+          </ng-select>
+        </div>
+      </td>
+      <td style="width: 50%">
+        <div class="input-label-custom ">
+          <label class='form-field-lable control-label'>Room Use</label>
+          <ng-select appendTo="body" [clearable]="false" [items]="rmUseEnumList" formControlName="rmUse" 
+          [readonly]="isView"   [searchable]="true" bindLabel="enumValue" bindValue="enumKey"  placeholder="Make a selection" class="ng-select-dropdown">
+          </ng-select>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td style="width: 50%">
+        <div class="input-label-custom ">
+          <label class='form-field-lable '>Room Category</label>
+          <ng-select appendTo="body" [clearable]="false" [items]="enumRmCat" formControlName="rmcatId"
+          [readonly]="isView" [searchable]="true" (change)="onSelectRmCat($event)" bindLabel="rmCatDesc" bindValue="rmcatId" placeholder="Make a selection"
+                     class="ng-select-dropdown">
+          </ng-select>
+        </div>
+      </td>
+      <td style="width: 50%">
+        <div class="input-label-custom ">
+          <div class="input-label-custom ">
+            <label class='form-field-lable '>Room Type</label>
+            <ng-select appendTo="body" [clearable]="false" [items]="enumRmType" formControlName="rmtypeId"
+            [readonly]="isView"   [searchable]="true" bindLabel="name" bindValue="rmtypeId" placeholder="Make a selection"
+                       class="ng-select-dropdown">
+            </ng-select>
+          </div>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td style="width: 50%">
+        <div class="input-label-custom ">
+          <label class='form-field-lable control-label'>Room Area ft²</label>
+          <input type="text" class="form-control" name="rmArea"  NumbersOnly formControlName="rmArea" maxlength="6" [readonly]="isView" appTrimInput>
+        </div>
+      </td>
+      <td style="width: 50%" rowspan="2" [hidden]="isNew">
+        <table style="width: 100%">
+          <tr>
+            <td style="align-content:flex-start">
+              <div class="container">
+                <img [src]="rm_img" alt="" class="image" style="width: 100px; height: 100px;">
+                <div class="middle">
+                  <div class="text">
+                    <button icon="pi pi-eye" pButton pRipple type="button" (click)="preview()" class="p-button-text">
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </td>
+            <td style="width: 50%">
+              <div class="input-label-custom ">
+                <button pButton label="Select Photo" style="margin-left:4px" class="p-button" type="button" icon="pi pi-image"
+                        iconPos="left" (click)="_fileInput.click()" [disabled]="isView"></button>
+                <div>
+                  <input #_fileInput type="file" accept="image/*" (change)="fileChangeEvent($event)" hidden />
+                  <p *ngIf="NotImage" class='form-field-lable' style="color: red;font-size: 10px;">{{imageerrorMsg}}</p>
+                </div>
+                
+              </div>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+    <tr></tr>
+    <tr>
+      <td style="width: 50%" colspan="2">
+        <div class="input-label-custom ">
+          <label class='form-field-lable'>Room Info</label>
+          <textarea class="form-control note-border" name="rmInfo" [readonly]="isView" formControlName="rmInfo" rows="2" nz-input maxlength="128" appTrimInput></textarea>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td style="width: 50%">
+        <div class="input-label-custom ">
+          <label class='form-field-lable control-label'>Is Reservable</label>
+          <ng-select appendTo="body" [clearable]="false" [items]="reservableEnumList" formControlName="isReservable" 
+          [readonly]="isView"   [searchable]="true" bindLabel="enumValue" bindValue="enumKey"  placeholder="Make a selection"
+          (change)="onSelectReservable($event)"        class="ng-select-dropdown">
+          </ng-select>
+        </div>
+      </td>
+      <td style="width: 50%">
+        <div class="input-label-custom ">
+          <label class='form-field-lable control-label'>Is Hotelable</label>
+          <ng-select appendTo="body" [clearable]="false" [items]="hotelableEnumList" formControlName="isHotelable" 
+          [readonly]="isView"   [searchable]="true" bindLabel="enumValue" bindValue="enumKey"  placeholder="Make a selection"
+           (change)="onSelectHotelable($event)"          class="ng-select-dropdown">
+          </ng-select>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td style="width: 50%">
+        <div class="input-label-custom ">
+          <label class='form-field-lable control-label'>Common Area Type</label>
+          <ng-select appendTo="body" [clearable]="false" [items]="commonareaEnumList" formControlName="commonAreaType" 
+          [readonly]="isView"   [searchable]="true" bindLabel="enumValue" bindValue="enumKey"  placeholder="Make a selection" class="ng-select-dropdown">
+          </ng-select>
+        </div>
+      </td>
+      <td style="width: 50%">
+        <div class="input-label-custom ">
+          <label class='form-field-lable control-label'>Employee Capacity</label>
+          <input type="text" class="form-control" name="emCapacity" [readonly]="isView" NumbersOnly formControlName="emCapacity" maxlength="6" appTrimInput>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td style="width: 50%">
+        <div class="input-label-custom ">
+          <label class='form-field-lable'>Room Area Manual</label>
+          <input type="text" class="form-control" name="rmAreaManual" [readonly]="isView" NumbersOnly formControlName="rmAreaManual" maxlength="6" appTrimInput>
+        </div>
+      </td>
+      <td style="width: 50%">
+        <div class="input-label-custom ">
+          <label class='form-field-lable '>Division</label>
+          <ng-select appendTo="body" [clearable]="false" [items]="enumDivision" formControlName="divId"
+          [readonly]="isView" [searchable]="true" (change)="onSelectDivision($event)" bindLabel="divCode" bindValue="divId" placeholder="Make a selection"
+                     class="ng-select-dropdown">
+          </ng-select>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td style="width: 50%">
+        <div class="input-label-custom ">
+          <div class="input-label-custom ">
+            <label class='form-field-lable '>Department</label>
+            <ng-select appendTo="body" [clearable]="false" [items]="enumDepartment" formControlName="depId"
+            [readonly]="isView"   [searchable]="true" bindLabel="depLabel" bindValue="depId" placeholder="Make a selection"
+            (change)="onSelectDepartment($event)" class="ng-select-dropdown">
+            </ng-select>
+          </div>
+        </div>
+      </td>
+      <td style="width: 50%">
+        <div class="input-label-custom ">
+          <label class='form-field-lable '>Sub Department</label>
+          <ng-select appendTo="body" [clearable]="false" [items]="enumSubDepartment" formControlName="subDepId"
+          [readonly]="isView" [searchable]="true"  bindLabel="subDepLabel" bindValue="subDepId" placeholder="Make a selection"
+          class="ng-select-dropdown">
+          </ng-select>
+        </div>
+      </td>
+    </tr>
+  </table>
+  <p-dialog [(visible)]="displayImage" [style]="{width: '30vw'}">
+    <img [src]="rm_img" [alt]="" width="90%" height="90%" />
+  </p-dialog>
+</form>

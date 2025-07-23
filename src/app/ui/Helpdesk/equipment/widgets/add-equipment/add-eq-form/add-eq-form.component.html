@@ -1,0 +1,171 @@
+<form [formGroup]="eqFormPanel">
+  <table width="100%">
+    <tr>
+      <td style="width: 30%">
+        <div class="input-label-custom" style="width: 90%;">
+          <label class='form-field-lable control-label'>Asset Code</label>
+          <input type="text" class="form-control" name="eqCode" formControlName="eqCode" maxlength="64" appTrimInput>
+        </div>
+      </td>
+      <td style="width: 30%">
+        <div style="display: flex;">
+          <div class="input-label-custom" style="width: 90%;">
+            <label class='form-field-lable control-label'>Asset Standard</label>
+            <ng-select appendTo="body" [clearable]="false" [items]="eqStdData" formControlName="eqStdId"
+              [searchable]="true" bindLabel="eqStd" bindValue="eqStdId" placeholder="Make a selection"
+              class="ng-select-dropdown">
+            </ng-select>
+          </div>
+          <div style="margin: 16px 0px 0px -5px;">
+            <p-button id="add-btn" (click)="onAddEqStandard()" class="pull-right m-3" icon="pi pi-plus"
+              matTooltip="Add Asset Standard">
+            </p-button>
+          </div>
+        </div>
+      </td>
+      <td style="width: 30%">
+        <div class="input-label-custom " style="width: 90%;">
+          <label class='form-field-lable control-label'>Status</label>
+          <ng-select appendTo="body" [clearable]="false" [items]="enumStatusData" formControlName="status"
+            [searchable]="true" bindLabel="enumValue" bindValue="enumKey" placeholder="Make a selection"
+            class="ng-select-dropdown">
+          </ng-select>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div style="display: flex;">
+          <div class="input-label-custom " style="width: 90%;">
+            <label class='form-field-lable'>Building Code</label>
+            <ng-select appendTo="body" [clearable]="false" [items]="enumBL" formControlName="blId" [searchable]="true"
+              bindLabel="blNameString" bindValue="blId" (change)="onSelectBlCode($event)" placeholder="Make a selection"
+              class="ng-select-dropdown" (scrollToEnd)="scrollToEndBl()" (search)="searchBl($event)" (open)="onOpenBl()">
+            </ng-select>
+          </div>
+          <div style="margin: 16px 0px 0px -5px;">
+            <p-button id="add-btn" (click)="onAddBuilding()" class="pull-right m-3" icon="pi pi-plus"
+              matTooltip="Add Building">
+            </p-button>
+          </div>
+        </div>
+      </td>
+      <td>
+        <div style="display: flex;">
+          <div class="input-label-custom " style="width: 90%;">
+            <label class='form-field-lable'>Floor Code</label>
+            <ng-select appendTo="body" [clearable]="false" [items]="enumFL" formControlName="flId" [searchable]="true"
+              bindLabel="flNameString" bindValue="flId" (change)="onSelectFlCode($event)" placeholder="Make a selection"
+              class="ng-select-dropdown" (scrollToEnd)="scrollToEndFl()" (search)="searchFl($event)"(open)="onOpenFl()">
+            </ng-select>
+          </div>
+          <div style="margin: 16px 0px 0px -5px;">
+            <p-button id="add-btn" (click)="onAddFloor()" class="pull-right m-3" icon="pi pi-plus"
+              matTooltip="Add Floor">
+            </p-button>
+          </div>
+        </div>
+      </td>
+      <td>
+        <div style="display: flex;">
+          <div class="input-label-custom " style="width: 90%;">
+            <label class='form-field-lable'>Room Code</label>
+            <ng-select appendTo="body" [clearable]="false" [items]="enumRm" formControlName="rmId" [searchable]="true"
+              bindLabel="rmNameString" bindValue="rmId" (change)="onSelectRmCode($event)" placeholder="Make a selection"
+              class="ng-select-dropdown" (scrollToEnd)="scrollToEndRm()" (search)="searchRm($event)" (open)="onOpenRm()">
+            </ng-select>
+          </div>
+          <div style="margin: 16px 0px 0px -5px;">
+            <p-button id="add-btn" (click)="onAddRoom()" class="pull-right m-3" icon="pi pi-plus" matTooltip="Add Room">
+            </p-button>
+          </div>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div style="display: flex;">
+          <div class="input-label-custom " style="width: 90%;">
+            <label class='form-field-lable'>Division</label>
+            <ng-select appendTo="body" [clearable]="false" [items]="enumDivision" formControlName="divId"
+              [searchable]="true" bindLabel="divCode" bindValue="divId" (change)="onSelectDivision($event)"
+              placeholder="Make a selection" class="ng-select-dropdown">
+            </ng-select>
+          </div>
+          <div style="margin: 12px 0px 0px -5px;">
+            <p-button id="add-btn" (click)="onddDivision()" class="pull-right m-3" icon="pi pi-plus"
+              matTooltip="Add Division">
+            </p-button>
+          </div>
+        </div>
+      </td>
+      <td>
+        <div style="display: flex;">
+          <div class="input-label-custom " style="width: 90%;">
+            <label class='form-field-lable'>Department</label>
+            <ng-select appendTo="body" [clearable]="false" (change)="onSelectDepartment($event)"
+              [items]="enumDepartment" formControlName="depId" [searchable]="true" bindLabel="depCode" bindValue="depId"
+              placeholder="Make a selection" class="ng-select-dropdown">
+            </ng-select>
+          </div>
+          <div style="margin: 12px 0px 0px -5px;">
+            <p-button id="add-btn" (click)="onddDepartment()" class="pull-right m-3" icon="pi pi-plus"
+              matTooltip="Add Department">
+            </p-button>
+          </div>
+        </div>
+      </td>
+      <td>
+        <div class="input-label-custom " style="width: 90%;">
+          <label class='form-field-lable control-label'>Ownership Type</label>
+          <ng-select appendTo="body" [clearable]="false" [items]="enumOwnerShipType" formControlName="ownershipType"
+            [searchable]="true" bindLabel="enumValue" bindValue="enumKey" placeholder="Make a selection"
+            class="ng-select-dropdown">
+          </ng-select>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="1">
+        <div class="input-label-custom" style="width: 90%;">
+          <label class='form-field-lable'>Description</label>
+          <textarea class="form-control note-border" name="description" formControlName="description" rows="3" nz-input
+            maxlength="256" appTrimInput></textarea>
+        </div>
+      </td>
+      
+      <td>
+        <div class="input-label-custom">
+          <label class='form-field-lable control-label'>Booking Approval Required</label>
+          <p-selectButton [options]="enumResApprovalReq" formControlName="resApprovalReq" optionLabel="enumValue"
+            optionValue="enumKey"></p-selectButton>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div class="input-label-custom " style="width: 90%;">
+          <label class='form-field-lable control-label'>Depreciation Type</label>
+          <ng-select appendTo="body" [clearable]="false" [items]="enumDepreciationType"
+            formControlName="depreciationType" [searchable]="true" bindLabel="enumValue" bindValue="enumKey"
+            placeholder="Make a selection" class="ng-select-dropdown">
+          </ng-select>
+        </div>
+      </td>
+      <td>
+        <div style="display: flex; width: 90%;">
+          <div class="input-label-custom " style="width: 90%;">
+            <label class='form-field-lable control-label'>Stock</label>
+            <input type="text" class="form-control" name="stock" NumbersOnly formControlName="stock" maxlength="10" appTrimInput>
+          </div>
+          <div class="input-label-custom " style="width: 90%;">
+            <label class='form-field-lable control-label'>Minimum Stock Required</label>
+            <input type="text" class="form-control" name="minStockReq" NumbersOnly formControlName="minStockReq" maxlength="10"
+              appTrimInput>
+          </div>
+        </div>
+      </td>
+    </tr>
+  </table>
+
+</form>

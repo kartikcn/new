@@ -1,0 +1,103 @@
+<div class="card">
+    <form [formGroup]="filterPanel">
+        <table width="100%">
+            <tr>
+                <td style="width: 20%">
+                    <div class="input-label-custom ">
+                        <label class='form-field-lable control-label'>Building </label>
+                        <ng-select appendTo="body" [clearable]="false" [items]="enumBL" formControlName="blId"
+                            [searchable]="true" bindLabel="blNameString" bindValue="id" (change)="onSelectBlCode($event)"
+                            placeholder="Make a selection" class="ng-select-dropdown">
+                        </ng-select>
+                    </div>
+                </td>
+                <td style="width: 20%">
+                    <div class="input-label-custom ">
+                        <label class='form-field-lable control-label'>Floor</label>
+                        <ng-select appendTo="body" [clearable]="false" [items]="enumFL" formControlName="flId"
+                            [searchable]="true" bindLabel="flNameString" bindValue="id" placeholder="Make a selection"
+                            class="ng-select-dropdown" (change)="onSelectFlCode($event)">
+                        </ng-select>
+                    </div>
+                </td>
+                <td style="width: 20%">
+                    <div class="input-label-custom ">
+                        <label class='form-field-lable control-label'>Highlight By</label>
+                        <ng-select appendTo="body" [clearable]="false" [items]="enumParam" formControlName="parameter"
+                            [searchable]="true" bindLabel="name" bindValue="id" placeholder="Make a selection"
+                            class="ng-select-dropdown">
+                        </ng-select>
+                    </div></td>
+                <td style="width: 20%"></td>
+                <td style="width: 20%">
+                    <div style="margin: 5px 0 0 5px ">
+                        <button (click)="onSearch()" [disabled]="!filterPanel.valid" pButton pRipple label="Search"
+                            style="width: 60px;  margin-left: 5px;"
+                            class="p-button-primary p-button-sm pull right"></button>
+                        <button (click)="onClear()" pButton pRipple label="Clear"
+                            style="width: 60px;  margin-left: 5px;"
+                            class="p-button-primary p-button-sm pull right"></button>
+                        <button (click)="exportToPdf()" pButton pRipple label="Export" [disabled]="!viewSvg"
+                            style="width: 70px;  margin-left: 5px;" icon="pi pi-file-pdf"
+                            class="p-button-primary p-button-sm pull right"></button>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+<div class="card no-file-found" *ngIf="displayNoFloorPlanInfo">
+    <h1>No Floorplan available</h1>
+</div>
+
+<div class="card" *ngIf="viewSvg">
+    <div style="display: flex; justify-content: space-between;height:600px;" #content>
+        <div style="width:28%">
+            <div style="display: flex;flex-direction: column;">
+                <p-table [value]="selectedParamData" [paginator]="true" [rows]="rowCount" [showCurrentPageReport]="true"
+                currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                [rowsPerPageOptions]="[5,10,25]" styleClass="p-datatable-responsive-demo p-datatable-gridlines"
+                [rowHover]="true" [scrollable]="true" scrollDirection="both" 
+                scrollHeight="95%" >
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th *ngIf="showSecondParam">{{selectedSecondParamName}}</th>
+                            <th >{{selectedParamName}}</th>
+                            <th>Area (sq.ft)</th>
+                            <th>Highlight Color</th>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-selectedparam>
+                        <tr>
+                            <td *ngIf="showSecondParam">{{selectedparam.secondparamname}}</td>
+                            <td>{{selectedparam.paramname}}</td>
+                            <td>{{selectedparam.area.toFixed(2)}}</td>
+                            <td>
+                                <div [style.background-color]="selectedparam.highlightColor" class="td-class">
+                                </div>
+                            </td>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="emptymessage" let-columns>
+                        <tr>
+                            <td [attr.colspan]="9">
+                                No records found
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+        </div> 
+        <div style="width:70%;margin:5px;height:600px">
+            <div *ngIf="viewSvg" style="height:580px;">
+                <app-svg-view  ></app-svg-view>
+            </div>
+        </div> 
+    </div>
+</div>
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#879cc9" class="spinner-color" type="ball-fussion"
+    *ngIf="showSpinner" [fullScreen]="true">
+    <p style="color: white"> Loading... </p>
+</ngx-spinner>
+
+<p-toast key="highlingroomsmsg" position="top-center"></p-toast>
+<p-confirmDialog key="highlingroomsgrid" header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>

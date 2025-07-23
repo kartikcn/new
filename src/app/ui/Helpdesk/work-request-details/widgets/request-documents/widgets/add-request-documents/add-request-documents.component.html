@@ -1,0 +1,56 @@
+<h2 mat-dialog-title class="mat-dialog-title-ext">Add Documents</h2>
+<mat-dialog-content class="mat-typography mat-dialog-content-ext">
+    <mat-card>
+        <mat-card-content id="documents">
+            <form [formGroup]="documentsForm">
+                <table width="100%">
+                    <tr>
+                        <td>
+                            <div style="display: flex; align-items: center;">
+                                <button pButton label="Select File " class="p-button " style="margin-right: 5px;"
+                                    type="button" icon="pi pi-image" iconPos="left"
+                                    (click)="_fileInput.click()"></button>
+                                <div style="display: flex; align-items: center; width: 60%;">
+                                    <p class="filename" title="{{fileName}}">{{fileName}}</p>
+                                </div>
+                            </div>
+                            <input #_fileInput type="file" hidden accept=".jpg, .jpeg, .png, .pdf,.doc,.docx, .xlsx"
+                                style="margin-bottom: 3px;" (change)="fileChangeEvent($event)" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="input-label-custom ">
+                                <label class='form-field-lable'>Description</label>
+                                <nz-textarea-count [nzMaxCharacterCount]="512">
+                                    <textarea class="form-control note-border" name="description" rows="4" nz-input
+                                        maxlength="512" formControlName="docDescription"></textarea>
+                                </nz-textarea-count>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </mat-card-content>
+    </mat-card>
+</mat-dialog-content>
+<mat-dialog-actions align="end" class="mat-dialog-actions-ext">
+    <p-button label="Save" icon="pi pi-check" [disabled]="!fileSelected" (click)="onSaveDocuments()"></p-button>
+    <p-button label="Cancel" (click)="confirmDialog()" icon="pi pi-times" styleClass="p-button-secondary"
+        [style]="{'margin-left': '.5em'}"></p-button>
+</mat-dialog-actions>
+<p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>
+
+<p-dialog header="Warning" [(visible)]="showWarning" [style]="{width: '25vw'}" [closable]="false">
+    <ng-template pTemplate="caption">
+        <div class="m-2">
+            <p>Selected file exceeds the size limit of 1MB.</p>
+        </div>
+        <div class="d-flex flex-row justify-content-end">
+            <div style="display: flex; padding-left: 6px;">
+                <button pButton pRipple label="Ok" class="p-button-primary p-button-sm" style="margin-left:8px"
+                    (click)="onClickOk()"></button>
+            </div>
+        </div>
+    </ng-template>
+</p-dialog>

@@ -1,0 +1,114 @@
+<div class="card">
+<p-panel header="Request By Asset Reports" [toggleable]="true">
+  <form [formGroup]="filterPanel">
+    <table width="100%">
+      <tr>
+        <td style="width: 22%">
+          <div class="input-label-custom">
+            <div class="p-fluid">
+              <div class="p-field">
+                <label class='form-field-lable control-label'>Request Date From</label>
+                <p-calendar appendTo="body" dateFormat="dd M yy" name="dateFrom" formControlName="dateFrom"
+                  [showIcon]="false" inputId="icon"></p-calendar>
+              </div>
+            </div>
+          </div>
+        </td>
+        <td style="width: 22%">
+          <div class="input-label-custom">
+            <div class="p-fluid">
+              <div class="p-field">
+                <label class='form-field-lable control-label'>Request Date To</label>
+                <p-calendar appendTo="body" dateFormat="dd M yy" name="dateTo" formControlName="dateTo"
+                  [showIcon]="false" inputId="icon"></p-calendar>
+              </div>
+            </div>
+          </div>
+        </td>
+        <td width="22%">
+          <div class="input-label-custom ">
+            <label class='form-field-lable'>Building</label>
+            <ng-select appendTo="body" [clearable]="false" placeholder="Make a selection" [searchable]="true"
+              formControlName="blId" bindLabel="name" bindValue="id" (change)="onSelectBlCode($event)" [items]="enumBL"
+              class="ng-select-dropdown">
+            </ng-select>
+          </div>
+        </td>
+        <td width="22%">
+          <div class="input-label-custom ">
+            <label class='form-field-lable'>Floor </label>
+            <ng-select appendTo="body" [clearable]="false" [searchable]="true" placeholder="Make a selection"
+              formControlName="flId" bindLabel="name" bindValue="id" (change)="onSelectFlCode($event)" [items]="enumFL"
+              class="ng-select-dropdown">
+            </ng-select>
+          </div>
+        </td>
+        <td style="width: 12%">
+          <div style="display: flex;justify-content: end;margin-top: 10px;">
+            <div>
+                <button pButton pRipple label="Search" style="width: 80px;"
+                    class="p-button-primary p-button-sm pull-right" [disabled]="!filterPanel.valid"
+                    (click)="onSearch()"></button>
+            </div>
+            <div style="margin-left: 10px; margin-right: 5px;">
+                <button pButton type="reset" pRipple label="Clear" style="width: 80px;"
+                    class="p-button-primary p-button-sm pull-right"></button>
+            </div>
+        </div>
+        </td>
+      </tr>
+    </table>
+  </form>
+</p-panel>
+<p-panel>
+  <ng-template pTemplate="header"> 
+    <button type="button" (click)="exportExcel()" pButton pRipple icon="pi pi-file-excel"
+    class="p-button-success p-mr-2 pull-right" [disabled]="!(workrequestreportData.length > 0)" style="margin-left: auto;" matTooltip="XLS" matTooltipPosition="below"></button>
+  </ng-template>
+  <div class="card">
+<div class="card">
+  <div style="margin-top:0px">
+    <p-table #dt1 [value]="workrequestreportData" [loading]="loadingRec" [paginator]="true" [rows]="rowCount"
+      [showCurrentPageReport]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+      [rowsPerPageOptions]="[5,10,25]" styleClass="p-datatable-customers p-datatable-gridlines" [scrollable]="true"
+      scrollHeight="450px" [rowHover]="true" selectionMode="single">
+      <ng-template pTemplate="header">
+        <tr>
+          <th pSortableColumn="eqId">
+            <div class="p-d-flex p-jc-between p-ai-center">
+              Assest Name<p-sortIcon field="eqId"></p-sortIcon>
+            </div>
+          </th>
+          <th pSortableColumn="requestCount">
+            <div class="p-d-flex p-jc-between p-ai-center">
+              Request Count<p-sortIcon field="requestCount"></p-sortIcon>
+            </div>
+          </th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-rowData>
+        <tr (click)="onClick(rowData.eqId)">
+          <td>{{rowData.eqId}}</td>
+          <td >{{rowData.requestCount}}</td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="emptymessage" let-columns>
+        <tr>
+          <td [attr.colspan]="2">
+            No records found
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</div>
+  <p-dialog [(visible)]="isShow" [modal]="true" [style]="{ 'max-width': '70vw' }" [maximizable]="true" [draggable]="false"
+    [resizable]="false" styleClass="dark-panel">
+    <ng-template pTemplate="header">
+      <h2> Request List</h2>
+    </ng-template>
+     <ng-template pTemplate="body">
+      <app-add-table></app-add-table>
+    </ng-template>
+  </p-dialog>
+</div>

@@ -1,0 +1,24 @@
+:host ::ng-deep .p-dialog-mask{
+    z-index:1000 !important;
+}
+
+:host ::ng-deep #preview .p-dialog .p-dialog-header {
+    padding: 0.7rem !important;
+}
+    
+:host ::ng-deep #preview .p-dialog .p-dialog-content {
+   padding:0.25rem !important;
+}
+
+:host ::ng-deep .dark-panel.p-dialog .p-dialog-header{
+    border :5px !important;
+}
+
+:host ::ng-deep.ngx-charts-outer{
+    -webkit-animation:chartFadeIn linear 0 !important;
+    animation:chartFadeIn linear 0 !important;
+}
+
+:host ::ng-deep .ngx-charts .grid-panel.odd rect{
+    fill:none !important;
+}

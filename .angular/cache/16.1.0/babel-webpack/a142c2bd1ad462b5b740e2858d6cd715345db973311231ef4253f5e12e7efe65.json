@@ -1,0 +1,1 @@
+{"ast":null,"code":"export class StateFilterInput {\n  constructor(id, name, regnId, cntryId) {\n    this.name = \"\";\n    this.regnId = \"\";\n    this.cntryId = \"\";\n    this.id = id;\n    this.name = name;\n    this.regnId = regnId;\n    this.cntryId = cntryId;\n  }\n}","map":null,"metadata":{},"sourceType":"module","externalDependencies":[]}

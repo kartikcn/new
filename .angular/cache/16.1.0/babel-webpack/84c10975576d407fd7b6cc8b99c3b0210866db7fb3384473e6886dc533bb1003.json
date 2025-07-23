@@ -1,0 +1,1 @@
+{"ast":null,"code":"export class ToolTypeDTO {\n  constructor(displayName, toolType, description, compId) {\n    this.displayName = displayName;\n    this.toolType = toolType;\n    this.description = description;\n    this.compId = compId;\n  }\n}","map":null,"metadata":{},"sourceType":"module","externalDependencies":[]}

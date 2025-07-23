@@ -1,0 +1,38 @@
+@import '/src/scss/variables';
+
+.available-assets-heading-div{
+    flex: auto; 
+    width: 90%;
+}
+.available-assests-button-div{
+    width: 10%;
+}
+@media screen and (min-width: $tabletPotraitMinWidth) and (max-width:$tabletPotraitMaxWidth ){
+    .available-assets-heading{
+        font-size:13px;
+    }
+    .p-button{
+        height:40px !important;
+    }
+    .available-assets-heading-div{
+        width:80%
+    }
+    .available-assests-button-div{
+        width: 20%;
+    }
+}
+
+@media screen and (min-width: $tabletLandscapeMinWidth) and (max-width:$tabletLandspaceMaxWidth ) {
+    .available-assets-heading{
+        font-size:13px;
+    }
+    .p-button{
+        height:40px !important;
+    }
+    .available-assets-heading-div{
+        width:80%
+    }
+    .available-assests-button-div{
+        width: 20%;
+    }
+}

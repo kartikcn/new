@@ -1,0 +1,1 @@
+{"ast":null,"code":"export class BuildingFilterInput {\n  constructor(id, name, siteId, compId) {\n    this.id = \"\";\n    this.name = \"\";\n    this.siteId = \"\";\n    this.compId = 0;\n    this.id = id;\n    this.name = name;\n    this.siteId = siteId;\n    this.compId = compId;\n  }\n}","map":null,"metadata":{},"sourceType":"module","externalDependencies":[]}

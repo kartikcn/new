@@ -1,0 +1,366 @@
+<p-panel>
+    <ng-template pTemplate="header">
+        <div class="header-container">
+            <div class="header-label">
+                <label class='form-field-lable'>Forecast</label>
+            </div>
+
+        </div>
+    </ng-template>
+    <div style="display: flex;">
+        <div class="card" style="width: 25%;">
+            <form [formGroup]="filterPanel">
+                <table width="100%">
+                    <tr>
+                        <td style="width: 25%">
+                            <div class="input-label-custom">
+                                <div class="p-fluid">
+                                    <div class="p-field">
+                                        <label class='form-field-lable control-label'>From Date</label>
+                                        <p-calendar appendTo="body" dateFormat="dd M yy" name="date"
+                                            formControlName="fromDate" [minDate]="today" [showIcon]="false"
+                                            inputId="icon"></p-calendar>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 25%">
+                            <div class="input-label-custom">
+                                <div class="p-fluid">
+                                    <div class="p-field">
+                                        <label class='form-field-lable control-label'>To Date</label>
+                                        <p-calendar appendTo="body" dateFormat="dd M yy" name="date"
+                                            formControlName="toDate" [showIcon]="false" inputId="icon" [minDate]="today"
+                                            [maxDate]="maxDate"></p-calendar>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 25%">
+                            <div *ngIf="errorMsg.length >0 ">
+                                <label class='form-field-lable' style="color:red;">{{errorMsg}}</label>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="25%">
+                            <div class="input-label-custom ">
+                                <label class='form-field-lable'>Building</label>
+                                <ng-select appendTo="body" [clearable]="false" placeholder="Make a selection"
+                                    [searchable]="true" [items]="enumBL" formControlName="blId" bindLabel="name"
+                                    bindValue="id" (change)="onSelectBlCode($event)" class="ng-select-dropdown">
+                                </ng-select>
+                            </div>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td width="25%">
+                            <div class="input-label-custom ">
+                                <label class='form-field-lable'>Floor </label>
+                                <ng-select appendTo="body" [clearable]="false" [searchable]="true"
+                                    placeholder="Make a selection" [items]="enumFL" formControlName="flId"
+                                    bindLabel="name" bindValue="id" (change)="onSelectFlCode($event)"
+                                    class="ng-select-dropdown">
+                                </ng-select>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="25%">
+                            <div class="input-label-custom ">
+                                <label class='form-field-lable'>Room </label>
+                                <ng-select appendTo="body" [clearable]="false" [searchable]="true"
+                                    placeholder="Make a selection" class="ng-select-dropdown" [items]="rm_data"
+                                    formControlName="rmId" (change)="onSelectRmCode($event)" [searchable]="true"
+                                    bindLabel="name" bindValue="id">
+                                </ng-select>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 25%">
+                            <div class="input-label-custom ">
+                                <label class='form-field-lable'>Asset</label>
+                                <ng-select appendTo="body" [items]="enumEquipment" [clearable]="false"
+                                    [searchable]="true" placeholder="Make a selection" bindLabel="eqId" bindValue="eqId"
+                                    class="ng-select-dropdown" formControlName="eqId" (change)="onSelectAsset($event)">
+                                </ng-select>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+
+                        <td style="width: 25%">
+                            <div class="input-label-custom ">
+                                <label class='form-field-lable'>Plan Name</label>
+                                <ng-select appendTo="body" [clearable]="false" [items]="planList"
+                                    formControlName="planId" [searchable]="true" bindLabel="planName" bindValue="planId"
+                                    placeholder="Make a selection" class="ng-select-dropdown">
+                                </ng-select>
+                            </div>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td style="width: 25%">
+                            <div class="input-label-custom "
+                                style="display: flex; flex-direction: row;justify-content: end;">
+                                <button pButton (click)="onClear()" pRipple label="Clear" style="width: 60px;"
+                                    class="p-button-primary p-button-sm pull-right"></button>
+                                <button pButton pRipple label="Forecast" (click)="onSearch()"
+                                    style="width: 60px; margin: 0px 5px 0px 10px;" class="p-button-primary p-button-sm"
+                                    [disabled]="!filterPanel.valid"></button>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+        <div class="card" style="width: 75%;">
+            <div class="row" (click)="onClickRequest()">
+                <!-- <div class="column"> -->
+                <div class="card" >
+                    <div class="card-header">Requests</div>
+                    <div class="card-content  hover-pointer" style="display: flex;">
+                        <p class="card-content-title">Total Request:</p> <span style="margin-right: 10px;"
+                            id="requestCount">{{requestsList.length}}</span>
+                        <button pButton pRipple icon="pi pi-info-circle" (click)="onClickRequest()"
+                            [hidden]="requestsList.length == 0" matTooltip="View Part Details"
+                            class="p-button-rounded pull-right" style="margin-top: 1.5px;"></button>
+                    </div>
+                </div>
+                <!-- </div> -->
+            </div>
+            <div class="row">
+                <p-accordion (onOpen)="onTabOpen($event)" *ngIf="isReload;">
+                    <p-accordionTab *ngFor="let title of cardTitles;" [header]="title.id">
+                        <div *ngIf="title.id != null;">
+                            <p-table [value]="cardData" selectionMode="single" [rowHover]="true" [rows]="5"
+                                [paginator]="true" styleClass="p-datatable-responsive-demo p-datatable-gridlines"
+                                [showCurrentPageReport]="true" [scrollable]="true" scrollDirection="both"
+                                scrollHeight="500px" [rowsPerPageOptions]="[5,10,25]">
+                                <ng-template pTemplate="header">
+                                    <tr>
+                                        <th style="width:1rem"></th>
+                                        <th>Name</th>
+                                        <th *ngIf="title.id != 'Parts';">Standard Hours</th>
+                                        <th *ngIf="title.id == 'Parts';">Available Quantity</th>
+                                        <th *ngIf="title.id != 'Parts';"> Required Hours</th>
+                                        <th *ngIf="title.id == 'Parts';">Required Quantity</th>
+                                        <th *ngIf="title.id != 'Parts';">Allocated Hours</th>
+                                        <th *ngIf="title.id == 'Parts';">Allocated Quantity</th>
+
+                                    </tr>
+                                </ng-template>
+                                <ng-template pTemplate="body" let-type>
+                                    <tr [pSelectableRow]="type"  (click)="getPlanDetails()">
+                                        <td style="width:1rem">
+                                            <button pButton pRipple icon="pi pi-info-circle"
+                                                (click)="onClickDetails(type,title.id)" matTooltip="View Part Details"
+                                                class="p-button-rounded pull-right"></button>
+                                        </td>
+                                        <td>{{ type.name }}</td>
+                                        <td *ngIf="title.id != 'Parts';">{{type.availableHours }}</td>
+                                        <td *ngIf="title.id == 'Parts';">{{type.availableQuantity }}</td>
+                                        <td *ngIf="title.id != 'Parts';">{{type.requiredHours }}</td>
+                                        <td *ngIf="title.id == 'Parts';">{{type.requiredQuantity }}</td>
+                                        <td *ngIf="title.id != 'Parts';">{{type.hoursInUse }}</td>
+                                        <td *ngIf="title.id == 'Parts';">{{type.inUseQuantity }}</td>
+                                    </tr>
+                                </ng-template>
+                            </p-table>
+                        </div>
+                    </p-accordionTab>
+                </p-accordion>
+            </div>
+        </div>
+    </div>
+</p-panel>
+<!-- Request Details -->
+<p-dialog header="Requests List" [(visible)]="displayRequestList" [modal]="true" [style]="{width: '70vw'}"
+    [maximizable]="false" [draggable]="false" [resizable]="false" [closable]="false">
+    <p-table #tt [value]="requestsList" [paginator]="true" [rows]="rowCount" [scrollable]="true" scrollDirection="both"
+        scrollHeight="500px" [showCurrentPageReport]="true"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [rowsPerPageOptions]="[5,10,25]"
+        styleClass="p-datatable-customers p-datatable-gridlines" [rowHover]="false">
+        <ng-template pTemplate="header">
+            <tr>
+                <!-- <th pSortableColumn="wrForecastId">
+                    <div class="grid-header-column">
+                        <div class="grid-header-label">
+                            <p class="grid-label-paragraph">Request Id</p>
+                        </div>
+                        <div class="grid-sort-icon">
+                            <p-sortIcon field="wrForecastId"></p-sortIcon>
+                            <p-columnFilter type="text" field="wrForecastId" display="menu"></p-columnFilter>
+                        </div>
+                    </div>
+                </th> -->
+                <th pSortableColumn="dateRequested">
+                    <div class="grid-header-column">
+                        <div class="grid-header-label">
+                            <p class="grid-label-paragraph">Requested Date </p>
+                        </div>
+                        <div class="grid-sort-icon">
+                            <p-sortIcon field="dateRequested"></p-sortIcon>
+                            <p-columnFilter type="text" field="dateRequested" display="menu"></p-columnFilter>
+                        </div>
+                    </div>
+                </th>
+                <th pSortableColumn="escDateResponded">
+                    <div class="grid-header-column">
+                        <div class="grid-header-label">
+                            <p class="grid-label-paragraph">Date To Respond</p>
+                        </div>
+                        <div class="grid-sort-icon">
+                            <p-sortIcon field="escDateResponded"></p-sortIcon>
+                            <p-columnFilter type="text" field="escDateResponded" display="menu"></p-columnFilter>
+                        </div>
+                    </div>
+                </th>
+                <th pSortableColumn="escDateResponded">
+                    <div class="grid-header-column">
+                        <div class="grid-header-label">
+                            <p class="grid-label-paragraph">Date To Perform</p>
+                        </div>
+                        <div class="grid-sort-icon">
+                            <p-sortIcon field="escDateResponded"></p-sortIcon>
+                            <p-columnFilter type="text" field="escDateResponded" display="menu"></p-columnFilter>
+                        </div>
+                    </div>
+                </th>
+                <th pSortableColumn="escDateCompleted">
+                    <div class="grid-header-column">
+                        <div class="grid-header-label">
+                            <p class="grid-label-paragraph">Date To Complete</p>
+                        </div>
+                        <div class="grid-sort-icon">
+                            <p-sortIcon field="escDateCompleted"></p-sortIcon>
+                            <p-columnFilter type="text" field="escDateCompleted" display="menu"></p-columnFilter>
+                        </div>
+                    </div>
+                </th>
+                <th pSortableColumn="building">
+                    <div class="grid-header-column">
+                        <div class="grid-header-label">
+                            <p class="grid-label-paragraph">Building</p>
+                        </div>
+                        <div class="grid-sort-icon">
+                            <p-sortIcon field="building"></p-sortIcon>
+                            <p-columnFilter type="text" field="building" display="menu"></p-columnFilter>
+                        </div>
+                    </div>
+                </th>
+                <th pSortableColumn="floor">
+                    <div class="grid-header-column">
+                        <div class="grid-header-label">
+                            <p class="grid-label-paragraph">Floor</p>
+                        </div>
+                        <div class="grid-sort-icon">
+                            <p-sortIcon field="floor"></p-sortIcon>
+                            <p-columnFilter type="text" field="floor" display="menu"></p-columnFilter>
+                        </div>
+                    </div>
+                </th>
+                <th pSortableColumn="room">
+                    <div class="grid-header-column">
+                        <div class="grid-header-label">
+                            <p class="grid-label-paragraph">Room </p>
+                        </div>
+                        <div class="grid-sort-icon">
+                            <p-sortIcon field="room"></p-sortIcon>
+                            <p-columnFilter type="text" field="room" display="menu"></p-columnFilter>
+                        </div>
+                    </div>
+                </th>
+                <th pSortableColumn="eqCode">
+                    <div class="grid-header-column">
+                        <div class="grid-header-label">
+                            <p class="grid-label-paragraph">Asset </p>
+                        </div>
+                        <div class="grid-sort-icon">
+                            <p-sortIcon field="eqCode"></p-sortIcon>
+                            <p-columnFilter type="text" field="eqCode" display="menu"></p-columnFilter>
+                        </div>
+                    </div>
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-wr>
+            <tr [pSelectableRow]="wr">
+                <!-- <td>{{wr.wrForecast.wrForecastId}}</td> -->
+                <td>{{wr.dateRequested | date :"dd MMM yyyy"}}</td>
+                <td>{{wr.escDateResponded | date :"dd MMM yyyy"}}
+                    {{convertToDisplayTime(wr.escTimeResponded)}}
+                </td>
+                <td>{{wr.dateToPerform | date :"dd MMM yyyy"}} {{convertToDisplayTime(wr.escTimeResponded)}}
+                </td>
+                <td>{{wr.escDateCompleted | date :"dd MMM yyyy"}}
+                    {{convertToDisplayTime(wr.escTimeCompleted)}}
+                </td>
+                <td>{{wr.building}}</td>
+                <td>{{wr.floor}}</td>
+                <td>{{wr.room}}</td>
+                <td>{{wr.eqCode}}</td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage" let-columns>
+            <tr>
+                <td [attr.colspan]="8">
+                    No records found.
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+    <ng-template pTemplate="footer">
+        <button icon="pi pi-times" pButton label="Close" styleClass="p-button-text"
+            (click)="displayRequestList = false"></button>
+    </ng-template>
+</p-dialog>
+
+<!-- Trade Details -->
+<p-dialog id="Trade Details" [(visible)]="showTradeDetails" *ngIf="showTradeDetails" [style]="{width: '40vw'}"
+    [modal]="true">
+    <app-trade-details [selectedTrade]="selectedTrade"></app-trade-details>
+</p-dialog>
+
+<!-- Part Details Form -->
+<p-dialog header="Part Details" [(visible)]="showPartDetails" *ngIf="showPartDetails" [style]="{width: '32vw'}"
+    [modal]="true">
+    <app-part-details [selectedPart]="selectedPart"></app-part-details>
+</p-dialog>
+
+<!-- Part Details Form -->
+<p-dialog header="Tool Details" [(visible)]="showToolDetails" *ngIf="showToolDetails" [style]="{width: '35vw'}"
+    [modal]="true">
+    <form [formGroup]="frmToolsDetail" class="disabled-form">
+        <mat-card>
+            <mat-card-content id="tool">
+                <app-add-tools formControlName="toolsFormPanel"></app-add-tools>
+            </mat-card-content>
+        </mat-card>
+    </form>
+</p-dialog>
+<!-- No Requests Found -->
+<p-confirmDialog #cd key="noReqFound" [style]="{width: '20vw'}">
+    <ng-template pTemplate="header">
+        <h3>Message</h3>
+    </ng-template>
+    <ng-template pTemplate="footer">
+        <button type="button" pButton icon="pi pi-check" label="Ok" (click)="cd.accept()"></button>
+    </ng-template>
+</p-confirmDialog>
+
+<!-- Forecast Plan Details -->
+<p-dialog header="Plans" [(visible)]="showPlanDetails" *ngIf="showPlanDetails" 
+    [modal]="true" [draggable]="false">
+    <app-forecast-plan-details [planData]="planData"></app-forecast-plan-details>
+    <!-- <ng-template pTemplate="footer">
+        <p-button icon="pi pi-times" (click)="showPlanDetails = false" label="Close" styleClass="p-button-text"></p-button>
+    </ng-template> -->
+</p-dialog>

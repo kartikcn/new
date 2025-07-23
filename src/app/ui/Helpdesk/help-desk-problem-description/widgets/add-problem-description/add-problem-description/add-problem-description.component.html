@@ -1,0 +1,20 @@
+
+<form [formGroup]="pbDescriptionFormPanel">
+    <table width="100%">
+      <tr>
+        <td>
+          <div class="input-label-custom ">
+            <label class='form-field-lable'>Problem Description</label>
+            <textarea class="form-control note-border" name="pdDescription" formControlName="pdDescription" rows="2" nz-input
+              maxlength="256" appTrimInput></textarea>
+          </div>
+        </td>
+      </tr>
+      <tr *ngIf="(pbDescriptionFormPanel.controls['pdDescription']?.errors && pbDescriptionFormPanel.controls['pdDescription'].dirty)">
+        <td style="width:25%">
+          <label *ngIf="!pbDescriptionFormPanel.controls['pdDescription']?.errors.required" class='form-field-lable'
+            style="color:red;">Problem Description already exists </label>
+        </td>
+      <tr>
+    </table>
+  </form>

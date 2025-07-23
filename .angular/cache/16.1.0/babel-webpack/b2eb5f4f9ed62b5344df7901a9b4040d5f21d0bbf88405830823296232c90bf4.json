@@ -1,0 +1,1 @@
+{"ast":null,"code":"export class EmpFilterInput {\n  constructor(emCode, name) {\n    this.emCode = \"\";\n    this.firstName = \"\";\n    this.emCode = emCode;\n    this.firstName = name;\n  }\n}","map":null,"metadata":{},"sourceType":"module","externalDependencies":[]}

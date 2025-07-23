@@ -1,0 +1,1 @@
+{"ast":null,"code":"export class VaildationError {\n  constructor(fieldId, type, errorMessage) {\n    this.FieldId = fieldId;\n    this.Type = type;\n    this.ErrorMessage = errorMessage;\n  }\n}","map":null,"metadata":{},"sourceType":"module","externalDependencies":[]}

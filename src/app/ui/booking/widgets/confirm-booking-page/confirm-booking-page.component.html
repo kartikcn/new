@@ -1,0 +1,425 @@
+<h2 mat-dialog-title class="mat-dialog-title-ext">Booking Details</h2>
+<mat-dialog-content class="mat-typography mat-dialog-content-ext">
+    <form [formGroup]="confirmBookingForm">
+        <div class="row">
+            <div class="column1">
+                <table width="100%">
+                    <tr>
+                        <td>
+                            <div class="input-label-custom">
+                                <div class="p-fluid">
+                                    <div class="p-field">
+                                        <label class='form-field-lable control-label'>Meeting Name</label>
+                                        <input type="text" class="form-control" name="title" formControlName="title" maxlength="256">
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="input-label-custom">
+                                <label class='form-field-lable control-label'>Requested By</label>
+                                <ng-select appendTo="body" [clearable]="false" [items]="enumUsers"
+                                    formControlName="userId" [searchable]="true" bindLabel="name" bindValue="id"
+                                    placeholder="Make a selection" class="ng-select-dropdown">
+                                </ng-select>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <div class="input-label-custom ">
+                                <label class='form-field-lable'>Comments</label>
+                                <textarea class="form-control note-border" name="comments" formControlName="comments"
+                                    rows="2" nz-input maxlength="512"></textarea>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="column2">
+                <div class="input-label-custom">
+                    <div class="p-fluid">
+                        <div class="p-field">
+                            <label class='form-field-lable'>Booking Summary</label>
+                        </div>
+                    </div>
+                </div>
+                <table width="100%">
+                    <tr>
+                        <div class="input-label-custom">
+                            <div class="p-fluid">
+                                <div class="p-field">
+                                    <label class='form-field-lable' style="margin-left:8px;">Location :</label>
+                                </div>
+                            </div>
+                        </div>
+                        <label class='sum-label'>
+                            {{location}}
+                        </label>
+                    </tr>
+                    <tr>
+                        <div class="input-label-custom">
+                            <div class="p-fluid">
+                                <div class="p-field">
+                                    <label class='form-field-lable' style="margin-left:8px;">Date/Time :</label>
+                                </div>
+                            </div>
+                        </div>
+                        <label class='sum-label'>
+                            {{this.data.filterData.date | date :"dd MMM yyyy"}}
+                            {{getTime(this.data.filterData.fromTime) | date: "HH:mm"}} - {{getTime(this.data.filterData.toTime) | date:"HH:mm"}}
+                        </label>
+                    </tr>
+                    <tr>
+                        <div style="margin-bottom: 2px !important;">
+                            <div class="input-label-custom">
+                                <div class="p-fluid">
+                                    <div class="p-field">
+                                        <label class='form-field-lable' style="margin-left:8px;"> Recurrence Pattern
+                                            :</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <label class='sum-label'>{{data.recurringRule}}</label>
+                        </div>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div style="display:flex;">
+            <div class="input-label-custom">
+                <div class="p-fluid">
+                    <div class="p-field">
+                        <label class='form-field-lable' style="margin-left:8px;">Fixed Resources :</label>
+                    </div>
+                </div>
+            </div>
+            <label class='fixed-resource'>
+                {{fixedResources}}
+            </label>
+        </div>
+        <p-accordion>
+            <p-accordionTab>
+                <p-header class="atndAcrdn">
+                    <div>
+                        <span>Attendees</span>
+                    </div>
+                    <div>
+                        <button pButton pRipple label="Add" icon="pi pi-plus"
+                            class="p-button-primary btn-sm float-right"
+                            (click)="[$event.stopPropagation(),addAttendies()]"></button>
+                    </div>
+                </p-header>
+
+                <p-table [value]="attendeesList" [(selection)]="selectedAttendies" [paginator]="true" [rows]="rowCount"
+                    [showCurrentPageReport]="true" dataKey="id"
+                    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                    [rowsPerPageOptions]="[5,10,25]">
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th style="width: 3rem">
+                            </th>
+                            <th pSortableColumn="name">
+                                Name <p-sortIcon field="name"></p-sortIcon>
+                                <p-columnFilter type="text" field="name" display="menu"></p-columnFilter>
+                            </th>
+                            <th pSortableColumn="email">
+                                Email <p-sortIcon field="email"></p-sortIcon>
+                                <p-columnFilter type="text" field="email" display="menu"></p-columnFilter>
+                            </th>
+                            <th pSortableColumn="category">
+                                Employee/Visitor<p-sortIcon field="category"></p-sortIcon>
+                                <p-columnFilter type="text" field="category" display="menu">
+                                </p-columnFilter>
+                            </th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-attendie>
+                        <tr>
+                            <td style="width: 3rem">
+                                <button pButton pRipple icon="pi pi-times" type="button"
+                                    (click)="onDeleteAttendee(attendie)" class="p-button-text"
+                                    style="font-size: 5rem; color: red;">
+                                </button>
+                            </td>
+                            <td>{{attendie.name}}</td>
+                            <td>{{attendie.email}}</td>
+                            <td>{{attendie.category}}</td>
+
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="emptymessage" let-columns>
+                        <tr>
+                            <td [attr.colspan]="3">
+                                No records found
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </p-accordionTab>
+            <p-accordionTab>
+                <p-header class="atndAcrdn">
+                    <div>
+                        <span>Resources</span>
+                    </div>
+                    <div>
+                        <button pButton pRipple label="Add" icon="pi pi-plus"
+                            class="p-button-primary btn-sm float-right"
+                            (click)="[$event.stopPropagation(),addResources()]"></button>
+                    </div>
+                </p-header>
+
+                <p-table [value]="selectedResourcesData" [showCurrentPageReport]="true"
+                    styleClass="p-datatable-customers" [rows]="5" [paginator]="true">
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th style="width:8rem"> </th>
+                            <th pSortableColumn="title">
+                                Resource Title <p-sortIcon field="title"></p-sortIcon>
+                                <p-columnFilter type="text" field="title" display="menu"></p-columnFilter>
+                            </th>
+                            <th pSortableColumn="description">
+                                Description <p-sortIcon field="description"></p-sortIcon>
+                                <p-columnFilter type="text" field="description" display="menu"></p-columnFilter>
+                            </th>
+                            <th pSortableColumn="requiredQuantity">
+                                Required Quantity <p-sortIcon field="requiredQuantity"></p-sortIcon>
+                                <p-columnFilter type="text" field="requiredQuantity" display="menu"></p-columnFilter>
+                            </th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-resource>
+                        <tr>
+                            <td style="width:8rem">
+                                <button pButton pRipple icon="pi pi-pencil" (click)="onEditResource(resource)"
+                                    type="button" class="p-button-text">
+                                </button>
+                                <button pButton pRipple icon="pi pi-times" type="button" (click)="onDelete(resource.id)"
+                                    class="p-button-text pull-right" style="font-size: 5rem; color: red;">
+                                </button>
+                            </td>
+                            <td>{{resource.title}}</td>
+                            <td>{{resource.description}}</td>
+                            <td>{{resource.requiredQuantity}}</td>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="emptymessage" let-columns>
+                        <tr>
+                            <td [attr.colspan]="4">
+                                No records found
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+
+            </p-accordionTab>
+        </p-accordion>
+    </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end" class="mat-dialog-actions-ext">
+    <button (click)="confirmBooking()" [disabled]="!confirmBookingForm.valid" pButton pRipple
+         class="p-button-primary p-button-sm " label="Confirm Booking"></button>
+    <p-button label="Cancel" icon="pi pi-times" (click)="confirmDialog()" styleClass="p-button-secondary"
+        [style]="{'margin-left': '.5em'}"></p-button>
+</mat-dialog-actions>
+<p-toast key="costForm" position="top-right"></p-toast>
+<p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>
+<p-confirmDialog #cd key="confirmBook">
+    <ng-template pTemplate="header">
+        <h3 style="margin-top: 10px !important;">Message</h3>
+    </ng-template>
+    <ng-template pTemplate="footer">
+        <button type="button" pButton icon="pi pi-check" label="Ok" (click)="cd.accept()"></button>
+    </ng-template>
+</p-confirmDialog>
+<p-confirmDialog #cd1 key="failedBook">
+    <ng-template pTemplate="header">
+        <h3 style="margin-top: 10px !important;">Warning</h3>
+    </ng-template>
+    <ng-template pTemplate="footer">
+        <button type="button" pButton icon="pi pi-check" label="Ok" (click)="cd1.accept()"></button>
+    </ng-template>
+</p-confirmDialog>
+<p-confirmDialog #cd2 key="conflicts" [style]="{width: '25vw'}">
+    <ng-template pTemplate="header">
+        <h3 style="margin-top: 10px !important;">Warning</h3>
+    </ng-template>
+    <ng-template pTemplate="footer">
+        <button type="button" pButton icon="pi pi-check" label="Ok" (click)="cd2.accept()"></button>
+    </ng-template>
+</p-confirmDialog>
+
+<!-- Add Attendees screen -->
+<p-dialog header="Add Attendees" [(visible)]="displayAttendees" [modal]="true" [style]="{width: addAttendeeDialogWidth}"
+    [maximizable]="true" [draggable]="false" [resizable]="false">
+    <p-table [value]="attendeesData" [(selection)]="selectedAttendies" [paginator]="true" [rows]="rowCount"
+        [showCurrentPageReport]="true" 
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+        [rowsPerPageOptions]="[5,10,25]">
+        <ng-template pTemplate="caption">
+            <div class="d-flex flex-row">
+                <div style="display: flex;">
+                    <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-primary p-button-sm"
+                        (click)="saveAttendies()" [disabled]="!(selectedAttendies.length >0)"></button>
+                    <h3 *ngIf="isVisitorAallowed" class="visitorNotAlwd">External visitors are not allowed for this room
+                    </h3>
+                </div>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th style="width: 3rem">
+                    <!-- <p-tableHeaderCheckbox></p-tableHeaderCheckbox> -->
+                </th>
+                <th pSortableColumn="name">
+                    Name <p-sortIcon field="name"></p-sortIcon>
+                    <p-columnFilter type="text" field="name" display="menu"></p-columnFilter>
+                </th>
+                <th pSortableColumn="email">
+                    Email <p-sortIcon field="email"></p-sortIcon>
+                    <p-columnFilter type="text" field="email" display="menu"></p-columnFilter>
+                </th>
+                <th pSortableColumn="category">
+                    Employee/Visitor<p-sortIcon field="category"></p-sortIcon>
+                    <p-columnFilter type="text" field="category" display="menu"></p-columnFilter>
+                </th>
+
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-attendie>
+            <tr>
+                <td style="width: 3rem">
+                    <p-tableCheckbox (click)="checkMaxCapacity()" [value]="attendie"></p-tableCheckbox>
+                </td>
+                <td>{{attendie.name}}</td>
+                <td>{{attendie.email}}</td>
+                <td>{{attendie.category}}</td>
+
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage" let-columns>
+            <tr>
+                <td [attr.colspan]="attendeesData.length">
+                    No records found
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+
+</p-dialog>
+
+<!-- Add Resources Screen -->
+<p-dialog  [(visible)]="displayResources" [modal]="true" [style]="{width: '35vw'}"
+    [draggable]="false" [resizable]="false" [closable]="false">
+    <p-header>
+       {{addOrEdit}} Resources
+    </p-header>
+    <form [formGroup]="addResourcesForm">
+        <table width="100%">
+            <tr>
+                <td>
+                    <div class="input-label-custom">
+                        <label class='form-field-lable control-label'>Resources</label>
+                        <ng-select appendTo="body" [clearable]="false" [items]="resourcesData"
+                            formControlName="resource" [searchable]="true" bindLabel="title" bindValue="resourcesId"
+                            placeholder="Make a selection" class="ng-select-dropdown" (change)="selectResource($event)"
+                            [readonly]="isEditResource">
+                        </ng-select>
+                    </div>
+                </td>
+                <td>
+                    <div class="input-label-custom">
+                        <div class="p-fluid">
+                            <div class="p-field">
+                                <label class='form-field-lable control-label'>Type</label>
+                                <ng-select appendTo="body" [clearable]="false" [items]="enummTypeData"
+                                    formControlName="type" [searchable]="true" bindLabel="enumValue" bindValue="enumKey"
+                                    class="ng-select-dropdown" readonly="true">
+                                </ng-select>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr *ngIf="resourceExistErr.length > 0">
+                <td style="width:50%">
+                    <label class='form-field-lable' *ngIf="resourceExistErr.length > 0" style="color:red;">
+                        {{resourceExistErr}}</label>
+
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 50%">
+                    <div class="input-label-custom ">
+                        <label class='form-field-lable control-label'> Cost Per unit</label>
+                        <input type="text" NumbersOnly class="form-control" name="costPerUnit"
+                            (change)="setCostPerUnitCurrenyFormat()" formControlName="costPerUnit" readonly="true">
+                    </div>
+                </td>
+                <td style="width: 50%">
+                    <div class="input-label-custom ">
+                        <label class='form-field-lable control-label'> Total Cost</label>
+                        <input type="text" NumbersOnly class="form-control" name="totalCost"
+                            (change)="setCostPerUnitCurrenyFormat()" formControlName="totalCost" readonly="true">
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 50%" *ngIf="isLimited">
+                    <div class="input-label-custom ">
+                        <label class='form-field-lable control-label'>Available Quanity</label>
+                        <input type="text" NumbersOnly class="form-control" name="quanity" formControlName="quanity"
+                            readonly="true">
+                    </div>
+                </td>
+                <td>
+                    <div class="input-label-custom ">
+                        <label class='form-field-lable control-label'>Required Quantity</label>
+                        <input type="text" class="form-control" name="requiredQuantity"
+                            formControlName="requiredQuantity" (change)="getTotalCost()" maxlength="9" NumbersOnly>
+                    </div>
+                </td>
+                <td *ngIf="!isLimited">
+                    <div class="input-label-custom ">
+                        <label class='form-field-lable control-label'>Status</label>
+                        <input type="text" class="form-control" name="status" readonly="true" formControlName="status">
+                    </div>
+                </td>
+            </tr>
+            <tr *ngIf="quantityErr || !greaterThanZero ">
+                <td></td>
+                <td style="width:50%">
+                    <label class='form-field-lable' *ngIf="quantityErr" style="color:red;"> Required Quantity can not be
+                        greater than
+                        Available Quantity</label>
+                    <label *ngIf="!greaterThanZero" class='form-field-lable' style="color:red;">Required Quantity can
+                        not be less than one</label>
+                </td>
+            <tr>
+            <tr>
+                <td *ngIf="isLimited">
+                    <div class="input-label-custom ">
+                        <label class='form-field-lable control-label'>Status</label>
+                        <input type="text" class="form-control" name="status" readonly="true" formControlName="status">
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </form>
+
+    <ng-template pTemplate="caption">
+        <div class="d-flex flex-row justify-content-end">
+            <div style="display: flex; padding-left: 6px;">
+                <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-primary p-button-sm"
+                    [disabled]="!addResourcesForm.valid || quantityErr || !greaterThanZero || resourceExistErr.length > 0"
+                    (click)="saveReqResources()"></button>
+                <button pButton pRipple label="Cancel" class="p-button-secondary p-button-sm" style="margin-left:8px"
+                    (click)="cancelReqQuantity()"></button>
+            </div>
+        </div>
+    </ng-template>
+</p-dialog>

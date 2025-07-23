@@ -1,0 +1,1 @@
+{"ast":null,"code":"export class Enums {\n  constructor(id, tableName, fieldName, enumValue) {\n    this.id = id;\n    this.tableName = tableName;\n    this.fieldName = fieldName;\n    this.enumValue = enumValue;\n  }\n}","map":null,"metadata":{},"sourceType":"module","externalDependencies":[]}

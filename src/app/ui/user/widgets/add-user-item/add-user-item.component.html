@@ -1,0 +1,85 @@
+<form nz-form [formGroup]="userFormPanel" *ngIf="isProfile==false else profiletemplate">
+  <table width="100%" >
+    <tr>
+      <td style="width: 50%">
+        <div class="input-label-custom">
+          <label class='form-field-lable' [ngClass]="{'control-label': isNew}">User Name</label>
+          <input type="text" class="form-control" name="userName" formControlName="userName" [readonly]="isNew == true ?null : true" maxlength="64" appTrimInput>
+        </div>
+      </td>
+      <td style="width: 50%">
+        <div class="input-label-custom">
+          <label class='form-field-lable control-label'>User Status</label>
+          <ng-select appendTo="body" [clearable]="false" [items]="enumStatus"
+                     formControlName="userStatus" [searchable]="false"
+                     bindLabel="enumValue" bindValue="enumKey" placeholder="Make a selection" class="ng-select-dropdown ">
+          </ng-select>
+        </div>
+      </td>
+    </tr>
+    <tr *ngIf="(userFormPanel.controls['userName'].errors) && (userFormPanel.controls['userName'].invalid)">      
+      <td style="width:calc(100% / 2)">
+        <label *ngIf="!userFormPanel.controls['userName']?.errors.required && !userFormPanel.controls['userName']?.errors.email" class='form-field-lable' style="color:red;">User Name is already exists </label>
+        <label *ngIf="userFormPanel.controls['userName']?.errors.email" class='form-field-lable' style="color:red;">Please enter valid Email</label>
+      </td>
+      
+      <td style="width:calc(100% / 2)">
+      </td>
+    </tr>
+    
+    <tr>
+      <td style="width: 50%">
+        <div class="input-label-custom ">
+          <label class='form-field-lable control-label'>User Role</label>
+          <ng-select appendTo="body" [clearable]="false" [items]="enumRole" formControlName="userRoleId" [searchable]="false"
+            bindLabel="roleTitle" bindValue="userRoleId" placeholder="Make a selection" class="ng-select-dropdown ">
+          </ng-select>
+        </div>
+      </td>
+      
+    </tr>
+    <tr>
+      <td style="width: 50%">
+        <div class="input-label-custom " *ngIf="!isShow">
+          <label class='form-field-lable control-label'>Employee Code</label>
+          
+          <ng-container *ngIf="!isCreateNewEmployee; else elseTemplate">
+            <input type="text"class="form-control" name="emId" formControlName="emId" readonly="true">
+          </ng-container>
+          <ng-template #elseTemplate>
+            <ng-select appendTo="body" [clearable]="false" [items]="enumEmp" formControlName="emId" [searchable]="true"
+              bindLabel="name" bindValue="id" placeholder="Make a selection" class="ng-select-dropdown " (change)="onSelectEmploye($event)">
+            </ng-select>
+          </ng-template>
+        </div>
+      </td>
+      <td style="width: 50%">
+        <div class="input-label-custom">
+          <label class='form-field-lable'>Technician Code</label>
+            <ng-select appendTo="body" [clearable]="false" [items]="technicianData" formControlName="technicianId" [searchable]="true"
+              bindLabel="name" bindValue="cfId" placeholder="Make a selection" class="ng-select-dropdown ">
+            </ng-select>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td style="width: 50%">
+      <div class="input-label-custom " *ngIf="isCreateNewEmployeeChkBox">
+        <div class="p-field-checkbox">
+        <p-checkbox (onChange)="onCheckBoxChange($event)" binary="true"></p-checkbox>
+        <label class="checkbox-custom-label" style="margin-left: 2px; font-style: italic;">Create new employee</label>
+        </div>
+      </div>
+      </td>
+    </tr>
+    <tr>
+      <td style="width: 50%">
+      </td>
+    </tr>
+  </table>
+</form>
+
+<ng-template #profiletemplate>
+  
+</ng-template>
+

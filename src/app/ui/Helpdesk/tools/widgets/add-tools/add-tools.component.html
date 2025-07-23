@@ -1,0 +1,77 @@
+<form [formGroup]="toolsFormPanel" autocomplete="off">
+    <table width="100%">
+        <tr>
+            <td width="50%">
+                <div class="input-label-custom ">
+                    <label class='form-field-lable control-label'>Tool </label>
+                    <input type="text" class="form-control" name="tool" formControlName="tool" maxlength="80" appTrimInput>
+                </div>
+            </td>
+            <td width="50%">
+                <div  style="display: flex;">
+                    <div class="input-label-custom " style="width: 90%;">
+                        <label class='form-field-lable control-label'>Tool type </label>
+                        <ng-select appendTo="body" [clearable]="false" [items]="toolTypeData" formControlName="toolTypeId"
+                            [searchable]="true" bindLabel="displayName" bindValue="toolTypeId" class="ng-select-dropdown"
+                            placeholder="Make a Selection">
+                        </ng-select>
+                    </div>
+                    <div style="margin: 16px 0px 0px -5px;">
+                        <p-button id="add-btn" (click)="onAddToolType()" class="pull-right m-3" icon="pi pi-plus"
+                            matTooltip="Add Tool type">
+                        </p-button>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr
+            *ngIf="(toolsFormPanel.controls['tool']?.errors && (toolsFormPanel.controls['tool']?.dirty || toolsFormPanel.controls['tool']?.touched))">
+            <td style="width: 50%">
+                <label
+                    *ngIf="toolsFormPanel.controls['tool']?.errors && !toolsFormPanel.controls['tool']?.errors.required"
+                    class='form-field-lable' style="color:red;">Tool is already exists</label>
+            </td>
+            <td style="width: 50%"></td>
+        </tr>
+        <tr>
+            <td width="50%">
+                <div class="input-label-custom ">
+                    <label class='form-field-lable control-label'>Hourly Rate </label>
+                    <input type="text" NumbersOnly TwoDigitDecimalNumber class="form-control" name="hourlyRate" formControlName="hourlyRate" appTrimInput>
+                </div>
+            </td>
+            <td width="50%">
+                <div class="input-label-custom ">
+                    <label class='form-field-lable control-label'>Overtime Rate </label>
+                    <input type="text" NumbersOnly TwoDigitDecimalNumber class="form-control" name="overTimeRate"
+                        formControlName="overTimeRate" appTrimInput>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td width="50%">
+                <div class="input-label-custom ">
+                    <label class='form-field-lable control-label'>Doubletime Rate</label>
+                    <input type="text" NumbersOnly TwoDigitDecimalNumber class="form-control" name="doubleRate"
+                        formControlName="doubleRate" appTrimInput>
+                </div>
+            </td>
+            <td width="50%">
+                <div class="input-label-custom ">
+                    <label class='form-field-lable control-label'>Standard Available Time (Hours/Day)</label>
+                    <input type="text" NumbersOnly class="form-control" name="standardAvalTime"
+                        formControlName="standardAvalTime" appTrimInput>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <div class="input-label-custom ">
+                    <label class='form-field-lable'>Description</label>
+                    <textarea class="form-control note-border" name="description" formControlName="description" rows="2"
+                        nz-input maxlength="256" appTrimInput></textarea>
+                </div>
+            </td>
+        </tr>
+    </table>
+</form>

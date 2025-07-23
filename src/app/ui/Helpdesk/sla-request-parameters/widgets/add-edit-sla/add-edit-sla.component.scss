@@ -1,0 +1,149 @@
+ @import '/src/scss/variables';
+  
+  .mat-dialog-title-ext {
+    background-color: #879cc9;
+    padding-left: 10px;
+    font-weight: normal;
+    margin-bottom: 0px;
+  }
+  
+  .mat-dialog-content-ext {
+    /*border: thin double #879cc9;*/
+    margin: 0;
+    padding: 10px;
+  }
+  
+  .mat-dialog-actions-ext {
+    border-top: none;
+    padding: 3px;
+    min-height: 36px !important;
+    margin-bottom: 5px;
+    margin-right: 15px;
+  }
+  
+  .action-buttons {
+    height: 30px;
+    width: 70px;
+  }
+  
+  .margin-left-20 {
+    margin-left: 20px;
+  }
+  
+  .margin-5 {
+    margin: 5px !important;
+  }
+  
+  .mat-card {
+    border-radius: 0px;
+  }
+  
+  .mat-expansion-panel {
+    background-color: #879cc9;
+  }
+  
+  .mat-expansion-panel-header-title {
+    color: white;
+    letter-spacing: 1px;
+  }
+  
+  /* .mat-card {
+    padding: 0px;
+    border: thin double rgb(181, 155, 90);
+  } */
+  
+  .mat-card-title {
+    color: white;
+    letter-spacing: 1px;
+    font-size: 13px;
+    margin: 0px !important;
+  }
+  
+  .mat-card-header-text {
+    margin: 0px !important;
+  }
+  
+  .mat-card-header {
+    padding: 5px !important;
+    margin-left: -15px;
+  }
+  
+  .mat-card-content {
+    background-color: white !important;
+    /* padding: 5px; */
+  }
+  
+  .mat-expansion-panel-content {
+    background-color: white !important;
+  }
+  
+  .mat-button, .mat-flat-button, .mat-icon-button, .mat-stroked-button {
+    line-height: inherit !important;
+  }
+  
+  .btn-filter {
+    margin-left: 4px;
+    margin-right: 5px;
+    width: 50px;
+    margin-top: 17px;
+  }
+  
+  .btn-ggb-orange {
+    width: 90px !important;
+  }
+  
+  
+  .btn-ggb-default-custom {
+    margin: 16px !important
+  }
+
+  .readonly-panel {
+    opacity: 0.5; /* Reduce opacity to visually indicate that panel is disabled */
+    pointer-events: none; /* Prevent user interactions with the panel */
+  }
+
+  :host ::ng-deep .p-dialog .p-dialog-header {
+    background-color: $toolbar;
+    color: black;
+    padding-left: 10px;
+    font-weight: normal;
+    margin-bottom: 0px;
+    height: 10px !important;
+}
+:host ::ng-deep .p-confirm-dialog .p-dialog-header .p-dialog-content {
+    align-items: center;
+    background-color: #f9fcfc;
+    display: flex;
+    padding: 10px;
+}
+:host ::ng-deep .p-confirm-dialog .p-dialog-header  {
+    align-items: center;
+    background-color: #f9fcfc;
+    
+}
+
+.save-btn{
+  margin-top: 10px;
+}
+
+.hide-btn{
+  display: none;
+}
+
+:host ::ng-deep #header .p-panel-title{
+  padding-top: 9px !important;
+  padding-bottom: 9px !important;
+}
+
+:host ::ng-deep #header .p-panel .p-panel-content{
+  border: none;
+} 
+
+:host ::ng-deep  #custom-btn .p-dialog .p-dialog-footer button{
+  margin: 0px;
+  width: 35%;
+}
+
+::ng-deep #custom-content .p-dialog .p-dialog-content{
+  padding : 0px;
+}

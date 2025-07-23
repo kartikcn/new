@@ -1,0 +1,282 @@
+<div class="card">
+    <form [formGroup]="filterPanel">
+        <table width="100%" *ngIf="!(useTabletProtrait || useTabletLandscape)">
+            <tr>
+                <td style="width: 20%">
+                    <div class="input-label-custom ">
+                        <label class='form-field-lable '>Division </label>
+                        <ng-select appendTo="body" [clearable]="false" [items]="enumDivision" formControlName="divId"
+                            [searchable]="true" bindLabel="divCode" bindValue="divId"
+                            placeholder="Make a selection" class="ng-select-dropdown">
+                        </ng-select>
+                    </div>
+                </td>
+                <td style="width: 20%">
+                    <div class="input-label-custom">
+                        <div class="p-fluid p-field">
+                            <label class='form-field-lable control-label'>Date From</label>
+                            <p-calendar appendTo="body" dateFormat="dd M yy" name="date"
+                    formControlName="dateFrom" [showIcon]="false" inputId="icon" [readonlyInput]="true"
+                    (ngModelChange)="checkDates($event)"></p-calendar>
+                         </div>
+                    </div>
+                </td>
+                <td style="width: 20%">
+                    <div class="input-label-custom ">
+                        <div class="p-fluid p-field">
+                            <label class='form-field-lable control-label'>Date To</label>
+                            <p-calendar appendTo="body"  dateFormat="dd M yy" name="date"
+                    formControlName="dateTo" [showIcon]="false" inputId="icon" [readonlyInput]="true"
+                    (ngModelChange)="checkDates($event)"></p-calendar>
+                        </div>    
+                    </div>
+                </td>
+                <td style="width: 20%">
+                    <div class="input-label-custom ">
+                        <label class='form-field-lable control-label'>View By</label>
+                        <ng-select appendTo="body" [clearable]="false" [searchable]="true"
+                            placeholder="Make a selection" class="ng-select-dropdown" [items]="viewByData"
+                            formControlName="viewBy" bindLabel="lable" bindValue="value">
+                        </ng-select>
+                    </div>
+                </td>
+                <td style="width: 20%">
+                    <div style="margin: 5px 0 0 5px ">
+                        <button (click)="onSearch()" pButton pRipple label="Search"
+                            style="width: 60px;  margin-left: 5px;" [disabled]="!filterPanel.valid"
+                            class="p-button-primary p-button-sm pull right"></button>
+                        <button (click)="onClear()" pButton pRipple label="Clear"
+                            style="width: 60px;  margin-left: 5px;"
+                            class="p-button-primary p-button-sm pull right"></button>
+                        <button (click)="exportToPdf()" pButton pRipple label="Export"  [disabled]="!(showPieChart && (myPieData.length>0))"
+                            style="width: 70px;  margin-left: 5px;" icon="pi pi-file-pdf"
+                            class="p-button-primary p-button-sm pull right"></button>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <table width="100%" *ngIf="useTabletProtrait">
+            <tr>
+                <td style="width: 25%">
+                    <div class="input-label-custom ">
+                        <label class='form-field-lable '>Division </label>
+                        <ng-select appendTo="body" [clearable]="false" [items]="enumDivision" formControlName="divId"
+                            [searchable]="true" bindLabel="divCode" bindValue="divId"
+                            placeholder="Make a selection" class="ng-select-dropdown">
+                        </ng-select>
+                    </div>
+                </td>
+                <td style="width: 25%">
+                    <div class="input-label-custom">
+                        <div class="p-fluid p-field">
+                            <label class='form-field-lable control-label'>Date From</label>
+                            <p-calendar appendTo="body" dateFormat="dd M yy" name="date"
+                    formControlName="dateFrom" [showIcon]="false" inputId="icon" [readonlyInput]="true"
+                    (ngModelChange)="checkDates($event)"></p-calendar>
+                         </div>
+                    </div>
+                </td>
+                <td style="width: 25%">
+                    <div class="input-label-custom ">
+                        <div class="p-fluid p-field">
+                            <label class='form-field-lable control-label'>Date To</label>
+                            <p-calendar appendTo="body"  dateFormat="dd M yy" name="date"
+                    formControlName="dateTo" [showIcon]="false" inputId="icon" [readonlyInput]="true"
+                    (ngModelChange)="checkDates($event)"></p-calendar>
+                        </div>    
+                    </div>
+                </td>
+                <td width="25%">
+                    <div class="input-label-custom ">
+                        <label class='form-field-lable control-label'>View By</label>
+                        <ng-select appendTo="body" [clearable]="false" [searchable]="true"
+                            placeholder="Make a selection" class="ng-select-dropdown" [items]="viewByData"
+                            formControlName="viewBy" bindLabel="lable" bindValue="value">
+                        </ng-select>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 25%">
+                    <div style="margin: 5px 0 0 5px ">
+                        <button (click)="onSearch()" pButton pRipple label="Search"
+                            style="width: 60px;  margin-left: 5px;" [disabled]="!filterPanel.valid"
+                            class="p-button-primary p-button-sm pull right"></button>
+                        <button (click)="onClear()" pButton pRipple label="Clear"
+                            style="width: 60px;  margin-left: 5px;"
+                            class="p-button-primary p-button-sm pull right"></button>
+                    </div>
+                </td>
+                <td style="width: 25%">
+                    <div style="margin: 5px 0 0 5px "><button (click)="exportToPdf()" pButton pRipple label="Export"  [disabled]="!(showPieChart && (myPieData.length>0))"
+                        style="width: 70px;  margin-left: 5px;" icon="pi pi-file-pdf"
+                        class="p-button-primary p-button-sm pull right"></button></div>
+                </td>
+            </tr>
+        </table>
+        <table width="100%" *ngIf="useTabletLandscape">
+            <tr>
+                <td style="width: 25%">
+                    <div class="input-label-custom ">
+                        <label class='form-field-lable '>Division </label>
+                        <ng-select appendTo="body" [clearable]="false" [items]="enumDivision" formControlName="divId"
+                            [searchable]="true" bindLabel="divCode" bindValue="divId"
+                            placeholder="Make a selection" class="ng-select-dropdown">
+                        </ng-select>
+                    </div>
+                </td>
+                <td style="width: 25%">
+                    <div class="input-label-custom">
+                        <div class="p-fluid p-field">
+                            <label class='form-field-lable control-label'>Date From</label>
+                            <p-calendar appendTo="body" dateFormat="dd M yy" name="date"
+                    formControlName="dateFrom" [showIcon]="false" inputId="icon" [readonlyInput]="true"
+                    (ngModelChange)="checkDates($event)"></p-calendar>
+                         </div>
+                    </div>
+                </td>
+                <td style="width: 25%">
+                    <div class="input-label-custom ">
+                        <div class="p-fluid p-field">
+                            <label class='form-field-lable control-label'>Date To</label>
+                            <p-calendar appendTo="body"  dateFormat="dd M yy" name="date"
+                    formControlName="dateTo" [showIcon]="false" inputId="icon" [readonlyInput]="true"
+                    (ngModelChange)="checkDates($event)"></p-calendar>
+                        </div>    
+                    </div>
+                </td>
+                <td style="width:25%">
+                    <div class="input-label-custom ">
+                        <label class='form-field-lable control-label'>View By</label>
+                        <ng-select appendTo="body" [clearable]="false" [searchable]="true"
+                            placeholder="Make a selection" class="ng-select-dropdown" [items]="viewByData"
+                            formControlName="viewBy" bindLabel="lable" bindValue="value">
+                        </ng-select>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 25%">
+                    <div style="margin: 5px 0 0 5px ">
+                        <button (click)="onSearch()" pButton pRipple label="Search"
+                            style="width: 60px;  margin-left: 5px;" [disabled]="!filterPanel.valid"
+                            class="p-button-primary p-button-sm pull right"></button>
+                        <button (click)="onClear()" pButton pRipple label="Clear"
+                            style="width: 60px;  margin-left: 5px;"
+                            class="p-button-primary p-button-sm pull right"></button>
+                        <button (click)="exportToPdf()" pButton pRipple label="Export"  [disabled]="!(showPieChart && (myPieData.length>0))"
+                            style="width: 70px;  margin-left: 5px;" icon="pi pi-file-pdf"
+                            class="p-button-primary p-button-sm pull right"></button>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+<div class="card" *ngIf="showdivdepaccordion">
+    <div style="display: flex;flex-direction:row;justify-content: space-between;height:610px;" #content>
+        <div class="division-select-container">
+            <div class="card">
+                <p-table  [value]="accordionDivision">
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th style="width:3.5rem"> </th>
+                            <th style="width:7rem;">Division Code</th>
+                            <th style="width:8rem;">Area (sq.ft)</th>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+            <p-accordion  (onClose)="onTabClose($event)" (onOpen)="onTabOpen($event)" #accordion class="accordion">
+                <p-accordionTab *ngFor="let div of accordionDivision;">
+                    <p-header style="width:100%">
+                        <p-table [value]="[div]" [style]="{ width: '100%' }"  [resizableColumns]="false" [paginator]="false"
+                        (onRowSelect)="onViewPieChartForDivision($event)"  selectionMode="single" [rowHover]="true">
+                          <ng-template pTemplate="body" let-div>
+                            <tr [pSelectableRow]="div">
+                              <td style="width:2rem;"></td>
+                              <td style="width:8rem;">{{div.divCode}}</td>
+                              <td style="width:8rem;">{{div.allocatedArea.toFixed(2)}}</td>
+                            </tr>
+                          </ng-template>
+                        </p-table>
+                      </p-header>
+                    <div>
+                        <p-table [value]="selectedDivisionDepartmentData" selectionMode="single" [rowHover]="true"
+                            (onRowSelect)="onViewPieChartForDepartment($event)" [rows]="rowCount">
+                            <ng-template pTemplate="header">
+                                <tr>
+                                    <th>Division Code</th>
+                                    <th>Department Code</th>
+                                    <th >Area (sq.ft)</th>
+                            </ng-template>
+                            <ng-template pTemplate="body" let-dep>
+                                <tr [pSelectableRow]="dep">
+                                    <td>{{dep.divCode}}</td>
+                                    <td>{{dep.depCode}}</td>
+                                    <td>{{dep.allocatedArea.toFixed(2)}}</td>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="emptymessage" let-columns>
+                                <tr>
+                                    <td [attr.colspan]="selectedDivisionDepartmentData.length">
+                                        No records to display.
+                                    </td>
+                                </tr>
+                            </ng-template>
+                        </p-table>
+                    </div>
+                </p-accordionTab>
+            </p-accordion>
+        </div>
+        <div class="card pie-chart-container" style="display: flex; flex-direction: column;" *ngIf="showPieChart">
+            <div style="height: 7vh; display: flex;justify-content: center;align-items: flex-start;margin:5px;" class="card">
+                <div style="height:24px;margin-left:10px;">
+                    <p class="selectionmessagetext">{{selectionMessage}}</p>
+                </div>
+            </div>
+            <div class="card" style="height: 100%;margin:0 5px 5px 5px; overflow-x: auto;">
+                <div  style="margin:auto 10px auto 10px;" *ngIf="myPieData.length>0">
+                    <google-chart 
+                        [type]="'PieChart'" 
+                        [data]="myPieData" 
+                        [width]="width"
+                        [height]="height"
+                        [options]="myPieOptions"
+                        (select)="onSelectGooglePieChart($event)">
+                    </google-chart>
+                </div>
+                <div *ngIf="!(myPieData.length>0)" style="height:100%; display:flex;justify-content: center;align-items: center;">
+                    <div>
+                        <h1>No data found</h1>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        
+    </div>
+</div>
+<p-dialog [(visible)]="showAllocatedPopup" [modal]="true" [style]="{width: '75vw'}" [maximizable]="true"
+        [draggable]="false" [resizable]="false" styleClass="dark-panel" id="preview">
+        <ng-template pTemplate="header">
+            <h2 style="margin: 0px;">Room List</h2>
+        </ng-template>
+        <ng-template pTemplate="body">
+            <app-space-allocation-room-list [data] ="roomData"></app-space-allocation-room-list>
+        </ng-template>
+</p-dialog>
+<p-dialog [(visible)]="showAllRoomsAvailableSpacePopup" [modal]="true" [style]="{width: '66vw'}" [maximizable]="true"
+        [draggable]="false" [resizable]="false" styleClass="dark-panel" id="preview">
+        <ng-template pTemplate="header">
+            <h2 style="margin: 0px;">Room List</h2>
+        </ng-template>
+        <ng-template pTemplate="body">
+            <app-room-availibility-report-table [data] ="allroomavailablespaceData"></app-room-availibility-report-table>
+        </ng-template>
+</p-dialog>
+<p-toast key="highlightblflmsg" position="top-center"></p-toast>
+<p-confirmDialog key="highlightblflgrid" header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#879cc9" class="spinner-color" type="ball-spin-clockwise" [fullScreen]="true">
+    <p style="color: white"> Loading... </p>
+</ngx-spinner>

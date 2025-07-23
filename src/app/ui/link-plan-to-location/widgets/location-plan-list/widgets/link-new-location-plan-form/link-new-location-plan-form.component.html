@@ -1,0 +1,37 @@
+<form [formGroup]="locationPlanFormPanel">
+    <table width="100%">
+        <tr>
+            <td style="width: 50%">
+                <div class="input-label-custom ">
+                    <label class='form-field-lable control-label'>Building</label>
+                    <ng-select appendTo="body" [clearable]="false" [items]="enumBL" formControlName="blId"
+                        [searchable]="true" bindLabel="blNameString" bindValue="blId" (change)="onSelectBlCode($event)"
+                        placeholder="Make a selection" class="ng-select-dropdown"(scrollToEnd)="scrollToEndBl()" (search)="searchBl($event)"
+                        (open)="onOpenBl()">
+                    </ng-select>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 50%">
+                <div class="input-label-custom ">
+                    <label class='form-field-lable'>Floor</label>
+                    <ng-select appendTo="body" [clearable]="false" [items]="enumFL" formControlName="flId"
+                        [searchable]="true" bindLabel="flNameString" bindValue="flId" placeholder="Make a selection"(open)="onOpenFl()"
+                        class="ng-select-dropdown" (change)="onSelectFlCode($event)"(scrollToEnd)="scrollToEndFl()" (search)="searchFl($event)">
+                    </ng-select>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 50%">
+                <div class="input-label-custom ">
+                    <label class='form-field-lable'>Room</label>
+                    <ng-select appendTo="body" [clearable]="false" [items]="enumRm" formControlName="rmId"
+                        [searchable]="true" bindLabel="rmNameString" bindValue="rmId" (change)="onSelectRmCode($event)"(open)="onOpenRm()"
+                        placeholder="Make a selection" class="ng-select-dropdown"(scrollToEnd)="scrollToEndRm()" (search)="searchRm($event)">
+                    </ng-select>
+                </div>
+            </td>
+    </table>
+</form>

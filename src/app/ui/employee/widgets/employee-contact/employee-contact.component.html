@@ -1,0 +1,48 @@
+<form nz-form [formGroup]="frmEmployeeContact">
+        <table width="100%">
+                <tr>
+                        <td style="width: 50%;">
+                                <div class="input-label-custom ">
+                                        <label class='form-field-lable'>Personal Phone Number</label>
+                                        <input type="text" class="form-control" NumbersOnly name="phonePersonal" formControlName="phonePersonal" maxlength="16"
+                                                appTrimInput>
+                                </div>
+                        </td>
+                        <td style="width: 50%;">
+                                <div class="input-label-custom ">
+                                        <label class='form-field-lable'>Work Number</label>
+                                        <input type="text" class="form-control" NumbersOnly name="phoneWork" formControlName="phoneWork" maxlength="16"
+                                                appTrimInput>
+                                </div>
+                        </td>
+
+                </tr>
+                <tr>
+                        <td style="width: 50%;">
+                                <div class="input-label-custom ">
+                                        <label class='form-field-lable'>Fax Number</label>
+                                        <input type="text" class="form-control" name="faxNum" formControlName="faxNum" maxlength="16" appTrimInput>
+                                </div>
+                        </td>
+
+                        <td style="width: 50%;">
+                                <div class="input-label-custom ">
+                                        <label class='form-field-lable'>Preferred Contact Name</label>
+                                        <input type="text" class="form-control" name="altContactName" formControlName="altContactName" maxlength="255"
+                                                appTrimInput>
+                                </div>
+                        </td>
+                        
+                </tr>
+                <tr>
+                        <td style="width: 50%;">
+                                <div class="input-label-custom ">
+                                        <label class='form-field-lable'>Alternate Contact Number</label>
+                                        <input type="text" class="form-control" NumbersOnly name="altContactPhone" formControlName="altContactPhone"
+                                                maxlength="16" appTrimInput>
+                                </div>
+                        </td>
+                        <td style="width: 50%;"></td>
+                </tr>
+        </table>
+</form>

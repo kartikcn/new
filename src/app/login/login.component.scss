@@ -1,0 +1,87 @@
+@import '/src/scss/variables';
+ .panel-info{
+        border:0px;
+        }
+        a:visited {
+        color:white;
+        }
+        #passwordReset{
+        font-size: 85%;
+        }
+        .panel{
+         border-radius: 5px;
+         width: 350px !important;
+        }    
+        .textRed, .textRed1{
+        color:#fa6767;
+        font-size:85%;
+        text-align: center;
+        font-family: Raleway, sans-serif;
+        padding-top: 10px !important;
+        }
+        .textRed1{
+        font-size:small;
+        }
+        
+        .textGreen{
+        padding-top: 20px !important;
+        color:#5bbf8b;
+        font-size:small;
+        text-align: center;
+        font-family: Raleway, sans-serif;
+        }
+        .input_box{
+        width: 250px !important;
+        }
+        .logInBoxDiv{
+        margin-top:10%;width:500px;margin-left: 33%;
+        }
+        .companyLogo{
+        margin-left:48px;margin-top:20px;
+        }
+        .mBottom{
+        margin-bottom: 25px;
+        }
+        #login_btn {
+        width: 250px;padding:7px; margin-left:15px;color:white;background:#00a9c4;border-color:#00a9c4;font-size: medium;
+        }
+        #login_btn:HOVER, #resetBtn:HOVER{
+        background-color:#02adc9;
+        }
+        
+        #resetBtn:HOVER, #passwordReset:HOVER{
+        text-decoration: underline;
+        }
+        .hTrouble{
+        border-top: 1px solid#e0e0e0; padding-top:15px; font-size:85%;padding-left:26%;
+        }
+        .reset{
+        color:#00a9c4 !important;margin-left: -47px !important;font-size: 100%;
+        }
+        .bLogin{
+        color:#00a9c4; cursor:pointer;float:left;margin-right: 15px;font-weight: 600;
+        }
+        .bLoginDiv{
+        border-top: 1px solid#e0e0e0; padding-top:15px; font-size:85%;padding-left: 1%;margin: 12px;
+        }
+        #resetBtn{
+        width: 250px;padding:7px; margin-left: 30px;color:white;background:#00a9c4;border-color:#00a9c4;font-size: medium;
+        }
+        .input-groupSub{
+        margin-bottom: 25px;
+        }
+        
+        .form-group{
+        margin-bottom:0px !important;
+        }
+        
+        .reveal {
+            color: #00a9c4 !important;
+        }
+        .reveal:HOVER {
+            color: #00a9c4 !important;
+        } 
+    .spinner-color{
+        color: $toolbar;
+    }
+

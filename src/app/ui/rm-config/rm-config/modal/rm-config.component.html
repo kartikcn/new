@@ -1,0 +1,16 @@
+<p-panel header="Room List">
+    <div class="row">
+            <div class="col-sm-6 col-md-6 col-xm-4 col-lg-6">
+                    <div class="page-content" style="height: calc(100vh - 150px)">
+                            <app-room-list [isRmConfig]="true" (parentFun)="getRmConfig($event)"></app-room-list>
+                    </div>
+            </div>
+            <div class="col-sm-6 col-md-6 col-xm-6 col-lg-6">
+                    <div class="row">
+                            <div class="col-sm-12 col-md-12 col-lg-12">                                            
+                                    <app-rm-config-list  [hidden]="isHide" (refreshPanels)="refreshPanels($event)" ></app-rm-config-list>
+                            </div>
+                    </div>
+            </div>
+    </div>
+</p-panel>

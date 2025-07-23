@@ -1,0 +1,59 @@
+<form [formGroup]="tradeFormPanel">
+    <table width="100%">
+        <tr>
+            <td style="width: 25%">
+                <div class="input-label-custom ">
+                    <label class='form-field-lable control-label'>Trade Code</label>
+                    <input type="text" class="form-control" name="tradeCode" formControlName="tradeCode" uppercase maxlength="32"
+                        appTrimInput>
+                </div>
+            </td>
+        </tr>
+        <tr
+            *ngIf="(tradeFormPanel.controls['tradeId']?.errors && (tradeFormPanel.controls['tradeId']?.dirty || tradeFormPanel.controls['tradeId']?.touched))">
+            <td style="width: 25%">
+                <label
+                    *ngIf="tradeFormPanel.controls['tradeId']?.errors && !tradeFormPanel.controls['tradeId']?.errors.required"
+                    class='form-field-lable' style="color:red;">Trade Code is already exists</label>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <div class="input-label-custom ">
+                    <label class='form-field-lable'>Description</label>
+                    <textarea class="form-control note-border" name="description" formControlName="description" rows="2" nz-input
+                        maxlength="256" appTrimInput></textarea>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 25%">
+                <div class="input-label-custom ">
+                    <label class='form-field-lable control-label'>Hourly Rate</label>
+                    <input type="text" NumbersOnly class="form-control" name="rateHourly" formControlName="rateHourly" TwoDigitDecimalNumber maxlength="8" appTrimInput>
+                </div>
+            </td>
+            <td style="width: 25%">
+                <div class="input-label-custom ">
+                    <label class='form-field-lable control-label'>Overtime Rate</label>
+                    <input type="text" NumbersOnly class="form-control" name="rateOver" formControlName="rateOver" TwoDigitDecimalNumber maxlength="8" appTrimInput>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 25%">
+                <div class="input-label-custom ">
+                    <label class='form-field-lable control-label'>Doubletime Rate</label>
+                    <input type="text" NumbersOnly class="form-control" name="rateDouble" formControlName="rateDouble" TwoDigitDecimalNumber maxlength="8" appTrimInput>
+                </div>
+            </td>
+            <td style="width: 25%">
+                <div class="input-label-custom ">
+                    <label class='form-field-lable control-label'>Standard Available Time (Hours/Day)</label>
+                    <input type="text" NumbersOnly class="form-control" name="stdHoursAvail" formControlName="stdHoursAvail"
+                        TwoDigitDecimalNumber maxlength="8" appTrimInput>
+                </div>
+            </td>
+        </tr>
+    </table>
+</form>

@@ -1,0 +1,18 @@
+<h2 mat-dialog-title class="mat-dialog-title-ext">{{title}} Room Type</h2>
+<mat-dialog-content class="mat-typography mat-dialog-content-ext">
+  <form [formGroup]="frmRmTypeDetail">
+    <mat-card>
+      <mat-card-content id="typeFrm">
+        <app-add-rmtype-form formControlName="rmtypeFormPanel" [isNew]="isNew"></app-add-rmtype-form>
+      </mat-card-content>
+    </mat-card>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end" class="mat-dialog-actions-ext">
+  <p-button label="Delete" (click)="deleteRecord()" [hidden]="this.isNew" [disabled]="!frmRmTypeDetail.valid"
+    icon="pi pi-trash" class="mr5"></p-button>
+  <p-button label="Save" (click)="saveRecords()" [disabled]="!frmRmTypeDetail.valid" icon="pi pi-check"></p-button>
+  <p-button label="Cancel" icon="pi pi-times" (click)="confirmDialog()" styleClass="p-button-secondary"
+            [style]="{'margin-left': '.5em'}"></p-button>
+</mat-dialog-actions>
+<p-confirmDialog key="rmtypeForm" header="Confirmation"  icon="pi pi-exclamation-triangle"></p-confirmDialog>

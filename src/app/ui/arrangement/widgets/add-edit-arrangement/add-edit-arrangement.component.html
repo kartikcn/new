@@ -1,0 +1,18 @@
+<h2 mat-dialog-title class="mat-dialog-title-ext"> {{title}} Arrangement</h2>
+<mat-dialog-content class="mat-typography mat-dialog-content-ext">
+    <form [formGroup]="frmArrangementDetail">
+        <mat-card>
+            <mat-card-content >
+                <app-add-arrangement formControlName="arrangementFormPanel" [isNew]="isNew"></app-add-arrangement>
+            </mat-card-content >
+        </mat-card>
+     </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end" class="mat-dialog-actions-ext">
+        <p-button label="Save" (click)="saveRecords()" icon="pi pi-check" [disabled]="!frmArrangementDetail.valid">
+        </p-button>
+        <p-button label="Cancel"  icon="pi pi-times" (click)="onCancel()"
+            styleClass="p-button-secondary" [style]="{'margin-left': '.5em'}"></p-button>
+</mat-dialog-actions>
+<p-toast key="arrangeMessage" position="top-right"></p-toast> 
+<p-confirmDialog  header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>

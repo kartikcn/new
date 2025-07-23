@@ -1,0 +1,19 @@
+.checkbox-cont{
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    height:50px;
+}
+
+.select-box{
+    margin-right: 5px;
+}
+
+p-dialog{
+    z-index:1000;
+}
+
+::ng-deep .p-dialog .p-dialog-header{
+    padding : 10px !important;
+}

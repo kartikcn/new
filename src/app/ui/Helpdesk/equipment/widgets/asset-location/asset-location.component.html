@@ -1,0 +1,158 @@
+<form [formGroup]="eqLocationForm">
+    <table width="100%">
+        <tr>
+            <td style="width: 30%">
+                <div class="input-label-custom " style="width: 90%;">
+                    <label class='form-field-lable'>Manufacturer Name</label>
+                    <input type="text" class="form-control" name="manfName" formControlName="manfName" maxlength="128" appTrimInput>
+                </div>
+            </td>
+            <td style="width: 30%">
+                <div class="input-label-custom " style="width: 90%;">
+                    <label class='form-field-lable '>Manufacturer Phone</label>
+                    <input type="text" class="form-control" NumbersOnly name="manfPhone" formControlName="manfPhone" maxlength="16"
+                        appTrimInput>
+                </div>
+            </td>
+            <td style="width: 30%">
+                <div class="input-label-custom " style="width: 90%;">
+                    <label class='form-field-lable '>Manufacturer Email</label>
+                    <input type="text" class="form-control" name="manfEmail" formControlName="manfEmail" maxlength="32" appTrimInput>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td style="width: 30%">
+                <label style="color:red;"
+                    *ngIf="eqLocationForm.controls['manfEmail'].errors?.email && eqLocationForm.controls['manfEmail'].errors"
+                    class='form-field-lable' style="color:red; margin-left: 4px;">Please enter
+                    valid Email</label>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 30%">
+                <div class="input-label-custom" style="width: 90%;">
+                    <div class="p-fluid">
+                        <div class="p-field">
+                            <label class='form-field-lable'>Manufacture Date</label>
+                            <p-calendar appendTo="body" dateFormat="dd M yy" name="manfDate" formControlName="manfDate"
+                                [showIcon]="false" inputId="icon"></p-calendar>
+                        </div>
+                    </div>
+                </div>
+            </td>
+            <td>
+                <div class="input-label-custom " style="width: 90%;">
+                    <label class='form-field-lable'>Serial Number</label>
+                    <input type="text" class="form-control" name="serialNum" formControlName="serialNum" maxlength="64" appTrimInput>
+                </div>
+            </td>
+            <td>
+                <div class="input-label-custom " style="width: 90%;">
+                    <label class='form-field-lable'>Model Number</label>
+                    <input type="text" class="form-control" name="modelNum" formControlName="modelNum" maxlength="64" appTrimInput>
+                </div>
+            </td>
+        </tr>
+        <tr>
+
+            <td>
+                <div class="input-label-custom" style="width: 90%;">
+                    <div class="p-fluid">
+                        <div class="p-field">
+                            <label class='form-field-lable'>Installed Date</label>
+                            <p-calendar appendTo="body" dateFormat="dd M yy" name="dateInstalled"
+                                formControlName="dateInstalled" [showIcon]="false" inputId="icon"></p-calendar>
+                        </div>
+                    </div>
+                </div>
+            </td>
+            <td>
+                <div class="input-label-custom" style="width: 90%;">
+                    <div class="p-fluid">
+                        <div class="p-field">
+                            <label class='form-field-lable'>Purchase Date</label>
+                            <p-calendar appendTo="body" dateFormat="dd M yy" name="datePurchase"
+                                formControlName="datePurchase" [showIcon]="false" inputId="icon"></p-calendar>
+                        </div>
+                    </div>
+                </div>
+            </td>
+            <td>
+                <div class="input-label-custom" style="width: 90%;">
+                    <label class='form-field-lable'>Purchase Cost</label>
+                    <input type="text" class="form-control" name="purchaseCost" TwoDigitDecimalNumber
+                        formControlName="purchaseCost" maxlength="64" appTrimInput>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="input-label-custom" style="width: 90%;">
+                    <label class='form-field-lable'>Life Expectancy</label>
+                    <input type="text" class="form-control" name="lifeExpectancy" NumbersOnly formControlName="lifeExpectancy"
+                        maxlength="10" appTrimInput>
+                </div>
+            </td>
+            <td>
+                <div class="input-label-custom" style="width: 90%;">
+                    <label class='form-field-lable '>Sold Price</label>
+                    <input type="text" class="form-control" name="soldPrice" TwoDigitDecimalNumber formControlName="soldPrice">
+                </div>
+            </td>
+            <td>
+                <div class="input-label-custom" style="width: 90%;">
+                    <div class="p-fluid">
+                        <div class="p-field">
+                            <label class='form-field-lable'>Sold Date</label>
+                            <p-calendar appendTo="body" dateFormat="dd M yy" name="dateSold" formControlName="dateSold"
+                                [showIcon]="false" inputId="icon"></p-calendar>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="input-label-custom " style="width: 90%;">
+                    <label class='form-field-lable'>Cost To Replace</label>
+                    <input type="text" class="form-control" name="costToReplace" TwoDigitDecimalNumber formControlName="costToReplace"
+                        appTrimInput>
+                </div>
+            </td>
+            <td>
+                <div class="input-label-custom " style="width: 90%;">
+                    <label class='form-field-lable'>Sub Component</label>
+                    <ng-select appendTo="body" [clearable]="false" [items]="eqData" formControlName="subcomponentId"
+                        [searchable]="true" bindLabel="eqCode" bindValue="eqId" placeholder="Make a selection"
+                        class="ng-select-dropdown">
+                    </ng-select>
+                </div>
+            </td>
+            <td>
+                <div class="input-label-custom " style="width: 90%;">
+                    <label class='form-field-lable '>Dispose Type</label>
+                    <ng-select appendTo="body" [clearable]="false" [items]="enumDisposeType"
+                        formControlName="disposeType" [searchable]="true" bindLabel="enumValue" bindValue="enumKey"
+                        placeholder="Make a selection" class="ng-select-dropdown">
+                    </ng-select>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="input-label-custom" style="width: 90%;">
+                    <div class="p-fluid">
+                        <div class="p-field">
+                            <label class='form-field-lable'>Disposed Date</label>
+                            <p-calendar appendTo="body" dateFormat="dd M yy" name="dateDisposed"
+                                formControlName="dateDisposed" [showIcon]="false" inputId="icon"></p-calendar>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </table>
+</form>

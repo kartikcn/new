@@ -1,0 +1,16 @@
+::ng-deep .dark-panel.p-dialog .p-dialog-header{
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    padding: 10px;
+    padding-left: 20px;
+}
+
+::ng-deep .p-dialog-content{
+    overflow: visible;
+}
+
+::ng-deep .p-dialog .p-dialog-content{
+    padding: 10px
+}

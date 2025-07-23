@@ -1,0 +1,16 @@
+@import '/src/scss/variables';
+
+.ellipsis{
+  white-space: nowrap; 
+  overflow: hidden;
+  text-overflow: ellipsis; 
+}
+:host ::ng-deep .p-datatable-table{
+    table-layout: fixed;
+  }
+
+  @media screen and (min-width: $tabletPotraitMinWidth) and (max-width:$tabletPotraitMaxWidth ){
+    .p-button{
+      height:40px !important;
+    }
+  }

@@ -1,0 +1,166 @@
+<div class="card" style="height: 90vh">
+    <p-panel >
+        <p-header>{{title}}</p-header>
+      <ng-template pTemplate="icons">
+        <p-button
+        label="Back"
+        icon="pi pi-arrow-circle-left"
+        class="pull-right"
+        (click)="clickBack()"
+        styleClass="p-button-secondary"
+      ></p-button>
+      </ng-template>
+      <p-table
+        [value]="centerBudgetList"
+        [paginator]="true"
+        dataKey="itemId"
+        [rows]="rowCount"
+        [tableStyle]="{ 'min-width': '60rem', width: '100%' }"
+        styleClass="p-datatable-responsive-demo p-datatable-gridlines"
+        [rowHover]="true"
+        [scrollable]="true"
+        scrollDirection="both"
+        scrollHeight="540px"
+        [showCurrentPageReport]="true"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+        [rowsPerPageOptions]="[25, 50, 100]"
+      >
+        <ng-template pTemplate="header">
+          <tr>
+            <th pSortableColumn="itemId">
+              <div class="grid-header-column">
+                <div class="grid-header-label">
+                  <p class="grid-label-paragraph">Item Id</p>
+                </div>
+                <div class="grid-sort-icon">
+                  <p-sortIcon field="itemId"></p-sortIcon>
+                </div>
+              </div>
+            </th>
+            <th pSortableColumn="budget">
+              <div class="grid-header-column">
+                <div class="grid-header-label">
+                  <p class="grid-label-paragraph">Budget</p>
+                </div>
+                <div class="grid-sort-icon">
+                  <p-sortIcon field="budget"></p-sortIcon>
+                </div>
+              </div>
+            </th>
+            <th pSortableColumn="expense">
+              <div class="grid-header-column">
+                <div class="grid-header-label">
+                  <p class="grid-label-paragraph">Expense</p>
+                </div>
+                <div class="grid-sort-icon">
+                  <p-sortIcon field="expense"></p-sortIcon>
+                </div>
+              </div>
+            </th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-cntbdg>
+          <tr>
+            <td>{{ getNameById(cntbdg.itemId, 'ITEM') }}</td>
+            <td>{{ cntbdg.budget }}</td>
+            <td (click)="showExpenses($event, cntbdg)" [style.color]="getColor(cntbdg)">{{ cntbdg.expense || 0}}</td>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage" let-columns>
+          <tr>
+            <td [attr.colspan]="3">No records found</td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </p-panel>
+  </div>
+
+  <p-dialog [header]="title" [(visible)]="showDetails" [draggable]="false" [modal]="true" *ngIf="showDetails"
+  [style]="{width: '50vw'}"  (onHide)="onCancel()"
+  >
+    <p-table
+    [value]="expenseDataList"
+    [paginator]="true"
+    dataKey="centerUsageId"
+    [rows]="rowCount"
+    [tableStyle]="{ 'min-width': '68rem', width: '100%' }"
+    styleClass="p-datatable-responsive-demo p-datatable-gridlines"
+    [rowHover]="true"
+    [scrollable]="true"
+    scrollDirection="both"
+    scrollHeight="540px"
+    [showCurrentPageReport]="true"
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+    [rowsPerPageOptions]="[25, 50, 100]"
+  >
+    <ng-template pTemplate="header">
+      <tr>
+        <th pSortableColumn="itemId">
+          <div class="grid-header-column">
+            <div class="grid-header-label">
+              <p class="grid-label-paragraph">Item</p>
+            </div>
+            <div class="grid-sort-icon">
+              <p-sortIcon field="itemId"></p-sortIcon>
+            </div>
+          </div>
+        </th>
+        <th pSortableColumn="quantity">
+          <div class="grid-header-column">
+            <div class="grid-header-label">
+              <p class="grid-label-paragraph">Quantity</p>
+            </div>
+            <div class="grid-sort-icon">
+              <p-sortIcon field="quantity"></p-sortIcon>
+            </div>
+          </div>
+        </th>
+        <th pSortableColumn="rate">
+          <div class="grid-header-column">
+            <div class="grid-header-label">
+              <p class="grid-label-paragraph">Cost Per Unit</p>
+            </div>
+            <div class="grid-sort-icon">
+              <p-sortIcon field="rate"></p-sortIcon>
+            </div>
+          </div>
+        </th>
+        <th pSortableColumn="cost">
+          <div class="grid-header-column">
+            <div class="grid-header-label">
+              <p class="grid-label-paragraph">Cost</p>
+            </div>
+            <div class="grid-sort-icon">
+              <p-sortIcon field="cost"></p-sortIcon>
+            </div>
+          </div>
+        </th>
+        <th pSortableColumn="cost">
+          <div class="grid-header-column">
+            <div class="grid-header-label">
+              <p class="grid-label-paragraph">Reason For Over Usage</p>
+            </div>
+            <div class="grid-sort-icon">
+              <p-sortIcon field="cost"></p-sortIcon>
+            </div>
+          </div>
+        </th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-centerUsage>
+      <tr>
+        <td>{{ getNameById(centerUsage.itemId, "ITEM") }}</td>
+        <td>{{ centerUsage.quantity }}</td>
+        <td>{{ centerUsage.rate }}</td>
+        <td>{{ centerUsage.cost }}</td>
+        <td>{{ centerUsage.overUsageReason }}</td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage" let-columns>
+      <tr>
+        <td [attr.colspan]="5">No records found</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</p-dialog> 
+  

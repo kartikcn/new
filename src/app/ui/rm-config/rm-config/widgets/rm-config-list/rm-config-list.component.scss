@@ -1,0 +1,18 @@
+@import '/src/scss/variables';
+
+.cancel-button{
+    margin-left:10px;
+}
+@media screen and (min-width: $tabletPotraitMinWidth) and (max-width:$tabletPotraitMaxWidth ) {
+    ::ng-deep .p-button {
+        padding: 0.25rem 0.5rem;
+    }
+
+    .cancel-button{
+        margin-left:5px;
+    }
+
+    ::ng-deep p-panel .p-panel-icons-end {
+        display:flex;
+    }
+  }

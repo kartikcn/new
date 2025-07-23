@@ -1,0 +1,1 @@
+{"ast":null,"code":"export class BookingIdFilterInput {\n  constructor(id, name) {\n    this.id = 0;\n    this.name = \"\";\n    this.id = id;\n    this.name = name;\n  }\n}","map":null,"metadata":{},"sourceType":"module","externalDependencies":[]}

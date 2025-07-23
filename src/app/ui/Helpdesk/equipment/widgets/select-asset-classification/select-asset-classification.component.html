@@ -1,0 +1,17 @@
+<p-tree  [value]="nodes" selectionMode="single" [(selection)]="selectedFiles" [filter]="true"
+    (onNodeSelect)="nodeSelect($event)">
+    <ng-template let-node pTemplate="url">
+        <a [href]="node.data">{{node.label}}</a>
+    </ng-template>
+    <ng-template let-node pTemplate="default">
+        <b>{{node.label}}</b>
+    </ng-template>
+</p-tree>
+
+<mat-dialog-actions align="end" class="mat-dialog-actions-ext">
+    <p-button label="Save" icon="pi pi-check" (click)="!isDisabled && onSave()"
+        [disabled]="isDisabled"></p-button>
+    <p-button label="Cancel" icon="pi pi-times" styleClass="p-button-secondary" [style]="{'margin-left': '.5em'}"
+        (click)="onCancel()"></p-button>
+</mat-dialog-actions>
+<p-confirmDialog key="add-pb-type-cancel" header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>

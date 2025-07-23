@@ -1,0 +1,20 @@
+<div class="container-fluid">
+    <div class="row" >
+            <div class="col-sm-6 col-xm-6 col-md-6">
+                    <p-panel header="Employee Standards">
+                            <ng-template pTemplate="icons">
+                                    <button pButton icon="pi pi-plus" label="Add" (click)="onAdd()">
+                                    </button>
+                                    
+                            </ng-template>
+                    <div class="page-content" style="height: calc(100vh - 150px)">
+                    <app-emstd-list (parentFun)="getData($event)"></app-emstd-list>
+                    </div>
+                    </p-panel>
+            </div>
+            <div class="col-sm-6 col-xm-6 col-md-6">
+                    <app-add-emstd *ngIf="isShowPanel" (notifyParent)="getNotify($event)" [isNew]="isNew" [role_title]="role_title" [dataRec]="rec"></app-add-emstd>
+            </div>
+    </div>
+</div>
+

@@ -1,0 +1,126 @@
+<div class="card flex justify-content-center">
+  <p-dialog
+    header=""
+    [(visible)]="showDialogue"
+    [modal]="true"
+    [maximizable]="true"
+    (onHide)="onCancel()"
+    [style]="{ minHeight: '38vh', width: '42vw' }"
+    [breakpoints]="{ '1199px': '30vw', '767px': '50vw', '575px': '70vw' }"
+  >
+    <p-header> {{ title }} Center Budget </p-header>
+    <div class="container-fluid">
+      <form [formGroup]="formCenterBudget">
+        <div class="row">
+          <div class="col-sm-12 col-md-6 col-xl-6">
+            <div class="input-label-custom">
+              <label class="form-field-lable control-label"
+                >Budget Term Id</label
+              >
+              <ng-select
+                appendTo="body"
+                [clearable]="false"
+                [items]="budgetTermList"
+                formControlName="budgetTermId"
+                [searchable]="true"
+                bindLabel="name"
+                bindValue="budgetTermId"
+                placeholder="Make a selection"
+                class="ng-select-dropdown"
+              >
+              </ng-select>
+            </div>
+          </div>
+          <div class="col-sm-12 col-md-6 col-xl-6">
+            <div class="input-label-custom">
+              <label class="form-field-lable control-label">Building Id</label>
+              <ng-select
+                appendTo="body"
+                [clearable]="false"
+                [items]="blIdList"
+                formControlName="blId"
+                [searchable]="true"
+                bindLabel="blNameString"
+                bindValue="blId"
+                (change)="onSelectBlCode($event)"
+                (open)="onOpenBl()"
+                placeholder="Make a selection"
+                class="ng-select-dropdown"
+                (scrollToEnd)="scrollToEndBl()"
+                (search)="searchBl($event)"
+              >
+              </ng-select>
+            </div>
+          </div>
+          <div class="col-sm-12 col-md-6 col-xl-6">
+            <div class="input-label-custom">
+              <label class="form-field-lable control-label">Floor Id</label>
+              <ng-select
+                appendTo="body"
+                [clearable]="false"
+                [items]="flIdList"
+                formControlName="flId"
+                [searchable]="true"
+                bindLabel="flNameString"
+                bindValue="flId"
+                placeholder="Make a selection"
+                (open)="onOpenFl()"
+                class="ng-select-dropdown"
+                (change)="onSelectFlCode($event)"
+                (scrollToEnd)="scrollToEndFl()"
+                (search)="searchFl($event)"
+              >
+              </ng-select>
+            </div>
+          </div>
+          <div class="col-sm-12 col-md-6 col-xl-6">
+            <div class="input-label-custom">
+              <label class="form-field-lable control-label">Item Id</label>
+              <ng-select
+                appendTo="body"
+                [clearable]="false"
+                [items]="itemList"
+                formControlName="itemId"
+                [searchable]="true"
+                bindLabel="name"
+                bindValue="itemId"
+                placeholder="Make a selection"
+                class="ng-select-dropdown"
+              >
+              </ng-select>
+            </div>
+          </div>
+          <div class="col-sm-12 col-md-6 col-xl-6">
+            <div class="input-label-custom">
+              <label class="form-field-lable control-label">Budget</label>
+              <input
+                type="number"
+                class="form-control"
+                name="budget"
+                formControlName="budget"
+                NumbersOnly
+              />
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+    <ng-template pTemplate="footer">
+      <button
+        pButton
+        label="Save"
+        (click)="saveRecords()"
+        [disabled]="formCenterBudget.invalid"
+        icon="pi pi-check"
+      ></button>
+      <p-button
+        label="Cancel"
+        icon="pi pi-times"
+        (click)="onCancel()"
+        styleClass="p-button-secondary"
+        [style]="{ 'margin-left': '.5em' }"
+      ></p-button>
+    </ng-template>
+  </p-dialog>
+</div>
+<p-toast key="save" position="top-right"></p-toast>

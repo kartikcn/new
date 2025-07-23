@@ -1,0 +1,107 @@
+<div class="card flex justify-content-center">
+  <p-dialog
+    header=""
+    [(visible)]="showDialogue"
+    [modal]="true"
+    [maximizable]="true"
+    (onHide)="onCancel()"
+    [style]="{ minHeight: '35vh', width: '40vw' }"
+    [breakpoints]="{ '1199px': '40vw', '767px': '50vw', '575px': '70vw' }"
+  >
+    <p-header> {{ title }} Inventory Item </p-header>
+    <div class="container-fluid">
+      <form [formGroup]="formItem">
+        <div class="row">
+          <div class="col-12">
+            <div class="input-label-custom">
+              <label class="form-field-lable control-label">Item Name</label>
+              <input
+                type="text"
+                class="form-control"
+                name="name"
+                formControlName="name"
+                maxlength="64"
+                appTrimInput
+              />
+            </div>
+          </div>
+          <div class="col-sm-12 col-md-6 col-xl-6">
+            <div class="input-label-custom">
+              <label class="form-field-lable control-label">Stock</label>
+              <input
+                type="number"
+                class="form-control"
+                name="stock"
+                formControlName="stock"
+                appTrimInput
+                NumbersOnly
+                [allowDecimals]="false"
+              />
+            </div>
+          </div>
+          <div class="col-sm-12 col-md-6 col-xl-6">
+            <div class="input-label-custom">
+              <label class="form-field-lable control-label">Unit</label>
+              <div>
+                <p-dropdown
+                  appendTo="body"
+                  formControlName="unit"
+                  [options]="unitEnums"
+                  optionLabel="enumValue"
+                  optionValue="enumKey"
+                ></p-dropdown>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-12 col-md-6 col-xl-6">
+            <div class="input-label-custom">
+              <label class="form-field-lable control-label"
+                >Minimum Stock Required</label
+              >
+              <input
+                type="number"
+                class="form-control"
+                name="minStockReq"
+                formControlName="minStockReq"
+                appTrimInput
+                NumbersOnly
+                [allowDecimals]="false"
+              />
+            </div>
+          </div>
+          <div class="col-sm-12 col-md-6 col-xl-6">
+            <div class="input-label-custom">
+              <label class="form-field-lable control-label"
+                >Cost Per Unit</label
+              >
+              <input
+                type="number"
+                class="form-control"
+                name="rate"
+                formControlName="rate"
+                NumbersOnly
+              />
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+    <ng-template pTemplate="footer">
+      <button
+        pButton
+        label="Save"
+        (click)="saveRecords()"
+        [disabled]="formItem.invalid"
+        icon="pi pi-check"
+      ></button>
+      <p-button
+        label="Cancel"
+        icon="pi pi-times"
+        (click)="onCancel()"
+        styleClass="p-button-secondary"
+        [style]="{ 'margin-left': '.5em' }"
+      ></p-button>
+    </ng-template>
+  </p-dialog>
+</div>
+<p-toast key="save" position="top-right"></p-toast>

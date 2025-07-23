@@ -1,0 +1,64 @@
+span {
+    height: 24px !important;
+    font-size: 10px !important;
+  }
+  
+  .trFont {
+    font-size: 11px !important;
+  }
+  
+  .panel-group-custom {
+    margin: -12px !important;
+  }
+  
+  label {
+    font-size: 10px;
+    padding: 0;
+    font-weight: 500;
+    padding-left: 3px;
+    margin-bottom: -10px !important;
+  }
+  
+  .td-calc-2 {
+    width: calc(100% / 2);
+  }
+  
+  .panel-body-custom {
+    padding: 0;
+  }
+  
+  .btn-ggb-default-custom {
+    margin: 16px !important
+  }
+  
+  .btn-ggb-orange {
+    width: 90px !important;
+  }
+  
+  .btn-filter {
+    margin-left: 4px;
+    margin-right: 5px;
+    width: 50px;
+  }
+  
+  select, input[type=text], input[type=number], textarea {
+    border: thin double rgb(181, 155, 90) !important;
+    padding-left: 5px;
+    background: #fff;
+  }
+  
+  .input-group .input-group-addon {
+    height: 24px;
+  }
+
+  .td-class {
+    background-color: inherit;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 20px;
+    margin: 10px auto auto auto;
+    border: 1px solid black;
+  }
+  

@@ -1,0 +1,80 @@
+<div class="card">
+    <form [formGroup]="filterPanel">
+        <table width="100%">
+            <tr>
+                <td style="width: 20%">
+                    <div class="input-label-custom ">
+                        <label class='form-field-lable control-label'>Building </label>
+                        <ng-select appendTo="body" [clearable]="false" [items]="enumBL" formControlName="blId"
+                            [searchable]="true" bindLabel="name" bindValue="id" (change)="onSelectBlCode($event)"
+                            placeholder="Make a selection" class="ng-select-dropdown"
+                            (scrollToEnd)="scrollToEndBl()" (search)="searchBl($event)">
+                        </ng-select>
+                    </div>
+                </td>
+                <td style="width: 20%">
+                    <div class="input-label-custom ">
+                        <label class='form-field-lable control-label'>Floor</label>
+                        <ng-select appendTo="body" [clearable]="false" [items]="enumFL" formControlName="flId"
+                            [searchable]="true" bindLabel="name" bindValue="id" placeholder="Make a selection"
+                            class="ng-select-dropdown" (change)="onSelectFlCode($event)"
+                            (scrollToEnd)="scrollToEndFl()" (search)="searchFl($event)">
+                        </ng-select>
+                    </div>
+                </td>
+                <td style="width: 20%"></td>
+                <td style="width: 20%"></td>
+                <td style="width: 20%">
+                    <div style="margin: 5px 0 0 5px ">
+                        <button (click)="onSearch()" [disabled]="!filterPanel.valid" pButton pRipple label="Search"
+                            style="width: 60px;  margin-left: 5px;"
+                            class="p-button-primary p-button-sm pull right"></button>
+                        <button (click)="onClear()" pButton pRipple label="Clear"
+                            style="width: 60px;  margin-left: 5px;"
+                            class="p-button-primary p-button-sm pull right"></button>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+<div class="card no-file-found" *ngIf="displayNoFloorPlanInfo">
+    <h1>No Floorplan available</h1>
+</div>
+
+<div class="card" *ngIf="viewSvg">
+    <div style="display: flex; justify-content: space-between;height:600px;">
+        <div style="width:25%">
+            <div style="display: flex;flex-direction: column;">
+                <app-em-list (parentFun)="getData($event)"></app-em-list>
+            </div>  
+        </div>
+        <div style="width:70%;margin:5px;height:550px">
+            <div style="height: 50px; display: flex; justify-content: space-between;">
+                <div>
+                    <div>{{selectionMessage}}</div>
+                <div *ngIf="selectedSvgElementId.length>0">
+                    {{selectedRoomsMessage}}
+                </div>
+                </div>
+                <div>
+                    <button (click)="onAssigntoRooms()" pButton pRipple label="Save"  [disabled]="!(selectedSvgElementId.length>0)"
+                    style="width: 60px;" class="p-button-primary p-button-sm pull right"></button>
+                    <button (click)="onCancelSelection()" pButton pRipple label="Cancel"  [disabled]="!(selectedSvgElementId.length>0)"
+                    style="width: 60px; margin-left: 5px;" class="p-button-primary p-button-sm pull right"></button>
+                </div>
+            </div>
+            <div *ngIf="viewSvg" style="height:500px;">
+                <app-svg-view  (onRoomClick)="roomOnClickListener($event)"></app-svg-view>
+            </div>
+            
+        </div>
+    </div>
+</div>
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#879cc9" class="spinner-color" type="ball-spin-clockwise"
+    *ngIf="showSpinner" [fullScreen]="true">
+    <p style="color: white"> Loading... </p>
+</ngx-spinner>
+
+<p-toast key="employeeroomMsg" position="top-center"></p-toast>
+<p-confirmDialog key="employeeroomGrid" header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>

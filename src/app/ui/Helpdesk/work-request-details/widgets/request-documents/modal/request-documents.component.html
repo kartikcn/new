@@ -1,0 +1,84 @@
+<p-panel header=" ">
+    <ng-template pTemplate="icons">
+        <button pButton label="Add" (click)="onAddDocuments()" icon="pi pi-plus"
+            [disabled]="isReadOnly || isTechnician"></button>
+    </ng-template>
+    <div class="card">
+        <p-table [value]="savedFiles" [paginator]="true" [rows]="rowCount" [showCurrentPageReport]="true"
+            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+            [rowsPerPageOptions]="[5,10,25]" styleClass="p-datatable-customers p-datatable-gridlines" [rowHover]="true"
+            [scrollable]="true" selectionMode="single">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th style="width:8rem"></th>
+                    <th pSortableColumn="documentName">
+                        <div class="grid-header-column">
+                            <div class="grid-header-label">
+                                <p class="grid-label-paragraph">Document Name</p>
+                            </div>
+                            <div class="grid-sort-icon">
+                                <p-sortIcon field="documentName"></p-sortIcon>
+                                <p-columnFilter type="text" field="documentName"
+                                    display="menu"></p-columnFilter>
+                            </div>
+                        </div>
+                    </th>
+                   <th pSortableColumn="docDescription">
+                        <div class="grid-header-column">
+                            <div class="grid-header-label">
+                                <p class="grid-label-paragraph">Description</p>
+                            </div>
+                            <div class="grid-sort-icon">
+                                <p-sortIcon field="docDescription"></p-sortIcon>
+                                <p-columnFilter type="text" field="docDescription"
+                                    display="menu"></p-columnFilter>
+                            </div>
+                        </div>
+                    </th>
+                    <th pSortableColumn="formatedDateAdded">
+                        <div class="grid-header-column">
+                            <div class="grid-header-label">
+                                <p class="grid-label-paragraph">Date Added</p>
+                            </div>
+                            <div class="grid-sort-icon">
+                                <p-sortIcon field="formatedDateAdded"></p-sortIcon>
+                                <p-columnFilter type="text" field="formatedDateAdded"
+                                    display="menu"></p-columnFilter>
+                            </div>
+                        </div>
+                    </th>
+
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-doc>
+                <tr [pSelectableRow]="doc">
+                    <td style="width:8rem">
+                        <button pButton pRipple type="button" (click)="showDocumentDialog(doc)" icon="pi pi-eye"
+                            class="p-button-text" style="font-size: 5rem;">
+                        </button>
+                        <button pButton pRipple icon="pi pi-times" type="button" [disabled]="isTechnician"
+                            (click)="onDelete(doc.requestDocId)" class="p-button-text"
+                            style="font-size: 5rem; color: red;">
+                        </button>
+                    </td>
+                    <td>{{doc.documentName}}</td>
+                    <td>{{doc.docDescription}}</td>
+                    <td>{{(doc.dateAdded) | date:"d MMM yyyy"}}</td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage" let-columns>
+                <tr>
+                    <td colspan="4" style="text-align: center;">
+                        No Records Found
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+</p-panel>
+<p-dialog header=" " [(visible)]="displayImage" [style]="{width: '30vw'}" [closable]="true" [draggable]="false"
+    [resizable]="false" [modal]="true">
+    <img [src]="src" [alt]="" width="90%" height="90%" />
+</p-dialog>
+<p-toast key="requestDoc" position="top-right"></p-toast>
+<p-confirmDialog key="deleteDoc" header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>

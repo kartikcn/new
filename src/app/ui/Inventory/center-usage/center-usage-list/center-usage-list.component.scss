@@ -1,0 +1,25 @@
+@import "/src/scss/variables";
+:host ::ng-deep .p-panel .p-panel-content {
+  padding: 0;
+}
+
+:host ::ng-deep .p-panel .p-panel-header {
+  padding: 0.5rem;
+}
+
+.ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+:host ::ng-deep .p-datatable-scrollable-body {
+  overflow-y: auto !important;
+}
+
+:host ::ng-deep .p-datatable-scrollable-header-box {
+  padding: 0px !important;
+}
+.td-calc-2 {
+  width: calc(100% / 2);
+}

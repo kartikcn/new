@@ -1,0 +1,64 @@
+<p-panel header=" ">
+  <table style="width:auto;" [hidden]="isHide">
+    <tr>
+      <td style="width:auto;">{{selectedRmStandard}}</td>
+      <td width="30px"><button (click)="onClearRmStandard()" pButton pRipple icon="pi pi-times" class="p-button-text p-button" style="font-size: 5rem; color: red;"></button></td>
+    </tr>
+  </table>
+  <ng-template pTemplate="icons">
+    <button pButton (click)="onAddRoomType()" label="Add" icon="pi pi-plus">
+    </button>
+  </ng-template>
+  <div class="card">
+    <p-table #dt1 [value]="rmType_data" [paginator]="true" [rows]="rowCount" [showCurrentPageReport]="true"
+               currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [rowsPerPageOptions]="[5,10,25]"
+               styleClass="p-datatable-responsive-demo p-datatable-gridlines" [rowHover]="false" [scrollable]="true"
+               scrollDirection="both" scrollHeight="500px">
+               <ng-template pTemplate="header">
+                <tr>
+                  <th style="width : 8rem"> </th>
+                  <th pSortableColumn="rmCat">
+                    Room Category <p-sortIcon field="rmCat"></p-sortIcon>
+                    <p-columnFilter type="text" field="rmCat" display="menu"></p-columnFilter>
+                  </th>
+                  <th pSortableColumn="rmType">
+                    Room Type <p-sortIcon field="rmType"></p-sortIcon>
+                    <p-columnFilter type="text" field="rmType" display="menu"></p-columnFilter>
+                  </th>
+                  <th pSortableColumn="rmTypeDesc">
+                    Description <p-sortIcon field="rmTypeDesc"></p-sortIcon>
+                    <p-columnFilter type="text" field="rmTypeDesc" display="menu"></p-columnFilter>
+                  </th>
+                  <th>Highlight Color</th>
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="body" let-rmtype>
+                <tr [pSelectableRow]="rmtype">
+                  <td style="width:8rem">
+                    <button pButton pRipple type="button" icon="pi pi-pencil" (click)="openEditItem(rmtype.rmType,rmtype.rmCat)"
+                      class="p-button-text p-button mr5">
+                    </button>
+                    <button pButton pRipple icon="pi pi-times" class="p-button-text p-button pull-right" style="font-size: 5rem; color: red;"
+                      (click)="deleteRoomType(rmtype.rmType,rmtype.rmCat)"></button>
+                  </td>
+                  <td>{{rmtype.rmCat}}</td>
+                  <td>{{rmtype.rmType}}</td>
+                  <td>{{rmtype.rmTypeDesc}}</td>
+                  <td>
+                    <div [style.background-color]="rmtype.highlightColor" class="td-class">
+                    </div>
+                </td>
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="emptymessage" let-columns>
+                <tr>
+                  <td [attr.colspan]="4">
+                    No records found
+                  </td>
+                </tr>
+              </ng-template>
+    </p-table>
+  </div>
+</p-panel>
+<p-toast key="rmTypeMessage"></p-toast>
+<p-confirmDialog key="rmTypeGrid" header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>

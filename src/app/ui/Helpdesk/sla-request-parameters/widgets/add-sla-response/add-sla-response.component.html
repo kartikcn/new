@@ -1,0 +1,217 @@
+<form nz-form [formGroup]="slaResponseFormPanel">
+    <div class="first-table">
+        <table width="100%">
+            <tr>
+                <td>
+                    <div class="input-label-custom">
+                        <div class="p-fluid">
+                            <div class="p-field" style="width:154px">
+                                <label class='form-field-lable control-label'>Day Start</label>
+                                <p-calendar name="dayStartTime" formControlName="dayStartTime"
+                                    [timeOnly]="true"></p-calendar>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="input-label-custom">
+                        <div class="p-fluid">
+                            <div class="p-field" style="width:154px">
+                                <label class='form-field-lable control-label'>Day End</label>
+                                <p-calendar name="dayEndTime" formControlName="dayEndTime"
+                                    [timeOnly]="true"></p-calendar>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr
+                *ngIf="(slaResponseFormPanel.controls['dayStartTime']?.errors && (slaResponseFormPanel.controls['dayStartTime']?.dirty || slaResponseFormPanel.controls['dayStartTime']?.touched))">
+                <td>
+                    <label
+                        *ngIf="slaResponseFormPanel.controls['dayStartTime']?.errors && !slaResponseFormPanel.controls['dayStartTime']?.errors.required"
+                        class='form-field-lable' style="color:red;">
+                        Day start can not be greater than day end.
+                    </label>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <table style="margin-top: 5px;" width="100%">
+                        <tr width="100%">
+                            <td width="50%">
+                                <label class='form-field-lable' style="width: 90px; margin-left: 3px; ">Time To
+                                    Respond</label>
+                                <div style="display: flex; align-items: center;">
+                                    <input style="height:24px; width: 60px; margin-left: 5px;" class="form-control"
+                                        name="timeToResponseDays" formControlName="timeToResponseDays" maxlength="9"
+                                        appPositiveInteger>
+                                    <label class='form-field-lable' style="margin-left: 5px;">Days</label>
+                                    <input class="form-control" style="height:24px; width: 60px; margin-left: 5px;"
+                                        name="timeToResponseHours" formControlName="timeToResponseHours" maxlength="9"
+                                        appPositiveInteger TwoDigitDecimalNumber>
+                                    <label class='form-field-lable' style="margin-left: 5px;">Hours</label>
+                                </div>
+                            </td>
+                            <td width="50%">
+                                <label class='form-field-lable' style="width: 95px; margin-left: 3px; ">Time To
+                                    Complete</label>
+                                <div style="display: flex; align-items: center;">
+                                    <input style="height:24px; width: 60px; margin-left: 5px;" class="form-control"
+                                        name="timeToCompleteDays" formControlName="timeToCompleteDays" maxlength="9"
+                                        appPositiveInteger>
+                                    <label class='form-field-lable' style="margin-left: 5px;">Days</label>
+                                    <input class="form-control" style="height:24px; width: 60px; margin-left: 5px;"
+                                        name="timeToCompleteHours" formControlName="timeToCompleteHours" maxlength="9"
+                                        appPositiveInteger TwoDigitDecimalNumber>
+                                    <label class='form-field-lable' style="margin-left: 5px;">Hours</label>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+        <!--                      for two childrens     -->
+        <div style="display: flex;margin-top: 5px;">
+            <div class="switch-table" style="width: 100%;">
+                <table width="100%">
+                    <tr>
+                        <td>
+                            <div>
+                                <div class="input-label-custom switch-container">
+                                    <label class='form-field-lable' style="width: 100px;">Is
+                                        Default</label>
+                                    <p-inputSwitch formControlName="isDefault"
+                                        (onChange)="onClickIsDefault($event)"></p-inputSwitch>
+                                </div>
+                                <div class="input-label-custom switch-container">
+                                    <label class='form-field-lable' style="width: 100px;">Notify
+                                        Requestor</label>
+                                    <p-inputSwitch formControlName="notifyRequestor"></p-inputSwitch>
+
+                                </div>
+                                <div class="input-label-custom switch-container">
+                                    <label class='form-field-lable' style="width: 100px;">Auto Approve</label>
+                                    <p-inputSwitch formControlName="autoApproval"
+                                        [disabled]="autoAproveReadOnly || !enableAutoApprove" (onChange)="checkAutoApprove($event)"></p-inputSwitch>
+                                </div>
+                                <div class="input-label-custom switch-container">
+                                    <label class='form-field-lable' style="width: 100px;">Auto
+                                        Issue</label>
+                                    <p-inputSwitch formControlName="autoIssue"
+                                        (onChange)="changeAutoIssue($event)"></p-inputSwitch>
+                                </div>
+
+                                <div class="input-label-custom ">
+                                    <label class='form-field-lable'>Technician</label>
+                                    <ng-select appendTo="body" [clearable]="false" [items]="technicianData"
+                                        name="technicianId" formControlName="technicianId" [searchable]="true"
+                                        bindLabel="name" bindValue="cfId" placeholder="Make a selection"
+                                        class="ng-select-dropdown" (change)="onSelectTechnician($event)"
+                                        [readonly]="makeReadOnly">
+                                    </ng-select>
+                                </div>
+                                <div class="input-label-custom ">
+                                    <label class='form-field-lable'>Team</label>
+                                    <ng-select appendTo="body" [clearable]="false" [items]="teamsHavingtechnician"
+                                        name="teamId" formControlName="teamId" [searchable]="true" bindLabel="teamCode"
+                                        bindValue="teamId" placeholder="Make a selection" class="ng-select-dropdown"
+                                        (change)="onSelectTeam($event)" [readonly]="makeReadOnly">
+                                    </ng-select>
+                                </div>
+
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="holidays-table" style="width:100%;margin-left: 10px;">
+                <table width="100%">
+                    <tr>
+                        <td>
+                            <div class="holidays-container">
+                                <div class="switch-container">
+                                    <label class='form-field-lable' style="width: 150px;">Allow Work On
+                                        Holiday</label>
+                                    <p-inputSwitch formControlName="canWorkOnHoliday"></p-inputSwitch>
+                                </div>
+                                <label class='form-field-lable' style="padding: 6px 0 6px 0;">Working
+                                    Days</label>
+                                <table width="100%">
+                                    <tr style="display: flex;">
+                                        <div style="display: flex; flex-direction: column;">
+                                            <td width="14%"
+                                                style="display: flex; align-items: center; padding-bottom: 12px;">
+                                                <p-checkbox name="mon" formControlName="mon" [binary]="true"
+                                                    inputId="Mon"></p-checkbox>
+                                                <label class='form-field-lable' for="Mon">&nbsp;Monday</label>
+                                            </td>
+                                            <td width="14%"
+                                                style="display: flex; align-items: center; padding-bottom: 12px;">
+                                                <p-checkbox name="tue" formControlName="tue" [binary]="true"
+                                                    inputId="Tue"></p-checkbox>
+                                                <label class='form-field-lable' for="Tue">&nbsp;Tuesday</label>
+                                            </td>
+                                            <td width="14%"
+                                                style="display: flex; align-items: center; padding-bottom: 12px;">
+                                                <p-checkbox name="wed" formControlName="wed" [binary]="true"
+                                                    inputId="Wed"></p-checkbox>
+                                                <label class='form-field-lable' for="Wed">&nbsp;Wednesday</label>
+                                            </td>
+                                            <td width="14%"
+                                                style="display: flex; align-items: center; padding-bottom: 12px;">
+                                                <p-checkbox name="thus" formControlName="thus" [binary]="true"
+                                                    inputId="Thus"></p-checkbox>
+                                                <label class='form-field-lable' for="Thus">&nbsp;Thursday</label>
+                                            </td>
+                                            <td width="14%"
+                                                style="display: flex; align-items: center; padding-bottom: 12px;">
+                                                <p-checkbox name="fri" formControlName="fri" [binary]="true"
+                                                    inputId="Fri"></p-checkbox>
+                                                <label class='form-field-lable' for="Fri">&nbsp;Friday</label>
+                                            </td>
+                                        </div>
+                                        <div style="display: flex; flex-direction: column; margin-left: 40px;">
+                                            <td width="14%"
+                                                style="display: flex; align-items: center; padding-bottom: 12px;">
+                                                <p-checkbox name="sat" formControlName="sat" [binary]="true"
+                                                    inputId="Sat"></p-checkbox>
+                                                <label class='form-field-lable' for="sat">&nbsp;Saturday</label>
+                                            </td>
+                                            <td width="14%"
+                                                style="display: flex; align-items: center; padding-bottom: 12px;">
+                                                <p-checkbox name="sun" formControlName="sun" [binary]="true"
+                                                    inputId="sun"></p-checkbox>
+                                                <label class='form-field-lable' for="sun">&nbsp;Sunday</label>
+                                            </td>
+                                        </div>
+                                    </tr>
+                                </table>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</form>
+<p-confirmDialog key="warning" header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>
+<p-dialog header="Confirmation" [(visible)]=" displayWarningYes || displayWarningNo" [style]="{width: '25vw'}"
+    [closable]="false">
+    <ng-template pTemplate="caption">
+        <div class="m-2">
+            <p>{{displayWarningMsg}}</p>
+        </div>
+        <div class="d-flex flex-row justify-content-end">
+            <div style="display: flex; padding-left: 6px;">
+                <button *ngIf="displayWarningNo" pButton pRipple label="Cancel" class="p-button-primary p-button-sm"
+                    style="margin-left:8px" (click)="handleCancel()"></button>
+                <button *ngIf="displayWarningYes" pButton pRipple label="Yes" icon="pi pi-check"
+                    class="p-button-primary p-button-sm" (click)='clickDisplayWarningYes()'></button>
+                <button *ngIf="displayWarningYes" pButton pRipple label="No" class="p-button-primary p-button-sm"
+                    style="margin-left:8px" (click)="clickDisplayWarningNo()"></button>
+            </div>
+        </div>
+    </ng-template>
+</p-dialog>

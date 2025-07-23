@@ -1,0 +1,13 @@
+.readonly-panel {
+    opacity: 0.5; /* Reduce opacity to visually indicate that panel is disabled */
+    pointer-events: none; /* Prevent user interactions with the panel */
+  }
+.message {
+  font-size: 12px;
+  font-weight: 400;
+  font-family: 'Roboto';
+}
+
+:host ::ng-deep .p-datatable-table{
+  table-layout: fixed;
+}

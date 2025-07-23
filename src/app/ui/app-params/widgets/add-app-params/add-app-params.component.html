@@ -1,0 +1,41 @@
+<form [formGroup]="AppParamFormPanel">
+    <table width="100%">
+            <tr>
+                    <td style="width: 100%">
+                            <div class="input-label-custom ">
+                                    <label class='form-field-lable control-label'>Param Id</label>
+                                    <input type="text" class="form-control" [readonly]="!isNew" uppercase   name="paramId"
+                                            formControlName="paramId" maxlength="128" appTrimInput>
+                            </div>
+                    </td>
+                    
+            </tr>
+            <!-- <tr
+                    *ngIf="(AppParamFormPanel.controls['paramId']?.errors && (AppParamFormPanel.controls['paramId']?.dirty || AppParamFormPanel.controls['paramId']?.touched))">
+                    <td style="width: 100%">
+                            <label *ngIf="AppParamFormPanel.controls['paramId']?.errors && !AppParamFormPanel.controls['paramId']?.errors.required"
+                                    class='form-field-lable' style="color:red;">Param Id  already
+                                exists.</label>
+                    </td>  
+            </tr> -->
+            <tr>
+                <td style="width: 100%">
+                        <div class="input-label-custom">
+                                <label class='form-field-lable control-label'>Param Value</label>
+                                <input type="text" class="form-control"   name="paramValue"
+                                        formControlName="paramValue" maxlength="256" [readonly]="!isEditable" appTrimInput>
+                        </div>
+                </td>
+            </tr>
+            
+            <tr>
+                    <td style="width: 100%" colspan="2">
+                            <div class="input-label-custom ">
+                                    <label class='form-field-lable control-label'>Description</label>
+                                    <textarea class="form-control note-border" name="description" formControlName="description" rows="2" nz-input
+                                     maxlength="512" appTrimInput></textarea>
+                            </div>
+                    </td>
+            </tr>
+    </table>
+</form>

@@ -1,0 +1,125 @@
+<form nz-form [formGroup]="frmEmployeeLocation">
+        <table style="width: 100%;">
+                <tr>
+                        <td colspan="2" style="width: 50%;">
+                                <div class="input-label-custom ">
+                                        <label class='form-field-lable control-label' style="margin-right: 10px;">
+                                                Remote Working
+                                        </label>
+                                        <nz-radio-group [(ngModel)]="work_type" [ngModelOptions]="{standalone: true}"
+                                                (ngModelChange)="onSelectWorkType($event)">
+                                                <label nz-radio nzValue='F'>Full</label>
+                                                <label nz-radio nzValue="P">Part-time</label>
+                                                <label nz-radio nzValue="O">Office</label>
+                                        </nz-radio-group>
+                                </div>
+                        </td>
+                </tr>
+                <tr>
+                        <td style="width: 50%">
+                                <div style="display: flex;">
+                                        <div class="input-label-custom " style="width: 90%;">
+                                                <label class='form-field-lable'>Building </label>
+                                                <ng-select [clearable]="false" [items]="enumBL" formControlName="blId"
+                                                        [searchable]="true" bindLabel="blNameString" bindValue="blId"
+                                                        (change)="onSelectBlCode($event)" placeholder="Make a selection"(open)="onOpenBl()"
+                                                        class="ng-select-dropdown" (scrollToEnd)="scrollToEndBl()" (search)="searchBl($event)">
+                                                </ng-select>
+                                        </div>
+                                        <div style="margin: 12px 0px 0px -5px;">
+                                                <p-button id="add-btn" (click)="onAddBuilding()" class="pull-right m-3"
+                                                        icon="pi pi-plus" matTooltip="Add Building" [hidden]="!isEdit || btnDisable">
+                                                </p-button>
+                                        </div>
+                                </div>
+                        </td>
+                        <td style="width: 50%">
+                                <div style="display: flex;">
+                                        <div class="input-label-custom " style="width: 90%;">
+                                                <label class='form-field-lable'>Division</label>
+                                                <ng-select [clearable]="false" [items]="enumDivision"
+                                                        formControlName="divId" [searchable]="true" bindLabel="divCode"
+                                                        bindValue="divId" (change)="onSelectDivision($event)"
+                                                        placeholder="Make a selection" class="ng-select-dropdown">
+                                                </ng-select>
+                                        </div>
+                                        <div style="margin: 12px 0px 0px -5px;">
+                                                <p-button id="add-btn" (click)="onddDivision()" class="pull-right m-3" icon="pi pi-plus"
+                                                        matTooltip="Add Division" [hidden]="!isEdit || btnDisable">
+                                                </p-button>
+                                        </div>
+                                </div>
+                        </td>
+                </tr>
+                <tr>
+                        <td style="width: 50%">
+                                <div style="display: flex;">
+                                        <div class="input-label-custom " style="width: 90%;">
+                                                <label class='form-field-lable'>Floor </label>
+                                                <ng-select  [clearable]="false" (change)="onSelectFlCode($event)"
+                                                        [items]="enumFL" formControlName="flId" [searchable]="true"
+                                                        bindLabel="flNameString" bindValue="flId" placeholder="Make a selection"(open)="onOpenFl()"
+                                                        class="ng-select-dropdown"  (scrollToEnd)="scrollToEndFl()" (search)="searchFl($event)">
+                                                </ng-select>
+                                        </div>
+                                        <div style="margin: 12px 0px 0px -5px;">
+                                                <p-button id="add-btn" (click)="onAddFloor()" class="pull-right m-3" icon="pi pi-plus"
+                                                        matTooltip="Add Floor" [hidden]="!isEdit || btnDisable">
+                                                </p-button>
+                                        </div>
+                                </div>
+                        </td>
+                        <td style="width: 50%">
+                                <div style="display: flex;">
+                                        <div class="input-label-custom " style="width: 90%;">
+                                                <label class='form-field-lable'>Department</label>
+                                                <ng-select  [clearable]="false" (change)="onSelectDepartment($event)"
+                                                        [items]="enumDepartment" formControlName="depId" [searchable]="true"
+                                                        bindLabel="depCode" bindValue="depId" placeholder="Make a selection"
+                                                        class="ng-select-dropdown" >
+                                                </ng-select>
+                                        </div>
+                                        <div style="margin: 12px 0px 0px -5px;">
+                                                <p-button id="add-btn" (click)="onddDepartment()" class="pull-right m-3"
+                                                        icon="pi pi-plus" matTooltip="Add Department" [hidden]="!isEdit || btnDisable">
+                                                </p-button>
+                                        </div>
+                                </div>
+                        </td>
+                </tr>
+                <tr>
+                        <td style="width: 50%">
+                                <div style="display: flex;">
+                                        <div class="input-label-custom " style="width: 90%;">
+                                                <label class='form-field-lable'>Room</label>
+                                                <ng-select [clearable]="false" (change)="onSelectRmCode($event)"
+                                                        [items]="enumRm" formControlName="rmId" [searchable]="true"
+                                                        bindLabel="rmNameString" bindValue="rmId" placeholder="Make a selection" (open)="onOpenRm()"
+                                                        class="ng-select-dropdown" (scrollToEnd)="scrollToEndRm()" (search)="searchRm($event)">
+                                                </ng-select>
+                                        </div>
+                                        <div style="margin: 12px 0px 0px -5px;">
+                                                <p-button id="add-btn" (click)="onAddRoom()" class="pull-right m-3" icon="pi pi-plus" [hidden]="!isEdit || btnDisable" matTooltip="Add Room">
+                                                </p-button>
+                                        </div>
+                                </div>
+                        </td>
+                        <td style="width: 50%;">
+                                <div style="display: flex;">
+                                        <div class="input-label-custom " style="width: 90%;">
+                                                <label class='form-field-lable'>Sub Department</label>
+                                                <ng-select  [clearable]="false" [items]="enumSubDepartment"
+                                                        formControlName="subDepId" [searchable]="true" bindLabel="subDepCode"
+                                                        bindValue="subDepId" placeholder="Make a selection" class="ng-select-dropdown">
+                                                </ng-select>
+                                        </div>
+                                        <div style="margin: 12px 0px 0px -5px;">
+                                                <p-button id="add-btn" (click)="onddSubDepartment()" class="pull-right m-3" icon="pi pi-plus"
+                                                        matTooltip="Add Sub Department" [hidden]="!isEdit || btnDisable">
+                                                </p-button>
+                                        </div>
+                                </div>
+                        </td>
+                </tr>
+        </table>
+</form>

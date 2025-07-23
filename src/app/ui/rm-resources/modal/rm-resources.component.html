@@ -1,0 +1,26 @@
+<p-panel header="Room List">
+        <div class="row">
+                <div class="col-sm-6 col-md-6 col-xm-4 col-lg-6">
+                        <div class="page-content" style="height: calc(100vh - 150px)">
+                                <app-room-list [isRmConfig]="false" (parentFun)="getUnAssignedResources($event)"></app-room-list>
+                        </div>
+
+                </div>
+                <div class="col-sm-6 col-md-6 col-xm-6 col-lg-6">
+                        <div class="row">
+                                <div class="col-sm-12 col-md-12 col-lg-12">                                      
+                                        <app-resource-unassign-screen (allScreenProcsPanels)="refreshPanels($event)">
+                                        </app-resource-unassign-screen>
+                                </div>
+                        </div>
+                        <div class="row" style="margin-top:10px !important">
+                                <div class="col-sm-12 col-md-12 col-lg-12">
+                                        <app-resource-assign-screen (allScreenProcsPanels)="refreshPanels($event)">
+                                        </app-resource-assign-screen>
+                                </div>
+                        </div>
+                </div>
+
+        </div>
+</p-panel>
+<p-toast key="rmResource" position="top-right"></p-toast>

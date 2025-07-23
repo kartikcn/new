@@ -1,0 +1,73 @@
+.row {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px;
+}
+
+.column {
+    flex-basis: 33%;
+    overflow-x: scroll;
+}
+
+.card {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.card-header {
+    font-weight: 500;
+    padding: 5px 5px 5px 0px;
+    font-size: 14px;
+}
+
+.card-content {
+    margin-top: 5px;
+    max-height: 350px;
+    overflow-y: scroll;
+}
+
+.card-content-title {
+    margin-right: 5px;
+    font-weight: 400;
+    font-size: 11px;
+}
+
+.table-header {
+    font-weight: 500;
+    font-size: 12px;
+}
+
+.hover-pointer {
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.5s;
+}
+
+.hover-pointer:hover {
+    background-color: #cdefed;
+    transform: scale(1);
+}
+
+.disabled-form {
+    opacity: 0.8;
+    /* You can customize the disabled form style here */
+    pointer-events: none;
+}
+
+:host ::ng-deep .p-button.p-button-icon-only {
+    // width: 2.357rem;
+    padding: 0.5rem 0;
+    width: 16px !important;
+    height: 16px !important;
+    cursor: pointer;
+}
+
+::-webkit-scrollbar-thumb {
+    background: lightgray;
+    border-radius: 2px;
+}
+
+::-webkit-scrollbar {
+    width: 4px;
+    height: 0px;
+}

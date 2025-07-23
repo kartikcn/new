@@ -1,0 +1,145 @@
+<p-panel header="Filter" [toggleable]="true" hidden>
+  <form [formGroup]="cntryFilterPanel">
+    <table width="100%">
+
+      <tr>
+        <td style="width: 20%;margin-right:5px">
+          <div class="input-label-custom">
+            <label class='form-field-lable'>Country Name</label>
+            <ng-select appendTo="body" [clearable]="false" [items]="enumCntry" formControlName="cntryId"
+              [searchable]="true" bindLabel="name" bindValue="id" placeholder="Make a selection"
+              class="ng-select-dropdown">
+            </ng-select>
+          </div>
+        </td>
+        <td style="width: 20%;margin-right:5px">
+          <div class="input-label-custom">
+            <label class='form-field-lable'>Region Name</label>
+            <ng-select appendTo="body" [clearable]="false" [items]="enumRegn" formControlName="regnId"
+              [searchable]="true" bindLabel="name" bindValue="id" placeholder="Make a selection"
+              class="ng-select-dropdown">
+            </ng-select>
+          </div>
+        </td>
+        <td style="width: 20%;margin-right:5px">
+          <div class="input-label-custom">
+            <label class='form-field-lable'>State Name</label>
+            <ng-select appendTo="body" [clearable]="false" [items]="enumState" formControlName="stateId"
+              [searchable]="true" bindLabel="name" bindValue="id" placeholder="Make a selection"
+              class="ng-select-dropdown">
+            </ng-select>
+          </div>
+        </td>
+        <td style="width: 20%">
+          <div class="input-label-custom">
+            <label class='form-field-lable'>City Name</label>
+            <ng-select appendTo="body" [clearable]="false" [items]="enumCity" formControlName="cityId"
+              [searchable]="false" bindLabel="name" bindValue="id" placeholder="Make a selection"
+              class="ng-select-dropdown">
+            </ng-select>
+          </div>
+        </td>
+        <td style="width: 7%"></td>
+        <td style="width: 13%">
+          <button pButton pRipple class="p-button-raised" (click)="onFilter()">
+            Filter
+          </button>
+          <button type="reset" pButton pRipple class="p-button-raised pull-right" (click)="onClear()">Clear</button>
+        </td>
+      </tr>
+    </table>
+  </form>
+</p-panel>
+<div style="padding-left: 0px;">
+  <div class="tabs-rounded" style="background-color: white;">
+    <ul class="nav nav-tabs" id="asset_tabs" style="font-size:12px;border-bottom:0">
+      <li class="perform-li" [ngClass]="{  'active': tab_name_clicked === 'Country' }"><a href="/"
+          (click)="openClickCountry($event,'Country')" prevent-default data-toggle="tab">Country</a></li>
+      <li class="perform-li" [ngClass]="{  'active': tab_name_clicked === 'Region' }"><a href="/"
+          (click)="openClickCountry($event,'Region')" data-toggle="tab">Region</a></li>
+      <li class="perform-li" [ngClass]="{  'active': tab_name_clicked === 'State' }"><a href="/"
+          (click)="openClickCountry($event,'State')" data-toggle="tab">State</a></li>
+      <li class="perform-li" [ngClass]="{  'active': tab_name_clicked === 'City' }"><a href="/"
+          (click)="openClickCountry($event,'City')" data-toggle="tab">City</a></li>
+    </ul>
+    <div id="locTabContent" class="tab-content">
+      <div class="tab-pane " id="Country">
+        <!--</p-panel>-->
+        <div class="card" style="height:85vh;">
+          <p-panel header=" ">
+            <ng-template pTemplate="icons">
+              <button pButton (click)="onAddCtry()" label="Add" icon="pi pi-plus">
+              </button>
+            </ng-template>
+            <div class="card">
+              <p-table #dt1 [value]="GL_data" [paginator]="false" styleClass="p-datatable-responsive-demo p-datatable-gridlines"
+                [rowHover]="true" [scrollable]="true" scrollDirection="both" scrollHeight="500px" selectionMode="single"
+                (onRowSelect)="onRowSelect($event)" (onFilter)="onInnerFilter($event)" (onSort)="onSort($event)">
+                <ng-template pTemplate="header">
+                  <tr>
+                    <th style="width:4rem"></th>
+                    <th pSortableColumn="ctryCode">
+                      <div class="grid-header-column">
+                        <div class="grid-header-label">
+                          <p class="grid-label-paragraph">Country Code</p>
+                        </div>
+                        <div class="grid-sort-icon">
+                          <p-sortIcon field="ctryCode"></p-sortIcon>
+                          <p-columnFilter type="text" field="ctryCode" display="menu"></p-columnFilter>
+                        </div>
+                      </div>
+                    </th>
+                    <th pSortableColumn="ctryName">
+                      <div class="grid-header-column">
+                        <div class="grid-header-label">
+                          <p class="grid-label-paragraph">Country Name</p>
+                        </div>
+                        <div class="grid-sort-icon">
+                          <p-sortIcon field="ctryName"></p-sortIcon>
+                          <p-columnFilter type="text" field="ctryName" display="menu"></p-columnFilter>
+                        </div>
+                      </div>
+                    </th>
+                  </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-cntry>
+                  <tr [pSelectableRow]="cntry">
+                    <td style="width:4rem">
+                      <button pButton pRipple type="button" icon="pi pi-pencil" (click)="openEditItem(cntry.ctryId)"
+                        class="p-button-text">
+                      </button>
+                    </td>
+                    <td>{{cntry.ctryCode}}</td>
+                    <td>{{cntry.ctryName}}</td>
+                  </tr>
+                </ng-template>
+                <ng-template pTemplate="emptymessage" let-columns>
+                  <tr>
+                    <td [attr.colspan]="3">
+                      No records found
+                    </td>
+                  </tr>
+                </ng-template>
+              </p-table>
+              <div class="paginator">
+                <p-paginator [rows]="rowCount" [totalRecords]="totalElements" (onPageChange)="onPageChange($event)"
+                [first]="paginationObj.pageNo * paginationObj.pageSize"
+                  currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true"
+                  [rowsPerPageOptions]="[25,50,100]"></p-paginator>
+              </div>
+            </div>
+          </p-panel>
+        </div>
+      </div>
+      <div class="tab-pane" id="Region">
+        <app-region-list (parentFun)="loadStateTabPanel($event)"></app-region-list>
+      </div>
+      <div class="tab-pane" id="State">
+        <app-state-list (parentFun)="loadCityTabPanel($event)"></app-state-list>
+      </div>
+      <div class="tab-pane" id="City">
+        <app-city-list (parentFun)="updateCityTabPanel($event)"></app-city-list>
+      </div>
+    </div>
+  </div>
+</div>

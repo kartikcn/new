@@ -1,0 +1,256 @@
+@import '/src/scss/variables';
+
+.card-container {
+    padding: 5px;
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    box-shadow: 1px 4px 4px 1px rgb(0 0 0 / 20%);
+    background-color: #f9fcfc;
+    border-radius: 5px;
+    justify-content: start;
+    overflow: hidden;
+    height: 120px;
+    width: 290px;
+    min-width: 0;
+    min-height: 100%;
+    border: 1px solid black;
+    cursor: pointer;
+}
+
+.card-img {
+    border-radius: 2px;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    min-width: 0;
+    min-height: 0;
+
+}
+
+.card-text-container {
+    display: flex;
+    flex-direction: column;
+    background-color: #f9fcfc;
+    width: 55%;
+    margin-left: 5px;
+    max-width: 100%;
+    overflow: hidden;
+    min-width: 0;
+}
+
+i:hover {
+    opacity: 0.5;
+    animation: animation 1s 1 linear;
+
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    grid-gap: 2px;
+    padding-top: 10px;
+    min-width: 0;
+    max-width: 300px;
+}
+
+.image-container {
+    width: 41%;
+    margin-right: 5px;
+}
+
+.heading {
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.para {
+    font-size: 11px;
+    margin-bottom: 0px;
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+:host ::ng-deep .p-dialog .p-dialog-header {
+    background-color: $toolbar;
+    color: black;
+    padding-left: 10px;
+    font-weight: normal;
+    margin-bottom: 0px;
+    height: 10px !important;
+}
+
+:host ::ng-deep .p-confirm-dialog .p-dialog-header .p-dialog-content {
+    align-items: center;
+    background-color: #f9fcfc;
+    display: flex;
+    padding: 10px;
+}
+
+:host ::ng-deep .p-confirm-dialog .p-dialog-header {
+    align-items: center;
+    background-color: #f9fcfc;
+
+}
+
+
+.rm-details-para {
+    font-size: 12px;
+    font-weight: 500;
+    text-align: right;
+    padding-top: 0;
+}
+
+.rm-details-para2 {
+    font-size: 12px;
+    font-weight: 500;
+    text-align: left;
+    margin-left: 5px;
+    padding-top: 0;
+}
+
+.border-bottom {
+    border-bottom: 1px solid rgb(232, 226, 226);
+    font-size: 14px;
+}
+
+.row {
+    margin-left: 1px;
+    margin-right: 1px;
+    background-color: #fff;
+    background-clip: border-box;
+    border-radius: 0.25rem;
+}
+
+.column1 {
+    float: left;
+    width: 50%;
+    padding: 10px;
+}
+
+.column2 {
+    float: left;
+    width: 50%;
+    padding: 10px;
+}
+
+.sum-para {
+    font-size: 12px !important;
+    padding: 0 !important;
+    font-weight: 500 !important;
+    padding-left: 3px !important;
+    margin-bottom: 1px;
+}
+
+.sum-label {
+    font-size: 11px !important;
+    padding: 0 !important;
+    font-weight: normal !important;
+    padding-left: 3px !important;
+    margin-top: -5px;
+    margin-left: 16px;
+    font-family: 'Roboto';
+}
+
+.avail-rooms {
+    margin-left: 28px;
+    margin-top: 5px;
+    margin-bottom: 0px;
+    font: 400 15px/20px Roboto, "Helvetica Neue", sans-serif;
+}
+.room-card {
+    min-height: 63vh;
+}
+.detailsHead {
+    font-size: 14px;
+    margin-bottom: 0px;
+    font-weight: 500;
+}
+.detailsPara {
+    font-size: 13px !important;
+    padding: 0 !important;
+    font-weight: normal !important;
+    padding-left: 3px !important;
+    margin-top: -5px;
+    margin-left: 16px;
+    font-family: revert;
+}
+.no-room-card {
+    min-height: 63vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.no-avail-rooms {
+    font: 150 25px/30px Roboto, "Helvetica Neue", sans-serif;
+    letter-spacing: normal;
+    opacity: 0.4;
+}
+
+.recurrence-label {
+    font-size: 12px;
+}
+.booking-card{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.no-file-found{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 63vh;
+}
+
+::ng-deep .mat-paginator{
+    background-color: #f9fcfc;
+}
+
+.filter-search-button{
+    width: 60px;  
+    margin-left: 5px;
+}
+
+.filter-clear-button{
+    width: 60px; 
+    margin-left: 5px;
+}
+
+@media screen and (min-width: $tabletPotraitMinWidth) and (max-width:$tabletPotraitMaxWidth ) {
+    .filter-search-button{
+        width: auto;  
+        margin-left: 0px;
+    }
+    
+    .filter-clear-button{
+        width: auto; 
+        margin-left: 5px;
+    }
+
+    .grid-container {
+        grid-template-columns: auto auto ;
+        grid-gap: 0px;
+    }
+    .card-container{
+        height: 110px;
+        width: 250px;
+    }
+}
+
+@media screen and (min-width: $tabletLandscapeMinWidth) and (max-width:$tabletLandspaceMaxWidth ) {
+    .filter-search-button{
+        width: auto;  
+        margin-left: 0px;
+    }
+    
+    .filter-clear-button{
+        width: auto; 
+        margin-left: 5px;
+    }
+    .grid-container {
+        grid-template-columns: auto auto auto;
+    }
+}

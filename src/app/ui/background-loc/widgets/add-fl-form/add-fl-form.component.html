@@ -1,0 +1,80 @@
+<form [formGroup]="flFormPanel">
+  <table width="100%">
+    <tr>
+      <td style="width: 50%">
+        <div class="input-label-custom ">
+          <label class='form-field-lable control-label'>Building</label>
+          <!--<input type="text" class="form-control" name="blId" formControlName="blId" maxlength="20" [readonly]="!isNew">-->
+          <ng-select appendTo="body" [clearable]="false" [items]="enumBL" formControlName="blId"
+            [readonly]="isView" [searchable]="true" bindLabel="blNameString" bindValue="blId" (open)="onOpenBl()"
+            placeholder="Make a selection" class="ng-select-dropdown"  (scrollToEnd)="scrollToEndBl()" (search)="searchBl($event)">
+          </ng-select>
+        </div>
+      </td>
+      <td style="width: 50%">
+        <div class="input-label-custom ">
+          <label class='form-field-lable control-label'>Floor Code</label>
+          <input type="text" class="form-control" [readonly]="isView" name="flCode" uppercase formControlName="flCode"
+            maxlength="32" appTrimInput>
+        </div>
+      </td>
+    </tr>
+    <!-- <tr
+      *ngIf="(flFormPanel.controls['flId']?.errors && (flFormPanel.controls['flId']?.dirty || flFormPanel.controls['flId']?.touched))">
+      <td></td>
+      <td style="width: 50%">
+        <label *ngIf="flFormPanel.controls['flId']?.errors && !flFormPanel.controls['flId']?.errors.required"
+          class='form-field-lable' style="color:red;">Building Id and Floor Id combination already
+          exists.</label>
+      </td>
+    </tr> -->
+    <tr>
+      <td style="width: 50%">
+        <div class="input-label-custom ">
+          <label class='form-field-lable'>Floor Name</label>
+          <input type="text" class="form-control" [readonly]="isView" name="flName" formControlName="flName" maxlength="64"
+            appTrimInput>
+        </div>
+      </td>
+      <td style="width: 50%">
+        <div class="location-container">
+          <div class="input-label-custom input-container">
+            <label class='form-field-lable'>Floor Plan Name</label>
+            <input type="text" class="form-control" [readonly]="true" name="svgName" formControlName="svgName"
+              maxlength="64">
+          </div>
+          <div class="icon-container" [hidden]="isNew || isView">
+            <p-button label="Unlink" (click)="unLinkFloorPlan()" matTooltip="Unlink The Floor Plan"
+              [disabled]="flFormPanel.controls.svgName.value == null" icon="pi pi-times" [style]="{'background-color': 'red'}"
+              [hidden]="isNew"></p-button>
+          </div>
+      </div>
+      </td>
+    </tr>
+    <tr>
+      <td style="width: 50%" colspan="2">
+        <div class="input-label-custom ">
+          <label class='form-field-lable'>Floor Info</label>
+          <textarea class="form-control note-border" name="flInfo" [readonly]="isView" formControlName="flInfo"
+              rows="2" nz-input maxlength="128" appTrimInput></textarea>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td style="width: 50%">
+        <div class="input-label-custom ">
+          <label class='form-field-lable'>External Area ft²</label>
+          <input type="text" class="form-control" name="externalArea" [readonly]="isView" NumbersOnly formControlName="externalArea" maxlength="6" appTrimInput>
+        </div>
+      </td>
+      <td style="width: 50%">
+        <div class="input-label-custom ">
+          <label class='form-field-lable'>Internal Area ft²</label>
+          <input type="text" class="form-control" name="internalArea" [readonly]="isView" NumbersOnly formControlName="internalArea" maxlength="6" appTrimInput>
+        </div>
+      </td>
+    </tr>
+  </table>
+</form>
+<p-toast key="rmSuccessMessage" position="top-right"></p-toast>
+<p-confirmDialog key="addFlForm" header="Confirmation"  [style]="{width: '25vw'}" icon="pi pi-exclamation-triangle"></p-confirmDialog>

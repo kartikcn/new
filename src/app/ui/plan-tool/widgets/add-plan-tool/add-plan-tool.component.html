@@ -1,0 +1,61 @@
+<form [formGroup]="planToolFormPanel">
+    <table width="100%">
+        <tr>
+            <td>
+                <div class="input-label-custom ">
+                    <label class='form-field-lable control-label'>Step</label>
+                    <ng-select appendTo="body" [clearable]="false" [items]="planStepList" formControlName="planStepId"
+                        [searchable]="true" bindLabel="stepCode" bindValue="planStepId" placeholder="Make a selection"
+                        class="ng-select-dropdown" readonly="true">
+                    </ng-select>
+                </div>
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <div style="display: flex;">
+                    <div class="input-label-custom " style="width: 90%;">
+                        <label class='form-field-lable control-label'>Plan Tool</label>
+                        <ng-select appendTo="body" [clearable]="false" [items]="toolsList" formControlName="toolId"
+                            [searchable]="true" bindLabel="tool" bindValue="toolsId" placeholder="Make a selection"
+                            class="ng-select-dropdown" (change)="selectTool($event)">
+                        </ng-select>
+                    </div>
+                    <div style="display: flex;  margin-top: 32px;">
+                        <button pButton pRipple icon="pi pi-info-circle" (click)=" showPartDetails()"
+                            [disabled]="!enableDetailsBtn" matTooltip="View Part Details"
+                            class="p-button-rounded pull-right"></button>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label class='form-field-lable' *ngIf="toolsExist" style="color:red;">Tool already exists</label>
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>
+                <div class="input-label-custom ">
+                    <label class='form-field-lable control-label'>Required Hours</label>
+                    <input type="text" class="form-control" NumbersOnly TwoDigitDecimalNumber name="hoursRequired"
+                        formControlName="hoursRequired">
+                </div>
+            </td>
+        </tr>
+
+    </table>
+</form>
+
+<!-- Part Details Form -->
+<p-dialog header="Tool Details" [(visible)]="showDetails" *ngIf="showDetails" [style]="{width: '35vw'}" [modal]="true">
+    <form [formGroup]="frmToolsDetail" class="disabled-form">
+        <mat-card>
+            <mat-card-content id="tool">
+                <app-add-tools formControlName="toolsFormPanel" [isNew]="true"></app-add-tools>
+            </mat-card-content>
+        </mat-card>
+    </form>
+</p-dialog>

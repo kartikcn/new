@@ -1,0 +1,18 @@
+<h2 mat-dialog-title class="mat-dialog-title-ext">{{title}} Trade </h2>
+<mat-dialog-content class="mat-typography mat-dialog-content-ext">
+  <form [formGroup]="frmTradeDetail">
+    <mat-card>
+      <mat-card-content id="tradeCard">
+        <app-add-trades-form formControlName="tradeFormPanel" [isNew]="isNew"></app-add-trades-form>
+      </mat-card-content>
+    </mat-card>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end" class="mat-dialog-actions-ext">
+  <p-button label="Save" icon="pi pi-check" (click)="saveRecords()" [disabled]="!frmTradeDetail.valid"></p-button>
+  <p-button label="Cancel" icon="pi pi-times" (click)="confirmDialog()" styleClass="p-button-secondary"
+    [style]="{'margin-left': '.5em'}"></p-button>
+</mat-dialog-actions>
+<p-confirmDialog key="td" header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>
+<p-toast key="tradeSave"></p-toast>
+<p-toast key="error" position="top-right"></p-toast>

@@ -1,0 +1,53 @@
+<form [formGroup]="planTradeFormPanel">
+    <table width="100%">
+        <tr>
+            <td>
+                <div class="input-label-custom ">
+                    <label class='form-field-lable control-label'>Step</label>
+                    <ng-select appendTo="body" [clearable]="false" [items]="planStepList" formControlName="planStepId"
+                        [searchable]="true" bindLabel="stepCode" bindValue="planStepId" placeholder="Make a selection"
+                        class="ng-select-dropdown" readonly="true">
+                    </ng-select>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div style="display: flex;">
+                    <div class="input-label-custom " style="width: 90%;">
+                        <label class='form-field-lable control-label'>Plan Trade</label>
+                        <ng-select appendTo="body" [clearable]="false" [items]="tradeList" formControlName="tradeId"
+                            [searchable]="true" bindLabel="tradeCode" bindValue="tradeId" placeholder="Make a selection"
+                            class="ng-select-dropdown" (change)="selectTrade($event)">
+                        </ng-select>
+                    </div>
+                    <div style="display: flex;  margin-top: 32px;">
+                        <button pButton pRipple icon="pi pi-info-circle" (click)=" showTradeDetails()"
+                            [disabled]="!enableDetailsBtn" matTooltip="View Part Details"
+                            class="p-button-rounded pull-right"></button>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label class='form-field-lable' *ngIf="isTradeExists" style="color:red;">Trade already exists</label>
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>
+                <div class="input-label-custom ">
+                    <label class='form-field-lable control-label'>Required Hours</label>
+                    <input type="text" class="form-control" NumbersOnly TwoDigitDecimalNumber name="hoursRequired"
+                        formControlName="hoursRequired">
+                </div>
+            </td>
+        </tr>
+    </table>
+</form>
+
+<!-- Trade Details Form -->
+<p-dialog id="details" [(visible)]="showDetails" *ngIf="showDetails" [style]="{width: '40vw'}" [modal]="true">
+    <app-trade-details [selectedTrade]="selectedTrade"></app-trade-details>
+</p-dialog>

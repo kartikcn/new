@@ -1,0 +1,1 @@
+{"ast":null,"code":"export class SpaceUtilizationStatisticsFilterInputDTO {\n  constructor(division, department, building, floor) {\n    this.division = division;\n    this.department = department;\n    this.building = building;\n    this.floor = floor;\n  }\n}","map":null,"metadata":{},"sourceType":"module","externalDependencies":[]}

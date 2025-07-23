@@ -1,0 +1,22 @@
+<table width="100%">
+    <tr *ngFor="let data of alertsData" >
+        <td width="8%" [style.backgroundColor]="data.bgColor" style="cursor: pointer;" 
+        (click)="onRowSelect(data)" class="alert-box">
+            <span class="alert-count">{{ data.requestCount }}</span>
+        </td>
+        <td width="2%"></td>
+        <td width="80%">
+            <span class="alert-label">{{ data.label }}</span>
+        </td>
+    </tr>
+</table>
+
+<p-dialog [(visible)]="isShowDialog" [modal]="true" [style]="{ 'max-width': '70vw' }" [maximizable]="true"
+    [draggable]="false" [resizable]="false" styleClass="dark-panel">
+    <ng-template pTemplate="header">
+        <h2> Requests List</h2>
+    </ng-template>
+    <ng-template pTemplate="body">
+        <app-add-table [data]="displayData" [isEscalatedData]="viewForEscalation"></app-add-table>
+    </ng-template>
+</p-dialog>

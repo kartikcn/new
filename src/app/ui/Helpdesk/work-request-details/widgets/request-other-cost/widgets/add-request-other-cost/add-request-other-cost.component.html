@@ -1,0 +1,50 @@
+<form [formGroup]="requestOtherCostForm" autocomplete="off">
+    <table width="100%">
+        <tr>
+            <td colspan="2">
+                <div class="input-label-custom ">
+                    <label class='form-field-lable control-label'>Cost Type</label>
+                    <ng-select appendTo="body" [clearable]="false" [items]="costTypeData" formControlName="costTypeId"
+                        [searchable]="true" bindLabel="costType" bindValue="costTypeId" class="ng-select-dropdown"
+                        placeholder="Make a Selection" (change)="selectCostType($event)">
+                    </ng-select>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label class='form-field-lable' *ngIf="costTypeExist" style="color:red;">Cost Type already
+                    exists</label>
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td width="50%">
+                <div class="input-label-custom">
+                    <label class='form-field-lable control-label'>Estimated Cost</label>
+                    <input type="text" NumbersOnly class="form-control" name="estimatedCost" formControlName="estimatedCost"
+                         TwoDigitDecimalNumber maxlength="16">
+                </div>
+            </td>
+            <td width="50%">
+                <div class="input-label-custom ">
+                    <label class='form-field-lable'>Actual Cost</label>
+                    <input type="text" NumbersOnly class="form-control" name="actualCost" formControlName="actualCost"
+                         TwoDigitDecimalNumber maxlength="16" [readonly]="!showActualCost" >
+                </div>
+            </td>
+        </tr>
+        
+        <tr>
+            <td colspan="3">
+                <div class="input-label-custom">
+                    <label class='form-field-lable'>Description</label>
+                    <nz-textarea-count [nzMaxCharacterCount]="512">
+                        <textarea class="form-control note-border" name="description" formControlName="description"
+                            rows="2" nz-input maxlength="512"></textarea>
+                    </nz-textarea-count>
+                </div>
+            </td>
+        </tr>
+    </table>
+</form>

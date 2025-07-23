@@ -1,0 +1,95 @@
+<div class="card">
+    <form [formGroup]="filterPanel">
+        <table width="100%">
+            <tr>
+                <td style="width: 20%">
+                    <div class="input-label-custom ">
+                        <label class='form-field-lable control-label'>Building </label>
+                        <ng-select appendTo="body" [clearable]="false" [items]="enumBL" formControlName="blId"
+                            [searchable]="true" bindLabel="name" bindValue="id" (change)="onSelectBlCode($event)"
+                            placeholder="Make a selection" class="ng-select-dropdown">
+                        </ng-select>
+                    </div>
+                </td>
+                <td style="width: 20%">
+                    <div class="input-label-custom ">
+                        <label class='form-field-lable control-label'>Floor</label>
+                        <ng-select appendTo="body" [clearable]="false" [items]="enumFL" formControlName="flId"
+                            [searchable]="true" bindLabel="name" bindValue="id" placeholder="Make a selection"
+                            class="ng-select-dropdown" (change)="onSelectFlCode($event)">
+                        </ng-select>
+                    </div>
+                </td>
+                <td style="width: 20%"></td>
+                <td style="width: 20%"></td>
+                <td style="width: 20%">
+                    <div style="margin: 5px 0 0 5px ">
+                        <button (click)="onSearch()" [disabled]="!filterPanel.valid" pButton pRipple label="Search"
+                            style="width: 60px;  margin-left: 5px;"
+                            class="p-button-primary p-button-sm pull right"></button>
+                        <button (click)="onClear()" pButton pRipple label="Clear"
+                            style="width: 60px;  margin-left: 5px;"
+                            class="p-button-primary p-button-sm pull right"></button>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+<div class="card no-file-found" *ngIf="displayNoFloorPlanInfo">
+    <h1>No Floorplan available</h1>
+</div>
+<div class="card" *ngIf="viewSvg">
+    <div style="display: flex; justify-content: space-between;height:600px;">
+        <div style="width:22%">
+            <p-table [value]="floorPlanArrangementList" [paginator]="true" [rows]="rowCount" [showCurrentPageReport]="true"
+                currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                [rowsPerPageOptions]="[5,10,25]" styleClass="p-datatable-responsive-demo p-datatable-gridlines"
+                [rowHover]="false" [scrollable]="true" scrollDirection="both" scrollHeight="95%" [(selection)]="selectedArrangements">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th style="width:4rem">
+                            <p-tableHeaderCheckbox (click)="checkboxChange($event)"></p-tableHeaderCheckbox>
+                        </th>
+                        <th pSortableColumn="arrangementType">
+                            Arrangement Type <p-sortIcon field="arrangementType"></p-sortIcon>
+                            <p-columnFilter type="text" field="arrangementType" display="menu"></p-columnFilter>
+                        </th>
+                        <th>
+                            Color 
+                        </th>
+                </ng-template>
+                <ng-template pTemplate="body" let-arr>
+                    <tr [pSelectableRow]="arr">
+                        <td style="width:4rem">
+                            <p-tableCheckbox [value]="arr" (click)="checkboxChange($event)"></p-tableCheckbox>
+                        </td>
+                        <td>{{arr.arrangementType}}</td>
+                        <td >
+                            <div class="td-class"  [style.background-color]="arr.colorCode">
+                            </div>
+                        </td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="emptymessage" let-columns>
+                    <tr>
+                        <td [attr.colspan]="9">
+                            No records found
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+        <div style="width:73%;margin: 5px;">
+            <!-- <app-svg-view  [fileString]="fileString"  [allSVGElementsData]="allDisplaySVGElementsData" [isArrangementSvg]="true"
+                [availableRmConfigRoom]="availableRmConfigRoom" [allRoomsOfFloorWithElementId]="roomDetails" [allSVGRoomsData]="svgRoomData" 
+                 ></app-svg-view> -->
+            <app-svg-view ></app-svg-view>
+        </div>
+    </div>
+</div>
+
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#879cc9" class="spinner-color" type="ball-spin-clockwise"
+    *ngIf="showSpinner" [fullScreen]="true">
+    <p style="color: white"> Loading... </p>
+</ngx-spinner>

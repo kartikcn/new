@@ -1,0 +1,31 @@
+<form [formGroup]="toolTypeFormPanel">
+    <table width="100%">
+        <tr>
+            <td>
+                <div class="input-label-custom ">
+                    <label class='form-field-lable control-label'>Tool Type</label>
+                    <input type="text" class="form-control" name="toolType" formControlName="toolType" maxlength="64" appTrimInput>
+                </div>
+            </td>
+        </tr>
+        <tr
+            *ngIf="(toolTypeFormPanel.controls['toolType']?.errors && (toolTypeFormPanel.controls['toolType']?.dirty || toolTypeFormPanel.controls['toolType']?.touched))">
+            <td >
+                <label
+                    *ngIf="toolTypeFormPanel.controls['toolType']?.errors && !toolTypeFormPanel.controls['toolType']?.errors.required"
+                    class='form-field-lable' style="color:red;">Tool Type is already exists</label>
+            </td>
+            <td ></td>
+        </tr>
+        <tr>
+            <td>
+                <div class="input-label-custom ">
+                    <label class='form-field-lable'>Description</label>
+                    <textarea class="form-control note-border" name="description" formControlName="description" rows="2" nz-input
+                        maxlength="256" appTrimInput></textarea>
+                </div>
+            </td>
+        </tr>
+
+    </table>
+</form>

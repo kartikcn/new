@@ -1,0 +1,19 @@
+<h2 mat-dialog-title class="mat-dialog-title-ext">{{title}} Comments</h2>
+<mat-dialog-content>
+    <form [formGroup]="wrCommentsFormPanel">
+        <mat-card-content id="wr-comments">
+            <div class="input-label-custom ">
+                <label class='form-field-lable  control-label'>Comments</label>
+                <nz-textarea-count [nzMaxCharacterCount]="4000">
+                    <textarea class="form-control note-border" name="commetns" formControlName="comments" rows="4" maxlength="4000" nz-input></textarea>
+                </nz-textarea-count>
+            </div>
+        </mat-card-content>
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end" class="mat-dialog-actions-ext">
+    <p-button label="Save" icon="pi pi-check" (click)="onSave()"  [disabled]="!wrCommentsFormPanel.value.comments || isView"></p-button>
+    <p-button label="Cancel" (click)="onCancel()" icon="pi pi-times" styleClass="p-button-secondary"
+        [style]="{'margin-left': '.5em'}"></p-button>
+</mat-dialog-actions>
+<p-confirmDialog key="wr-comments-cancel" header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>

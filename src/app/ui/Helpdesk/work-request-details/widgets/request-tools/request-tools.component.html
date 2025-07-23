@@ -1,0 +1,99 @@
+<p-panel header="Tools Details">
+    <ng-template pTemplate="icons">
+        <button pButton label="Add" [disabled]="isReadOnly" (click)="onAdd()" icon="pi pi-plus"></button>
+    </ng-template>
+    <div class="card">
+        <p-table [paginator]="true" [value]="reqtoolData" [rows]="rowCount" [showCurrentPageReport]="true"
+            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [scrollable]="true"
+            scrollDirection="both" scrollHeight="500px" [rowsPerPageOptions]="[5,10,25]"
+            [globalFilterFields]="['','partCode','description']"
+            styleClass="p-datatable-responsive-demo p-datatable-gridlines" [rowHover]="false">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th style="width:8rem"> </th>
+                    <th pSortableColumn="toolTool">
+                        <div class="grid-header-column">
+                            <div class="grid-header-label">
+                                <p class="grid-label-paragraph">Tool</p>
+                            </div>
+                            <div class="grid-sort-icon">
+                                <p-sortIcon field="toolTool"></p-sortIcon>
+                                <p-columnFilter type="text" field="toolTool"
+                                    display="menu"></p-columnFilter>
+                            </div>
+                        </div>
+                    </th>
+                    <th pSortableColumn="hoursRequired">
+                        <div class="grid-header-column">
+                            <div class="grid-header-label">
+                                <p class="grid-label-paragraph">Required Hours</p>
+                            </div>
+                            <div class="grid-sort-icon">
+                                <p-sortIcon field="hoursRequired"></p-sortIcon>
+                                <p-columnFilter type="text" field="hoursRequired"
+                                    display="menu"></p-columnFilter>
+                            </div>
+                        </div>
+                    </th>
+                   <th pSortableColumn="formatedDateAssigned">
+                    <div class="grid-header-column">
+                        <div class="grid-header-label">
+                            <p class="grid-label-paragraph">Date Assigned</p>
+                        </div>
+                        <div class="grid-sort-icon">
+                            <p-sortIcon field="formatedDateAssigned"></p-sortIcon>
+                            <p-columnFilter type="text" field="formatedDateAssigned"
+                                display="menu"></p-columnFilter>
+                        </div>
+                    </div>
+                </th>
+                  <th pSortableColumn="timeAssign">
+                    <div class="grid-header-column">
+                        <div class="grid-header-label">
+                            <p class="grid-label-paragraph">Time Assigned</p>
+                        </div>
+                        <div class="grid-sort-icon">
+                            <p-sortIcon field="timeAssign"></p-sortIcon>
+                            <p-columnFilter type="text" field="timeAssign"
+                                display="menu"></p-columnFilter>
+                        </div>
+                    </div>
+                </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-requestTools>
+                <tr [pSelectableRow]="requestTools">
+                    <td style="width:8rem">
+                        <button *ngIf="!isReadOnly" pButton pRipple icon="pi pi-pencil" (click)="onEdit(requestTools.reqToolId)"
+                            type="button" class="p-button-text"
+                            [disabled]="!isSupervisor && requestTools.addedBy != loggedIdUserName">
+                        </button>
+                        <button *ngIf="isReadOnly" pButton pRipple icon="pi pi-eye" (click)="onView(requestTools.reqToolId)"
+                            type="button" class="p-button-text"
+                            >
+                        </button>
+                        <button pButton pRipple icon="pi pi-times" type="button"
+                            (click)="onDelete(requestTools.reqToolId)" class="p-button-text pull-right"
+                            style="font-size: 5rem; color: red;"
+                            [disabled]="(!isSupervisor && requestTools.addedBy != loggedIdUserName) || isReadOnly">
+                        </button>
+                    </td>
+                    <td>{{requestTools.toolTool}}</td>
+                    <td>{{requestTools.hoursRequired}}</td>
+                    <td>{{requestTools.dateAssign | date :"dd MMM yyyy"}}</td>
+                    <td>{{convertToDisplayTime(requestTools.timeAssign)}}</td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage" let-columns>
+                <tr>
+                    <td [attr.colspan]="5" style="text-align: center;">
+                        No records found
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+</p-panel>
+<p-toast key="requestToolsSave" position="top-right"></p-toast>
+<p-toast key="requestToolswarning" position="top-center"></p-toast>
+<p-confirmDialog key="requestToolsgrid" header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>

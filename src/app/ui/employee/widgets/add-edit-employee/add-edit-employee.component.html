@@ -1,0 +1,47 @@
+<h2 mat-dialog-title class="mat-dialog-title-ext"> {{title}} Employee Details</h2>
+<mat-dialog-content class="mat-typography mat-dialog-content-ext">
+  <form [formGroup]="frmEmpDetail">
+    <mat-card>
+      <mat-card-header class="mat-dialog-title-ext">
+        <mat-card-title>
+          Basic Information
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content id="emPanel">
+        <app-add-employee [isNew]="isNew" [isEdit]="isEdit" formControlName="frmEmployeeDetails"></app-add-employee>
+      </mat-card-content>
+    </mat-card>
+    <mat-card>
+      <mat-card-header class="mat-dialog-title-ext">
+        <mat-card-title>
+         Location
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content id="emLocationPanel">
+        <app-employee-location [isNew]="isNew" [isEdit]="isEdit" formControlName="frmEmployeeLocation"></app-employee-location>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card>
+      <mat-card-header class="mat-dialog-title-ext">
+        <mat-card-title>
+         Contact Information
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <app-employee-contact [isNew]="isNew" [isEdit]="isEdit" formControlName="frmEmployeeContact"></app-employee-contact>
+      </mat-card-content>
+    </mat-card>
+
+    
+
+  </form>
+
+</mat-dialog-content>
+<mat-dialog-actions align="end" class="mat-dialog-actions-ext">
+  <button pButton label="Save" (click)="saveRecords()"  [disabled]="getFormAction()" icon="pi pi-check"></button>
+  <p-button label="Cancel" icon="pi pi-times" (click)="confirmDialog()" styleClass="p-button-secondary"
+            [style]="{'margin-left': '.5em'}"></p-button>
+</mat-dialog-actions>
+<p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>
+<p-toast key ="save" position="top-right"></p-toast>

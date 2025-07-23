@@ -1,0 +1,46 @@
+#svg-container{
+    border: 2px solid #879cc9;
+    margin-top:5px;
+    width: 100%;
+    height:100%;
+    overflow: hidden;
+}
+
+.ellipsis{
+    white-space: nowrap; 
+    overflow: hidden;
+    text-overflow: ellipsis; 
+  }
+
+  .hover-container {
+    position: relative;
+  }
+  
+  .tooltip-status {
+    width:max-content;
+   display: none;
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #333;
+    color: #fff;
+    font-size:x-small;
+    text-align: center;
+    padding: 5px;
+    border-radius: 3px;
+    opacity: 0;
+    transition: opacity 0.2s ease-in-out;
+  }
+  
+  .hover-container:hover .tooltip-status {
+    opacity: 1;
+   display: block;
+  }
+
+  .no-file-found{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 600px;
+}

@@ -1,0 +1,75 @@
+<div class="card">
+    <form [formGroup]="filterPanel">
+        <table width="100%" *ngIf="!useTabletProtrait">
+            <tr>
+                <td style="width: 20%">
+                    <div class="input-label-custom ">
+                        <label class='form-field-lable control-label'>Asset </label>
+                        <ng-select appendTo="body" [clearable]="false" [items]="enumEq" formControlName="eqId"
+                            [searchable]="true" bindLabel="eqCode" bindValue="eqId" placeholder="Make a selection"
+                            class="ng-select-dropdown">
+                        </ng-select>
+                    </div>
+                </td>
+                <td style="width: 40%; position: relative;">
+                    <div *ngIf="showRoomData" style="position: absolute; bottom: 9px; font-size: 12px;">
+                        {{roomDetailsData}}
+                    </div>
+                </td>
+                <td style="width: 20%"></td>
+                <td style="width: 20%">
+                    <div style="margin: 5px 0 0 5px ">
+                        <button (click)="onSearch()" [disabled]="!filterPanel.valid" pButton pRipple label="Search"
+                            style="width: 60px;  margin-left: 5px;"
+                            class="p-button-primary p-button-sm pull right"></button>
+                        <button (click)="onClear()" pButton pRipple label="Clear"
+                            style="width: 60px;  margin-left: 5px;"
+                            class="p-button-primary p-button-sm pull right"></button>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <table width="100%" *ngIf="useTabletProtrait">
+            <tr>
+                <td style="width: 25%">
+                    <div class="input-label-custom ">
+                        <label class='form-field-lable control-label'>Asset </label>
+                        <ng-select appendTo="body" [clearable]="false" [items]="enumEq" formControlName="eqId"
+                            [searchable]="true" bindLabel="eqCode" bindValue="eqId" placeholder="Make a selection"
+                            class="ng-select-dropdown">
+                        </ng-select>
+                    </div>
+                </td>
+                <td style="width: 40%; position: relative;">
+                    <div *ngIf="showRoomData" style="position: absolute; bottom: 9px; font-size: 11px;">
+                        {{roomDetailsData}}
+                    </div>
+                </td>
+                <td style="width: 25%">
+                    <div style="margin: 5px 0 0 5px ">
+                        <button (click)="onSearch()" [disabled]="!filterPanel.valid" pButton pRipple label="Search"
+                            style="width: 60px; "
+                            class="p-button-primary p-button-sm pull right"></button>
+                        <button (click)="onClear()" pButton pRipple label="Clear"
+                            style="width: 60px;  margin-left: 5px;"
+                            class="p-button-primary p-button-sm pull right"></button>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </form>
+
+</div>
+<div class="card no-file-found" *ngIf="noSVGFound">
+    <h1>No Floorplan available</h1>
+</div>
+<div class="card" style="height: 600px;" *ngIf="viewSvg">
+    <div style="height: 590px;">
+        <app-svg-view [svgInputData]="svgInputData"></app-svg-view>
+    </div>
+</div>
+
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#879cc9" class="spinner-color" type="ball-spin-clockwise"
+    *ngIf="showSpinner" [fullScreen]="true">
+    <p style="color: white"> Loading... </p>
+</ngx-spinner>

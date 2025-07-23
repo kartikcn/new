@@ -1,0 +1,27 @@
+<p-tabView styleClass="tabview-custom" *ngIf="!showEmptyPage" (onChange)="onTabChange($event)">
+        <p-tabPanel 
+                *ngIf="homeDashboard.facilitiesDesk == 1 || homeDashboard.preventiveMaintenance == 1">
+                <ng-template pTemplate="header">
+                        <span nz-icon nzType="audit" nzTheme="outline" style="margin-right: 0.5rem;"></span>
+                        <span>Facilities Helpdesk</span>
+                </ng-template>
+                <div style="overflow-x: scroll;" *ngIf="isFacilitiesDeskTabActive">
+                        <app-supervisor-dashboard></app-supervisor-dashboard>
+                </div>
+        </p-tabPanel>
+        <p-tabPanel *ngIf="homeDashboard.space == 1">
+                <ng-template pTemplate="header">
+                        <span nz-icon nzType="apartment" nzTheme="outline" style="margin-right: 0.5rem;"></span>
+                        <span>Space</span>
+                </ng-template>
+                <div *ngIf="isSpaceTabActive">
+                        <app-space-dashboard></app-space-dashboard>
+                </div>
+        </p-tabPanel>
+        
+</p-tabView>
+
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#879cc9" class="spinner-color" type="ball-atom"
+        [fullScreen]="true">
+        <p style="color: white"> Loading... </p>
+</ngx-spinner>

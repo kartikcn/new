@@ -1,0 +1,82 @@
+<form [formGroup]="partsFormPanel">
+    <table width="100%">
+        <tr>
+            <td>
+                <div class="input-label-custom ">
+                    <label class='form-field-lable control-label'>Part Code</label>
+                    <input type="text" class="form-control" name="partCode" formControlName="partCode" maxlength="64" appTrimInput>
+                </div>
+            </td>
+            <td>
+                <div class="input-label-custom " >
+                    <label class='form-field-lable'>Model  Number</label>
+                    <input type="text" class="form-control" name="modelNo" formControlName="modelNo" maxlength="128" appTrimInput>
+                </div>
+            </td>
+        </tr>
+        <tr
+            *ngIf="(partsFormPanel.controls['partCode']?.errors && (partsFormPanel.controls['partCode']?.dirty || partsFormPanel.controls['partCode']?.touched))">
+            <td>
+                <label
+                    *ngIf="partsFormPanel.controls['partCode']?.errors && !partsFormPanel.controls['partCode']?.errors.required"
+                    class='form-field-lable' style="color:red; margin-left: 5px;">Part Code is already exists</label>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="input-label-custom " >
+                    <label class='form-field-lable'>Minimum to Store</label>
+                    <input type="text" class="form-control" name="qutMinHand" formControlName="qutMinHand" NumbersOnly appTrimInput>
+                </div>
+            </td>
+            <td>
+                <div class="input-label-custom " >
+                    <label class='form-field-lable control-label'>Quantity Available</label>
+                    <input type="text" class="form-control" name="qutOnHand" NumbersOnly formControlName="qutOnHand" appTrimInput>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="input-label-custom " >
+                    <label class='form-field-lable control-label'>Consumable</label>
+                        <p-selectButton [options]="enumConsumable" formControlName="consumable" optionLabel="enumValue"
+                        optionValue="enumKey"></p-selectButton>
+                </div>
+            </td>
+            <td>
+                <div class="input-label-custom " >
+                    <label class='form-field-lable'>Quantity Reorder</label>
+                    <input type="text" class="form-control" name="qutOnOrder" NumbersOnly formControlName="qutOnOrder" appTrimInput>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="input-label-custom " >
+                    <label class='form-field-lable control-label'>Unit of Measurement</label>
+              <ng-select appendTo="body" [clearable]="false" name="unitOfMeasurement"
+                        formControlName="unitOfMeasurement" [searchable]="true" bindLabel="enumValue" bindValue="enumKey" 
+                        placeholder="Make a selection" class="ng-select-dropdown" [items]="enumMeasurment">
+                    </ng-select>
+                </div>
+            </td>
+            <td>
+                <div class="input-label-custom " >
+                    <label class='form-field-lable'>Rate Per Unit</label>
+                    <input type="text" class="form-control" name="ratePerUnit" NumbersOnly formControlName="ratePerUnit" appTrimInput>
+                </div>
+            </td>
+        </tr>
+        
+        <tr>
+            <td colspan="2">
+                <div class="input-label-custom">
+                    <label class='form-field-lable'>Description</label>
+                    <textarea class="form-control note-border" name="description" formControlName="description" rows="2" nz-input
+                        maxlength="256" appTrimInput></textarea>
+                </div>
+            </td>
+        </tr>
+    </table>
+</form>

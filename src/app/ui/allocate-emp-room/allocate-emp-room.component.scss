@@ -1,0 +1,154 @@
+@import '/src/scss/variables';
+
+:host ::ng-deep .p-dialog .p-dialog-header {
+    background-color: $toolbar;
+    color: black;
+    padding-left: 10px;
+    font-weight: normal;
+    margin-bottom: 0px;
+    height: 10px !important;
+}
+
+.no-file-found{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 500px;
+}
+
+.td-class {
+    background-color: inherit;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 20px;
+    margin: 10px auto auto auto;
+    border: 1px solid black;
+  }
+
+:host ::ng-deep .p-datatable-scrollable-body {
+    overflow-y: auto !important;
+}
+
+:host ::ng-deep .p-datatable-scrollable-header-box{
+    padding:0px !important;
+}
+
+.invalid_cell_value{
+    border: 2px solid #f44336 !important;
+}
+
+:host ::ng-deep .ng-select.ng-select-single .ng-select-container{
+    height:30px !important;
+}
+
+:host ::ng-deep .p-fluid .p-calendar .p-inputtext{
+    height:30px !important;
+}
+
+.search_input{
+    height:30px !important;
+}
+
+:host ::ng-deep #em_list .p-datatable-wrapper{
+    max-height:514px !important;
+}
+
+:host ::ng-deep #rm_list .p-datatable-wrapper{
+    max-height:477px !important;
+}
+
+#roomselectiondialog .card{
+    border:none;
+}
+
+.employee-selection-container{
+    width:25%;
+}
+.room-selection-container{
+    width:74%;
+}
+.filter-em-container{
+    height:13%;
+}
+.filter-rm-container{
+    height:13%;
+}
+.result-em-container{
+    height:84%;
+}
+.result-rm-container{
+    height:84%;
+}
+.rmselection-button-container{
+    display: flex;
+    flex-direction: row;
+}
+.search-button{
+    margin-right:10px;
+}
+
+@media screen and (min-width: $tabletPotraitMinWidth) and (max-width:$tabletPotraitMaxWidth ){
+    .employee-selection-container{
+        width:30%;
+    }
+    .room-selection-container{
+        width:69%;
+    }
+   
+    .filter-em-container{
+        height:24%;
+        display:flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .filter-rm-container{
+        height:24%;
+    }
+    .result-em-container{
+        height:77%;
+    }
+    .result-rm-container{
+        height:77%;
+    }
+    .room-selection-message{
+        font-size:12px;
+    }
+    ::ng-deep .p-datatable .p-datatable-header{
+        padding: 0.5rem 0.5rem;
+    }
+    .search_input{
+        height:30px !important;
+        width:120px !important;
+    }
+    .allocate-button{
+        margin-top:5px;
+    }
+    .rmselection-button-container{
+        display: flex;
+        flex-direction: column;
+    }
+    .rm-button-div{
+        align-self: end; 
+     }
+     .search-button{
+        margin-right:0px;
+    }
+}
+
+@media screen and (min-width: $tabletLandscapeMinWidth) and (max-width:$tabletLandspaceMaxWidth ){
+    .allocate-button{
+        margin-top:5px;
+    }
+    .rmselection-button-container{
+        display: flex;
+        flex-direction: column;
+    }
+    .rm-button-div{
+       align-self: end; 
+    }
+    .search-button{
+        margin-right:0px;
+    }
+}

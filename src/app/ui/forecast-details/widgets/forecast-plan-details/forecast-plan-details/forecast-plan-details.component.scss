@@ -1,0 +1,18 @@
+.ellipsis {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+// :host ::ng-deep .p-datatable-table {
+//     table-layout: fixed;
+// }
+
+::ng-deep .cdk-overlay-container {
+    position: fixed;
+    z-index: 1500 !important;
+}
+
+::ng-deep .ng-dropdown-panel {
+    z-index: 1600 !important;
+}

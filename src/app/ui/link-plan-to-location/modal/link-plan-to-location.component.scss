@@ -1,0 +1,4 @@
+.readonly-panel {
+    opacity: 0.5; /* Reduce opacity to visually indicate that panel is disabled */
+    pointer-events: none; /* Prevent user interactions with the panel */
+  }

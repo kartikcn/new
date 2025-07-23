@@ -1,0 +1,17 @@
+<form style="display: flex; align-items: center; justify-content: space-around;">
+	<!-- <div (click)="onClickKnob()" style="cursor: pointer;">
+		<rg-gauge-chart [canvasWidth]="canvasWidth" [needleValue]="needleValue" [options]="guageOptions"
+			[bottomLabel]="bottomLabel">
+		</rg-gauge-chart>
+	</div> -->
+    <div id="power-gauge" (click)="onClickKnob()"></div>
+</form>
+<p-dialog [(visible)]="showPopupFlag" [modal]="true" [style]="{width: '66vw'}" [maximizable]="true" [draggable]="false"
+    [resizable]="false" styleClass="dark-panel">
+    <ng-template pTemplate="header">
+        <h2 style="margin: 0px;">Request List</h2>
+    </ng-template>
+    <ng-template pTemplate="body">
+        <app-add-table [data]="detailsPopUpData" [isEscalatedData]="viewForEscalation"></app-add-table>
+    </ng-template>
+</p-dialog>

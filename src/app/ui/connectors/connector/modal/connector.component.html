@@ -1,0 +1,11 @@
+<p-tabView [(activeIndex)]="index" (onChange)="handleChange($event)">
+    <p-tabPanel header="Connector" *ngIf="true">
+        <app-connector-list (parentFun)="getConnectorFlds($event)"></app-connector-list>
+    </p-tabPanel>
+    <p-tabPanel header="Connector Fields" [disabled]="connectorId == 0">
+        <app-connector-flds></app-connector-flds>
+    </p-tabPanel>
+    <p-tabPanel header="Connector Logs" [disabled]="connectorId == 0">
+        <app-connector-log></app-connector-log>
+    </p-tabPanel>
+</p-tabView>

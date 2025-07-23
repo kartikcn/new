@@ -1,0 +1,9 @@
+<div id="svg-container" *ngIf="!noSVGFound">
+</div>
+<div class="card no-file-found" *ngIf="noSVGFound">
+    <h1>No Floorplan available</h1>
+</div>
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#879cc9" class="spinner-color" type="ball-spin-clockwise"
+    *ngIf="showSpinner" [fullScreen]="true">
+    <p style="color: white"> Loading... </p>
+</ngx-spinner>

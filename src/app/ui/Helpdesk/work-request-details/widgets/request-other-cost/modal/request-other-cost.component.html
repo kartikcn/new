@@ -1,0 +1,134 @@
+<p-panel header="Cost Details">
+    <ng-template pTemplate="icons">
+        <button pButton (click)="onAdd()" [disabled]="isReadOnly" label="Add" icon="pi pi-plus"></button>
+    </ng-template>
+    <div class="card">
+        <p-table [value]="requestCostData" [paginator]="true" [rows]="rowCount" [showCurrentPageReport]="true"
+            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+            [rowsPerPageOptions]="[5,10,20]" styleClass="p-datatable-customers p-datatable-gridlines"
+            [scrollable]="true" scrollDirection="both" scrollHeight="130px">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th style="width:8rem"></th>
+                    <th pSortableColumn="costTypeCostType">
+                        <div class="grid-header-column">
+                            <div class="grid-header-label">
+                                <p class="grid-label-paragraph">Cost Type</p>
+                            </div>
+                            <div class="grid-sort-icon">
+                                <p-sortIcon field="costTypeCostType"></p-sortIcon>
+                                <p-columnFilter type="text" field="costTypeCostType"
+                                    display="menu"></p-columnFilter>
+                            </div>
+                        </div>
+                    </th>
+                    <th pSortableColumn="estimatedCost">
+                        <div class="grid-header-column">
+                            <div class="grid-header-label">
+                                <p class="grid-label-paragraph">Estimated Cost</p>
+                            </div>
+                            <div class="grid-sort-icon">
+                                <p-sortIcon field="estimatedCost"></p-sortIcon>
+                                <p-columnFilter type="text" field="estimatedCost"
+                                    display="menu"></p-columnFilter>
+                            </div>
+                        </div>
+                    </th>
+                    <th pSortableColumn="actualCost">
+                        <div class="grid-header-column">
+                            <div class="grid-header-label">
+                                <p class="grid-label-paragraph">Actual Cost</p>
+                            </div>
+                            <div class="grid-sort-icon">
+                                <p-sortIcon field="actualCost"></p-sortIcon>
+                                <p-columnFilter type="text" field="actualCost"
+                                    display="menu"></p-columnFilter>
+                            </div>
+                        </div>
+                    </th>
+                    <th pSortableColumn="description">
+                        <div class="grid-header-column">
+                            <div class="grid-header-label">
+                                <p class="grid-label-paragraph">Description</p>
+                            </div>
+                            <div class="grid-sort-icon">
+                                <p-sortIcon field="description"></p-sortIcon>
+                                <p-columnFilter type="text" field="description"
+                                    display="menu"></p-columnFilter>
+                            </div>
+                        </div>
+                    </th>
+                    <th pSortableColumn="userUserName">
+                        <div class="grid-header-column">
+                            <div class="grid-header-label">
+                                <p class="grid-label-paragraph">Entered By</p>
+                            </div>
+                            <div class="grid-sort-icon">
+                                <p-sortIcon field="userUserName"></p-sortIcon>
+                                <p-columnFilter type="text" field="userUserName"
+                                    display="menu"></p-columnFilter>
+                            </div>
+                        </div>
+                    </th>
+                    <th pSortableColumn="formatedDateEntered">
+                        <div class="grid-header-column">
+                            <div class="grid-header-label">
+                                <p class="grid-label-paragraph">Date</p>
+                            </div>
+                            <div class="grid-sort-icon">
+                                <p-sortIcon field="formatedDateEntered"></p-sortIcon>
+                                <p-columnFilter type="text" field="formatedDateEntered"
+                                    display="menu"></p-columnFilter>
+                            </div>
+                        </div>
+                    </th>
+                    <th pSortableColumn="timeEntered">
+                        <div class="grid-header-column">
+                            <div class="grid-header-label">
+                                <p class="grid-label-paragraph">Time</p>
+                            </div>
+                            <div class="grid-sort-icon">
+                                <p-sortIcon field="timeEntered"></p-sortIcon>
+                                <p-columnFilter type="text" field="timeEntered"
+                                    display="menu"></p-columnFilter>
+                            </div>
+                        </div>
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-cost>
+                <tr [pSelectableRow]="cost">
+                    <td style="width:8rem">
+                        <button *ngIf="!isReadOnly" icon="pi pi-pencil" pButton pRipple type="button"
+                            (click)="onEdit(cost.requestOtherCostId)" class="p-button-text p-button-rounded"
+                            [disabled]="!isSupervisor && cost.enteredBy != loggedIdUserName"></button>
+                        <button *ngIf="isReadOnly" icon="pi pi-eye" pButton pRipple type="button"
+                            (click)="onView(cost.requestOtherCostId)" class="p-button-text p-button-rounded"
+                            ></button>
+                        <button icon="pi pi-times" pButton pRipple type="button"
+                            (click)="onDelete(cost.requestOtherCostId)"
+                            class="p-button-text p-button-rounded pull-right" style="font-size: 5rem; color: red;"
+                            [disabled]="(!isSupervisor && cost.enteredBy != loggedIdUserName) || isReadOnly"></button>
+                    </td>
+                    <td>{{cost.costTypeCostType}}</td>
+                    <td>{{cost.estimatedCost}}</td>
+                    <td>{{cost.actualCost}}</td>
+                    <td>{{cost.description}}</td>
+                    <td>{{cost.userUserName}}</td>
+                    <td>{{cost.dateEntered | date :"dd MMM yyyy"}}</td>
+                    <td>{{convertToDisplayTime(cost.timeEntered)}}</td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage" let-columns>
+                <tr>
+                    <td colspan="8" style="text-align: center;">
+                        No Records Found
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+</p-panel>
+<p-confirmDialog key="grid" header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>
+<p-toast key="requestPart" position="top-right"></p-toast>
+<p-toast key="requestPartwarning" position="top-center"></p-toast>

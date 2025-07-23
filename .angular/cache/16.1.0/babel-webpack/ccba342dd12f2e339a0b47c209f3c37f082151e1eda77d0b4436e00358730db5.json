@@ -1,0 +1,1 @@
+{"ast":null,"code":"export class RegnFilterInput {\n  constructor(id, name, cntryId) {\n    this.id = \"\";\n    this.name = \"\";\n    this.cntryId = \"\";\n    this.id = id;\n    this.name = name;\n    this.cntryId = cntryId;\n  }\n}","map":null,"metadata":{},"sourceType":"module","externalDependencies":[]}

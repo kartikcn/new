@@ -1,0 +1,214 @@
+<h2 mat-dialog-title class="mat-dialog-title-ext">Booking-reports Details</h2>
+<mat-dialog-content class="mat-typography mat-dialog-content-ext">
+    <form [formGroup]="confirmBookingForm">
+        <div class="row">
+            <table width="100%">
+                <div style="display: flex; justify-content:space-evenly">
+                    <tr width="50%">
+                        <div style="display: flex;">
+                            <td>
+                                <div class="input-label-custom">
+                                    <div class="p-fluid">
+                                        <div class="p-field">
+                                            <label class='form-field-lable '>Meeting Name</label>
+                                            <input type="text" class="form-control" name="title" formControlName="title"
+                                                [readonly]="true">
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-label-custom">
+                                    <label class='form-field-lable '>Requested By</label>
+                                    <ng-select appendTo="body" [clearable]="false" [items]="enumUsers"
+                                        formControlName="userId" [searchable]="true" bindLabel="name" bindValue="id"
+                                        placeholder="Make a selection" [readonly]="true" class="ng-select-dropdown">
+                                    </ng-select>
+                                </div>
+                            </td>
+                        </div>
+                        <div style="display: flex; flex-direction: column;">
+                            <td>
+                                <div class="input-label-custom">
+                                    <div class="p-fluid">
+                                        <div class="p-field">
+                                            <label class='form-field-lable'>Status </label>
+                                            <input type="text" class="form-control" name="status"
+                                                formControlName="status" [readonly]="true">
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td colspan="2">
+                                <div class="input-label-custom ">
+                                    <label class='form-field-lable'>Comments</label>
+                                    <textarea class="form-control" name="comments" formControlName="comments" rows="2"
+                                        nz-input maxlength="512" [readonly]="true"></textarea>
+                                </div>
+                            </td>
+                        </div>
+                    </tr>
+                    <tr width="50%">
+                        <td>
+                            <div class="input-label-custom">
+                                <div class="p-fluid">
+                                    <div class="p-field">
+                                        <label class='form-field-lable'>Location :</label>
+                                        <label class='sum-label'>
+                                            {{location}}
+                                        </label>
+                                    </div>
+                                    <div class="p-fluid">
+                                        <div class="p-field">
+                                            <label class='form-field-lable'>Booking Date </label>
+                                            <p-calendar appendTo="body" dateFormat="dd M yy" name="dateStart"
+                                                [disabled]="upDateAll" formControlName="dateStart" [showIcon]="false"
+                                                inputId="icon" [minDate]="today" [disabled]="true"></p-calendar>
+                                        </div>
+                                    </div>
+                                    <div class="p-field">
+                                        <label class='form-field-lable'>From Time </label>
+                                        <p-inputMask mask="99:99" 
+                                            formControlName="timeStart" placeholder="00:00" slotChar="hh:mm"
+                                            [disabled]="true"></p-inputMask>
+                                    </div>
+                                    <div class="p-field">
+                                        <label class='form-field-lable'>To Time </label>
+                                        <p-inputMask mask="99:99"  formControlName="timeEnd"
+                                            placeholder="00:00" slotChar="hh:mm" [disabled]="true"></p-inputMask>
+                                    </div> 
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </div>
+                <tr
+                    *ngIf="(confirmBookingForm.controls['timeStart']?.errors && confirmBookingForm.controls['timeStart'].dirty)">
+                    <td></td>
+                    <td>
+                        <label *ngIf="!confirmBookingForm.controls['timeStart']?.errors.required"
+                            class='form-field-lable' style="color:red;">{{errorMsg}}</label>
+                    </td>
+                </tr>
+                <tr
+                    *ngIf="(confirmBookingForm.controls['timeEnd']?.errors && confirmBookingForm.controls['timeEnd'].dirty)">
+                    <td></td>
+                    <td>
+                        <label *ngIf="!confirmBookingForm.controls['timeEnd']?.errors.required" class='form-field-lable'
+                            style="color:red;">{{errorMsg}}</label>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div style="display:flex;">
+            <div class="input-label-custom">
+                <div class="p-fluid">
+                    <div class="p-field">
+                        <label class='form-field-lable' style="margin-left:8px;">Fixed Resources :</label>
+                    </div>
+                </div>
+            </div>
+            <label class='fixed-resource'>
+                {{fixedResources}}
+            </label>
+        </div>
+        <p-accordion>
+            <p-accordionTab>
+                <p-header class="atndAcrdn">
+                    <div>
+                        <span>Attendees</span>
+                    </div>
+                </p-header>
+                <p-table [value]="selectedAttendees" [(selection)]="selectedAttendees" [paginator]="true"
+                    [showCurrentPageReport]="true" dataKey="atId" [rows]="5"
+                    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                    [rowsPerPageOptions]="[5,10,25]">
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th style="width: 3rem">
+                            </th>
+                            <th pSortableColumn="name">
+                                Name <p-sortIcon field="name"></p-sortIcon>
+                                <p-columnFilter type="text" field="attendeeName" display="menu"></p-columnFilter>
+                            </th>
+                            <th pSortableColumn="email">
+                                Email <p-sortIcon field="email"></p-sortIcon>
+                                <p-columnFilter type="text" field="email" display="menu"></p-columnFilter>
+                            </th>
+                            <th pSortableColumn="category">
+                                Employee/Visitor<p-sortIcon field="category"></p-sortIcon>
+                                <p-columnFilter type="text" field="category" display="menu">
+                                </p-columnFilter>
+                            </th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-attendie>
+                        <tr>
+                            <td style="width: 3rem">
+                            <td>{{attendie.name}}</td>
+                            <td>{{attendie.email}}</td>
+                            <td>{{attendie.category}}</td>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="emptymessage" let-columns>
+                        <tr>
+                            <td [attr.colspan]="4" style="text-align: center;">
+                                No records found
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </p-accordionTab>
+            <p-accordionTab>
+                <p-header class="atndAcrdn">
+                    <div>
+                        <span>Resources</span>
+                    </div>
+                </p-header>
+                <p-table [value]="resourcesToDisplay" [showCurrentPageReport]="true"
+                    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                    [rowsPerPageOptions]="[5,10,25]" styleClass="p-datatable-customers" [rows]="5" [paginator]="true">
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th style="width:8rem"> </th>
+                            <th pSortableColumn="title">
+                                Resource Title <p-sortIcon field="title"></p-sortIcon>
+                                <p-columnFilter type="text" field="title" display="menu"></p-columnFilter>
+                            </th>
+                            <th pSortableColumn="description">
+                                Description <p-sortIcon field="description"></p-sortIcon>
+                                <p-columnFilter type="text" field="description" display="menu"></p-columnFilter>
+                            </th>
+                            <th pSortableColumn="requiredQuantity">
+                                Required Quantity <p-sortIcon field="requiredQuantity"></p-sortIcon>
+                                <p-columnFilter type="text" field="requiredQuantity" display="menu"></p-columnFilter>
+                            </th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-resource>
+                        <tr>
+                            <td style="width:8rem">
+
+                            </td>
+                            <td>{{resource.resources[0].title}}</td>
+                            <td>{{resource.resources[0].description}}</td>
+                            <td>{{resource.qty}}</td>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="emptymessage" let-columns>
+                        <tr>
+                            <td [attr.colspan]="4" style="text-align: center;">
+                                No records found
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </p-accordionTab>
+        </p-accordion>
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end" class="mat-dialog-actions-ext">
+    <p-button label="Cancel" icon="pi pi-times" (click)="confirmDialog()" styleClass="p-button-secondary"
+        [style]="{'margin-left': '.5em'}"></p-button>
+</mat-dialog-actions>
+<p-confirmDialog header="booking-view-grid" icon="pi pi-exclamation-triangle"></p-confirmDialog>

@@ -1,0 +1,137 @@
+<div class="card">
+  <div style="margin: 10px">
+    <button type="button" (click)="exportExcel()" pButton pRipple icon="pi pi-file-excel" [disabled]="rm_data.length==0"
+      class="p-button-success p-mr-2 pull-right" matTooltip="XLS" matTooltipPosition="below"></button>
+  </div>
+  <p-table [value]="rm_data" [paginator]="true" [rows]="rowCount" [showCurrentPageReport]="true"
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [rowsPerPageOptions]="[5,10,25]"
+    styleClass="p-datatable-responsive-demo p-datatable-gridlines" [rowHover]="false" [scrollable]="true"
+    scrollDirection="both" scrollHeight="350px" [totalRecords]="rm_data.length">
+    <ng-template pTemplate="header">
+      <tr>
+        <th style="width:4rem"></th>
+        <th pSortableColumn="blCode">
+          <div class="grid-header-column">
+            <div class="grid-header-label">
+              <p class="grid-label-paragraph">Building Code</p>
+            </div>
+            <div class="grid-sort-icon">
+              <p-sortIcon field="blCode"></p-sortIcon>
+              <p-columnFilter type="text" field="blCode" display="menu"></p-columnFilter>
+            </div>
+          </div>
+        </th>
+        <th pSortableColumn="flCode">
+          <div class="grid-header-column">
+            <div class="grid-header-label">
+              <p class="grid-label-paragraph"> Floor Code</p>
+            </div>
+            <div class="grid-sort-icon">
+              <p-sortIcon field="flCode"></p-sortIcon>
+              <p-columnFilter type="text" field="flCode" display="menu"></p-columnFilter>
+            </div>
+          </div>
+        </th>
+        <th pSortableColumn="rmCode">
+          <div class="grid-header-column">
+            <div class="grid-header-label">
+              <p class="grid-label-paragraph"> Room Code</p>
+            </div>
+            <div class="grid-sort-icon">
+              <p-sortIcon field="rmCode"></p-sortIcon>
+              <p-columnFilter type="text" field="rmCode" display="menu"></p-columnFilter>
+            </div>
+          </div>
+        </th>
+        <th>Employee Code</th>
+        <th>Division Code</th>
+        <th>Department Code</th>
+        <th>Sub Department Code</th>
+        <th pSortableColumn="dateFrom">
+          <div class="grid-header-column">
+            <div class="grid-header-label">
+              <p class="grid-label-paragraph">Date From</p>
+            </div>
+            <div class="grid-sort-icon">
+              <p-sortIcon field="dateFrom"></p-sortIcon>
+              <p-columnFilter type="text" field="dateFrom" display="menu"></p-columnFilter>
+            </div>
+          </div>
+        </th>
+        <th pSortableColumn="dateTo">
+          <div class="grid-header-column">
+            <div class="grid-header-label">
+              <p class="grid-label-paragraph">Date To</p>
+            </div>
+            <div class="grid-sort-icon">
+              <p-sortIcon field="dateTo"></p-sortIcon>
+              <p-columnFilter type="text" field="dateTo" display="menu"></p-columnFilter>
+            </div>
+          </div>
+        </th>
+        <th pSortableColumn="area">
+          <div class="grid-header-column">
+            <div class="grid-header-label">
+              <p class="grid-label-paragraph">Area (sq.ft)</p>
+            </div>
+            <div class="grid-sort-icon">
+              <p-sortIcon field="area"></p-sortIcon>
+            </div>
+          </div>
+        </th>
+        <!-- <th pSortableColumn="allocatedArea">
+            <div class="grid-header-column">
+              <div class="grid-header-label">
+                <p class="grid-label-paragraph">Allocated Area (sq.ft)</p>
+              </div>
+              <div class="grid-sort-icon">
+                <p-sortIcon field="allocatedArea"></p-sortIcon>
+              </div>
+            </div>
+          </th> -->
+        <!-- <th pSortableColumn="availableArea">
+            <div class="grid-header-column">
+              <div class="grid-header-label">
+                <p class="grid-label-paragraph">Available Area (sq.ft)</p>
+              </div>
+              <div class="grid-sort-icon">
+                <p-sortIcon field="availableArea"></p-sortIcon>
+              </div>
+            </div>
+          </th> -->
+        <th>Allocation (%)</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rm>
+      <tr [pSelectableRow]="rm">
+        <td style="width:4rem">
+
+          <button pButton pRipple type="button" icon="pi pi-eye" (click)="viewItem(rm)"
+            class="p-button-text p-button-rounded pull-right">
+          </button>
+        </td>
+        <td>{{rm.blCode}}</td>
+        <td>{{rm.flCode}}</td>
+        <td>{{rm.rmCode}}</td>
+        <td>{{rm.emCode}}</td>
+        <td>{{rm.divCode}}</td>
+        <td>{{rm.depCode}}</td>
+        <td>{{rm.subDepCode}}</td>
+        <td>{{rm.dateFrom | date :"dd MMM yyyy"}}</td>
+        <td>{{rm.dateTo | date :"dd MMM yyyy"}}</td>
+        <td style="text-align: right;">{{rm.area.toFixed(2)}}</td>
+        <!-- <td style="text-align: right;">{{rm.allocatedArea.toFixed(2)}}</td>
+        <td style="text-align: right;">{{rm.availableArea.toFixed(2)}}</td> -->
+        <td style="text-align: right;">{{rm.allocatedPercentage.toFixed(2)}}</td>
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="emptymessage" let-columns>
+      <tr>
+        <td [attr.colspan]="7">
+          No records found
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>

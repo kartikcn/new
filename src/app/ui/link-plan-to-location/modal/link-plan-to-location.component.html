@@ -1,0 +1,26 @@
+<p-panel header="Plan List">
+        <div class="row" *ngIf="!useTabletProtrait">
+                <div class="col-sm-6 col-md-6 col-xm-6 col-lg-6">
+                        <div class="page-content" style="height: calc(100vh - 150px)">
+                                <app-ppm-plans-list (parentFun)="getLocationsPlans($event)" planTypeData="Location"></app-ppm-plans-list>
+                        </div>
+                </div>
+                <div class="col-sm-6 col-md-6 col-xm-6 col-lg-6">
+                        <div class="page-content" style="height: calc(100vh - 150px)" [ngClass]="{ 'readonly-panel': showChild? false : true }">
+                                <app-location-plan-list></app-location-plan-list>
+                        </div>   
+                </div>
+        </div>
+        <div  *ngIf="useTabletProtrait" style="height:85vh;">
+                <div style="height: 50%;">
+                        <div class="page-content" >
+                                <app-ppm-plans-list (parentFun)="getLocationsPlans($event)" planTypeData="Location"></app-ppm-plans-list>
+                        </div>
+                </div>
+                <div style="height: 50%;">
+                        <div class="page-content"  [ngClass]="{ 'readonly-panel': showChild? false : true }">
+                                <app-location-plan-list></app-location-plan-list>
+                        </div>   
+                </div>
+        </div>
+</p-panel>

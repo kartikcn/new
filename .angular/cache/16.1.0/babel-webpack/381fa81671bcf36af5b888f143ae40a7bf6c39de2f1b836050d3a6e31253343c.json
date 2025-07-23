@@ -1,0 +1,1 @@
+{"ast":null,"code":"export const environment = {\n  production: true,\n  /* Local Environment */\n  baseUrl: \"http://3.108.65.41:8080/FMS-fms/\" // local server\n};","map":null,"metadata":{},"sourceType":"module","externalDependencies":[]}

@@ -1,0 +1,67 @@
+<div class="card">
+    <p-table #dt1 [value]="Sg_data" [paginator]="true" [rows]="rowCount" [showCurrentPageReport]="true"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [(selection)]="selectedScreens"
+        dataKey="groupName" [rowsPerPageOptions]="[5,10,25]"
+        styleClass="p-datatable-responsive-demo p-datatable-gridlines" [rowHover]="false" [scrollable]="true"
+        scrollDirection="both" scrollHeight="400px">
+        <ng-template pTemplate="caption">
+            <div class="d-flex flex-row">
+                <div style="flex: auto;">
+                    <h4>Assign Security Groups</h4>
+                </div>
+                <div>
+                    <button pButton pRipple label="Assign" icon="pi pi-plus" class="p-button-primary p-button-sm p-mr-2"
+                        (click)="onAssign()" [disabled]="!(selectedScreens.length>0)"></button>
+                </div>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th style="width: 4rem">
+                    <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                </th>
+                <th pSortableColumn="groupName">
+                    <div class="grid-header-column">
+                        <div class="grid-header-label">
+                          <p class="grid-label-paragraph">Group Name</p>
+                        </div>
+                        <div class="grid-sort-icon">
+                        <p-sortIcon field="groupName"></p-sortIcon>
+                        <p-columnFilter type="text" field="groupName" display="menu"></p-columnFilter>
+                          </div>
+                       </div>
+                </th>
+                <th pSortableColumn="description">
+                    <div class="grid-header-column">
+                        <div class="grid-header-label">
+                          <p class="grid-label-paragraph">Description</p>
+                        </div>
+                        <div class="grid-sort-icon">
+                        <p-sortIcon field="description"></p-sortIcon>
+                        <p-columnFilter type="text" field="description" display="menu"></p-columnFilter>
+                          </div>
+                       </div>
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-sg>
+            <tr [pSelectableRow]="sg">
+                <td style="width: 4rem">
+                    <p-tableCheckbox [value]="sg"></p-tableCheckbox>
+                </td>
+                <td>{{sg.groupName}}</td>
+                <td>{{sg.description}}</td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage" let-columns>
+            <tr>
+                <td [attr.colspan]="3">
+                    No records found
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
+
+<p-toast key="UsgGrid" position="top-right"></p-toast>
+<p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>

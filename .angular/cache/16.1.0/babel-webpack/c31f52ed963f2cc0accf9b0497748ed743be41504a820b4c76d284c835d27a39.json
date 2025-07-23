@@ -1,0 +1,1 @@
+{"ast":null,"code":"export class Team {\n  constructor(teamId, teamType, description, teamCode) {\n    this.teamId = teamId;\n    this.teamType = teamType;\n    this.description = description;\n    this.teamCode = teamCode;\n  }\n}","map":null,"metadata":{},"sourceType":"module","externalDependencies":[]}

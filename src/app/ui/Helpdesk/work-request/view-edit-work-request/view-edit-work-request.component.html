@@ -1,0 +1,347 @@
+<p-panel>
+    <ng-template pTemplate="header">
+        <div class="header-container">
+            <div class="header-label">
+                <label class='form-field-lable'>Filter</label>
+            </div>
+            <div class="header-button">
+                <button pButton pRipple label="Log Request" icon="pi pi-plus" (click)="logRequest()"
+                    style="margin: 0px 0px 0px 20px;" class="p-button-primary p-button-sm "></button>
+            </div>
+        </div>
+    </ng-template>
+    <div class="card">
+        <form [formGroup]="filterPanel">
+            <table width="100%" *ngIf="!useTabletProtrait">
+                <tr>
+                    <td style="width:25%">
+                        <div class="input-label-custom ">
+                            <label class='form-field-lable'>Building</label>
+                            <ng-select appendTo="body" [clearable]="false" placeholder="Make a selection"
+                                [searchable]="true" [items]="enumBL" formControlName="blId" bindLabel="blNameString"
+                                bindValue="blId" (change)="onSelectBlCode($event)" class="ng-select-dropdown"
+                                (scrollToEnd)="scrollToEndBl()" (search)="searchBl($event)" (open)="onOpenBl()">
+                            </ng-select>
+                        </div>
+                    </td>
+                    <td style="width:25%">
+                        <div class="input-label-custom ">
+                            <label class='form-field-lable'>Floor </label>
+                            <ng-select appendTo="body" [clearable]="false" [searchable]="true"
+                                placeholder="Make a selection" [items]="enumFL" formControlName="flId" bindLabel="flNameString"
+                                bindValue="flId" (change)="onSelectFlCode($event)" class="ng-select-dropdown"
+                                (scrollToEnd)="scrollToEndFl()" (search)="searchFl($event)"(open)="onOpenFl()">
+                            </ng-select>
+                        </div>
+                    </td>
+                    <td style="width:25%">
+                        <div class="input-label-custom ">
+                            <label class='form-field-lable'>Room </label>
+                            <ng-select appendTo="body" [clearable]="false" [searchable]="true"
+                                placeholder="Make a selection" class="ng-select-dropdown" [items]="enumRM"
+                                formControlName="rmId" (change)="onSelectRmCode($event)" [searchable]="true"(open)="onOpenRm()"
+                                bindLabel="rmNameString" bindValue="rmId" (scrollToEnd)="scrollToEndRm()" (search)="searchRm($event)">
+                            </ng-select>
+                        </div>
+                    </td>
+                    <td style="width:25%">
+                        <div class="input-label-custom ">
+                            <label class='form-field-lable'>Requests Type </label>
+                            <ng-select appendTo="body" [clearable]="false" [searchable]="true"
+                                placeholder="Make a selection" class="ng-select-dropdown" [items]="showRequestsTypeList"
+                                formControlName="showType"  [searchable]="true"
+                                bindLabel="label" bindValue="value">
+                            </ng-select>
+                        </div>
+                    </td>
+                    <!-- <td style="width: 25%">
+                         <button pButton pRipple label="Log Request" (click)="onSearch()" style="width: 80px; margin: 0px 20px 0px 0px;"
+                                class="p-button-primary p-button-sm pull-right"></button>
+                    </td> -->
+                </tr>
+                <tr>
+                    <td style="width: 25%">
+                        <div class="input-label-custom ">
+                            <label class='form-field-lable'>Asset</label>
+                            <ng-select appendTo="body" [items]="eqData" [clearable]="false" [searchable]="true"
+                                placeholder="Make a selection" bindLabel="eqCode" bindValue="eqId"
+                                class="ng-select-dropdown" formControlName="eqId">
+                            </ng-select>
+                        </div>
+                    </td>
+                    <td style="width: 25%">
+                        <div class="input-label-custom ">
+                            <label class='form-field-lable'>Request Id</label>
+                            <ng-select appendTo="body" [clearable]="false" placeholder="Make a selection"
+                                [items]="allRequests" class="ng-select-dropdown" bindLabel="wrId" bindValue="wrId"
+                                formControlName="wrId" (change)="onSelectWrId($event)">
+                            </ng-select>
+                        </div>
+                    </td>
+                    <td style="width: 25%">
+                        <div class="input-label-custom">
+                            <label class='form-field-lable'>Status</label>
+                            <ng-select appendTo="body" [clearable]="false" [items]="enumStatusFilter"
+                                placeholder="Make a selection" bindLabel="enumValue" bindValue="enumKey"
+                                class="ng-select-dropdown" formControlName="status">
+                            </ng-select>
+                        </div>
+                    </td>
+                    <td style="width: 25%">
+                        <div style="display: flex; flex-direction: row;justify-content: center;">
+                            <button pButton pRipple label="Filter" (click)="onSearch()"
+                                style="width: 80px; margin: 0px 20px 0px 0px;" class="p-button-primary p-button-sm"
+                                icon="pi pi-search"></button>
+                            <button pButton (click)="onClear()" pRipple label="Clear" icon="pi pi-times-circle"
+                                style="width: 80px;" class="p-button-primary p-button-sm pull-right"></button>
+                        </div>
+                    </td>
+
+                </tr>
+            </table>
+            <table width="100%" *ngIf="useTabletProtrait">
+                <tr>
+                    <td style="width:32%">
+                        <div class="input-label-custom ">
+                            <label class='form-field-lable'>Building</label>
+                            <ng-select appendTo="body" [clearable]="false" placeholder="Make a selection"
+                                [searchable]="true" [items]="enumBL" formControlName="blId" bindLabel="blNameString"
+                                bindValue="blId" (change)="onSelectBlCode($event)" class="ng-select-dropdown"
+                                (scrollToEnd)="scrollToEndBl()" (search)="searchBl($event)"(open)="onOpenBl()">
+                            </ng-select>
+                        </div>
+                    </td>
+                    <td style="width:32%">
+                        <div class="input-label-custom ">
+                            <label class='form-field-lable'>Floor </label>
+                            <ng-select appendTo="body" [clearable]="false" [searchable]="true"
+                                placeholder="Make a selection" [items]="enumFL" formControlName="flId" bindLabel="flNameString"
+                                bindValue="flId" (change)="onSelectFlCode($event)" class="ng-select-dropdown"
+                                (scrollToEnd)="scrollToEndFl()" (search)="searchFl($event)"(open)="onOpenFl()">
+                            </ng-select>
+                        </div>
+                    </td>
+                    <td style="width:32%">
+                        <div class="input-label-custom ">
+                            <label class='form-field-lable'>Room </label>
+                            <ng-select appendTo="body" [clearable]="false" [searchable]="true"
+                                placeholder="Make a selection" class="ng-select-dropdown" [items]="enumRM"
+                                formControlName="rmId" (change)="onSelectRmCode($event)" [searchable]="true"(open)="onOpenRm()"
+                                bindLabel="rmNameString" bindValue="rmId" (scrollToEnd)="scrollToEndRm()" (search)="searchRm($event)">
+                            </ng-select>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width:32%">
+                        <div class="input-label-custom ">
+                            <label class='form-field-lable'>Requests Type </label>
+                            <ng-select appendTo="body" [clearable]="false" [searchable]="true"
+                                placeholder="Make a selection" class="ng-select-dropdown" [items]="showRequestsTypeList"
+                                formControlName="showType"  [searchable]="true"
+                                bindLabel="label" bindValue="value">
+                            </ng-select>
+                        </div>
+                    </td>
+                    <td style="width:32%">
+                        <div class="input-label-custom ">
+                            <label class='form-field-lable'>Asset</label>
+                            <ng-select appendTo="body" [items]="eqData" [clearable]="false" [searchable]="true"
+                                placeholder="Make a selection" bindLabel="eqCode" bindValue="eqId"
+                                class="ng-select-dropdown" formControlName="eqId">
+                            </ng-select>
+                        </div>
+                    </td>
+                    <td style="width:32%">
+                        <div class="input-label-custom ">
+                            <label class='form-field-lable'>Request Id</label>
+                            <ng-select appendTo="body" [clearable]="false" placeholder="Make a selection"
+                                [items]="allRequests" class="ng-select-dropdown" bindLabel="wrId" bindValue="wrId"
+                                formControlName="wrId" (change)="onSelectWrId($event)">
+                            </ng-select>
+                        </div>
+                    </td>
+                </tr>              
+                <tr>
+                    <td style="width:32%">
+                        <div class="input-label-custom">
+                            <label class='form-field-lable'>Status</label>
+                            <ng-select appendTo="body" [clearable]="false" [items]="enumStatusFilter"
+                                placeholder="Make a selection" bindLabel="enumValue" bindValue="enumKey"
+                                class="ng-select-dropdown" formControlName="status">
+                            </ng-select>
+                        </div>
+                    </td>
+                    <td style="width:32%">
+                        <div style="display: flex; flex-direction: row;justify-content: center;">
+                            <button pButton pRipple label="Filter" (click)="onSearch()"
+                                style="width: 80px; margin: 0px 20px 0px 0px;" class="p-button-primary p-button-sm"
+                                icon="pi pi-search"></button>
+                            <button pButton  (click)="onClear()" pRipple label="Clear" icon="pi pi-times-circle"
+                                style="width: 80px;" class="p-button-primary p-button-sm pull-right"></button>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</p-panel>
+
+<div class="card">
+    <p-table [rows]="rowCount" [value]="statusData" styleClass="p-datatable-customers p-datatable-gridlines"
+        selectionMode="single" [paginator]="false" [customSort]="true" [loading]="loading">
+        <ng-template pTemplate="header">
+            <tr>
+                <th style="width:4rem"> </th>
+                <th>
+                    <p class="grid-label-paragraph">Request Id</p>
+                </th>
+                <th>
+                    <p class="grid-label-paragraph">Requested For</p>
+                </th>
+                <th>
+                    <p class="grid-label-paragraph">Status</p>
+                </th>
+                <th>
+                    <p class="grid-label-paragraph">Problem Type</p>
+                </th>
+                <th>
+                    <p class="grid-label-paragraph">Building</p>
+                </th>
+                <th>
+                    <p class="grid-label-paragraph">Floor</p>
+                </th>
+                <th>
+                    <p class="grid-label-paragraph">Room</p>
+                </th>
+                <th>
+                    <p class="grid-label-paragraph">Asset</p>
+                </th>
+                <th>
+                    <p class="grid-label-paragraph">Problem Description</p>
+                </th>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
+
+<p-accordion *ngIf="isReload;" (onClose)="onTabClose($event)" (onOpen)="onTabOpen($event)">
+    <p-accordionTab *ngFor="let status of statusCountData;" header="{{findStatusCount(status.status)}}">
+            <p-table [value]="statusData" selectionMode="single" [rowHover]="true" [rows]="5" [paginator]="true" 
+                styleClass="p-datatable-responsive-demo p-datatable-gridlines" (onRowSelect)="onViewWorkRequest($event)"
+                [showCurrentPageReport]="true" [scrollable]="true" scrollDirection="both" scrollHeight="500px"
+                [rowsPerPageOptions]="[5,10,25]" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries">
+                <ng-template pTemplate="body" let-wr>
+                    <tr [pSelectableRow]="wr">
+                        <td style="width:4rem">
+                            <button type="button" pButton pRipple icon="pi pi-cog" class="p-button-text"
+                                (click)="setMenuList($event,showMenu,wr)"></button>
+                            <p-menu #showMenu [popup]="true" appendTo="body" [model]="reqitems"></p-menu>
+                        </td>
+                        <td>{{wr.wrId}}</td>
+                        <td>{{getEmployeeFullName(wr.requestedFor)}}</td>
+                        <td>{{wr.status}}</td>
+                        <td matTooltip="{{wr.probTypeId == null ?'Default' :wr.problemTypeString}}" matTooltipPosition="below" class="ellipsis">
+                            {{wr.probTypeId == null ?"Default" :wr.problemTypeString }}</td>
+                        <td matTooltip="{{wr.building}}" matTooltipPosition="below" class="ellipsis">{{wr.building}}</td>
+                        <td matTooltip="{{wr.floor}}" matTooltipPosition="below" class="ellipsis">{{wr.floor}}</td>
+                        <td matTooltip="{{wr.room}}" matTooltipPosition="below" class="ellipsis">{{wr.room}}</td>
+                        <td>{{wr.eqCode}}</td>
+                        <td matTooltip="{{wr.description}}" matTooltipPosition="below" class="ellipsis">
+                            {{wr.description}}</td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="emptymessage" let-columns>
+                    <tr>
+                        <td [attr.colspan]="statusData.length">
+                            No records found.
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        
+    </p-accordionTab>
+</p-accordion>
+<!-- Update form -->
+<p-dialog header="Are you sure that you want to {{previousAction}} this request?" [(visible)]="displayForm"
+    [modal]="true" [style]="{width: '28vw'}" [maximizable]="false" [draggable]="false" [resizable]="false"
+    [closable]="false">
+    <form [formGroup]="updateForm">
+        <table width="100%">
+            <tr>
+                <td colspan="2" *ngIf="previousAction === 'Reject'">
+                    <div class="input-label-custom">
+                        <label class='form-field-lable control-label'>Comments</label>
+                        <nz-textarea-count [nzMaxCharacterCount]="512">
+                            <textarea class="form-control note-border" name="rejectReason"
+                                formControlName="rejectReason" rows="2" nz-input maxlength="512"
+                                (input)="chanageReason($event)"></textarea>
+                        </nz-textarea-count>
+                    </div>
+                </td>
+                <td colspan="2" *ngIf="previousAction === 'Cancel'">
+                    <div class="input-label-custom">
+                        <label class='form-field-lable control-label'>Comments</label>
+                        <nz-textarea-count [nzMaxCharacterCount]="512">
+                            <textarea class="form-control note-border" name="cancelledReason"
+                                (input)="chanageReason($event)" formControlName="cancelledReason" rows="2" nz-input
+                                maxlength="512"></textarea>
+                        </nz-textarea-count>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </form>
+    <ng-template pTemplate="footer">
+        <button type="button" pButton icon="pi pi-check" label="Save" [disabled]="!isUpdateFormValid"
+            (click)="saveReason()"></button>
+        <button icon="pi pi-times" pButton (click)="cancelCancellationReason()" label="Close"
+            styleClass="p-button-text"></button>
+    </ng-template>
+</p-dialog>
+
+<!-- Show hold type -->
+<p-dialog [(visible)]="displayHoldScreen" [style]="{width: '20vw'}" [closable]="false" [draggable]="false"
+    [resizable]="false" [modal]="true">
+    <ng-template pTemplate="body">
+        <form [formGroup]="holdDialog">
+            <div style="display: flex; flex-direction:row;">
+                <div class="input-label-custom" style="margin-top: 10px;">
+                    <label class='form-field-lable control-label' style="margin-left: 5px;">Hold For</label>
+                </div>
+                <div class="input-label-custom " style="margin-top: 10px;">
+                    <p-radioButton name="hold" value="On Hold For Access" formControlName="hold">
+                    </p-radioButton>
+                    <label class='form-field-lable' style="margin-left: 5px;"> Access </label>
+                </div>
+                <div class="input-label-custom " style="margin-top: 10px;">
+                    <p-radioButton name="hold" value="On Hold For Parts" formControlName="hold">
+                    </p-radioButton>
+                    <label class='form-field-lable' style="margin-left: 5px;"> Parts </label>
+                </div>
+                <div class="input-label-custom " style="margin-top: 10px;">
+                    <p-radioButton name="hold" value="On Hold For Labour" formControlName="hold">
+                    </p-radioButton>
+                    <label class='form-field-lable' style="margin-left: 5px;">Labour</label>
+                </div>
+            </div>
+            <div class="input-label-custom" style="margin-top: 10px;">
+                <label class='form-field-lable control-label'>Comments</label>
+                <nz-textarea-count [nzMaxCharacterCount]="512">
+                    <textarea class="form-control note-border" name="reason" formControlName="reason" rows="2" nz-input
+                        maxlength="512"></textarea>
+                </nz-textarea-count>
+            </div>
+        </form>
+    </ng-template>
+    <ng-template pTemplate="footer">
+        <button type="button" pButton icon="pi pi-check" label="Save" [disabled]="!holdDialog.valid"
+            (click)="confirmHoldType()"></button>
+        <button icon="pi pi-times" pButton (click)="closeHoldDialog()" label="Close"
+            styleClass="p-button-text"></button>
+    </ng-template>
+</p-dialog>
+
+<p-toast key="wrSave" position="top-right"></p-toast>
+<p-toast key="error" position="top-right"></p-toast>
+<p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>

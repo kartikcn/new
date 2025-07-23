@@ -1,0 +1,1 @@
+{"ast":null,"code":"export class FloorFilterInputDTO {\n  constructor(flId, flNameString, blId) {\n    this.flId = 0;\n    this.flNameString = \"\";\n    this.blId = 0;\n    this.flId = flId;\n    this.flNameString = flNameString;\n    this.blId = blId;\n  }\n}","map":null,"metadata":{},"sourceType":"module","externalDependencies":[]}

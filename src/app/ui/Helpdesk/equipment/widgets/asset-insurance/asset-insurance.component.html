@@ -1,0 +1,42 @@
+<form [formGroup]="eqInsurance">
+    <table width="50%">
+        <tr>
+            <td >
+                <div class="input-label-custom " style="width: 90%;">
+                    <label class='form-field-lable'>Insurance Number</label>
+                    <input type="text" class="form-control" name="insuranceNum" formControlName="insuranceNum" maxlength="32" appTrimInput>
+                </div>
+            </td>
+            <td >
+                <div class="input-label-custom " style="width: 90%;">
+                    <label class='form-field-lable '>Insurance Cost</label>
+                    <input type="text" class="form-control" TwoDigitDecimalNumber name="insuranceCost" formControlName="insuranceCost"
+                        appTrimInput>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td >
+                <div class="input-label-custom" style="width: 90%;">
+                    <div class="p-fluid">
+                        <div class="p-field">
+                            <label class='form-field-lable'>Insurance From Date</label>
+                            <p-calendar appendTo="body" dateFormat="dd M yy" name="insuranceFromDate"
+                                formControlName="insuranceFromDate" [showIcon]="false" inputId="icon"></p-calendar>
+                        </div>
+                    </div>
+                </div>
+            <td >
+                <div class="input-label-custom" style="width: 90%;">
+                    <div class="p-fluid">
+                        <div class="p-field">
+                            <label class='form-field-lable'>Insurance To Date</label>
+                            <p-calendar appendTo="body" dateFormat="dd M yy" name="insuranceToDate"
+                                formControlName="insuranceToDate" [showIcon]="false" inputId="icon"></p-calendar>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </table>
+</form>

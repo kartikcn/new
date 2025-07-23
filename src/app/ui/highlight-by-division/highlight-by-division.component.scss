@@ -1,0 +1,122 @@
+@import '/src/scss/variables';
+.no-file-found{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 600px;
+    width:70%;
+    margin-top:10px;
+    margin-right:10px;
+}
+
+.td-class {
+    width: 40px;
+    height: 20px;
+    border: 1px solid black;
+  }
+
+  :host ::ng-deep .pi-chevron-down:before {
+    content: "\2212" !important;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #0d89ec;
+  }
+  
+  :host ::ng-deep .pi-chevron-right:before {
+    content: "\002B" !important;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #0d89ec;
+  }
+
+  :host ::ng-deep .p-datatable .p-datatable-tbody > tr{
+    background: none !important;
+  }
+
+  :host ::ng-deep .p-datatable .p-datatable-tbody > tr.p-highlight{
+    background: #E3F2FD !important;
+  }
+.acrdn-class {
+  height:560px;
+  display: block;
+   overflow-y:scroll;
+}
+.filter-panel-td1{
+  width:20%
+}
+.filter-panel-td2{
+  width:60%
+}
+.filter-panel-td3{
+  width:20%
+}
+.division-selection-div{
+  width:28%
+}
+.svg-view-div{
+  width:70%;
+}
+.accordion-header-td1{
+  width:2rem;
+}
+.accordion-header-td2{
+  width:8rem;
+}
+.accordion-header-td4{
+  width:7rem;
+}
+
+/* Media query for tablets in portrait mode */
+@media screen and (min-width: $tabletPotraitMinWidth) and (max-width:$tabletPotraitMaxWidth ) {
+  .filter-panel-td1{
+    width:35%
+  }
+  .filter-panel-td2{
+    width:25%
+  }
+  .filter-panel-td3{
+    width:40%
+  }
+  .division-selection-div{
+    width:50%
+  }
+  .svg-view-div{
+    width:50%;
+  }
+  .no-file-found{
+    width:50%;
+  }
+  .accordion-header-td1{
+    width:1rem;
+  }
+  .accordion-header-td2{
+    width:2rem;
+  }
+  .accordion-header-td4{
+    width:3rem;
+  }
+}
+
+/* Media query for tablets in landscape mode */
+@media screen and (min-width:$tabletLandscapeMinWidth ) and (max-width: $tabletLandspaceMaxWidth) {
+  .filter-panel-td1{
+    width:25%
+  }
+  .filter-panel-td2{
+    width:52%
+  }
+  .filter-panel-td3{
+    width:23%
+  }
+  .division-selection-div{
+    width:35%
+  }
+  .svg-view-div{
+    width:65%;
+  }
+  .no-file-found{
+    width:65%;
+  }
+ 
+}
+

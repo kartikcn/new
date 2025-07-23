@@ -1,0 +1,200 @@
+<h2 mat-dialog-title class="mat-dialog-title-ext">Define Recurrence Pattern</h2>
+<mat-dialog-content class="mat-typography mat-dialog-content-ext">
+    <form [formGroup]="recurrenceDetailsForm">
+        <mat-card-content id="recurrenceDetailsForm">
+            <table>
+                <tr>
+                    <td style="width: 30%">
+                        <div class="input-label-custom">
+                            <div class="p-fluid">
+                                <div class="p-field">
+                                    <label class='form-field-lable control-label'>Start Date</label>
+                                    <p-calendar appendTo="body" [minDate]="today" dateFormat="dd M yy" name="dateStart"
+                                        formControlName="dateStart" [showIcon]="false" inputId="icon"
+                                        [maxDate]="maxDate"></p-calendar>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                    <td style="width: 30%">
+                        <div class="input-label-custom">
+                            <div class="p-fluid">
+                                <div class="p-field">
+                                    <label class='form-field-lable control-label'>End Date</label>
+                                    <p-calendar appendTo="body" [minDate]="today" dateFormat="dd M yy" name="dateEnd"
+                                        formControlName="dateEnd" [showIcon]="false" inputId="icon"
+                                        [maxDate]="maxDate"></p-calendar>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div
+                            *ngIf="(recurrenceDetailsForm.controls['dateStart']?.errors && recurrenceDetailsForm.controls['dateStart'].dirty) || 
+                            (recurrenceDetailsForm.controls['dateEnd']?.errors && recurrenceDetailsForm.controls['dateEnd'].dirty)">
+                            <label class='form-field-lable' style="color:red;">Start date should be less than end
+                                date</label>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+            <div class="tabs-rounded">
+                <ul class="nav nav-tabs" id="asset_tabs" style="font-size:12px;border-bottom:0">
+                    <li class="perform-li" [ngClass]="{  'active': tab_name_clicked === 'daily' }"><a href="/"
+                            (click)="onSelection($event,'daily')" prevent-default data-toggle="tab">Daily</a>
+                    </li>
+                    <li class="perform-li" [ngClass]="{  'active': tab_name_clicked === 'weekly' }"><a href="/"
+                            (click)="onSelection($event,'weekly')" data-toggle="tab">Weekly</a></li>
+                    <li class="perform-li" [ngClass]="{  'active': tab_name_clicked === 'monthly' }"><a href="/"
+                            (click)="onSelection($event,'monthly')" data-toggle="tab">Monthly</a></li>
+                    <li class="perform-li" [ngClass]="{  'active': tab_name_clicked === 'annually' }"><a href="/"
+                            (click)="onSelection($event,'annually')" data-toggle="tab">Annually</a></li>
+                </ul>
+                <div id="locTabContent" class="tab-content">
+                    <div class="tab-pane " id="daily">
+                        <div class="input-label-custom "
+                            style="display: flex; justify-content: baseline; margin-top: 15px;">
+                            <label class='form-field-lable'>Every:</label>
+                            <input type="text" NumbersOnly class="form-control" formControlName="daysFrequency" maxlength="9">
+                            <label class='form-field-lable'>day(s)</label>
+                        </div>
+                        <div *ngIf="recurrenceDetailsForm.controls.daysFrequency.value < 1">
+                            <label class='form-field-lable' style="color:red;">Value Can not be less than one</label>
+                        </div>
+                    </div>
+
+                    <div class="tab-pane" id="weekly">
+                        <div style=" margin-top: 15px; display: flex;">
+                            <label class='form-field-lable'>Every:</label>
+                            <ul *ngFor="let week of weekNames" class="field-checkbox">
+                                <div class="card-container">
+                                    <p-checkbox name="group2" (onChange)="checked()" [formControlName]=[week.dayName] [value]="week.dayName"
+                                        [inputId]="week.dayName">
+                                    </p-checkbox>
+                                    <label [for]="week.dayName">{{week.dayName}}</label>
+
+                                </div>
+                            </ul>
+                        </div>
+                        <div style="display: flex;">
+                            <label class='form-field-lable'>for every</label>
+                            <input type="text" NumbersOnly class="form-control" formControlName="weeksFrequency" maxlength="9">
+                            <label class='form-field-lable'>week(s)</label>
+                        </div>
+                        <div *ngIf="recurrenceDetailsForm.controls.weeksFrequency.value < 1">
+                            <label class='form-field-lable' style="color:red;">Value Can not be less than one</label>
+                        </div>
+                    </div>
+                    <div #mydiv1 class="tab-pane" id="monthly">
+                        <div style=" display: flex; flex-direction: row; margin-top: 15px;">
+                            <input type="radio" name="monthly_type" id="dayOfMonth"
+                                (click)="onSelectMonthlyType($event)" checked="true">
+                            <p-multiSelect [options]="dayOfMonth" appendTo="body"  (onChange)="checked()"
+                                formControlName="selectedDayNumbers" [placeholder]="'Select day(s)'" optionLabel="day"
+                                [readonly]="!isDayOfMonthVisible" [panelStyle]="{'width':'150px'}"></p-multiSelect>
+                            <label class='form-field-lable'>day(s)</label>
+                            <label class='form-field-lable'> every</label>
+                            <input type="text" NumbersOnly class="form-control" [readonly]="!isDayOfMonthVisible"
+                                formControlName="monthsFrequency" maxlength="9">
+                            <label style="margin-left:4px" class='form-field-lable'>month(s)</label>
+
+                        </div>
+
+                        <div #mydiv style=" display: flex; flex-direction: row;">
+                            <input type="radio" name="monthly_type" id="weekOfMonth_months"
+                                (click)="onSelectMonthlyType($event)" placeholder="1">
+                            <!-- <label id="ext-gen81" class='form-field-lable'>The</label> -->
+                            <p-multiSelect [options]="weekNums" [placeholder]="'Select week(s)'"  (onChange)="checked()"
+                                [readonly]="!isWeekOfMonthVisible" formControlName="selectedWeekNumbers"
+                                appendTo="body" optionLabel="id" [panelStyle]="{'width':'150px'}"></p-multiSelect>
+                            <p-multiSelect [options]="weekNames" (onPanelHide)="clickWeekName($event)"  (onChange)="checked()"
+                                formControlName="selectedWeekNames" [readonly]="!isWeekOfMonthVisible"
+                                [placeholder]="'Select day(s) of week'" appendTo="body" optionLabel="dayName"
+                                [panelStyle]="{'width':'200px'}"></p-multiSelect>
+                            <label class='form-field-lable'>every</label>
+                            <input type="text" NumbersOnly class="form-control" [readonly]="!isWeekOfMonthVisible"
+                                formControlName="monthsFrequency2" id="dayOfMonth_months" maxlength="9">
+                            <label style="margin-left:4px" class='form-field-lable'>month(s)</label>
+                        </div>
+                    </div>
+                    <div *ngIf="isError">
+                        <label class='form-field-lable' style="color:red;">Provide the required
+                            information</label>
+                    </div>
+
+                    <div class="tab-pane" id="annually">
+                        <div class="input-label-custom "
+                            style="display: flex; justify-content: baseline; margin-top: 15px;">
+                            <label class='form-field-lable'>Every:</label>
+                            <input type="text" NumbersOnly class="form-control" formControlName="yearFrequency" maxlength="9">
+                            <label class='form-field-lable'>year(s)</label>
+                        </div>
+                        <div *ngIf="recurrenceDetailsForm.controls.yearFrequency.value < 1">
+                            <label class='form-field-lable' style="color:red;">Value Can not be less than one</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </mat-card-content>
+    </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end" class="mat-dialog-actions-ext">
+    <p-button label="Save" (click)="saveRecurrence()" [disabled]="!recurrenceDetailsForm.valid" icon="pi pi-check">
+    </p-button>
+    <p-button label="Cancel" icon="pi pi-times" (click)="confirmDialog()" styleClass="p-button-secondary"
+        [style]="{'margin-left': '.5em'}"></p-button>
+</mat-dialog-actions>
+<p-confirmDialog header="Confirmation" key="onCancel" icon="pi pi-exclamation-triangle"></p-confirmDialog>
+<p-dialog header="Recurrence Details" [(visible)]="displayRecurrencePatern" [closable]="false"
+    [style]="{width: '35vw'}">
+    <ng-template pTemplate="body">
+
+        <div class="recurrence-details-container">
+            <div class="recurrence-details-item">
+                <p class='form-field-lable'>Type : <span>{{recurrenceDetails.type}}</span></p>
+            </div>
+            <div class="recurrence-details-item">
+                <p class='form-field-lable'>Frequency :
+                    <span>{{recurrenceDetails.frequency}}</span>
+                </p>
+            </div>
+            <div class="recurrence-details-item">
+                <p class='form-field-lable'>Date Start : <span>{{recurrenceDetails.dateStart | date :"dd MMM
+                        yyyy"}}</span></p>
+            </div>
+            <div class="recurrence-details-item">
+                <p class='form-field-lable'>Date End : <span>{{recurrenceDetails.dateEnd | date :"dd MMM
+                        yyyy"}}</span></p>
+            </div>
+            <div class="recurrence-details-item" *ngIf="recurrenceDetails.weekDays != ''">
+                <p class='form-field-lable'>Week Days :
+                    <span>{{weekNamesString}}</span>
+                </p>
+            </div>
+            <div class="recurrence-details-item" *ngIf="recurrenceDetails.weeks != ''">
+                <p class='form-field-lable'>weeks :
+                    <span>{{recurrenceDetails.weeks}}</span>
+                </p>
+            </div>
+            <div class="recurrence-details-item" *ngIf="recurrenceDetails.monthDays != '' ">
+                <p class='form-field-lable'>Month Days :
+                    <span>{{recurrenceDetails.monthDays}}</span>
+                </p>
+            </div>
+            <div class="recurrence-details-item">
+                <p class='total-occurence'>Total Occurences : <span class='form-field-lable'>{{totalOccurence}}</span>
+                </p>
+            </div>
+        </div>
+    </ng-template>
+    <ng-template pTemplate="footer">
+        <p-button icon="pi pi-times" (click)="displayRecurrencePatern=false" label="Back"
+            styleClass="p-button-secondary">
+        </p-button>
+        <p-button icon="pi pi-check" (click)="onContinue()" label="Continue"></p-button>
+    </ng-template>
+</p-dialog>

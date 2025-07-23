@@ -1,0 +1,68 @@
+<form [formGroup]="planPartFormPanel">
+    <table width="100%">
+        <tr>
+            <td colspan="2">
+                <div class="input-label-custom ">
+                    <label class='form-field-lable control-label'>Step</label>
+                    <ng-select appendTo="body" [clearable]="false" [items]="planStepList" formControlName="planStepId"
+                        [searchable]="true" bindLabel="stepCode" bindValue="planStepId" placeholder="Make a selection"
+                        class="ng-select-dropdown" readonly="true">
+                    </ng-select>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <div style="display: flex;">
+                    <div class="input-label-custom " style="width: 90%;">
+                        <label class='form-field-lable control-label'>Part Code</label>
+                        <ng-select appendTo="body" [clearable]="false" [items]="partsList" formControlName="partId"
+                            [searchable]="true" bindLabel="partCode" bindValue="partId" class="ng-select-dropdown"
+                            placeholder="Make a Selection" (change)="selectPartCode($event)">
+                        </ng-select>
+                    </div>
+                    <div style="display: flex;  margin-top: 32px;">
+                        <button pButton pRipple icon="pi pi-info-circle" (click)=" showPartDetails()"
+                            [disabled]="!enableDetailsBtn" matTooltip="View Part Details" id="details"
+                            class="p-button-rounded pull-right" id="detailsBtn"></button>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <label class='form-field-lable' *ngIf="partExist" style="color:red;">Part Code already exists</label>
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>
+                <div class="input-label-custom ">
+                    <label class='form-field-lable control-label'>Available Quantity</label>
+                    <input type="text" NumbersOnly class="form-control" name="avalQuantity"
+                        formControlName="avalQuantity" [readOnly]="true">
+                </div>
+            </td>
+            <td>
+                <div class="input-label-custom ">
+                    <label class='form-field-lable control-label'>Required Quantity</label>
+                    <input type="text" class="form-control" NumbersOnly TwoDigitDecimalNumber name="qunatityRequired"
+                        formControlName="qunatityRequired" (change)="changeReqQuantity($event,'Required Quantity')">
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <label class='form-field-lable' *ngIf="errorMsg.length > 0 && requiredQtyError" style="color:red;">
+                    {{errorMsg}}</label>
+            </td>
+
+        </tr>
+
+    </table>
+</form>
+
+<!-- Part Details Form -->
+<p-dialog header="Part Details" [(visible)]="showDetails" *ngIf="showDetails" [style]="{width: '32vw'}" [modal]="true">
+    <app-part-details [selectedPart]="selectedPart"></app-part-details>
+</p-dialog>

@@ -1,0 +1,79 @@
+<form [formGroup]="requestPartsForm" autocomplete="off">
+    <table width="100%">
+
+        <tr>
+            <td colspan="2">
+                <div style="display: flex;">
+                    <div class="input-label-custom " style="width: 90%;">
+                        <label class='form-field-lable control-label'>Part Code</label>
+                        <ng-select appendTo="body" [clearable]="false" [items]="partsData" formControlName="partId"
+                            [searchable]="true" bindLabel="partCode" bindValue="partId" class="ng-select-dropdown"
+                            placeholder="Make a Selection" (change)="selectPartCode($event)"
+                            [readonly]="!isSupervisor && !isNew">
+                        </ng-select>
+                    </div>
+                    <div style="display: flex;  margin-top: 32px;">
+                        <button pButton pRipple icon="pi pi-info-circle" (click)=" showPartDetails()"
+                            [disabled]="!enableDetailsBtn" matTooltip="View Part Details"
+                            class="p-button-rounded pull-right"></button>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <label class='form-field-lable' *ngIf="partExist" style="color:red;">Part Code already exists</label>
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>
+                <div class="input-label-custom ">
+                    <label class='form-field-lable'>Unit of Measurement</label>
+                    <ng-select appendTo="body" [clearable]="false" name="unitOfMeasurement"
+                        formControlName="unitOfMeasurement" [searchable]="true" bindLabel="enumValue" bindValue="enumKey"
+                        placeholder="Make a selection" class="ng-select-dropdown" [items]="enumMeasurment"
+                        [readonly]="true">
+                    </ng-select>
+                </div>
+            </td>
+            <td>
+                <div class="input-label-custom ">
+                    <label class='form-field-lable control-label'>Available Quantity</label>
+                    <input type="text" NumbersOnly class="form-control" name="AvalQuantity"
+                        formControlName="AvalQuantity" [readOnly]="true">
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td width="50%">
+                <div class="input-label-custom ">
+                    <label class='form-field-lable control-label'>Required Quantity</label>
+                    <input type="text" NumbersOnly class="form-control" name="reqQuantity" formControlName="reqQuantity"
+                        (change)="changeReqQuantity($event,'Required Quantity')" [readonly]="!isSupervisor && !isNew">
+                </div>
+            </td>
+            <td width="50%">
+                <div class="input-label-custom " [hidden]="isNew">
+                    <label class='form-field-lable control-label'>Actual Quantity Used</label>
+                    <input type="text" NumbersOnly class="form-control" name="actualQuantityUsed"
+                        (change)="changeReqQuantity($event,'Actual Quantity')" formControlName="actualQuantityUsed">
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td width="50%">
+                <label class='form-field-lable' *ngIf="errorMsg.length > 0 && requiredQtyError" style="color:red;">
+                    {{errorMsg}}</label>
+            </td>
+            <td width="50%">
+                <label class='form-field-lable' *ngIf="errorMsg.length > 0 && actualQtyError" style="color:red;">
+                    {{errorMsg}}</label>
+            </td>
+        </tr>
+    </table>
+</form>
+<!-- Part Details Form -->
+<p-dialog header="Part Details" [(visible)]="showDetails" *ngIf="showDetails" [style]="{width: '32vw'}">
+    <app-part-details [selectedPart]="selectedPart"></app-part-details>
+</p-dialog>

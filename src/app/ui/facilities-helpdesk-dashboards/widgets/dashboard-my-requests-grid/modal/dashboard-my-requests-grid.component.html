@@ -1,0 +1,79 @@
+<p-table [value]="myRequestsData" [paginator]="true" [rows]="rowCount" [showCurrentPageReport]="true"
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [rowsPerPageOptions]="[5,10,25]"
+    [scrollable]="true" scrollDirection="both" scrollHeight="200px" [rowHover]="false"
+    styleClass="p-datatable-customers p-datatable-gridlines" dataKey="wrId" [totalRecords]="myRequestsData.length">
+    <ng-template pTemplate="header">
+        <tr>
+            <th style="width:4rem"> </th>
+            <th pSortableColumn="wrId">
+                <div class="grid-header-column">
+                    <div class="grid-header-label">
+                        <p class="grid-label-paragraph">Request Id</p>
+                    </div>
+                    <div class="grid-sort-icon">
+                        <p-sortIcon field="wrId"></p-sortIcon>
+                        <p-columnFilter type="text" field="wrId" display="menu"></p-columnFilter>
+                    </div>
+                </div>
+            </th>
+            <th pSortableColumn="formatedDateRequested">
+                <div class="grid-header-column">
+                    <div class="grid-header-label">
+                        <p class="grid-label-paragraph">Requested Date</p>
+                    </div>
+                    <div class="grid-sort-icon">
+                        <p-sortIcon field="formatedDateRequested"></p-sortIcon>
+                        <p-columnFilter type="text" field="formatedDateRequested" display="menu"></p-columnFilter>
+                    </div>
+                </div>
+            </th>
+            <th pSortableColumn="problemTypeString">
+                <div class="grid-header-column">
+                    <div class="grid-header-label">
+                        <p class="grid-label-paragraph">Problem Type</p>
+                    </div>
+                    <div class="grid-sort-icon">
+                        <p-sortIcon field="problemTypeString"></p-sortIcon>
+                        <p-columnFilter type="text" field="problemTypeString" display="menu"></p-columnFilter>
+                    </div>
+                </div>
+            </th>
+            <th pSortableColumn="status">
+                <div class="grid-header-column">
+                    <div class="grid-header-label">
+                        <p class="grid-label-paragraph">Status</p>
+                    </div>
+                    <div class="grid-sort-icon">
+                        <p-sortIcon field="status"></p-sortIcon>
+                        <p-columnFilter type="text" field="status" matchMode="equals" display="menu">
+                            <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                                <p-dropdown [ngModel]="value" [options]="enumStatus" optionLabel="enumValue"
+                                    optionValue="id" (onChange)="filter($event.value)" placeholder="Select a Status"
+                                    [showClear]="true"></p-dropdown>
+                            </ng-template>
+                        </p-columnFilter>
+                    </div>
+                </div>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-wr>
+        <tr [pSelectableRow]="wr">
+            <td style="width:4rem">
+                <button icon="pi pi-eye" pButton pRipple type="button" class="p-button-text p-button-rounded"
+                matTooltipPosition="top"  matTooltip="View" (click)="onClickView(wr)"></button>
+            </td>
+            <td>{{wr.wrId}}</td>
+            <td>{{wr.dateRequested | date :"dd MMM yyyy"}}</td>
+            <td matTooltip="{{wr.probTypeId == null ?'Default' :wr.problemTypeString}}" matTooltipPosition="below" class="ellipsis">
+                {{wr.probTypeId == null ?"Default" :wr.problemTypeString }}</td>
+            <td>{{getValueById(wr.status)}}</td>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage" let-columns>
+        <tr>
+            <td [attr.colspan]="5" style="text-align: center;">
+                No records found
+            </td>
+        </tr>
+    </ng-template>
+</p-table>

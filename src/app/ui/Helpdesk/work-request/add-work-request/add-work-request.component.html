@@ -1,0 +1,702 @@
+<div style="height: 85vh;" *ngIf="!useTabletProtrait">
+    <p-card [header]=" !isView && !isDetails? 'Log a Request' : '' ">
+        <div>
+            <form [formGroup]="addWrFormPanel">
+                <h2 *ngIf="isView && !isDetails" mat-dialog-title class="mat-dialog-title-ext">Details</h2>
+                <table width="100%" style="table-layout: fixed;">
+                    <tr>
+                        <td>
+                            <div class="location-container">
+                                <div class="input-label-custom input-container">
+                                    <label class='form-field-lable control-label'>Requested For</label>
+                                    <ng-select appendTo="body" [clearable]="false" [searchable]="true"
+                                        placeholder="Make a selection" class="ng-select-dropdown"
+                                        [items]="enumRequestedFor" formControlName="requestedFor" bindLabel="firstName"
+                                        bindValue="emId" (change)="onSelectRequestedFor($event)" [readonly]="isView"
+                                        (scrollToEnd)="scrollToEndEm()" (search)="searchEm($event)" (open)="onOpenEm()">
+                                    </ng-select>
+                                </div>
+                                <div class="icon-container">
+                                    <mat-icon #tooltip="matTooltip" [matTooltip]="isEmpSelected ?'View Floor Plan':''"
+                                        [class.blue-icon]="isEmpSelected"
+                                        (click)="isEmpSelected && locateRoom('em')">location_on</mat-icon>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="input-label-custom input-container">
+                                <div class="p-fluid">
+                                    <div class="p-field">
+                                        <label class='form-field-lable control-label'>Logged Date</label>
+                                        <p-calendar appendTo="body" dateFormat="dd M yy" [disabled]="idDisabled"
+                                            name="dateRequested" formControlName="dateRequested"
+                                            [showIcon]="false"></p-calendar>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="input-label-custom input-container">
+                                <div class="p-fluid">
+                                    <div class="p-field">
+                                        <label class='form-field-lable control-label'>Logged Time</label>
+                                        <p-calendar appendTo="body" [showTime]="true" [disabled]="idDisabled"
+                                            name="timeRequested" formControlName="timeRequested" [showIcon]="false"
+                                            [timeOnly]="true"></p-calendar>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="input-label-custom input-container">
+                                <label class='form-field-lable control-label'>Building</label>
+                                <ng-select appendTo="body" [clearable]="false" [searchable]="true" placeholder="Make a selection"
+                                    class="ng-select-dropdown" [items]="enumBL" formControlName="blId" bindLabel="blNameString" bindValue="blId"
+                                    (change)="onSelectBlCode($event)" [readonly]="isView" (scrollToEnd)="scrollToEndBl()" (search)="searchBl($event)"
+                                    (open)="onOpenBl()">
+                                </ng-select>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="input-label-custom input-container">
+                                <label class='form-field-lable'>Floor</label>
+                                <ng-select appendTo="body" [clearable]="false" [searchable]="true" class="ng-select-dropdown" [items]="enumFL"
+                                    formControlName="flId" bindLabel="flNameString" bindValue="flId" placeholder="Make a selection"(open)="onOpenFl()"
+                                    (change)="onSelectFlCode($event)" [readonly]="isView" (scrollToEnd)="scrollToEndFl()" (search)="searchFl($event)">
+                                </ng-select>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="location-container">
+                                <div class="input-label-custom input-container">
+                                    <label class='form-field-lable'>Room</label>
+                                    <ng-select appendTo="body" [clearable]="false" [items]="rm_data" formControlName="rmId" [searchable]="true"
+                                        bindLabel="rmNameString" bindValue="rmId" placeholder="Make a selection" class="ng-select-dropdown"(open)="onOpenRm()"
+                                        (change)="onSelectRmCode($event)" [readonly]="isView" (scrollToEnd)="scrollToEndRm()" (search)="searchRm($event)">
+                                    </ng-select>
+                                </div>
+                                <div class="icon-container">
+                                    <mat-icon [class.blue-icon]="isRoomSelected" #tooltip="matTooltip"
+                                        [matTooltip]="isRoomSelected ?'View Floor Plan':''"
+                                        (click)="isRoomSelected && locateRoom('rm')">location_on</mat-icon>
+                                </div>
+                            </div>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="location-container">
+                                <div class="input-label-custom input-container">
+                                    <label class='form-field-lable'>Asset</label>
+                                    <ng-select appendTo="body" [clearable]="false" [items]="enumEquipment"
+                                        formControlName="eqId" [searchable]="true" bindLabel="displayEqId"
+                                        bindValue="eqId" placeholder="Make a selection" class="ng-select-dropdown"
+                                        (change)="onSelectEqCode($event)" [readonly]="isView || setAssetReadOnly">
+                                    </ng-select>
+                                </div>
+                                <div class="icon-container">
+                                    <mat-icon [class.blue-icon]="isAssetSelected" #tooltip="matTooltip"
+                                        [matTooltip]="isAssetSelected ?'View Floor Plan':''"
+                                        (click)="isAssetSelected && locateRoom('asset')">location_on</mat-icon>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="input-label-custom input-container">
+                                <label class='form-field-lable'>Asset Description</label>
+                                <input type="text" class="form-control" [readonly]="true" disabled="true"
+                                    formControlName="eqDescription">
+                            </div>
+                        </td>
+                        <td *ngIf="isView">
+                            <div class="input-label-custom input-container">
+                                <label class='form-field-lable'>Status</label>
+                                <ng-select appendTo="body" [clearable]="false" [items]="enumStatus"
+                                    formControlName="status" [searchable]="true" bindLabel="enumValue"
+                                    bindValue="enumKey" placeholder="Make a selection" class="ng-select-dropdown"
+                                    (change)="onSelectEqCode($event)"
+                                    [readonly]="isView || setAssetReadOnly || isDetails">
+                                </ng-select>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div style="width: 100%; margin-left: 3px; display: flex; flex-direction: column;">
+                                <div>
+                                    <label class='form-field-lable control-label'>Problem Type</label>
+                                </div>
+                                <div style="display: flex; flex-direction: row;">
+                                    <div style="width: 70%;">
+                                        <textarea class="form-control note-border" name="problemTypeString" rows="2"
+                                            formControlName="problemTypeString" [readonly]="true"
+                                            placeholder="Add problem type" nz-input></textarea>
+                                    </div>
+                                    <div style="display: flex; align-items: center; margin-left: 5px;">
+                                        <button type="text" pButton label="Select Problem" (click)="onAddProblemType()"
+                                            [disabled]="isView"></button>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </td>
+                        <td colspan="2">
+                            <div style="display: flex; flex-direction: row; width: 100%;">
+                                <!-- <div *ngIf="slaResponseParameters.length > 0" style="display: flex; flex-direction: column;"> -->
+                                    <div>
+                                        <label class='form-field-lable control-label'>Priority</label>
+                                    </div>
+                                    <div *ngIf="slaResponseParameters.length > 0" [ngClass]="{'stop-event': isView}" class="priority-container">
+                                        <div *ngFor="let priority of slaResponseParameters " class=" m-2">
+                                            <div style="display: flex;">
+                                                <p-radioButton [inputId]="priority.slaResponseParametersId"
+                                                    [disabled]="isView" name="selectedPriority"
+                                                    [(ngModel)]="selectedPriority" 
+                                                    [value]="priority.slaResponseParametersId"
+                                                    formControlName="selectedPriority"
+                                                    (click)="selectPriority(priority)"></p-radioButton>
+                                                <label [for]="priority.slaResponseParametersId"
+                                                    style="margin-left:10px;font-size:12px;">
+                                                    {{priority.priority }}</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <!-- </div> -->
+                                <!-- <div> this is for sla information icon
+                                    <span>asdf</span>
+
+                                </div> -->
+                            </div>
+                        </td>
+                        <!-- <td *ngIf="isPrivorityChecked" style="padding-left: 20px;margin-top: 30px;">
+                            <mat-dialog-content class="mat-typography mat-dialog-content-ext">
+                                <mat-card>
+                                    <mat-card-content id="wr-priority">
+                                        <label style="font-size: 11px; font-weight: 500;">SLA Information</label>
+                                        <div style="margin-left:10px;font-size: 11px;">
+                                            <div *ngIf="showTimeToResponse.length > 0">
+                                                {{showTimeToResponse}}
+                                            </div>
+                                            <div *ngIf="showTimeToCompleted.length > 0">
+                                                {{showTimeToCompleted}}
+                                            </div>
+                                            <div *ngIf="showAutoIssue.length > 0">
+                                                {{showAutoIssue}}
+                                            </div>
+                                            <div *ngIf="showAutoApproval.length > 0">
+                                                {{showAutoApproval}}
+                                            </div>
+                                            <div *ngIf="selectedPriorityRec && selectedPriorityRec.slaSteps.length > 0">
+                                                <div *ngFor="let step of selectedPriorityRec.slaSteps">
+                                                    {{getStepTypeValue(step.stepType)}} required by <span
+                                                        class="fs-6 fw-medium">{{getPersonName(step)}}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </mat-card-content>
+                                </mat-card>
+                            </mat-dialog-content>
+                        </td> -->
+                    </tr>
+                    <tr>
+                        <td style="width:25%">
+                            <div class="d-flex">
+                                <div class="input-label-custom">
+                                    <div class="p-fluid">
+                                        <div class="p-field">
+                                            <label class='form-field-lable'>Respond By</label>
+                                            <p-calendar appendTo="body" dateFormat="dd M yy" [showTime]="true"
+                                                [disabled]="idDisabled" name="respondByDate"
+                                                formControlName="respondByDate" [showIcon]="false"></p-calendar>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="input-label-custom">
+                                    <div class="p-fluid">
+                                        <div class="p-field">
+                                            <label class='form-field-lable'>Complete By</label>
+                                            <p-calendar appendTo="body" dateFormat="dd M yy" [showTime]="true"
+                                                [disabled]="idDisabled" name="completeByDate"
+                                                formControlName="completeByDate" [showIcon]="false"></p-calendar>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                        <td style="width:25%">
+                            <div class="d-flex">
+                                <div class="input-label-custom">
+                                    <div class="p-fluid">
+                                        <div class="p-field">
+                                            <label class='form-field-lable'>Date Responded</label>
+                                            <p-calendar appendTo="body" dateFormat="dd M yy" [showTime]="true"
+                                                [disabled]="idDisabled" name="respondedDateTime"
+                                                formControlName="respondedDateTime" [showIcon]="false"></p-calendar>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="input-label-custom">
+                                    <div class="p-fluid">
+                                        <div class="p-field">
+                                            <label class='form-field-lable'>Date Completed</label>
+                                            <p-calendar appendTo="body" dateFormat="dd M yy" [showTime]="true"
+                                                [disabled]="idDisabled" name="completedDateTime"
+                                                formControlName="completedDateTime" [showIcon]="false"></p-calendar>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <div class="input-label-custom ">
+                                <label class='form-field-lable control-label'>Problem Description</label>
+                                <textarea class="form-control note-border" name="description" rows="2" formControlName="description" maxlength="4000"
+                                    nz-input appTrimInput></textarea>
+                            </div>
+                        </td>
+                        <td>
+                            <div style="margin-left: 6px; margin-top: px;">
+                                <p-overlayPanel appendTo="body" #op [dismissable]="true" [hideTransitionOptions]="'0ms'"
+                                    [showCloseIcon]="true" [style]="{width: '25vw'}">
+                                    <p-table [value]="filteredProblemDescriptionList" selectionMode="single"
+                                        [(selection)]="selectedProblemDescription"
+                                        (onRowSelect)="onRowSelectProblemDescription($event)" [paginator]="true"
+                                        [rows]="rowCount" [showCurrentPageReport]="true" responsiveLayout="scroll"
+                                        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                                        [rowsPerPageOptions]="[5,10,25]" [scrollable]="true" scrollDirection="both"
+                                        scrollHeight="200px" [rowHover]="true"
+                                        styleClass="p-datatable-customers p-datatable-gridlines" dataKey="pdId">
+                                        <ng-template pTemplate="header">
+                    <tr width="100%">
+                        <th width="100%" style="display: flex; justify-content: center; align-items: center;">
+                            <div style="width: 100%;">
+                                <p style="margin-top: 10px;"> Problem Description</p>
+                            </div>
+                            <input type="text"  class="form-control" placeholder="Search"
+                                (input)="filterTable($event.target.value)" [value]="searchTextLower" />
+                        </th>
+                    </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-pd>
+                        <tr [pSelectableRow]="pd">
+                            <td matTooltip="{{pd.pdDescription}}" matTooltipPosition="below" class="ellipsis">
+                                {{pd.pdDescription}}</td>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="emptymessage" let-columns>
+                        <tr>
+                            <td [attr.colspan]="1">
+                                No records to display.
+                            </td>
+                        </tr>
+                    </ng-template>
+                    </p-table>
+
+                    </p-overlayPanel>
+
+                    <button type="text" pButton label="Select Problem Description" icon="pi pi-search"
+                        (click)="toggleOp($event)" [disabled]="isView"></button>
+        </div>
+        </td>
+        </tr>
+        </table>
+        </form>
+        <div class="d-flex justify-content-end m-3" style="margin-right: 30px;">
+            <mat-dialog-actions align="end" class="mat-dialog-actions-ext">
+                <p-button label="Save" class="ml5" icon="pi pi-check" (click)="onSaveWr()"
+                    [disabled]="!addWrFormPanel.valid">
+                </p-button>
+                <p-button label="Clear" icon="pi pi-times" [hidden]="isView || isDetails"
+                    styleClass="p-button-secondary" [style]="{'margin-left': '.5em'}" (click)="onClear()"></p-button>
+            </mat-dialog-actions>
+        </div>
+</div>
+</p-card>
+</div>
+<div *ngIf="useTabletProtrait">
+    <p-card [header]=" !isView && !isDetails? 'Log a Request' : '' ">
+        <div>
+            <form [formGroup]="addWrFormPanel">
+                <h2 *ngIf="isView && !isDetails" mat-dialog-title class="mat-dialog-title-ext">Details</h2>
+                <table width="100%" style="table-layout: fixed;">
+                    <tr>
+                        <td>
+                            <div class="location-container">
+                                <div class="input-label-custom input-container">
+                                    <label class='form-field-lable control-label'>Requested For</label>
+                                    <ng-select appendTo="body" [clearable]="false" [searchable]="true"
+                                        placeholder="Make a selection" class="ng-select-dropdown"
+                                        [items]="enumRequestedFor" formControlName="requestedFor" bindLabel="firstName"
+                                        bindValue="emId" (change)="onSelectRequestedFor($event)" [readonly]="isView"
+                                        (scrollToEnd)="scrollToEndEm()" (search)="searchEm($event)" (open)="onOpenEm()">
+                                    </ng-select>
+                                </div>
+                                <div class="icon-container">
+                                    <mat-icon #tooltip="matTooltip" [matTooltip]="isEmpSelected ?'View Floor Plan':''"
+                                        [class.blue-icon]="isEmpSelected"
+                                        (click)="isEmpSelected && locateRoom('em')">location_on</mat-icon>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="input-label-custom input-container">
+                                <div class="p-fluid">
+                                    <div class="p-field">
+                                        <label class='form-field-lable control-label'>Logged Date</label>
+                                        <p-calendar appendTo="body" dateFormat="dd M yy" [disabled]="idDisabled"
+                                            name="dateRequested" formControlName="dateRequested"
+                                            [showIcon]="false"></p-calendar>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="input-label-custom input-container">
+                                <div class="p-fluid">
+                                    <div class="p-field">
+                                        <label class='form-field-lable control-label'>Logged Time</label>
+                                        <p-calendar appendTo="body" [showTime]="true" [disabled]="idDisabled"
+                                            name="timeRequested" formControlName="timeRequested" [showIcon]="false"
+                                            [timeOnly]="true"></p-calendar>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="input-label-custom input-container">
+                                <label class='form-field-lable control-label'>Building</label>
+                                <ng-select appendTo="body" [clearable]="false" [searchable]="true" placeholder="Make a selection"
+                                    class="ng-select-dropdown" [items]="enumBL" formControlName="blId" bindLabel="blNameString" bindValue="blId"
+                                    (change)="onSelectBlCode($event)" [readonly]="isView" (scrollToEnd)="scrollToEndBl()" (search)="searchBl($event)"
+                                    (open)="onOpenBl()">
+                                </ng-select>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="input-label-custom input-container">
+                                <label class='form-field-lable'>Floor</label>
+                                <ng-select appendTo="body" [clearable]="false" [searchable]="true" class="ng-select-dropdown" [items]="enumFL"
+                                    formControlName="flId" bindLabel="flNameString" bindValue="flId" placeholder="Make a selection"(open)="onOpenFl()"
+                                    (change)="onSelectFlCode($event)" [readonly]="isView" (scrollToEnd)="scrollToEndFl()" (search)="searchFl($event)">
+                                </ng-select>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="location-container">
+                                <div class="input-label-custom input-container">
+                                    <label class='form-field-lable'>Room</label>
+                                    <ng-select appendTo="body" [clearable]="false" [items]="rm_data" formControlName="rmId" [searchable]="true"
+                                        bindLabel="rmNameString" bindValue="rmId" placeholder="Make a selection" class="ng-select-dropdown"(open)="onOpenRm()"
+                                        (change)="onSelectRmCode($event)" [readonly]="isView" (scrollToEnd)="scrollToEndRm()" (search)="searchRm($event)">
+                                    </ng-select>
+                                </div>
+                                <div class="icon-container">
+                                    <mat-icon [class.blue-icon]="isRoomSelected" #tooltip="matTooltip"
+                                        [matTooltip]="isRoomSelected ?'View Floor Plan':''"
+                                        (click)="isRoomSelected && locateRoom('rm')">location_on</mat-icon>
+                                </div>
+                            </div>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="location-container">
+                                <div class="input-label-custom input-container">
+                                    <label class='form-field-lable'>Asset</label>
+                                    <ng-select appendTo="body" [clearable]="false" [items]="enumEquipment"
+                                        formControlName="eqId" [searchable]="true" bindLabel="displayEqId"
+                                        bindValue="eqId" placeholder="Make a selection" class="ng-select-dropdown"
+                                        (change)="onSelectEqCode($event)" [readonly]="isView || setAssetReadOnly">
+                                    </ng-select>
+                                </div>
+                                <div class="icon-container">
+                                    <mat-icon [class.blue-icon]="isAssetSelected" #tooltip="matTooltip"
+                                        [matTooltip]="isAssetSelected ?'View Floor Plan':''"
+                                        (click)="isAssetSelected && locateRoom('asset')">location_on</mat-icon>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="input-label-custom input-container">
+                                <label class='form-field-lable'>Asset Description</label>
+                                <input type="text" class="form-control" [readonly]="true" disabled="true"
+                                    formControlName="eqDescription">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td *ngIf="isView">
+                            <div class="input-label-custom input-container">
+                                <label class='form-field-lable'>Status</label>
+                                <ng-select appendTo="body" [clearable]="false" [items]="enumStatus"
+                                    formControlName="status" [searchable]="true" bindLabel="enumValue"
+                                    bindValue="enumKey" placeholder="Make a selection" class="ng-select-dropdown"
+                                    (change)="onSelectEqCode($event)"
+                                    [readonly]="isView || setAssetReadOnly || isDetails">
+                                </ng-select>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div style="width: 95%; margin-left: 3px; display: flex; flex-direction: column;">
+                                <div>
+                                    <label class='form-field-lable control-label'>Problem Type</label>
+                                </div>
+                                <div>
+                                    <textarea class="form-control note-border" name="problemTypeString" rows="3" formControlName="problemTypeString"
+                                        [readonly]="true" placeholder="Add problem type" nz-input></textarea>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div style="margin-top: 25px;">
+                                <button type="text" pButton label="Select Problem" (click)="onAddProblemType()"
+                                    [disabled]="isView"></button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <div style="display: flex; flex-direction: row; width: 100%;">
+                                <div *ngIf="slaResponseParameters.length > 0"
+                                    style="display: flex; flex-direction: column;">
+                                    <div>
+                                        <label class='form-field-lable control-label'>Priority</label>
+                                    </div>
+                                    <div *ngIf="slaResponseParameters.length > 0" [ngClass]="{'stop-event': isView}"
+                                        class="priority-container">
+                                        <div *ngFor="let priority of slaResponseParameters " class=" m-2">
+                                            <div style="display: flex;">
+                                                <p-radioButton [inputId]="priority.slaResponseParametersId"
+                                                    [disabled]="isView" name="selectedPriority"
+                                                    [(ngModel)]="selectedPriority" 
+                                                    [value]="priority.slaResponseParametersId"
+                                                     formControlName="selectedPriority"
+                                                    (click)="selectPriority(priority)"></p-radioButton>
+                                                <label [for]="priority.slaResponseParametersId"
+                                                    style="margin-left:10px;font-size:12px;">
+                                                    {{priority.priority }}</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- <div> this is for sla information icon
+                                    <span>asdf</span>
+
+                                </div> -->
+                            </div>
+                        </td>
+                        <!-- <td *ngIf="isPrivorityChecked" style="padding-left: 20px;margin-top: 30px;">
+                            <mat-dialog-content class="mat-typography mat-dialog-content-ext">
+                                <mat-card>
+                                    <mat-card-content id="wr-priority">
+                                        <label style="font-size: 11px; font-weight: 500;">SLA Information</label>
+                                        <div style="margin-left:10px;font-size: 11px;">
+                                            <div *ngIf="showTimeToResponse.length > 0">
+                                                {{showTimeToResponse}}
+                                            </div>
+                                            <div *ngIf="showTimeToCompleted.length > 0">
+                                                {{showTimeToCompleted}}
+                                            </div>
+                                            <div *ngIf="showAutoIssue.length > 0">
+                                                {{showAutoIssue}}
+                                            </div>
+                                            <div *ngIf="showAutoApproval.length > 0">
+                                                {{showAutoApproval}}
+                                            </div>
+                                            <div *ngIf="selectedPriorityRec && selectedPriorityRec.slaSteps.length > 0">
+                                                <div *ngFor="let step of selectedPriorityRec.slaSteps">
+                                                    {{getStepTypeValue(step.stepType)}} required by <span
+                                                        class="fs-6 fw-medium">{{getPersonName(step)}}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </mat-card-content>
+                                </mat-card>
+                            </mat-dialog-content>
+                        </td> -->
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="input-label-custom">
+                                <div class="p-fluid">
+                                    <div class="p-field">
+                                        <label class='form-field-lable'>Respond By</label>
+                                        <p-calendar appendTo="body" dateFormat="dd M yy" [showTime]="true" [disabled]="idDisabled"
+                                            name="respondByDate" formControlName="respondByDate" [showIcon]="false"></p-calendar>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+
+                        <td>
+                            <div class="input-label-custom">
+                                <div class="p-fluid">
+                                    <div class="p-field">
+                                        <label class='form-field-lable'>Complete By</label>
+                                        <p-calendar appendTo="body" dateFormat="dd M yy" [showTime]="true"
+                                            [disabled]="idDisabled" name="completeByDate"
+                                            formControlName="completeByDate" [showIcon]="false"></p-calendar>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="input-label-custom">
+                                <div class="p-fluid">
+                                    <div class="p-field">
+                                        <label class='form-field-lable'>Date Responded</label>
+                                        <p-calendar appendTo="body" dateFormat="dd M yy" [showTime]="true"
+                                            [disabled]="idDisabled" name="respondedDateTime"
+                                            formControlName="respondedDateTime" [showIcon]="false"></p-calendar>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="input-label-custom">
+                                <div class="p-fluid">
+                                    <div class="p-field">
+                                        <label class='form-field-lable'>Date Completed</label>
+                                        <p-calendar appendTo="body" dateFormat="dd M yy" [showTime]="true"
+                                            [disabled]="idDisabled" name="completedDateTime"
+                                            formControlName="completedDateTime" [showIcon]="false"></p-calendar>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="input-label-custom ">
+                                <label class='form-field-lable control-label'>Problem Description</label>
+                                <nz-textarea-count [nzMaxCharacterCount]="4000">
+                                    <textarea class="form-control note-border" name="description" rows="4"
+                                        formControlName="description" maxlength="4000" nz-input></textarea>
+                                </nz-textarea-count>
+                            </div>
+                        </td>
+                        <td>
+                            <div style="margin-left: 6px; margin-top: px;">
+                                <p-overlayPanel appendTo="body" #op [dismissable]="true" [hideTransitionOptions]="'0ms'"
+                                    [showCloseIcon]="true" [style]="{width: '25vw'}">
+                                    <p-table [value]="filteredProblemDescriptionList" selectionMode="single"
+                                        [(selection)]="selectedProblemDescription"
+                                        (onRowSelect)="onRowSelectProblemDescription($event)" [paginator]="true"
+                                        [rows]="rowCount" [showCurrentPageReport]="true" responsiveLayout="scroll"
+                                        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                                        [rowsPerPageOptions]="[5,10,25]" [scrollable]="true" scrollDirection="both"
+                                        scrollHeight="200px" [rowHover]="true"
+                                        styleClass="p-datatable-customers p-datatable-gridlines" dataKey="pdId">
+                                        <ng-template pTemplate="header">
+                    <tr width="100%">
+                        <th width="100%" style="display: flex; justify-content: center; align-items: center;">
+                            <div style="width: 100%;">
+                                <p style="margin-top: 10px;"> Problem Description</p>
+                            </div>
+                            <input type="text"  class="form-control" placeholder="Search"
+                                (input)="filterTable($event.target.value)" [value]="searchTextLower" />
+                        </th>
+                    </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-pd>
+                        <tr [pSelectableRow]="pd">
+                            <td matTooltip="{{pd.pdDescription}}" matTooltipPosition="below" class="ellipsis">
+                                {{pd.pdDescription}}</td>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="emptymessage" let-columns>
+                        <tr>
+                            <td [attr.colspan]="1">
+                                No records to display.
+                            </td>
+                        </tr>
+                    </ng-template>
+                    </p-table>
+
+                    </p-overlayPanel>
+
+                    <button type="text" pButton label="Select Problem Description" icon="pi pi-search"
+                        (click)="toggleOp($event)" [disabled]="isView"></button>
+                </div>
+                        </td>
+                    </tr>
+        </table>
+        </form>
+</div>
+<div class="d-flex justify-content-end m-3" style="margin-right: 30px;">
+    <mat-dialog-actions align="end" class="mat-dialog-actions-ext">
+        <p-button label="Save" class="ml5" icon="pi pi-check" (click)="onSaveWr()" [disabled]="!addWrFormPanel.valid">
+        </p-button>
+        <p-button label="Clear" icon="pi pi-times" [hidden]="isView || isDetails" styleClass="p-button-secondary"
+            [style]="{'margin-left': '.5em'}" (click)="onClear()"></p-button>
+    </mat-dialog-actions>
+</div>
+</p-card>
+</div>
+<p-toast key="wrSave" position="top-right"></p-toast>
+<p-confirmDialog key="wrGrid" header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>
+<!-- After Save Success Message PopUp -->
+<p-dialog header="Your request logged successfully!" [(visible)]="displaySuccPopUp" [modal]="true"
+    [style]="{width: '30vw'}" [maximizable]="false" [draggable]="false" [resizable]="false" [closable]="false">
+    <table width="100%">
+        <tr>
+            <td>
+                <div>
+                    <p style="font-size: 16px;">Request Id:<span
+                            style="font-weight: 500; margin-left: 3px;">{{requestId}}</span> </p>
+                </div>
+            </td>
+        </tr>
+    </table>
+    <ng-template pTemplate="footer">
+        <button type="button" pButton (click)="onClickGoToDetails()">
+            Go to Details <i style="margin-left: 0.5rem" class="pi pi-arrow-circle-right"></i>
+        </button>
+        <button icon="pi pi-times" pButton label="Close" styleClass="p-button-text"
+            (click)="onCloseSucPopUp()"></button>
+    </ng-template>
+</p-dialog>
+
+<!-- SVG view Dialog -->
+<p-dialog header="Header" [(visible)]="showSvg" [modal]="true" [style]="{ width: svgDialogWidth }" [closable]="true" [maximizable]="true" (visibleChange)="closeSvgDialog($event)" (onMaximize)="expandSvgDialog($event)">
+    <ng-template pTemplate="header">
+        <h2>{{svgDialogHeaderText}}</h2>
+    </ng-template>
+    <div *ngIf="viewSvg">
+        <app-svg-view [svgInputData]="svgInputData"></app-svg-view>
+    </div>
+    <!-- <ng-template pTemplate="footer">
+        <button icon="pi pi-times" pButton label="Close" styleClass="p-button-text" (click)="showSvg = false"></button>
+    </ng-template> -->
+</p-dialog>
+<!-- No Location or No Floor Plan Message -->
+<p-dialog header="Header" [(visible)]="showMessage" [modal]="true" [style]="{ width: '25vw' }" [closable]="true" [maximizable]="true">
+    <ng-template pTemplate="header">
+        <h2>Message</h2>
+    </ng-template>
+    <div *ngIf="noSVGFound" style="margin-top: 20px;">
+        <p class='msg-label'>{{svgDialogHeaderText}}</p>
+    </div>
+    <ng-template pTemplate="footer">
+        <button icon="pi pi-times" pButton label="Close" styleClass="p-button-text"
+            (click)="showMessage = false"></button>
+    </ng-template>
+</p-dialog>
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#879cc9" class="spinner-color" type="ball-spin-clockwise"
+    *ngIf="showSpinnerParent" [fullScreen]="true">
+    <p style="color: white"> Loading... </p>
+</ngx-spinner>

@@ -1,0 +1,56 @@
+@import '/src/scss/variables';
+:host ::ng-deep .p-panel .p-panel-content {
+    padding: 0;
+}
+
+:host ::ng-deep .p-panel .p-panel-header {
+    padding: 0.3rem;
+}
+
+.container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .row {
+    flex: 1;
+    display: flex;
+  }
+
+  .column {
+    flex: 1;
+    // border: 1px solid black;
+    //padding: 10px;
+  }
+
+
+  :host ::ng-deep .p-tabview .p-tabview-nav li .p-tabview-nav-link {
+    border-color: $tabBgColor;
+    background: $tabBgColor;
+    color: $tabFontColor;
+    margin-right: 2px;
+    line-height: $tabHeight;
+    min-width: $tabWidth;
+    border-radius: $tabBorderRadius;
+    border-radius: $tabBorderRadius;
+    border-bottom: $tabBorderBottom;
+    box-shadow: none !important;
+  }
+  
+  :host ::ng-deep .p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
+    background: $tabActiveBgColor;
+    border-color: $tabBgColor;
+    color: $ActiveTabFontColor;
+    margin-right: 2px;
+    line-height: $tabHeight;
+    min-width: $tabWidth;
+    border-radius: $tabBorderRadius;
+    border-bottom: $tabBorderBottom;
+    box-shadow: none !important;
+  }
+
+  .readonly-panel {
+    opacity: 0.5; /* Reduce opacity to visually indicate that panel is disabled */
+    pointer-events: none; /* Prevent user interactions with the panel */
+  }

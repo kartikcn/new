@@ -1,0 +1,31 @@
+import { Injectable } from '@angular/core';
+import { Subject } from 'rxjs';
+import { AddEditToolTypeComponent } from '../widgets/add-edit-tool-type/add-edit-tool-type.component';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+
+@Injectable({
+        providedIn: 'root' // just before your class
+})
+export class ToolTypeDialogueProvider {
+        public isDialogOpen: Boolean = false;
+
+        onDialogueClosed: Subject<any> = new Subject<any>();
+
+        constructor(public dialog: MatDialog) { }
+
+        openDialog(matDialogConfig: MatDialogConfig): any {
+                if (this.isDialogOpen) {
+                        return false;
+                }
+                this.isDialogOpen = true;
+
+                const dialogRef = this.dialog.open(AddEditToolTypeComponent, matDialogConfig);
+
+                dialogRef.afterClosed().subscribe(result => {
+                        this.onDialogueClosed.next(result);
+
+                        this.isDialogOpen = false;
+                });
+        }
+
+}

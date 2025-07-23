@@ -1,0 +1,1 @@
+{"ast":null,"code":"export class RmcatFilterInput {\n  constructor(id, name) {\n    this.rmCat = \"\";\n    this.rmCatDesc = \"\";\n    this.rmCat = id;\n    this.rmCatDesc = name;\n  }\n}","map":null,"metadata":{},"sourceType":"module","externalDependencies":[]}

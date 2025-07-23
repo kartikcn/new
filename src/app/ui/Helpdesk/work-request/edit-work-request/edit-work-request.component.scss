@@ -1,0 +1,119 @@
+@import 'src/scss/variables';
+
+.mat-dialog-title-ext {
+  background-color: $toolbar;
+  padding-left: 10px;
+  font-weight: normal;
+  margin-bottom: 0px;
+}
+
+.mat-dialog-content-ext {
+  margin: 0;
+  padding: 10px;
+}
+
+.mat-dialog-actions-ext {
+  border-top: none;
+  padding: 3px;
+  min-height: 36px !important;
+  margin-bottom: 5px;
+  /* margin-right: 15px; */
+  background-color: white !important;
+}
+
+.action-buttons {
+  height: 30px;
+  width: 70px;
+}
+
+.margin-left-20 {
+  margin-left: 20px;
+}
+
+.margin-5 {
+  margin: 5px !important;
+}
+
+.mat-card {
+  border-radius: 0px;
+}
+
+.mat-expansion-panel {
+  background-color: $toolbar;
+}
+
+.mat-expansion-panel-header-title {
+  color: white;
+  letter-spacing: 1px;
+}
+
+.mat-card-title {
+  color: white;
+  letter-spacing: 1px;
+  font-size: 13px;
+  margin: 0px !important;
+}
+
+.mat-card-header-text {
+  margin: 0px !important;
+}
+
+.mat-card-header {
+  padding: 5px !important;
+  margin-left: -15px;
+}
+
+.mat-card-content {
+  background-color: white !important;
+}
+
+.mat-expansion-panel-content {
+  background-color: white !important;
+}
+
+.mat-button,
+.mat-flat-button,
+.mat-icon-button,
+.mat-stroked-button {
+  line-height: inherit !important;
+}
+
+.btn-filter {
+  margin-left: 4px;
+  margin-right: 5px;
+  width: 50px;
+  margin-top: 17px;
+}
+
+.btn-ggb-orange {
+  width: 90px !important;
+}
+
+
+.btn-ggb-default-custom {
+  margin: 16px !important
+}
+
+::ng-deep app-add-work-request .p-card-body .main-container{
+    padding: 0px;
+}
+
+::ng-deep app-add-work-request .p-card .p-card-title{
+    margin: 0px;
+}
+
+::ng-deep app-add-work-request .ng-select.ng-select-single .ng-select-container .ng-value-container .ng-value {
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+  max-width: 300px !important;
+}
+
+::ng-deep .p-datatable-scrollable-header-box{
+  padding:0px !important;
+}
+
+::ng-deep .p-panel .p-panel-header .p-panel-title{
+  margin-left: 10px;
+}
+

@@ -1,0 +1,472 @@
+<div class="card" style="height:680px;">
+    <div style="display: flex; justify-content: space-between;height:90vh;">
+        <div class="employee-selection-container">
+            <div class="card filter-em-container">
+                <form [formGroup]="emfilterPanel" style="width: 100%">
+                    <table width="100%">
+                        <tr>
+                            <td style="width: 100%">
+                                <div class="input-label-custom ">
+                                    <label class='form-field-lable '>Employee </label>
+                                    <ng-select appendTo="body" [clearable]="false" [items]="enumEm"
+                                        formControlName="emId" [searchable]="true" bindLabel="firstName"
+                                        bindValue="emId" placeholder="Make a selection" class="ng-select-dropdown" (open)="openEm()"
+                                        (change)="onSelectEmployee($event)" (scrollToEnd)="scrollToEndEm()" (search)="searchEm($event)">
+                                    </ng-select>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+            <div class="result-em-container">
+                <p-table #dt1 [value]="emData" [paginator]="false" [rows]="rowCount" styleClass="p-datatable-responsive-demo"
+                    [rowHover]="true" [scrollable]="true" selectionMode="single" dataKey="emId" scrollDirection="both"
+                    scrollHeight="350px" (onRowSelect)="onEmRowSelect($event)" id=em_list (onFilter)="onEmployeeInnerFilter($event)">
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th pSortableColumn="emId">
+                                <div class="grid-header-column">
+                                    <div class="grid-header-label">
+                                        <p class="grid-label-paragraph">Employee Id</p>
+                                    </div>
+                                    <div class="grid-sort-icon">
+                                        <p-sortIcon field="emId"></p-sortIcon>
+                                        <p-columnFilter type="number" field="emId" display="menu"></p-columnFilter>
+                                    </div>
+                                </div>
+                            </th>
+                            <th pSortableColumn="firstName">
+                                <div class="grid-header-column">
+                                    <div class="grid-header-label">
+                                        <p class="grid-label-paragraph">Name</p>
+                                    </div>
+                                    <div class="grid-sort-icon">
+                                        <p-sortIcon field="firstName"></p-sortIcon>
+                                        <p-columnFilter type="text" field="firstName" display="menu"></p-columnFilter>
+                                    </div>
+                                </div>
+                            </th>
+                            <th pSortableColumn="email">
+                                <div class="grid-header-column">
+                                    <div class="grid-header-label">
+                                        <p class="grid-label-paragraph">Email</p>
+                                    </div>
+                                    <div class="grid-sort-icon">
+                                        <p-sortIcon field="email"></p-sortIcon>
+                                        <p-columnFilter type="text" field="email" display="menu"></p-columnFilter>
+                                    </div>
+                                </div>
+                            </th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-em>
+                        <tr [pSelectableRow]="em">
+                            <td>{{em.emId}}</td>
+                            <td>{{em.firstName}}</td>
+                            <td>{{em.email}}</td>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="emptymessage" let-columns>
+                        <tr>
+                            <td [attr.colspan]="1">
+                                No records found
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+                <div class="paginator">
+                    <p-paginator [rows]="rowCount" [totalRecords]="totalElementsEm" (onPageChange)="onPageChangeEmployee($event)" [first]="paginationObjEm.pageNo * paginationObjEm.pageSize"
+                      currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true"
+                      [rowsPerPageOptions]="[25,50,100]"></p-paginator>
+                </div>
+            </div>
+        </div>
+        <div class="room-selection-container">
+            <div *ngIf="showTerms" class="card filter-rm-container">
+                <form [formGroup]="filterPanel">
+                    <table width="100%" *ngIf="!useTabletProtrait">
+                        <tr>
+                            <td style="width: 30%">
+                                <div class="input-label-custom ">
+                                    <label class='form-field-lable control-label'>Term </label>
+                                    <ng-select appendTo="body" [clearable]="false" [items]="enumTerm"
+                                        formControlName="term" [searchable]="true" bindLabel="term" bindValue="termId"
+                                        (change)="onSelectTerm($event)" placeholder="Make a selection"
+                                        class="ng-select-dropdown">
+                                    </ng-select>
+                                </div>
+                            </td>
+                            <td style="width: 30%">
+                                <div class="input-label-custom">
+                                    <div class="p-fluid p-field">
+                                        <label class='form-field-lable '>Date From</label>
+                                        <p-calendar appendTo="body" dateFormat="dd M yy" name="date"
+                                            formControlName="dateFrom" [showIcon]="false" inputId="icon"
+                                            [readonlyInput]="true" 
+                                            (ngModelChange)="checkDates($event)"></p-calendar>
+                                    </div>
+                                </div>
+                            </td>
+                            <td style="width: 30%">
+                                <div class="input-label-custom ">
+                                    <div class="p-fluid p-field">
+                                        <label class='form-field-lable '>Date To</label>
+                                        <p-calendar appendTo="body" dateFormat="dd M yy" name="date"
+                                            formControlName="dateTo" [showIcon]="false" inputId="icon"
+                                            [readonlyInput]="true" (ngModelChange)="checkDates($event)"></p-calendar>
+                                    </div>
+                                </div>
+                            </td>
+                            <td style="width: 10%">
+                                <button (click)="onSearch()" [disabled]="!filterPanel.valid" pButton pRipple
+                                    label="Search" style="width: 67px;margin-left:8%;margin-top:20px;"
+                                    class="p-button-primary "></button>
+                            </td>
+                        </tr>
+                        <tr *ngIf="filterPanel.controls['dateTo']?.errors">
+                            <td style="width: 30%"></td>
+                            <td style="width: 30%">
+                                <label
+                                    *ngIf="filterPanel.controls['dateTo']?.errors && !filterPanel.controls['dateTo']?.errors.required"
+                                    class='form-field-lable' style="color:red;margin-left:5px;">Date To should be
+                                    greater than Date From</label>
+                            </td>
+                            <td style="width: 30%"></td>
+                            <td style="width: 10%"></td>
+                        </tr>
+                    </table>
+                    <table width="100%" *ngIf="useTabletProtrait">
+                        <tr>
+                            <td style="width:50%">
+                                <div class="input-label-custom ">
+                                    <label class='form-field-lable control-label'>Term </label>
+                                    <ng-select appendTo="body" [clearable]="false" [items]="enumTerm"
+                                        formControlName="term" [searchable]="true" bindLabel="term" bindValue="termId"
+                                        (change)="onSelectTerm($event)" placeholder="Make a selection"
+                                        class="ng-select-dropdown">
+                                    </ng-select>
+                                </div>
+                            </td>
+                            <td style="width: 50%">
+                                <button (click)="onSearch()" [disabled]="!filterPanel.valid" pButton pRipple
+                                    label="Search" style="width: 67px;margin-left:18%;margin-top:20px;"
+                                    class="p-button-primary "></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 50%">
+                                <div class="input-label-custom">
+                                    <div class="p-fluid p-field">
+                                        <label class='form-field-lable '>Date From</label>
+                                        <p-calendar appendTo="body" dateFormat="dd M yy" name="date"
+                                            formControlName="dateFrom" [showIcon]="false" inputId="icon"
+                                            [readonlyInput]="true" 
+                                            (ngModelChange)="checkDates($event)"></p-calendar>
+                                    </div>
+                                </div>
+                            </td>
+                            <td style="width: 50%">
+                                <div class="input-label-custom ">
+                                    <div class="p-fluid p-field">
+                                        <label class='form-field-lable '>Date To</label>
+                                        <p-calendar appendTo="body" dateFormat="dd M yy" name="date"
+                                            formControlName="dateTo" [showIcon]="false" inputId="icon"
+                                            [readonlyInput]="true" (ngModelChange)="checkDates($event)"></p-calendar>
+                                    </div>
+                                </div>
+                            </td>
+
+                        </tr>
+                        <tr *ngIf="filterPanel.controls['dateTo']?.errors">
+                            <td style="width: 50%"></td>
+                            <td style="width: 50%">
+                                <label
+                                    *ngIf="filterPanel.controls['dateTo']?.errors && !filterPanel.controls['dateTo']?.errors.required"
+                                    class='form-field-lable' style="color:red;margin-left:5px;">Date To should be
+                                    greater than Date From</label>
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+            <div class="card result-rm-container" *ngIf="showRoomDetailsTable">
+                <p-table #dt1 [value]="allRoomData" [paginator]="false" [rows]="rowCount" [(selection)]="selectedScreens"
+                    styleClass="p-datatable-responsive-demo p-datatable-gridlines" id="rm_list" [rowHover]="false" [scrollable]="true"
+                    scrollDirection="both" scrollHeight="350px" [globalFilterFields]="['blCode', 'flCode', 'rmCode']"
+                    (onFilter)="onRoomInnerFilter($event)">
+                    <ng-template pTemplate="caption">
+                        <div class="d-flex flex-row">
+                            <div style="flex: auto;">
+                                <div>
+                                    <h4 class="room-selection-message">{{roomSelectionMessage}}</h4>
+                                </div>
+                            </div>
+                            <div style="max-width:50%" class="rmselection-button-container">
+                                <div class="rm-button-div">
+                                    <!-- <span class="p-input-icon-left ml-auto search-button" >
+                                        <i class="pi pi-search"></i>
+                                        <input pInputText type="text"
+                                            (input)="dt1.filterGlobal($event.target.value, 'contains')"
+                                            placeholder="Search..." class="search_input" />
+                                    </span> -->
+                                </div>
+                                <div class="rm-button-div">
+                                    <button pButton pRipple label="Allocate" class="p-button-primary  p-mr-2 allocate-button"
+                                    (click)="assignConfirm()" [disabled]="!(selectedScreens.length>0)"></button>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-template>
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th style="width: 4rem">
+                            </th>
+                            <th pSortableColumn="blCode">
+                                <div class="grid-header-column">
+                                    <div class="grid-header-label">
+                                        <p class="grid-label-paragraph">Building Code</p>
+                                    </div>
+                                    <div class="grid-sort-icon">
+                                        <p-sortIcon field="blCode"></p-sortIcon>
+                                        <p-columnFilter type="text" field="blCode" display="menu"></p-columnFilter>
+                                    </div>
+                                </div>
+                            </th>
+                            <th pSortableColumn="flCode">
+                                <div class="grid-header-column">
+                                    <div class="grid-header-label">
+                                        <p class="grid-label-paragraph">Floor Code</p>
+                                    </div>
+                                    <div class="grid-sort-icon">
+                                        <p-sortIcon field="flCode"></p-sortIcon>
+                                        <p-columnFilter type="text" field="flCode" display="menu"></p-columnFilter>
+                                    </div>
+                                </div>
+                            </th>
+                            <th pSortableColumn="rmCode">
+                                <div class="grid-header-column">
+                                    <div class="grid-header-label">
+                                        <p class="grid-label-paragraph">Room Code</p>
+                                    </div>
+                                    <div class="grid-sort-icon">
+                                        <p-sortIcon field="rmCode"></p-sortIcon>
+                                        <p-columnFilter type="text" field="rmCode" display="menu"></p-columnFilter>
+                                    </div>
+                                </div>
+                            </th>
+                            <th>Room Area</th>
+                            <th pSortableColumn="occupied">
+                                <div class="grid-header-column">
+                                    <div class="grid-header-label">
+                                        <p class="grid-label-paragraph">Occupied Space (%)</p>
+                                    </div>
+                                    <div class="grid-sort-icon">
+                                        <p-sortIcon field="occupied"></p-sortIcon>
+                                    </div>
+                                </div>
+                            </th>
+                            <th pSortableColumn="available">
+                                <div class="grid-header-column">
+                                    <div class="grid-header-label">
+                                        <p class="grid-label-paragraph">Available Space (%)</p>
+                                    </div>
+                                    <div class="grid-sort-icon">
+                                        <p-sortIcon field="available"></p-sortIcon>
+                                    </div>
+                                </div>
+                            </th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-room>
+                        <tr [pSelectableRow]="room">
+                            <td style="width: 4rem">
+                                <p-tableCheckbox [value]="room" (click)="onCheckAvailable(room)"></p-tableCheckbox>
+                            </td>
+                            <td>{{room.blCode}}</td>
+                            <td>{{room.flCode}}</td>
+                            <td>{{room.rmCode}}</td>
+                            <td>{{room.rmArea}}</td>
+                            <td>{{room.occupied}}</td>
+                            <td>{{room.available}}</td>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="emptymessage" let-columns>
+                        <tr>
+                            <td [attr.colspan]="3">
+                                No records found
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+                <div class="paginator">
+                    <p-paginator [rows]="rowCount" [totalRecords]="totalElementsRm" (onPageChange)="onPageChangeRoom($event)" [first]="paginationObjRm.pageNo * paginationObjRm.pageSize"
+                      currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true"
+                      [rowsPerPageOptions]="[25,50,100]"></p-paginator>
+                  </div>
+            </div>
+        </div>
+    </div>
+</div>
+<p-dialog [(visible)]="displaySpaceError" [modal]="true" [style]="{width: '25vw'}" [draggable]="false"
+    [resizable]="false" [closable]="false">
+    <p-header>
+        Warning
+    </p-header>
+    <p style="font-size:14px;">{{displayspaceerrormsg}}</p>
+    <button pButton label="Ok" class="p-button-secondary" style="margin-left:85%"
+        (click)="closespaceerrorDialog()"></button>
+</p-dialog>
+
+<p-dialog [(visible)]="displaydepterror" [modal]="true" [style]="{width: '25vw'}" [draggable]="false"
+    [resizable]="false" [closable]="false">
+    <p-header>
+        Warning
+    </p-header>
+    <p style="font-size:14px;">The chosen employee does not have any assigned division and department and sub department.
+        Kindly assign division,department and sub department before proceeding with space allocation.</p>
+    <button pButton label="Ok" class="p-button-secondary" style="margin-left:85%"
+        (click)="closedepterrorDialog()"></button>
+</p-dialog>
+
+<p-dialog [(visible)]="roomnospaceerror" [modal]="true" [style]="{width: '25vw'}" [draggable]="false"
+    [resizable]="false" [closable]="false">
+    <p-header>
+        Warning
+    </p-header>
+    <p style="font-size:14px;">The selected room has no available space.</p>
+    <button pButton label="Ok" class="p-button-secondary" style="margin-left:85%"
+        (click)="closenospaceerrorDialog()"></button>
+</p-dialog>
+
+<p-dialog [(visible)]="displayRoomDetails" [modal]="true" [style]="{width: '70vw'}" [draggable]="false"
+    [resizable]="false" [closable]="false">
+    <p-header>
+        Selected Rooms
+    </p-header>
+    <div class="card" #roomselectiondialog>
+        <p-table #dt2 [value]="displayRoomData" [paginator]="true" [rows]="rowCount" [showCurrentPageReport]="true"
+            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+            [rowsPerPageOptions]="[5,10,25]" styleClass="p-datatable-responsive-demo p-datatable-gridlines"
+            (onRowSelect)="onCheck($event)" selectionMode="single" [rowHover]="true" [scrollable]="true"
+            scrollDirection="both" scrollHeight="350px">
+            <ng-template pTemplate="caption">
+                <div class="d-flex flex-row">
+                    <div style="flex: auto;">
+                        <div>
+                            <h4>Rooms</h4>
+                        </div>
+                    </div>
+                    <div>
+                        <span class="p-input-icon-left ml-auto">
+                            <input pInputText type="number" class="search_input" [(ngModel)]="requiredValue" NumbersOnly
+                                (blur)="checkApplyRequiredValue()" placeholder="Required Value..." />
+                            <button pButton pRipple label="Apply" class="p-button-primary"
+                                style="margin-left:5px;width:70px;" [disabled]="!checkRequiredValue()"
+                                (click)="onApplyRequiredValue()"></button>
+                        </span>
+                        <button pButton pRipple label="Save" class="p-button-primary"
+                            style="margin-left:5px;width:70px;" (click)="saveConfirm()"
+                            [disabled]="!(assignRoomSelectedScreens.length>0 && checkRequirements(assignRoomSelectedScreens))"></button>
+                        <button pButton pRipple label="Cancel" icon="pi pi-times" (click)="onCancelRoomDetailsBox()"
+                            styleClass="p-button-secondary" style="margin-left:5px;width:70px;"></button>
+                    </div>
+                </div>
+            </ng-template>
+            <ng-template pTemplate="header">
+                <tr>
+                    <th pSortableColumn="blCode">
+                        <div class="grid-header-column">
+                            <div class="grid-header-label">
+                                <p class="grid-label-paragraph">Building Code</p>
+                            </div>
+                            <div class="grid-sort-icon">
+                                <p-sortIcon field="blCode"></p-sortIcon>
+                                <p-columnFilter type="text" field="blCode" display="menu"></p-columnFilter>
+                            </div>
+                        </div>
+                    </th>
+                    <th pSortableColumn="flCode">
+                        <div class="grid-header-column">
+                            <div class="grid-header-label">
+                                <p class="grid-label-paragraph">Floor Code</p>
+                            </div>
+                            <div class="grid-sort-icon">
+                                <p-sortIcon field="flCode"></p-sortIcon>
+                                <p-columnFilter type="text" field="flCode" display="menu"></p-columnFilter>
+                            </div>
+                        </div>
+                    </th>
+                    <th pSortableColumn="rmCode">
+                        <div class="grid-header-column">
+                            <div class="grid-header-label">
+                                <p class="grid-label-paragraph">Room Code</p>
+                            </div>
+                            <div class="grid-sort-icon">
+                                <p-sortIcon field="rmCode"></p-sortIcon>
+                                <p-columnFilter type="text" field="rmCode" display="menu"></p-columnFilter>
+                            </div>
+                        </div>
+                    </th>
+                    <th>Room Area</th>
+                    <th pSortableColumn="occupied">
+                        <div class="grid-header-column">
+                            <div class="grid-header-label">
+                                <p class="grid-label-paragraph">Occupied Space (%)</p>
+                            </div>
+                            <div class="grid-sort-icon">
+                                <p-sortIcon field="occupied"></p-sortIcon>
+                            </div>
+                        </div>
+                    </th>
+                    <th pSortableColumn="available">
+                        <div class="grid-header-column">
+                            <div class="grid-header-label">
+                                <p class="grid-label-paragraph">Available Space (%)</p>
+                            </div>
+                            <div class="grid-sort-icon">
+                                <p-sortIcon field="available"></p-sortIcon>
+                            </div>
+                        </div>
+                    </th>
+                    <th>Required Space (%)</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-room>
+                <tr [pSelectableRow]="room">
+                    <td>{{room.blCode}}</td>
+                    <td>{{room.flCode}}</td>
+                    <td>{{room.rmCode}}</td>
+                    <td>{{room.rmArea}}</td>
+                    <td>{{room.occupied}}</td>
+                    <td>{{room.available}}</td>
+                    <td [pEditableColumn]="room.required" pEditableColumnField="required"
+                        style="background-color: #b3b3ff;">
+                        <p-cellEditor>
+                            <ng-template pTemplate="input">
+                                <input pInputText type="number" [(ngModel)]="room.required" NumbersOnly
+                                    (blur)="onRequiredEntry(room)" />
+                            </ng-template>
+                            <ng-template pTemplate="output">
+                                {{ room.required }}
+                            </ng-template>
+                        </p-cellEditor>
+                    </td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage" let-columns>
+                <tr>
+                    <td [attr.colspan]="3">
+                        No records found
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+    <div>
+
+    </div>
+</p-dialog>
+
+<p-toast key="emprmMsg" position="top-center"></p-toast>
+<p-confirmDialog key="emrmGrid" header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>

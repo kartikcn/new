@@ -1,0 +1,57 @@
+<p-panel header=" ">
+  <ng-template pTemplate="icons">
+    <button pButton (click)="openAddItem()" label="Add" icon="pi pi-plus">
+    </button>
+  </ng-template>
+  <div class="card">
+    <p-table #dt1 [value]="rmstd_data" [paginator]="true" [rows]="rowCount" [showCurrentPageReport]="true"
+               currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [rowsPerPageOptions]="[5,10,25]"
+               styleClass="p-datatable-responsive-demo p-datatable-gridlines" [rowHover]="true" [scrollable]="true"
+               scrollDirection="both" scrollHeight="500px" selectionMode="single" (onRowSelect)="onRowSelect($event)">
+               <ng-template pTemplate="header">
+                <tr>
+                  <th style="width:8rem"> </th>
+                  <th pSortableColumn="rmCat">
+                    <div class="p-d-flex p-jc-between p-ai-center">
+                      Room Category <p-sortIcon field="rmCat"></p-sortIcon>
+                    <p-columnFilter type="text" field="rmCat" display="menu"></p-columnFilter>
+                    </div>
+                  </th>
+                  <th pSortableColumn="rmCatDesc">
+                    <div class="p-d-flex p-jc-between p-ai-center">
+                   Description <p-sortIcon field="rmCatDesc"></p-sortIcon>
+                    <p-columnFilter type="text" field="rmCatDesc" display="menu"></p-columnFilter>
+                    </div>
+                  </th>
+                  <th>Highlight Color</th>
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="body" let-rmcat>
+                <tr [pSelectableRow]="rmcat">
+                  <td style="width:8rem">
+                    <button pButton pRipple type="button" icon="pi pi-pencil" (click)="openEditItem(rmcat.rmCat)"
+                      class="p-button-text p-button mr5">
+                    </button>
+                    <button pButton pRipple icon="pi pi-times" class="p-button-text p-button pull-right" style="font-size: 5rem; color: red;"
+                      (click)="deleteRoomCat(rmcat.rmCat)"></button>
+                  </td>
+                  <td>{{rmcat.rmCat}}</td>
+                  <td>{{rmcat.rmCatDesc}}</td>
+                  <td>
+                    <div [style.background-color]="rmcat.highlightColor" class="td-class">
+                    </div>
+                </td>
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="emptymessage" let-columns>
+                <tr>
+                  <td [attr.colspan]="3">
+                    No records found
+                  </td>
+                </tr>
+              </ng-template>
+    </p-table>
+  </div>
+</p-panel>
+<p-toast key="rmCatMessage"></p-toast>
+<p-confirmDialog key="rmCatGrid" header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>

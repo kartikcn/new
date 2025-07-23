@@ -1,0 +1,160 @@
+<p-panel header="Documents List">
+    <ng-template pTemplate="icons">
+        <button pButton label="Add" (click)="onAddDocuments()" icon="pi pi-upload"></button>
+    </ng-template>
+    <div class="card">
+        <p-table [value]="docBucketItemsList" [paginator]="true" [rows]="rowCount" [showCurrentPageReport]="true"
+            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" scrollHeight="300px"
+            styleClass="p-datatable-customers p-datatable-gridlines" [rowHover]="false" [scrollable]="true">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th style="width:8rem"></th>
+                    <th pSortableColumn="docName">
+                        <div class="grid-header-column">
+                            <div class="grid-header-label">
+                                <p class="grid-label-paragraph">Document Name</p>
+                            </div>
+                            <div class="grid-sort-icon">
+                                <p-sortIcon field="docName"></p-sortIcon>
+                                <p-columnFilter type="text" field="docName" display="menu"></p-columnFilter>
+                            </div>
+                        </div>
+                    </th>
+                    <th pSortableColumn="docType">
+                        <div class="grid-header-column">
+                            <div class="grid-header-label">
+                                <p class="grid-label-paragraph">Document Type</p>
+                            </div>
+                            <div class="grid-sort-icon">
+                                <p-sortIcon field="docType"></p-sortIcon>
+                                <p-columnFilter type="text" field="docType" display="menu"></p-columnFilter>
+                            </div>
+                        </div>
+                    </th>
+                    <th pSortableColumn="notes">
+                        <div class="grid-header-column">
+                            <div class="grid-header-label">
+                                <p class="grid-label-paragraph">Notes</p>
+                            </div>
+                            <div class="grid-sort-icon">
+                                <p-sortIcon field="notes"></p-sortIcon>
+                                <p-columnFilter type="text" field="notes" display="menu"></p-columnFilter>
+                            </div>
+                        </div>
+                    </th>
+                    <!-- <th pSortableColumn="dateCreated">
+                        <div class="grid-header-column">
+                            <div class="grid-header-label">
+                                <p class="grid-label-paragraph">Date Added</p>
+                            </div>
+                            <div class="grid-sort-icon">
+                                <p-sortIcon field="dateCreated"></p-sortIcon>
+                                <p-columnFilter type="text" field="dateCreated" display="menu"></p-columnFilter>
+                            </div>
+                        </div>
+                    </th> -->
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-doc>
+                <tr [pSelectableRow]="doc">
+                    <td style="width:8rem">
+                        <button pButton pRipple type="button" (click)="showDocumentDialog(doc)" icon="pi pi-download"
+                            class="p-button-text" style="font-size: 5rem;">
+                        </button>
+                        <button pButton pRipple icon="pi pi-times" type="button" (click)="onDelete(doc)"
+                            class="p-button-text pull-right" style="font-size: 5rem; color: red;">
+                        </button>
+                    </td>
+                    <td matTooltip="{{doc.docName}}" matTooltipPosition="below" class="ellipsis">{{doc.docName}}</td>
+                    <td>{{doc.docType}}</td>
+                    <td matTooltip="{{doc.notes}}" matTooltipPosition="below" class="ellipsis">{{doc.notes}}</td>
+                    <!-- <td>{{(doc.dateCreated) | date:"d MMM yyyy HH:mm"}}</td> -->
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage" let-columns>
+                <tr>
+                    <td colspan="2">
+                        No Records Found
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+    <div class="card" *ngIf="showAccordion;">
+        <p-accordion (onOpen)="onTabOpen($event)" *ngIf="showAccordion;">
+            <p-accordionTab *ngFor="let title of cardTitles;" [header]="title.id">
+                <p-table [value]="cardData" [paginator]="true" [rows]="rowCount"
+                    [showCurrentPageReport]="true"
+                    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" scrollHeight="300px"
+                    styleClass="p-datatable-customers p-datatable-gridlines" [rowHover]="false" [scrollable]="true">
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th style="width:3rem"></th>
+                            <th pSortableColumn="docName">
+                                <div class="grid-header-column">
+                                    <div class="grid-header-label">
+                                        <p class="grid-label-paragraph">Document Name</p>
+                                    </div>
+                                    <div class="grid-sort-icon">
+                                        <p-sortIcon field="docName"></p-sortIcon>
+                                        <p-columnFilter type="text" field="docName" display="menu"></p-columnFilter>
+                                    </div>
+                                </div>
+                            </th>
+                            <th pSortableColumn="docType">
+                                <div class="grid-header-column">
+                                    <div class="grid-header-label">
+                                        <p class="grid-label-paragraph">Document Type</p>
+                                    </div>
+                                    <div class="grid-sort-icon">
+                                        <p-sortIcon field="docType"></p-sortIcon>
+                                        <p-columnFilter type="text" field="docType" display="menu"></p-columnFilter>
+                                    </div>
+                                </div>
+                            </th>
+                            <th pSortableColumn="notes">
+                                <div class="grid-header-column">
+                                    <div class="grid-header-label">
+                                        <p class="grid-label-paragraph">Notes</p>
+                                    </div>
+                                    <div class="grid-sort-icon">
+                                        <p-sortIcon field="notes"></p-sortIcon>
+                                        <p-columnFilter type="text" field="notes" display="menu"></p-columnFilter>
+                                    </div>
+                                </div>
+                            </th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-doc>
+                        <tr [pSelectableRow]="doc">
+                            <td style="width:3rem">
+                                <button pButton pRipple type="button" (click)="showDocumentDialog(doc)"
+                                    icon="pi pi-download" class="p-button-text" style="font-size: 5rem;">
+                                </button>
+                            </td>
+                            <td matTooltip="{{doc.docName}}" matTooltipPosition="below" class="ellipsis">{{doc.docName}}
+                            </td>
+                            <td>{{doc.docType}}</td>
+                            <td matTooltip="{{doc.notes}}" matTooltipPosition="below" class="ellipsis">{{doc.notes}}
+                            </td>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="emptymessage" let-columns>
+                        <tr>
+                            <td colspan="2">
+                                No Records Found
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </p-accordionTab>
+        </p-accordion>
+    </div>
+</p-panel>
+<p-dialog header="" [maximizable]="true" [(visible)]="displayImage" [style]="{width: '30vw'}" [closable]="true"
+    [draggable]="false" [resizable]="false" [modal]="true">
+    <img [src]="src" [alt]="" width="90%" height="90%" />
+</p-dialog>
+
+<p-toast key="requestDoc" position="top-right"></p-toast>
+<p-confirmDialog key="deleteDoc" header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>

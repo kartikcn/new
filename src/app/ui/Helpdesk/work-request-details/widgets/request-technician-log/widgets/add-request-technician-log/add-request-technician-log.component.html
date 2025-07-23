@@ -1,0 +1,128 @@
+<form [formGroup]="requestTechnicianLogFormPanel">
+
+    <table width="100%">
+        <tr>
+            <td width="33%">
+                <div class="input-label-custom ">
+                    <label class='form-field-lable control-label'>Resource Type</label>
+                    <ng-select appendTo="body" [clearable]="false" name="resourceType" formControlName="resourceType"
+                        [searchable]="true" bindLabel="enumValue" bindValue="enumKey" placeholder="Make a selection"
+                        class="ng-select-dropdown" [items]="enumResourceType" (change)="onSelect($event)"
+                        [readonly]="(!isSupervisor && isTechnician) || isView">
+                    </ng-select>
+                </div>
+            </td>
+            <td width="33%" *ngIf="showTechncianField">
+                <div class="input-label-custom ">
+                    <label class='form-field-lable control-label'>Technician Name</label>
+                    <ng-select appendTo="body" [clearable]="false" name="technicianId" formControlName="technicianId"
+                        [searchable]="true" bindLabel="technicianName" bindValue="technicianId"
+                        placeholder="Make a selection" class="ng-select-dropdown" [items]="reqTechLogData"
+                        (change)="onSelectTechnician($event)" [readonly]="!isSupervisor && isTechnician">
+                    </ng-select>
+                </div>
+            </td>
+            <td width="33%" *ngIf="showEmpyoyeeFiled">
+                <div class="input-label-custom ">
+                    <label class='form-field-lable control-label'>Employee Id</label>
+                    <ng-select appendTo="body" [clearable]="false" [searchable]="true" placeholder="Make a selection"
+                        class="ng-select-dropdown" [items]="employeeData" formControlName="emId" bindLabel="fullName"
+                        bindValue="emId" (change)="onSelectEmId($event)">
+                    </ng-select>
+                </div>
+            </td>
+            <td width="33%" *ngIf="showOtherField">
+                <div class="input-label-custom ">
+                    <label class='form-field-lable control-label'>Other</label>
+                    <input type="text" class="form-control" formControlName="other" maxlength="64" name="other"
+                        (input)="onChangeOther($event)">
+                </div>
+            </td>
+            <td width="33%">
+                <div class="input-label-custom ">
+                    <label class='form-field-lable control-label'>Work Type</label>
+                    <ng-select appendTo="body" [clearable]="false" name="workType" formControlName="workType"
+                        [searchable]="true" bindLabel="enumValue" bindValue="enumKey" placeholder="Make a selection"
+                        class="ng-select-dropdown" [items]="enumWorkType">
+                    </ng-select>
+
+                </div>
+            </td>
+            <td></td>
+        </tr>
+    </table>
+    <table width="100%">
+        <tr>
+            <td width="33%">
+                <div class="input-label-custom ">
+                    <label class='form-field-lable control-label'> Standard Hours</label>
+                    <input type="text" class="form-control" formControlName="actualHoursStd" optionLabel="enumValue"
+                        optionValue="id" NumbersOnly>
+                </div>
+            </td>
+            <td width="33%">
+                <div class="input-label-custom ">
+                    <label class='form-field-lable control-label'> Doubletime Hours</label>
+                    <input type="text" class="form-control" name="actualHoursDouble" NumbersOnly
+                        formControlName="actualHoursDouble">
+                </div>
+            </td>
+            <td width="33%">
+                <div class="input-label-custom ">
+                    <label class='form-field-lable control-label'> Overtime Hours</label>
+                    <input type="text" class="form-control" name="actualHoursOvertime" NumbersOnly
+                        formControlName="actualHoursOvertime">
+                </div>
+            </td>
+            <td></td>
+        </tr>
+    </table>
+    <table width="100%">
+        <tr>
+            <td width="25%">
+                <div class="input-label-custom ">
+                    <label class='form-field-lable'>Work Start Date</label>
+                    <p-calendar appendTo="body" [minDate]="today" dateFormat="dd M yy" name="dateStarted"
+                        formControlName="dateStarted" [showIcon]="false" inputId="icon"></p-calendar>
+                </div>
+            </td>
+            <td width="25%">
+                <div class="input-label-custom ">
+                    <label class='form-field-lable'>Work Start Time</label>
+                    <p-calendar appendTo="body" name="timeStarted" formControlName="timeStarted"
+                        [timeOnly]="true"></p-calendar>
+                </div>
+            </td>
+            <td width="25%">
+                <div class="input-label-custom ">
+                    <label class='form-field-lable'>Work End Date</label>
+                    <p-calendar appendTo="body" [minDate]="today" dateFormat="dd M yy" name="dateFinished"
+                        formControlName="dateFinished" [showIcon]="false" inputId="icon"></p-calendar>
+                </div>
+            </td>
+            <td width="25%">
+                <div class="input-label-custom ">
+                    <label class='form-field-lable'>Work End Time</label>
+                    <p-calendar appendTo="body" name="timeFinished" formControlName="timeFinished"
+                        [timeOnly]="true"></p-calendar>
+                </div>
+            </td>
+        </tr>
+        <tr>
+        <td colspan="2" *ngIf="(this.requestTechnicianLogFormPanel.controls['dateStarted']?.errors && (this.requestTechnicianLogFormPanel.controls['dateStarted']?.dirty || this.requestTechnicianLogFormPanel.controls['dateStarted']?.touched))">
+            <label
+                *ngIf="this.requestTechnicianLogFormPanel.controls['dateStarted']?.errors && !this.requestTechnicianLogFormPanel.controls['dateStarted']?.errors.required"
+                class='form-field-lable' style="color:red;margin-left: 5px;">
+                Work start date can not be greater than Work end date.
+            </label>
+        </td>
+        <td colspan="2" *ngIf="(this.requestTechnicianLogFormPanel.controls['timeStarted']?.errors && (this.requestTechnicianLogFormPanel.controls['timeStarted']?.dirty || this.requestTechnicianLogFormPanel.controls['timeStarted']?.touched))">
+            <label
+                *ngIf="this.requestTechnicianLogFormPanel.controls['timeStarted']?.errors && !this.requestTechnicianLogFormPanel.controls['timeStarted']?.errors.required"
+                class='form-field-lable' style="color:red;margin-left: 5px;">
+                Work start time can not be greater than Work end time.
+            </label>
+        </td>
+    </tr>
+    </table>
+</form>

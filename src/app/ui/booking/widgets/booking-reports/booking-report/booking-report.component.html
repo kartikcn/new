@@ -1,0 +1,196 @@
+<!--Filter panel-->
+<div class="card">
+    <form [formGroup]="filterPanel">
+        <table width="100%">
+            <tr>
+                <td style="width: 20%">
+                    <div class="input-label-custom ">
+                        <label class='form-field-lable'>Requested By </label>
+                        <ng-select appendTo="body" [clearable]="false" [items]="enumRequestedBy"
+                            formControlName="requestedBy" [searchable]="true" bindLabel="name" bindValue="id"
+                            placeholder="Make a selection" class="ng-select-dropdown">
+                        </ng-select>
+                    </div>
+                </td>
+                <td style="width: 20%">
+                    <div class="input-label-custom ">
+                        <label class='form-field-lable '>Meeting Id</label>
+                        <ng-select appendTo="body" [clearable]="false" [items]="enumReservationIds" formControlName="id"
+                            [searchable]="true" bindLabel="name" bindValue="id" placeholder="Make a selection"
+                            class="ng-select-dropdown">
+                        </ng-select>
+                    </div>
+                </td>
+                <td style="width: 20%">
+                    <div class="input-label-custom ">
+                        <label class='form-field-lable '>Building </label>
+                        <ng-select appendTo="body" [clearable]="false" [items]="enumBL" formControlName="blId"
+                            [searchable]="true" bindLabel="name" bindValue="blId" (change)="onSelectBlCode($event)"
+                            placeholder="Make a selection" class="ng-select-dropdown">
+                        </ng-select>
+                    </div>
+                </td>
+                <td style="width: 20%">
+                    <div class="input-label-custom ">
+                        <label class='form-field-lable '>Floor</label>
+                        <ng-select appendTo="body" [clearable]="false" [items]="enumFL" formControlName="flId"
+                            [searchable]="true" bindLabel="name" bindValue="flId" placeholder="Make a selection"
+                            class="ng-select-dropdown" (change)="onSelectFlCode($event)">
+                        </ng-select>
+                    </div>
+                </td>
+                <td style="width: 20%">
+                    <div class="input-label-custom ">
+                        <label class='form-field-lable '>Room</label>
+                        <ng-select appendTo="body" [clearable]="false" [items]="rm_data" formControlName="rmId"
+                            [searchable]="true" bindLabel="name" bindValue="rmId" placeholder="Make a selection"
+                            class="ng-select-dropdown" (change)="onSelectRmCode($event)">
+                        </ng-select>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 20%">
+                    <div class="input-label-custom">
+                        <div class="p-fluid">
+                            <div class="p-field">
+                                <label class='form-field-lable control-label'>From Date</label>
+                                <p-calendar appendTo="body" dateFormat="dd M yy" name="date" formControlName="dateStart"
+                                    [showIcon]="false" inputId="icon"></p-calendar>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td style="width: 20%">
+                    <div class="input-label-custom">
+                        <div class="p-fluid">
+                            <div class="p-field">
+                                <label class='form-field-lable control-label'>To Date</label>
+                                <p-calendar appendTo="body" dateFormat="dd M yy" name="date" formControlName="dateEnd"
+                                    [showIcon]="false" inputId="icon"></p-calendar>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td style="width: 20%">
+                    <div class="input-label-custom ">
+                        <label class='form-field-lable'>Status </label>
+                        <ng-select appendTo="body" [clearable]="false" [items]="enumStatusData" formControlName="status"
+                            [searchable]="true" bindLabel="enumValue" bindValue="id" placeholder="Make a selection"
+                            class="ng-select-dropdown">
+                        </ng-select>
+                    </div>
+                </td>
+
+                <td style="width: 20%">
+                    <button (click)="onSearch()" pButton pRipple label="Search" [disabled]="!filterPanel.valid"
+                        style="width: 60px;  margin-left: 5px;"
+                        class="p-button-primary p-button-sm pull right"></button>
+                    <button (click)="onClear()" pButton pRipple label="Clear" style="width: 60px;  margin-left: 5px;"
+                        class="p-button-primary p-button-sm pull right"></button>
+                </td>
+            </tr>
+            <tr *ngIf="isErr">
+                <td style="width:20%">
+                    <label class='form-field-lable' style="color:red;">{{errorMsg}}</label>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+<p-panel header=" ">
+    <div>
+        <button type="button" (click)="exportExcel()" pButton pRipple icon="pi pi-file-excel"
+            class="p-button-success p-mr-2 pull-right" matTooltip="XLS" matTooltipPosition="below"></button>
+    </div>
+    <div class="card" style="margin-top:35px">
+        <p-table #dt1 [value]="reservationData" [paginator]="true" [rows]="rowCount" [showCurrentPageReport]="true"
+            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+            [rowsPerPageOptions]="[5,10,25]" [tableStyle]="{'width': '1600px'}"
+            styleClass="p-datatable-customers p-datatable-gridlines" [scrollable]="true" scrollHeight="450px"
+            [rowHover]="true" (onRowSelect)="onRowSelect($event)" selectionMode="single">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th pSortableColumn="bookingType">
+                        <div class="p-d-flex p-jc-between p-ai-center">
+                            Type<p-sortIcon field="bookingType"></p-sortIcon>
+                            <p-columnFilter type="text" field="bookingType" display="menu"></p-columnFilter>
+                        </div>
+                    </th>
+                    <th pSortableColumn="id">
+                        <div class="p-d-flex p-jc-between p-ai-center">
+                            Meeting Id <p-sortIcon field="id"></p-sortIcon>
+                            <p-columnFilter type="numeric" field="id" display="menu"></p-columnFilter>
+                        </div>
+                    </th>
+
+                    <th pSortableColumn="blId">
+                        Building<p-sortIcon field="blId"></p-sortIcon>
+                        <p-columnFilter type="text" field="blId" display="menu"></p-columnFilter>
+                    </th>
+                    <th pSortableColumn="flId">
+                        Floor<p-sortIcon field="flId"></p-sortIcon>
+                        <p-columnFilter type="text" field="flId" display="menu"></p-columnFilter>
+                    </th>
+                    <th pSortableColumn="rmId">
+                        Room<p-sortIcon field="rmId"></p-sortIcon>
+                        <p-columnFilter type="text" field="rmId" display="menu"></p-columnFilter>
+                    </th>
+                    <th pSortableColumn="dateStart">
+                        Date<p-sortIcon field="dateStart"></p-sortIcon>
+                        <p-columnFilter type="text" field="dateStart" display="menu"></p-columnFilter>
+                    </th>
+                    <th pSortableColumn="timeStart">
+                        From Time<p-sortIcon field="timeStart"></p-sortIcon>
+                        <p-columnFilter type="text" field="timeStart" display="menu"></p-columnFilter>
+                    </th>
+                    <th pSortableColumn="timeEnd">
+                        To Time<p-sortIcon field="timeEnd"></p-sortIcon>
+                        <p-columnFilter type="text" field="timeEnd" display="menu"></p-columnFilter>
+                    </th>
+                    <th pSortableColumn="status">
+                        <div class="p-d-flex p-jc-between p-ai-center">
+                            Status <p-sortIcon field="status"></p-sortIcon>
+                            <p-columnFilter type="text" field="status" display="menu"></p-columnFilter>
+                        </div>
+                    </th>
+                    <th pSortableColumn="meetingName">
+                        <div class="p-d-flex p-jc-between p-ai-center">
+                            Meeting Name <p-sortIcon field="meetingName"></p-sortIcon>
+                            <p-columnFilter type="text" field="meetingName" display="menu"></p-columnFilter>
+                        </div>
+                    </th>
+                    <th pSortableColumn="requestedBy">
+                        <div class="p-d-flex p-jc-between p-ai-center">
+                            Requested By <p-sortIcon field="requestedBy"></p-sortIcon>
+                            <p-columnFilter type="text" field="requestedBy" display="menu"></p-columnFilter>
+                        </div>
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-bookingReport>
+                <tr [pSelectableRow]="bookingReport">
+                    <td>{{bookingReport.bookingType}}</td>
+                    <td>{{bookingReport.id}}</td>
+                    <td>{{bookingReport.blId}}</td>
+                    <td>{{bookingReport.flId}}</td>
+                    <td>{{bookingReport.rmId}}</td>
+                    <td>{{bookingReport.dateStart | date :"dd MMM yyyy"}}</td>
+                    <td>{{convertToDisplayTime(bookingReport.timeStart) }}</td>
+                    <td>{{convertToDisplayTime(bookingReport.timeEnd) }}</td>
+                    <td>{{getEnumById(bookingReport.status)}}</td>
+                    <td matTooltipPosition="top" class="ellipsis" matTooltip="{{bookingReport.meetingName}}">
+                        {{bookingReport.meetingName}}</td>
+                    <td>{{bookingReport.requestedBy}}</td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage" let-columns>
+                <tr>
+                    <td [attr.colspan]="9">
+                        No records found
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+</p-panel>

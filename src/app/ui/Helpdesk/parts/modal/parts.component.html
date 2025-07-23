@@ -1,0 +1,113 @@
+<div class="card" style="height:92vh;">
+    <p-panel header="Parts Details">
+        <ng-template pTemplate="icons">
+            <button pButton label="Add" (click)="onAdd()" icon="pi pi-plus">
+            </button>
+        </ng-template>
+        <div class="card">
+            <p-table [value]="partsData" [paginator]="false" [scrollable]="true" (onFilter)="onInnerFilter($event)"
+                scrollDirection="both" scrollHeight="550px" styleClass="p-datatable-responsive-demo p-datatable-gridlines"
+                [rowHover]="false">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th style="width:8rem"> </th>
+                        <th pSortableColumn="partCode">
+                            <div class="grid-header-column">
+                                <div class="grid-header-label">
+                                    <p class="grid-label-paragraph">Part Code</p>
+                                </div>
+                                <div class="grid-sort-icon">
+                                    <p-sortIcon field="partCode"></p-sortIcon>
+                                    <p-columnFilter type="text" field="partCode" display="menu"></p-columnFilter>
+                                </div>
+                            </div>
+                        </th>
+                        <th pSortableColumn="modelNo">
+                            <div class="grid-header-column">
+                                <div class="grid-header-label">
+                                    <p class="grid-label-paragraph">Model Number</p>
+                                </div>
+                                <div class="grid-sort-icon">
+                                    <p-sortIcon field="modelNo"></p-sortIcon>
+                                    <p-columnFilter type="text" field="modelNo" display="menu"></p-columnFilter>
+                                </div>
+                            </div>
+                        </th>
+                        <th pSortableColumn="qutOnHand">
+                            <div class="grid-header-column">
+                                <div class="grid-header-label">
+                                    <p class="grid-label-paragraph">Quantity Available</p>
+                                </div>
+                                <div class="grid-sort-icon">
+                                    <p-sortIcon field="qutOnHand"></p-sortIcon>
+                                    <p-columnFilter type="numeric" field="qutOnHand" display="menu"></p-columnFilter>
+                                </div>
+                            </div>
+                        </th>
+                        <th pSortableColumn="unitOfMeasurement">
+                            <div class="grid-header-column">
+                                <div class="grid-header-label">
+                                    <p class="grid-label-paragraph"> Unit of Measurement</p>
+                                </div>
+                                <div class="grid-sort-icon">
+                                    <p-sortIcon field="unitOfMeasurement"></p-sortIcon>
+                                    <p-columnFilter field="unitOfMeasurement" matchMode="equals" display="menu">
+                                        <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                                            <p-dropdown [ngModel]="value" [options]="enumMeasurment" optionLabel="enumValue"
+                                                optionValue="enumKey" (onChange)="filter($event.value)"
+                                                placeholder="Select a Type" [showClear]="true"></p-dropdown>
+                                        </ng-template>
+                                    </p-columnFilter>
+                                </div>
+                            </div>
+                        </th>
+                        <th pSortableColumn="ratePerUnit">
+                            <div class="grid-header-column">
+                                <div class="grid-header-label">
+                                    <p class="grid-label-paragraph">Rate Per Unit</p>
+                                </div>
+                                <div class="grid-sort-icon">
+                                    <p-sortIcon field="ratePerUnit"></p-sortIcon>
+                                    <p-columnFilter type="numeric" field="ratePerUnit" display="menu"></p-columnFilter>
+                                </div>
+                            </div>
+                        </th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-parts>
+                    <tr [pSelectableRow]="parts">
+                        <td style="width:8rem">
+                            <button pButton pRipple icon="pi pi-pencil" (click)="onEdit(parts.partId)" type="button"
+                                class="p-button-text">
+                            </button>
+                            <button pButton pRipple icon="pi pi-times" type="button" (click)="onDelete(parts)"
+                                class="p-button-text pull-right" style="font-size: 5rem; color: red;">
+                            </button>
+                        </td>
+                        <td>{{parts.partCode}}</td>
+                        <td>{{parts.modelNo}}</td>
+                        <td>{{parts.qutOnHand}}</td>
+                        <td>{{parts.unitOfMeasurement}}</td>
+                        <td>{{parts.ratePerUnit}}</td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="emptymessage" let-columns>
+                    <tr>
+                        <td [attr.colspan]="6" >
+                            No records found
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+            <div class="paginator">
+                <p-paginator  [rows]="rowCount" [totalRecords]="totalElements" (onPageChange)="onPageChange($event)"
+                [first]="paginationObj.pageNo * paginationObj.pageSize"
+                  currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true"
+                  [rowsPerPageOptions]="[25,50,100]"></p-paginator>
+            </div>
+        </div>
+    </p-panel>
+</div>
+<p-toast key="partSave" position="top-right"></p-toast>
+<p-toast key="partwarning" position="top-center"></p-toast>
+<p-confirmDialog key="partgrid" header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>

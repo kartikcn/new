@@ -1,0 +1,17 @@
+<h2 mat-dialog-title class="mat-dialog-title-ext">{{opertation_title}} Tool</h2>
+<mat-dialog-content class="mat-typography mat-dialog-content-ext">
+  <form [formGroup]="formPlanToolDetail">
+    <mat-card>
+      <mat-card-content id="Frm">
+        <app-add-plan-tool formControlName="planToolFormPanel" [isNew]="isNew"></app-add-plan-tool>
+      </mat-card-content>
+    </mat-card>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end" class="mat-dialog-actions-ext">
+  <p-button label="Save" (click)="saveRecords()" [disabled]="!formPlanToolDetail.valid" icon="pi pi-check"></p-button>
+  <p-button label="Cancel" icon="pi pi-times" (click)="confirmDialog()" styleClass="p-button-secondary"
+            [style]="{'margin-left': '.5em'}"></p-button>
+</mat-dialog-actions>
+<p-toast key="error" position="top-right"></p-toast>
+<p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>

@@ -1,0 +1,27 @@
+<form [formGroup]="eqStdFormPanel">
+  <table width="100%">
+    <tr>
+      <td style="width: 25%">
+        <div class="input-label-custom ">
+          <label class='form-field-lable control-label'>Asset Standard</label>
+          <input type="text" class="form-control" name="eqStd" formControlName="eqStd" maxlength="64" appTrimInput>
+        </div>
+      </td>
+    </tr>
+    <tr *ngIf="(eqStdFormPanel.controls['eqStd']?.errors && eqStdFormPanel.controls['eqStd'].dirty)">
+      <td style="width:25%">
+        <label *ngIf="!eqStdFormPanel.controls['eqStd']?.errors.required" class='form-field-lable'
+          style="color:red;">Asset Standard already exists </label>
+      </td>
+    <tr>
+    <tr>
+      <td>
+        <div class="input-label-custom ">
+          <label class='form-field-lable'>Description</label>
+          <textarea class="form-control note-border" name="description" formControlName="description" rows="2" nz-input
+            maxlength="256" appTrimInput></textarea>
+        </div>
+      </td>
+    </tr>
+  </table>
+</form>

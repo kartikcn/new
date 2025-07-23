@@ -1,0 +1,17 @@
+<h2 mat-dialog-title class="mat-dialog-title-ext">Select Problem Type</h2>
+<mat-dialog-content class="mat-typography mat-dialog-content-ext">
+    <form>
+        <mat-card>
+            <mat-card-content id="addProblemTypeCard">
+                <app-add-wr-problem-type (saveBtnDisable)="disabledFun($event)"></app-add-wr-problem-type>
+            </mat-card-content>
+        </mat-card>
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end" class="mat-dialog-actions-ext">
+    <p-button label="Save" icon="pi pi-check" (click)="!isDisabled && onSavePbType()"
+        [disabled]="isDisabled"></p-button>
+    <p-button label="Cancel" icon="pi pi-times" styleClass="p-button-secondary" [style]="{'margin-left': '.5em'}"
+        (click)="onCancelPbType()"></p-button>
+</mat-dialog-actions>
+<p-confirmDialog key="add-pb-type-cancel" header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>

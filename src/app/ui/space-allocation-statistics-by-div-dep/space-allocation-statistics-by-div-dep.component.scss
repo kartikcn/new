@@ -1,0 +1,94 @@
+@import '/src/scss/variables';
+:host ::ng-deep .p-dialog-mask{
+    z-index:1000 !important;
+}
+
+:host ::ng-deep #preview .p-dialog .p-dialog-header {
+    padding: 0.7rem !important;
+}
+    
+:host ::ng-deep #preview .p-dialog .p-dialog-content {
+   padding:0.25rem !important;
+}
+
+:host ::ng-deep .dark-panel.p-dialog .p-dialog-header{
+    border :5px !important;
+}
+
+:host ::ng-deep.ngx-charts-outer{
+    -webkit-animation:chartFadeIn linear 0 !important;
+    animation:chartFadeIn linear 0 !important;
+}
+
+:host ::ng-deep .ngx-charts .grid-panel.odd rect{
+    fill:none !important;
+}
+
+.legend{
+    display: inline-block;
+    padding: 0;
+    width:100%;
+    max-width:280px;
+}
+
+.legend-title-container{
+    width: 166px;
+}
+
+.legend-title{
+    white-space: nowrap;
+    overflow: hidden;
+    margin-left: 10px;
+    margin-bottom: 5px;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+
+.legend-labels{
+    line-height: 85%;
+    list-style: none;
+    text-align: left;
+    float: left;
+    width: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    white-space: nowrap;
+    background: rgba(0,0,0,.05);
+    margin-bottom:0px;
+}
+.legend-label{
+    cursor: pointer;
+    font-size: 90%;
+    margin: 8px;
+}
+.legend-label-color{
+    display: inline-block;
+    height: 15px;
+    width: 15px;
+    margin-right: 5px;
+    color: #5b646b;
+    border-radius: 3px;
+}
+.legend-label-text{
+    display: inline-block;
+    vertical-align: top;
+    line-height: 15px;
+    font-size: 12px;
+    width: calc(100% - 20px);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+@media screen and (min-width: $tabletPotraitMinWidth) and (max-width:$tabletPotraitMaxWidth ){
+    ::ng-deep .p-button {
+        padding: 0.25rem 0.5rem;
+    }
+}
+
+@media screen and (min-width: $tabletLandscapeMinWidth) and (max-width:$tabletLandspaceMaxWidth ){
+    ::ng-deep .p-button {
+        padding: 0.25rem 0.5rem;
+    }
+}

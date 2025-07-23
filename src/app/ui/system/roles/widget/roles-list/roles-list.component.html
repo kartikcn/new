@@ -1,0 +1,37 @@
+<p-table #dt1 [value]="roles_data" [paginator]="false" [rows]="rowCount" (onFilter)="onInnerFilter($event)"
+        [globalFilterFields]="['roleName']" styleClass="p-datatable-responsive-demo"
+        [rowHover]="true"  [scrollable]="true" selectionMode="single" dataKey="roleName" scrollDirection="both" scrollHeight="500px"
+        (onRowSelect)="onRowSelect($event)">
+        <ng-template pTemplate="header">
+                <tr>
+                        <th pSortableColumn="roleName">
+                                <div class="grid-header-column">
+                                        <div class="grid-header-label">
+                                          <p class="grid-label-paragraph">Role Name</p>
+                                        </div>
+                                        <div class="grid-sort-icon">
+                                        <p-sortIcon field="roleName"></p-sortIcon>
+                                        <p-columnFilter type="text" field="roleName" display="menu"></p-columnFilter>
+                                          </div>
+                                       </div>
+                        </th>
+                </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-role>
+                <tr [pSelectableRow]="role">
+                        <td>{{role.roleName}}</td>
+                </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage" let-columns>
+                <tr>
+                  <td [attr.colspan]="1">
+                    No records found
+                  </td>
+                </tr>
+              </ng-template>
+</p-table>
+<div class="paginator">
+        <p-paginator  [rows]="rowCount" [totalRecords]="totalElements" (onPageChange)="onPageChange($event)" [first]="paginationObj.pageNo * paginationObj.pageSize"
+          currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true"
+          [rowsPerPageOptions]="[25,50,100]"></p-paginator>
+</div>

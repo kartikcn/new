@@ -1,0 +1,55 @@
+<h2 mat-dialog-title class="mat-dialog-title-ext">Add Resources Details</h2>
+<mat-dialog-content class="mat-typography mat-dialog-content-ext">
+    <form [formGroup]="rmResourcesFormPanel" autocomplete="off">
+        <table width="100%">
+            <tr>
+                <td style="width: 50%">
+                    <div class="input-label-custom ">
+                        <label class='form-field-lable control-label'>Resource Title</label>
+                        <input type="text" [readOnly]="true" class="form-control" name="title" formControlName="title" maxlength="64">
+                    </div>
+                </td>
+
+                <td style="width: 50%">
+                    <div class="input-label-custom ">
+                        <label class='form-field-lable control-label'> Cost Per unit</label>
+                        <input type="text" [readOnly]="true" NumbersOnly class="form-control" name="costPerUnit"
+                            (change)="setCostPerUnitCurrenyFormat()" formControlName="costPerUnit">
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 50%">
+                    <div class="input-label-custom ">
+                        <label class='form-field-lable control-label'> Quanity</label>
+                        <input type="text" NumbersOnly class="form-control" name="quanity" formControlName="quanity" maxlength="9">
+                    </div>
+                </td>
+                <td style="width: 50%">
+                    <div class="input-label-custom ">
+                        <label class='form-field-lable '>Comments</label>
+                        <input type="text" class="form-control" name="comments" formControlName="comments" maxlength="256">
+                    </div>
+                </td>
+            </tr>
+            <tr
+                *ngIf="(rmResourcesFormPanel.controls['quanity']?.errors && rmResourcesFormPanel.controls['quanity'].dirty)">
+
+                <td style="width:25%">
+                    <label *ngIf="!rmResourcesFormPanel.controls['quanity']?.errors.required" class='form-field-lable'
+                        style="color:red;">{{errorMsg}}</label>
+
+                </td>
+            <tr>
+        </table>
+    </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end" class="mat-dialog-actions-ext">
+    <p-button label="Save" (click)="saveRecords()" [disabled]="!rmResourcesFormPanel.valid" icon="pi pi-check">
+    </p-button>
+    <p-button label="Cancel" icon="pi pi-times" (click)="confirmDialog()" styleClass="p-button-secondary"
+        [style]="{'margin-left': '.5em'}"></p-button>
+</mat-dialog-actions>
+<p-toast key="rmResource" position="top-right"></p-toast>
+<p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>

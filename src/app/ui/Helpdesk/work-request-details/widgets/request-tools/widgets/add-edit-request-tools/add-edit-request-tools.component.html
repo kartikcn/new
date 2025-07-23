@@ -1,0 +1,18 @@
+<h2 mat-dialog-title class="mat-dialog-title-ext">{{title}} Tools</h2>
+<mat-dialog-content class="mat-typography mat-dialog-content-ext">
+  <form [formGroup]="frmreqToolDetail">
+    <mat-card>
+      <mat-card-content id="frmreqToolsDetailCard">
+        <app-add-request-tools formControlName="reqToolsFormPanel" [isNew]="isNew"  [isView]="isView"></app-add-request-tools>
+      </mat-card-content>
+    </mat-card>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end" class="mat-dialog-actions-ext">
+  <p-button label="Unassign" icon="pi pi-check" (click)="onDelete()" [disabled]="reqToolId == 0 || isView" ></p-button>
+  <p-button label="Save" icon="pi pi-check" (click)="saveRecords()" [disabled]="!frmreqToolDetail.valid || AddRequestToolsComponent.toolsExist"
+  [style]="{'margin-left': '.5em'}"></p-button>
+  <p-button label="Cancel" icon="pi pi-times" (click)="confirmDialog()" styleClass="p-button-secondary"
+    [style]="{'margin-left': '.5em'}"></p-button>
+</mat-dialog-actions>
+<p-confirmDialog key="reqtools" header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>
