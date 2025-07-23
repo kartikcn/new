@@ -1,0 +1,24 @@
+name: 🔍 Trivy FS Scan
+
+on:
+  push:
+    branches: [main]
+jobs:
+  fs-scan:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: 🛡️ Run Trivy FS Scan using Docker
+        run: |
+          sudo apt-get update
+          echo "🔍 Trivy scanning started..."
+          docker run --rm -v ${{ github.workspace }}:/project aquasec/trivy fs --severity HIGH,CRITICAL /project > trivy-fs-report.txt || true
+
+      - name: 📤 Upload Trivy Report
+        uses: actions/upload-artifact@v4
+        with:
+          name: trivy-fs-report
+          path: trivy-fs-report.txt
