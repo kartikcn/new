@@ -1,17 +1,12 @@
-FROM node:18-alpine
+# Use a Bun base image
+FROM oven/bun:1.1.13-alpine
 
-WORKDIR /usr/src/app
+WORKDIR /app
+COPY . .
 
-COPY . /usr/src/app
+RUN bun add -g @angular/cli
 
-RUN npm install -g @angular/cli
-
-# Avoid ERESOLVE errors
-RUN npm install --legacy-peer-deps
-
-
+RUN bun install
 
 EXPOSE 4200
-
-CMD ["ng", "serve", "--host", "0.0.0.0"]
-
+CMD ["bunx", "ng", "serve", "--host", "0.0.0.0"]
