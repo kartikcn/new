@@ -1,7 +1,7 @@
 # Use a Bun base image
 FROM oven/bun:1.1.13-alpine
 
-WORKDIR /app
+WORKDIR  /usr/src/app
 COPY . .
 
 RUN bun add -g @angular/cli
